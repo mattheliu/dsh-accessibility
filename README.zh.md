@@ -6,7 +6,7 @@
 
 ## 兼容性
 
-`0.1.0-beta.1` 面向 `@deepseek-ai/dsh@0.1.1-rc.2` 及 [上游 Discussion #4546](https://github.com/deepseek-ai/deepseek-harness/discussions/4546) 跟踪的无障碍核心补丁。插件能报告核心语义缺失，但无法从外部可靠替代组件本身的焦点陷阱、树形键盘操作、页面地标或 live region 策略。
+`0.1.0-beta.2` 面向 `@deepseek-ai/dsh@0.1.1-rc.2` 及 [上游 Discussion #4546](https://github.com/deepseek-ai/deepseek-harness/discussions/4546) 跟踪的无障碍核心补丁。插件能报告核心语义缺失，但无法从外部可靠替代组件本身的焦点陷阱、复合控件键盘操作、页面地标或 live region 策略。
 
 ## 从本地 checkout 安装
 
@@ -18,6 +18,12 @@ dsh --profile web
 ```
 
 打开“设置 → 无障碍”，即可检查当前页面并阅读 VoiceOver、NVDA 和 JAWS 操作速查。
+
+## 自检范围
+
+页面自检现包含 14 项结构检查，覆盖地标、控件名称、图片替代文本、ARIA 引用、输入框与消息日志、菜单、列表框、树、单选组、标签页、弹窗和可调分隔条。它理解核心补丁采用的单一 Tab 入口与 `aria-activedescendant` 模式，也不会把菜单中的静态分隔线误判为可调分隔条。
+
+全部通过只表示当前已挂载 DOM 满足这些可重复验证的结构契约，是测试证据而不是“完全合规”认证。实际朗读、浏览器到无障碍 API 的映射、焦点时序和 Windows 读屏表现，仍需按照插件内的 VoiceOver、NVDA、JAWS 场景做人工验证。
 
 ## 检查
 

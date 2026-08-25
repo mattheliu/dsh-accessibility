@@ -11,7 +11,7 @@ declare module '@deepseek-ai/dsh-client-ui-slots' {
 }
 
 export { AccessibilitySection } from './AccessibilitySection.tsx'
-export { hasAuthorName, runAccessibilityAudit } from './audit.ts'
+export { hasAccessibleName, hasAuthorName, runAccessibilityAudit } from './audit.ts'
 export type { AccessibilityCheck } from './audit.ts'
 export type { AccessibilityKey } from './locales.ts'
 

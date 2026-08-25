@@ -64,6 +64,10 @@ export function AccessibilitySection({ t }: AccessibilitySectionProps) {
           <li>{t('guide.dialog')}</li>
           <li>{t('guide.composer')}</li>
           <li>{t('guide.resize')}</li>
+          <li>{t('guide.menu')}</li>
+          <li>{t('guide.questions')}</li>
+          <li>{t('guide.timeline')}</li>
+          <li>{t('guide.feedback')}</li>
         </ol>
         <a href="https://github.com/deepseek-ai/deepseek-harness/discussions/4546" target="_blank" rel="noreferrer">
           {t('discussion')}
