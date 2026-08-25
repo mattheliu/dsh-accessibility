@@ -1,0 +1,5 @@
+# Install the Host-side package row. Its dsh.client manifest adds the browser
+# half to Web profiles; the browser half waits for the Settings slot declaration.
+- insert:
+    - id: accessibility
+      name: 'dsh-accessibility'
