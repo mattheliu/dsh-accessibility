@@ -7,7 +7,7 @@ This project targets operable, understandable DeepSeek Harness Web workflows for
 ## Supported core
 
 - Official baseline: `@deepseek-ai/dsh@0.1.1-rc.2`.
-- Complete patched build: [`dsh-v0.1.1-rc.2-a11y.3`](https://github.com/omdsh-dev/deepseek-harness/releases/tag/dsh-v0.1.1-rc.2-a11y.3).
+- Complete patched build: [`dsh-v0.1.1-rc.2-a11y.4`](https://github.com/omdsh-dev/deepseek-harness/releases/tag/dsh-v0.1.1-rc.2-a11y.4).
 - Upstream tracking: [deepseek-ai/deepseek-harness Discussion #4546](https://github.com/deepseek-ai/deepseek-harness/discussions/4546).
 
 Installing this npm package into an unpatched official build adds diagnostics and guidance, but cannot replace missing core focus or composite-widget behavior.
@@ -17,16 +17,18 @@ Installing this npm package into an unpatched official build adds diagnostics an
 | Platform | Browser | Assistive technology | Status |
 | --- | --- | --- | --- |
 | macOS | Chrome 151 | VoiceOver | Browser accessibility-tree and keyboard regression passed; complete spoken-output record pending |
-| macOS | Safari 18.5 | VoiceOver | Native accessibility-tree and keyboard regression passed; complete spoken-output record pending |
+| macOS | Safari 18.5 | VoiceOver 10 | VoiceOver-enabled native tree and focus-route regression passed; listener-verified spoken-output record pending |
 | Windows 11 | Chrome / Firefox | NVDA | Automated Windows gate passed; physical screen-reader regression pending |
 | Windows 11 | Edge / Chrome | JAWS | Automated Windows gate passed; physical screen-reader regression pending |
 | Windows 11 | Edge | Narrator | Recommended compatibility signal; not a replacement for NVDA or JAWS |
 
 ## Recorded macOS evidence
 
-The 2026-08-26 regression used macOS 15.5 (24F74), Chrome 151.0.7922.170, and Safari 18.5. On the patched production build, the native Safari accessibility tree exposed named navigation, main and complementary landmarks, conversation log and message articles, the Chat/Trajectory tab set, timeline composites, menus, dialogs, composer controls, and adjustable separators. Keyboard checks covered tab switching, menu dismissal, a forty-Tab modal-containment loop, collapsed-search exclusion and Escape restoration, and the named Settings trigger in the collapsed rail. The installed companion reported all fourteen deterministic diagnostics passing.
+The 2026-08-26 regression used macOS 15.5 (24F74), Chrome 151.0.7922.170, Safari 18.5, and VoiceOver 10. On the patched production build, the native Safari accessibility tree exposed named navigation, one application heading, main and complementary landmarks, conversation log and message articles, the Chat/Trajectory tab set, timeline composites, menus, dialogs, composer controls, and adjustable separators. Keyboard checks covered tab switching, menu dismissal, a forty-Tab modal-containment loop, collapsed-search exclusion and Escape restoration, and the named Settings trigger in the collapsed rail. The installed companion reported every deterministic diagnostic passing.
 
-This evidence verifies browser mappings, exposed structure, and focus/key behavior available to the automation surface. It does not reliably capture every VoiceOver utterance or VoiceOver-cursor transition, so the matrix keeps the complete spoken-output record pending rather than upgrading this run into an assistive-technology certification.
+The VoiceOver-enabled Safari run started the real system VoiceOver process and exercised the Chinese onboarding and empty-shell flow. Sequential focus moved through Open sidebar, New session, Add workspace, Search sessions, Settings, Select workspace, Agent preset, and the composer. Settings opened from the keyboard, its controls remained reachable, and Escape returned focus to Settings. The native tree exposed each visited control with a role and localized name.
+
+This evidence verifies the real VoiceOver-enabled environment, browser mappings, exposed structure, and focus/key behavior available to the automation surface. The runner cannot reliably capture audio utterances or the VoiceOver cursor overlay, so the matrix keeps listener-verified speech pending rather than upgrading this run into an assistive-technology certification.
 
 ## Required manual scenarios
 
@@ -47,8 +49,8 @@ Record the browser, assistive-technology version, language, scenario, spoken res
 
 ## Automated gates
 
-- Fourteen deterministic semantic diagnostics in the installed settings page.
-- Unit tests for names, references, landmarks, menus, listboxes, trees, radio groups, tabs, dialogs, and separators.
+- Seventeen deterministic semantic diagnostics in the installed settings page.
+- Unit tests for names, references, landmarks, headings, list ownership, nested controls, menus, listboxes, trees, radio groups, tabs, dialogs, and separators.
 - axe-core regression for the rendered plugin settings surface.
 - Cross-platform Node, type, unit, build, and package-content checks in GitHub Actions.
 - The patched core retains its component, GUI, production-build, and browser-replay suites.

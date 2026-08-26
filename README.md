@@ -6,24 +6,24 @@ An optional DeepSeek Harness companion that adds a Settings page with screen-rea
 
 ## Compatibility
 
-The `0.1.0-beta.4` line targets `@deepseek-ai/dsh@0.1.1-rc.2` plus the accessibility core patch tracked in [upstream Discussion #4546](https://github.com/deepseek-ai/deepseek-harness/discussions/4546). The companion reports missing core semantics; it cannot safely replace focus traps, composite-widget keyboard behavior, landmarks, or live-region policy from outside the owning components.
+The `0.1.0-beta.5` line targets `@deepseek-ai/dsh@0.1.1-rc.2` plus the accessibility core patch tracked in [upstream Discussion #4546](https://github.com/deepseek-ai/deepseek-harness/discussions/4546). The companion reports missing core semantics; it cannot safely replace focus traps, composite-widget keyboard behavior, landmarks, or live-region policy from outside the owning components.
 
 ## Install from npm
 
 ```sh
-dsh plugin --profile web add @oh-my-dsh/dsh-accessibility@0.1.0-beta.4
+dsh plugin --profile web add @oh-my-dsh/dsh-accessibility@0.1.0-beta.5
 dsh --profile web
 ```
 
-The npm companion does not patch the owning DSH components. Until the changes are included in an official DSH release, use the organization-pinned [DSH accessibility build](https://github.com/omdsh-dev/deepseek-harness/releases/tag/dsh-v0.1.1-rc.2-a11y.3) for the complete keyboard and screen-reader behavior:
+The npm companion does not patch the owning DSH components. Until the changes are included in an official DSH release, use the organization-pinned [DSH accessibility build](https://github.com/omdsh-dev/deepseek-harness/releases/tag/dsh-v0.1.1-rc.2-a11y.4) for the complete keyboard and screen-reader behavior:
 
 ```sh
 git clone https://github.com/omdsh-dev/deepseek-harness.git
 cd deepseek-harness
-git checkout dsh-v0.1.1-rc.2-a11y.3
+git checkout dsh-v0.1.1-rc.2-a11y.4
 pnpm install
 pnpm run build:official
-pnpm dsh plugin --profile web add @oh-my-dsh/dsh-accessibility@0.1.0-beta.4
+pnpm dsh plugin --profile web add @oh-my-dsh/dsh-accessibility@0.1.0-beta.5
 pnpm dsh web
 ```
 
@@ -40,7 +40,7 @@ Open Settings → Accessibility to run the current-page diagnostic and read the 
 
 ## Diagnostics and scope
 
-The page audit now runs 14 structural checks covering landmarks, control names, image alternatives, ARIA references, composer and log names, menus, listboxes, trees, radio groups, tab lists, dialogs, and adjustable separators. It recognizes the single-tab-stop/active-descendant patterns used by the patched DSH components and ignores static menu separators.
+The page audit now runs 17 structural checks covering landmarks, the application heading, control names, image alternatives, list ownership, nested interactive controls, ARIA references, composer and log names, menus, listboxes, trees, radio groups, tab lists, dialogs, and adjustable separators. It recognizes the single-tab-stop/active-descendant patterns used by the patched DSH components and ignores static menu separators.
 
 A passing result means that the mounted DOM satisfies these deterministic contracts. It is evidence, not a claim of complete conformance: it cannot prove spoken output, browser/accessibility-API mappings, focus timing, or Windows screen-reader behavior. Those still require the manual VoiceOver/NVDA/JAWS scenarios in the in-app guide.
 

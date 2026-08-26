@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.0-beta.5 - 2026-08-26
+
+- Expand the deterministic page audit from fourteen to seventeen checks with an application-heading contract, native/ARIA list ownership, and nested-interactive detection.
+- Record a VoiceOver 10-enabled Safari 18.5 native-tree and focus-route run while keeping listener-verified speech explicitly pending.
+- Point installation guidance at the fourth immutable accessibility core candidate.
+
 ## 0.1.0-beta.4 - 2026-08-26
 
 - Link the organization-pinned DSH accessibility core build and document the complete installation path.
