@@ -1,4 +1,4 @@
-# dsh-accessibility
+# @oh-my-dsh/dsh-accessibility
 
 [English](README.md) | 简体中文
 
@@ -6,7 +6,14 @@
 
 ## 兼容性
 
-`0.1.0-beta.2` 面向 `@deepseek-ai/dsh@0.1.1-rc.2` 及 [上游 Discussion #4546](https://github.com/deepseek-ai/deepseek-harness/discussions/4546) 跟踪的无障碍核心补丁。插件能报告核心语义缺失，但无法从外部可靠替代组件本身的焦点陷阱、复合控件键盘操作、页面地标或 live region 策略。
+`0.1.0-beta.3` 面向 `@deepseek-ai/dsh@0.1.1-rc.2` 及 [上游 Discussion #4546](https://github.com/deepseek-ai/deepseek-harness/discussions/4546) 跟踪的无障碍核心补丁。插件能报告核心语义缺失，但无法从外部可靠替代组件本身的焦点陷阱、复合控件键盘操作、页面地标或 live region 策略。
+
+## 从 npm 安装
+
+```sh
+dsh plugin --profile web add @oh-my-dsh/dsh-accessibility
+dsh --profile web
+```
 
 ## 从本地 checkout 安装
 

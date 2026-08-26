@@ -1,4 +1,4 @@
-# dsh-accessibility
+# @oh-my-dsh/dsh-accessibility
 
 English | [简体中文](README.zh.md)
 
@@ -6,7 +6,14 @@ An optional DeepSeek Harness companion that adds a Settings page with screen-rea
 
 ## Compatibility
 
-The `0.1.0-beta.2` line targets `@deepseek-ai/dsh@0.1.1-rc.2` plus the accessibility core patch tracked in [upstream Discussion #4546](https://github.com/deepseek-ai/deepseek-harness/discussions/4546). The companion reports missing core semantics; it cannot safely replace focus traps, composite-widget keyboard behavior, landmarks, or live-region policy from outside the owning components.
+The `0.1.0-beta.3` line targets `@deepseek-ai/dsh@0.1.1-rc.2` plus the accessibility core patch tracked in [upstream Discussion #4546](https://github.com/deepseek-ai/deepseek-harness/discussions/4546). The companion reports missing core semantics; it cannot safely replace focus traps, composite-widget keyboard behavior, landmarks, or live-region policy from outside the owning components.
+
+## Install from npm
+
+```sh
+dsh plugin --profile web add @oh-my-dsh/dsh-accessibility
+dsh --profile web
+```
 
 ## Install from a checkout
 

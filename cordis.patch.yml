@@ -2,4 +2,4 @@
 # half to Web profiles; the browser half waits for the Settings slot declaration.
 - insert:
     - id: accessibility
-      name: 'dsh-accessibility'
+      name: '@oh-my-dsh/dsh-accessibility'
