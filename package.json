@@ -1,6 +1,6 @@
 {
   "name": "@oh-my-dsh/dsh-accessibility",
-  "version": "0.1.0-beta.3",
+  "version": "0.1.0-beta.4",
   "description": "Screen-reader guidance and in-app accessibility diagnostics for DeepSeek Harness",
   "type": "module",
   "main": "lib/index.js",
@@ -24,6 +24,11 @@
     "cordis.patch.yml",
     "README.md",
     "README.zh.md",
+    "ACCESSIBILITY.md",
+    "ACCESSIBILITY.zh.md",
+    "CHANGELOG.md",
+    "CONTRIBUTING.md",
+    "SECURITY.md",
     "LICENSE"
   ],
   "dsh": {
@@ -90,6 +95,7 @@
     "@types/node": "22.20.0",
     "@types/react": "~18.3.1",
     "@types/react-dom": "~18.3.0",
+    "axe-core": "^4.13.0",
     "jsdom": "29.1.1",
     "react": "18.3.1",
     "react-dom": "18.3.1",
