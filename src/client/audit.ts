@@ -3,8 +3,11 @@ export interface AccessibilityCheck {
   id:
     | 'main'
     | 'navigation'
+    | 'heading'
     | 'controls'
     | 'images'
+    | 'lists'
+    | 'nested-interactive'
     | 'references'
     | 'composer'
     | 'message-log'
@@ -61,6 +64,10 @@ function scoped(root: ParentNode, selector: string): Element[] {
   return [...root.querySelectorAll(selector)].filter(inAuditScope)
 }
 
+function unique(elements: readonly Element[]): Element[] {
+  return [...new Set(elements)]
+}
+
 function directRoleDescendants(element: Element, role: 'menuitem' | 'option'): Element[] {
   const ownerRole = role === 'menuitem' ? 'menu' : 'listbox'
   return [...element.querySelectorAll(`[role="${role}"]`)]
@@ -104,6 +111,32 @@ export function runAccessibilityAudit(root: ParentNode = document): Accessibilit
   const controls = scoped(root, 'button, [role="button"], a[href], input, select')
   const images = scoped(root, 'img, [role="img"]')
   const references = scoped(root, '[aria-labelledby], [aria-describedby], [aria-controls], [aria-activedescendant]')
+  const levelOneHeadings = scoped(root, 'h1, [role="heading"][aria-level="1"]')
+
+  const invalidNativeLists = scoped(root, 'ul, ol').filter(list => (
+    [...list.children].some(child => !child.matches('li, script, template'))
+  ))
+  const orphanedListItems = scoped(root, 'li, [role="listitem"]').filter((item) => {
+    if (item.matches('li')) return item.closest('ul, ol, menu') === null
+    return item.closest('[role="list"], ul, ol, menu') === null
+  })
+
+  const interactiveSelector = [
+    'button',
+    'a[href]',
+    '[role="button"]',
+    '[role="link"]',
+    '[role="checkbox"]',
+    '[role="menuitem"]',
+    '[role="menuitemradio"]',
+    '[role="menuitemcheckbox"]',
+    '[role="radio"]',
+    '[role="switch"]',
+    '[role="tab"]',
+  ].join(', ')
+  const nestedInteractive = scoped(root, interactiveSelector).filter(element => (
+    scoped(element, interactiveSelector).length > 0
+  ))
 
   const unnamedControls = controls.filter(element => !hasAccessibleName(element))
   const unnamedImages = images.filter(element => !hasAccessibleName(element))
@@ -185,11 +218,17 @@ export function runAccessibilityAudit(root: ParentNode = document): Accessibilit
 
   const mainMissing = root.querySelector('main') === null ? [root] : []
   const navigationMissing = root.querySelector('nav, aside[aria-label], aside[aria-labelledby]') === null ? [root] : []
+  const invalidHeading = levelOneHeadings.length === 1 && hasAccessibleName(levelOneHeadings[0]!)
+    ? []
+    : levelOneHeadings.length === 0 ? [root] : levelOneHeadings
   return [
     check('main', mainMissing),
     check('navigation', navigationMissing),
+    check('heading', invalidHeading),
     check('controls', unnamedControls),
     check('images', unnamedImages),
+    check('lists', unique([...invalidNativeLists, ...orphanedListItems])),
+    check('nested-interactive', nestedInteractive),
     check('references', brokenReferences),
     check('composer', unnamedComposers),
     check('message-log', unnamedLogs),

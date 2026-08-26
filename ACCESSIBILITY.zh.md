@@ -7,7 +7,7 @@
 ## 支持的核心版本
 
 - 官方基线：`@deepseek-ai/dsh@0.1.1-rc.2`。
-- 完整补丁构建：[`dsh-v0.1.1-rc.2-a11y.3`](https://github.com/omdsh-dev/deepseek-harness/releases/tag/dsh-v0.1.1-rc.2-a11y.3)。
+- 完整补丁构建：[`dsh-v0.1.1-rc.2-a11y.4`](https://github.com/omdsh-dev/deepseek-harness/releases/tag/dsh-v0.1.1-rc.2-a11y.4)。
 - 上游跟踪：[deepseek-ai/deepseek-harness Discussion #4546](https://github.com/deepseek-ai/deepseek-harness/discussions/4546)。
 
 把本 npm 包装入未打核心补丁的官方构建，只会增加诊断和操作指南，不能替代缺失的核心焦点或复合控件行为。
@@ -17,16 +17,18 @@
 | 平台 | 浏览器 | 辅助技术 | 状态 |
 | --- | --- | --- | --- |
 | macOS | Chrome 151 | VoiceOver | 浏览器辅助功能树与键盘回归通过；完整实际朗读记录待补 |
-| macOS | Safari 18.5 | VoiceOver | 原生辅助功能树与键盘回归通过；完整实际朗读记录待补 |
+| macOS | Safari 18.5 | VoiceOver 10 | 启用 VoiceOver 的原生树与焦点路径回归通过；经人工听读的完整朗读记录待补 |
 | Windows 11 | Chrome／Firefox | NVDA | Windows 自动门禁通过；物理读屏回归待补 |
 | Windows 11 | Edge／Chrome | JAWS | Windows 自动门禁通过；物理读屏回归待补 |
 | Windows 11 | Edge | Narrator | 建议作为兼容信号，不能替代 NVDA 或 JAWS |
 
 ## 已记录的 macOS 证据
 
-2026-08-26 的回归环境为 macOS 15.5（24F74）、Chrome 151.0.7922.170 与 Safari 18.5。在补丁生产构建中，Safari 原生辅助功能树暴露了具名导航、主区域与补充地标、对话日志与消息 article、Chat／Trajectory 标签组、时间线复合控件、菜单、弹窗、输入控件及可调分隔条。键盘检查覆盖标签切换、菜单关闭、弹窗内连续四十次 Tab 焦点约束、折叠搜索从辅助功能树移除及 Escape 焦点返回，以及折叠侧栏中的具名设置触发器。已安装 companion 的 14 项确定性自检全部通过。
+2026-08-26 的回归环境为 macOS 15.5（24F74）、Chrome 151.0.7922.170、Safari 18.5 与 VoiceOver 10。在补丁生产构建中，Safari 原生辅助功能树暴露了具名导航、唯一的应用一级标题、主区域与补充地标、对话日志与消息 article、Chat／Trajectory 标签组、时间线复合控件、菜单、弹窗、输入控件及可调分隔条。键盘检查覆盖标签切换、菜单关闭、弹窗内连续四十次 Tab 焦点约束、折叠搜索从辅助功能树移除及 Escape 焦点返回，以及折叠侧栏中的具名设置触发器。已安装 companion 的每项确定性自检均通过。
 
-这些证据验证了自动化界面可观察到的浏览器映射、暴露结构和焦点／按键行为，但无法可靠记录每一句 VoiceOver 实际朗读或每次 VoiceOver 光标转换。因此矩阵仍把完整实际朗读记录列为待补，不把本次结果提升为辅助技术认证。
+启用 VoiceOver 的 Safari 实测启动了真实系统 VoiceOver 进程，并操作中文引导与空外壳流程。顺序焦点依次经过“打开侧边栏”“新建会话”“添加工作区”“搜索会话”“设置”“选择工作区”“Agent 预设”和输入区。设置通过键盘打开，内部控件可达，按 Escape 后焦点返回“设置”。原生辅助功能树为每个经过的控件暴露了角色与本地化名称。
+
+这些证据验证了真实启用 VoiceOver 的环境、浏览器映射、暴露结构和自动化界面可观察到的焦点／按键行为。运行器无法可靠捕获音频朗读或 VoiceOver 光标覆盖层，因此矩阵仍把经人工听读的实际语音列为待补，不把本次结果提升为辅助技术认证。
 
 ## 必做人工场景
 
@@ -47,8 +49,8 @@
 
 ## 自动门禁
 
-- 设置页内 14 项确定性语义自检。
-- 名称、引用、地标、菜单、列表框、树、单选组、标签页、弹窗及分隔条单元测试。
+- 设置页内 17 项确定性语义自检。
+- 名称、引用、地标、标题、列表归属、嵌套控件、菜单、列表框、树、单选组、标签页、弹窗及分隔条单元测试。
 - 插件设置界面的 axe-core 回归。
 - GitHub Actions 中的跨平台 Node、类型、单元、构建和包内容检查。
 - 补丁核心保留组件、GUI、生产构建及浏览器回放套件。

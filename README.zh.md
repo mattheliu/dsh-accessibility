@@ -6,24 +6,24 @@
 
 ## 兼容性
 
-`0.1.0-beta.4` 面向 `@deepseek-ai/dsh@0.1.1-rc.2` 及 [上游 Discussion #4546](https://github.com/deepseek-ai/deepseek-harness/discussions/4546) 跟踪的无障碍核心补丁。插件能报告核心语义缺失，但无法从外部可靠替代组件本身的焦点陷阱、复合控件键盘操作、页面地标或 live region 策略。
+`0.1.0-beta.5` 面向 `@deepseek-ai/dsh@0.1.1-rc.2` 及 [上游 Discussion #4546](https://github.com/deepseek-ai/deepseek-harness/discussions/4546) 跟踪的无障碍核心补丁。插件能报告核心语义缺失，但无法从外部可靠替代组件本身的焦点陷阱、复合控件键盘操作、页面地标或 live region 策略。
 
 ## 从 npm 安装
 
 ```sh
-dsh plugin --profile web add @oh-my-dsh/dsh-accessibility@0.1.0-beta.4
+dsh plugin --profile web add @oh-my-dsh/dsh-accessibility@0.1.0-beta.5
 dsh --profile web
 ```
 
-npm companion 不会修改 DSH 自有组件。在改动进入官方 DSH 发行版之前，请使用组织固定的 [DSH 无障碍构建](https://github.com/omdsh-dev/deepseek-harness/releases/tag/dsh-v0.1.1-rc.2-a11y.3)，以获得完整键盘与读屏行为：
+npm companion 不会修改 DSH 自有组件。在改动进入官方 DSH 发行版之前，请使用组织固定的 [DSH 无障碍构建](https://github.com/omdsh-dev/deepseek-harness/releases/tag/dsh-v0.1.1-rc.2-a11y.4)，以获得完整键盘与读屏行为：
 
 ```sh
 git clone https://github.com/omdsh-dev/deepseek-harness.git
 cd deepseek-harness
-git checkout dsh-v0.1.1-rc.2-a11y.3
+git checkout dsh-v0.1.1-rc.2-a11y.4
 pnpm install
 pnpm run build:official
-pnpm dsh plugin --profile web add @oh-my-dsh/dsh-accessibility@0.1.0-beta.4
+pnpm dsh plugin --profile web add @oh-my-dsh/dsh-accessibility@0.1.0-beta.5
 pnpm dsh web
 ```
 
@@ -40,7 +40,7 @@ dsh --profile web
 
 ## 自检范围
 
-页面自检现包含 14 项结构检查，覆盖地标、控件名称、图片替代文本、ARIA 引用、输入框与消息日志、菜单、列表框、树、单选组、标签页、弹窗和可调分隔条。它理解核心补丁采用的单一 Tab 入口与 `aria-activedescendant` 模式，也不会把菜单中的静态分隔线误判为可调分隔条。
+页面自检现包含 17 项结构检查，覆盖地标、应用一级标题、控件名称、图片替代文本、列表归属、嵌套交互控件、ARIA 引用、输入框与消息日志、菜单、列表框、树、单选组、标签页、弹窗和可调分隔条。它理解核心补丁采用的单一 Tab 入口与 `aria-activedescendant` 模式，也不会把菜单中的静态分隔线误判为可调分隔条。
 
 全部通过只表示当前已挂载 DOM 满足这些可重复验证的结构契约，是测试证据而不是“完全合规”认证。实际朗读、浏览器到无障碍 API 的映射、焦点时序和 Windows 读屏表现，仍需按照插件内的 VoiceOver、NVDA、JAWS 场景做人工验证。
 

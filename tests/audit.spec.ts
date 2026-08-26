@@ -31,6 +31,8 @@ describe('accessibility diagnostics', () => {
     document.body.innerHTML = `
       <aside aria-label="Primary navigation"></aside>
       <main>
+        <h1>DSH application</h1>
+        <div role="list"><div><div role="listitem">Plugin</div></div></div>
         <div role="log" aria-label="Conversation messages"></div>
         <button aria-controls="menu" aria-expanded="true">Actions</button>
         <div id="menu" role="menu" aria-label="Actions">
@@ -74,6 +76,7 @@ describe('accessibility diagnostics', () => {
   it('reports composite-widget, naming, image, and ARIA-reference regressions separately', () => {
     document.body.innerHTML = `
       <aside aria-label="Primary navigation"></aside><main>
+        <h1>DSH application</h1>
         <button aria-label=""></button>
         <img>
         <div role="menu" aria-label="Actions"><button role="menuitem" tabindex="0">Bad item</button></div>
@@ -99,9 +102,23 @@ describe('accessibility diagnostics', () => {
   it('treats absent optional surfaces and an empty session tree as not applicable', () => {
     document.body.innerHTML = `
       <aside aria-label="Primary navigation"></aside>
-      <main><div role="tree"><p>No sessions yet</p></div></main>
+      <main><h1>DSH application</h1><div role="tree"><p>No sessions yet</p></div></main>
     `
 
     expect(runAccessibilityAudit().every(check => check.passed)).toBe(true)
+  })
+
+  it('reports missing headings, invalid native lists, orphaned list items, and nested controls', () => {
+    document.body.innerHTML = `
+      <aside aria-label="Primary navigation"></aside>
+      <main>
+        <ul><div><li>Wrapped plugin</li></div></ul>
+        <div role="listitem">Orphaned plugin</div>
+        <div role="button">Read <button>Open file</button></div>
+      </main>
+    `
+
+    const failed = runAccessibilityAudit().filter(result => !result.passed).map(result => result.id)
+    expect(failed).toEqual(['heading', 'lists', 'nested-interactive'])
   })
 })
