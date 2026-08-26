@@ -7,7 +7,7 @@ This project targets operable, understandable DeepSeek Harness Web workflows for
 ## Supported core
 
 - Official baseline: `@deepseek-ai/dsh@0.1.1-rc.2`.
-- Complete patched build: [`dsh-v0.1.1-rc.2-a11y.2`](https://github.com/omdsh-dev/deepseek-harness/releases/tag/dsh-v0.1.1-rc.2-a11y.2).
+- Complete patched build: [`dsh-v0.1.1-rc.2-a11y.3`](https://github.com/omdsh-dev/deepseek-harness/releases/tag/dsh-v0.1.1-rc.2-a11y.3).
 - Upstream tracking: [deepseek-ai/deepseek-harness Discussion #4546](https://github.com/deepseek-ai/deepseek-harness/discussions/4546).
 
 Installing this npm package into an unpatched official build adds diagnostics and guidance, but cannot replace missing core focus or composite-widget behavior.

@@ -15,12 +15,12 @@ dsh plugin --profile web add @oh-my-dsh/dsh-accessibility
 dsh --profile web
 ```
 
-npm companion 不会修改 DSH 自有组件。在改动进入官方 DSH 发行版之前，请使用组织固定的 [DSH 无障碍构建](https://github.com/omdsh-dev/deepseek-harness/releases/tag/dsh-v0.1.1-rc.2-a11y.2)，以获得完整键盘与读屏行为：
+npm companion 不会修改 DSH 自有组件。在改动进入官方 DSH 发行版之前，请使用组织固定的 [DSH 无障碍构建](https://github.com/omdsh-dev/deepseek-harness/releases/tag/dsh-v0.1.1-rc.2-a11y.3)，以获得完整键盘与读屏行为：
 
 ```sh
 git clone https://github.com/omdsh-dev/deepseek-harness.git
 cd deepseek-harness
-git checkout dsh-v0.1.1-rc.2-a11y.2
+git checkout dsh-v0.1.1-rc.2-a11y.3
 pnpm install
 pnpm run build:official
 pnpm dsh plugin --profile web add @oh-my-dsh/dsh-accessibility

@@ -7,7 +7,7 @@
 ## 支持的核心版本
 
 - 官方基线：`@deepseek-ai/dsh@0.1.1-rc.2`。
-- 完整补丁构建：[`dsh-v0.1.1-rc.2-a11y.2`](https://github.com/omdsh-dev/deepseek-harness/releases/tag/dsh-v0.1.1-rc.2-a11y.2)。
+- 完整补丁构建：[`dsh-v0.1.1-rc.2-a11y.3`](https://github.com/omdsh-dev/deepseek-harness/releases/tag/dsh-v0.1.1-rc.2-a11y.3)。
 - 上游跟踪：[deepseek-ai/deepseek-harness Discussion #4546](https://github.com/deepseek-ai/deepseek-harness/discussions/4546)。
 
 把本 npm 包装入未打核心补丁的官方构建，只会增加诊断和操作指南，不能替代缺失的核心焦点或复合控件行为。
