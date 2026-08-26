@@ -11,7 +11,7 @@
 ## 从 npm 安装
 
 ```sh
-dsh plugin --profile web add @oh-my-dsh/dsh-accessibility
+dsh plugin --profile web add @oh-my-dsh/dsh-accessibility@0.1.0-beta.4
 dsh --profile web
 ```
 
@@ -23,7 +23,7 @@ cd deepseek-harness
 git checkout dsh-v0.1.1-rc.2-a11y.3
 pnpm install
 pnpm run build:official
-pnpm dsh plugin --profile web add @oh-my-dsh/dsh-accessibility
+pnpm dsh plugin --profile web add @oh-my-dsh/dsh-accessibility@0.1.0-beta.4
 pnpm dsh web
 ```
 
