@@ -32,3 +32,14 @@ jobs:
       - run: pnpm test
       - run: pnpm run build
       - run: npm pack --dry-run --json
+
+  ci:
+    name: CI gate
+    if: always()
+    needs: validate
+    runs-on: ubuntu-latest
+    steps:
+      - name: Require every matrix job
+        env:
+          VALIDATE_RESULT: ${{ needs.validate.result }}
+        run: test "$VALIDATE_RESULT" = success

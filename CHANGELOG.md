@@ -7,6 +7,9 @@
 - Add axe-core regression coverage for the rendered settings surface.
 - Add cross-platform CI and trusted-publishing workflows.
 - Add contribution and security policies.
+- Register the browser bundle under its full scoped npm id so DSH can load the installed package.
+- Add one required aggregate CI status across the complete operating-system and Node matrix.
+- Record Safari 18.5 native accessibility-tree and keyboard regression evidence without treating it as a complete spoken-output certification.
 
 ## 0.1.0-beta.3 - 2026-08-26
 

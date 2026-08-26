@@ -7,7 +7,7 @@ This project targets operable, understandable DeepSeek Harness Web workflows for
 ## Supported core
 
 - Official baseline: `@deepseek-ai/dsh@0.1.1-rc.2`.
-- Complete patched build: [`dsh-v0.1.1-rc.2-a11y.1`](https://github.com/omdsh-dev/deepseek-harness/releases/tag/dsh-v0.1.1-rc.2-a11y.1).
+- Complete patched build: [`dsh-v0.1.1-rc.2-a11y.2`](https://github.com/omdsh-dev/deepseek-harness/releases/tag/dsh-v0.1.1-rc.2-a11y.2).
 - Upstream tracking: [deepseek-ai/deepseek-harness Discussion #4546](https://github.com/deepseek-ai/deepseek-harness/discussions/4546).
 
 Installing this npm package into an unpatched official build adds diagnostics and guidance, but cannot replace missing core focus or composite-widget behavior.
@@ -16,11 +16,17 @@ Installing this npm package into an unpatched official build adds diagnostics an
 
 | Platform | Browser | Assistive technology | Status |
 | --- | --- | --- | --- |
-| macOS | Chrome | VoiceOver | Manually passed on the patched production build |
-| macOS | Safari | VoiceOver | Manual regression required before support is claimed |
-| Windows 11 | Chrome / Firefox | NVDA | Manual regression required before support is claimed |
-| Windows 11 | Edge / Chrome | JAWS | Manual regression required before support is claimed |
+| macOS | Chrome 151 | VoiceOver | Browser accessibility-tree and keyboard regression passed; complete spoken-output record pending |
+| macOS | Safari 18.5 | VoiceOver | Native accessibility-tree and keyboard regression passed; complete spoken-output record pending |
+| Windows 11 | Chrome / Firefox | NVDA | Automated Windows gate passed; physical screen-reader regression pending |
+| Windows 11 | Edge / Chrome | JAWS | Automated Windows gate passed; physical screen-reader regression pending |
 | Windows 11 | Edge | Narrator | Recommended compatibility signal; not a replacement for NVDA or JAWS |
+
+## Recorded macOS evidence
+
+The 2026-08-26 regression used macOS 15.5 (24F74), Chrome 151.0.7922.170, and Safari 18.5. On the patched production build, the native Safari accessibility tree exposed named navigation, main and complementary landmarks, conversation log and message articles, the Chat/Trajectory tab set, timeline composites, menus, dialogs, composer controls, and adjustable separators. Keyboard checks covered tab switching, menu dismissal, a forty-Tab modal-containment loop, collapsed-search exclusion and Escape restoration, and the named Settings trigger in the collapsed rail. The installed companion reported all fourteen deterministic diagnostics passing.
+
+This evidence verifies browser mappings, exposed structure, and focus/key behavior available to the automation surface. It does not reliably capture every VoiceOver utterance or VoiceOver-cursor transition, so the matrix keeps the complete spoken-output record pending rather than upgrading this run into an assistive-technology certification.
 
 ## Required manual scenarios
 

@@ -7,7 +7,7 @@
 ## 支持的核心版本
 
 - 官方基线：`@deepseek-ai/dsh@0.1.1-rc.2`。
-- 完整补丁构建：[`dsh-v0.1.1-rc.2-a11y.1`](https://github.com/omdsh-dev/deepseek-harness/releases/tag/dsh-v0.1.1-rc.2-a11y.1)。
+- 完整补丁构建：[`dsh-v0.1.1-rc.2-a11y.2`](https://github.com/omdsh-dev/deepseek-harness/releases/tag/dsh-v0.1.1-rc.2-a11y.2)。
 - 上游跟踪：[deepseek-ai/deepseek-harness Discussion #4546](https://github.com/deepseek-ai/deepseek-harness/discussions/4546)。
 
 把本 npm 包装入未打核心补丁的官方构建，只会增加诊断和操作指南，不能替代缺失的核心焦点或复合控件行为。
@@ -16,11 +16,17 @@
 
 | 平台 | 浏览器 | 辅助技术 | 状态 |
 | --- | --- | --- | --- |
-| macOS | Chrome | VoiceOver | 已在补丁生产构建中人工通过 |
-| macOS | Safari | VoiceOver | 完成人工回归前不声明支持 |
-| Windows 11 | Chrome／Firefox | NVDA | 完成人工回归前不声明支持 |
-| Windows 11 | Edge／Chrome | JAWS | 完成人工回归前不声明支持 |
+| macOS | Chrome 151 | VoiceOver | 浏览器辅助功能树与键盘回归通过；完整实际朗读记录待补 |
+| macOS | Safari 18.5 | VoiceOver | 原生辅助功能树与键盘回归通过；完整实际朗读记录待补 |
+| Windows 11 | Chrome／Firefox | NVDA | Windows 自动门禁通过；物理读屏回归待补 |
+| Windows 11 | Edge／Chrome | JAWS | Windows 自动门禁通过；物理读屏回归待补 |
 | Windows 11 | Edge | Narrator | 建议作为兼容信号，不能替代 NVDA 或 JAWS |
+
+## 已记录的 macOS 证据
+
+2026-08-26 的回归环境为 macOS 15.5（24F74）、Chrome 151.0.7922.170 与 Safari 18.5。在补丁生产构建中，Safari 原生辅助功能树暴露了具名导航、主区域与补充地标、对话日志与消息 article、Chat／Trajectory 标签组、时间线复合控件、菜单、弹窗、输入控件及可调分隔条。键盘检查覆盖标签切换、菜单关闭、弹窗内连续四十次 Tab 焦点约束、折叠搜索从辅助功能树移除及 Escape 焦点返回，以及折叠侧栏中的具名设置触发器。已安装 companion 的 14 项确定性自检全部通过。
+
+这些证据验证了自动化界面可观察到的浏览器映射、暴露结构和焦点／按键行为，但无法可靠记录每一句 VoiceOver 实际朗读或每次 VoiceOver 光标转换。因此矩阵仍把完整实际朗读记录列为待补，不把本次结果提升为辅助技术认证。
 
 ## 必做人工场景
 

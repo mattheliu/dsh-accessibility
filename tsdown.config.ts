@@ -1,6 +1,6 @@
 import type { UserConfig } from 'tsdown'
 
-const PACKAGE_NAME = 'dsh-accessibility'
+const PACKAGE_NAME = '@oh-my-dsh/dsh-accessibility'
 const CLIENT_EXTERNALS = [
   'react',
   'react/jsx-runtime',

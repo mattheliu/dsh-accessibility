@@ -15,12 +15,12 @@ dsh plugin --profile web add @oh-my-dsh/dsh-accessibility
 dsh --profile web
 ```
 
-The npm companion does not patch the owning DSH components. Until the changes are included in an official DSH release, use the organization-pinned [DSH accessibility build](https://github.com/omdsh-dev/deepseek-harness/releases/tag/dsh-v0.1.1-rc.2-a11y.1) for the complete keyboard and screen-reader behavior:
+The npm companion does not patch the owning DSH components. Until the changes are included in an official DSH release, use the organization-pinned [DSH accessibility build](https://github.com/omdsh-dev/deepseek-harness/releases/tag/dsh-v0.1.1-rc.2-a11y.2) for the complete keyboard and screen-reader behavior:
 
 ```sh
 git clone https://github.com/omdsh-dev/deepseek-harness.git
 cd deepseek-harness
-git checkout dsh-v0.1.1-rc.2-a11y.1
+git checkout dsh-v0.1.1-rc.2-a11y.2
 pnpm install
 pnpm run build:official
 pnpm dsh plugin --profile web add @oh-my-dsh/dsh-accessibility

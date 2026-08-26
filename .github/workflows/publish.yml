@@ -34,12 +34,20 @@ jobs:
       - run: pnpm run typecheck
       - run: pnpm test
       - run: pnpm run build
+      - name: Verify release tag
+        shell: bash
+        run: |
+          expected="v$(node -p "require('./package.json').version")"
+          if [[ "${GITHUB_REF_TYPE}" != "tag" || "${GITHUB_REF_NAME}" != "$expected" ]]; then
+            echo "Expected tag $expected, got ${GITHUB_REF_TYPE}:${GITHUB_REF_NAME}" >&2
+            exit 1
+          fi
       - name: Publish
         shell: bash
         run: |
           version="$(node -p "require('./package.json').version")"
           if [[ "$version" == *-* ]]; then
-            npm publish --access public --provenance --tag beta
+            npx --yes npm@11.6.4 publish --access public --provenance --tag beta
           else
-            npm publish --access public --provenance
+            npx --yes npm@11.6.4 publish --access public --provenance
           fi
