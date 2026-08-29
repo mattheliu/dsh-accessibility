@@ -1,5 +1,13 @@
 # Changelog
 
+## Unreleased
+
+- Add an opt-in, Host-side `a11y_check` MVP for deterministic offline static-HTML checks.
+- Require explicit canonical roots and default per-call approval; keep the tool read-only, byte-bounded, finding-bounded, and disabled by default.
+- Pin `html-validate@11.4.0` with the versioned `web-static-1` rule inventory and enforce report schema `1.0.0`.
+- Separate automated evidence from model explanation/remediation, real assistive-technology testing, disabled-user validation, and certification claims.
+- Publish the bilingual permission/data-flow/threat/result/extension RFC and a synthetic detect–explain–repair–verify example.
+
 ## 0.1.0-beta.6 - 2026-08-29
 
 - Establish the DSH Accessibility Working Group project hub with bilingual governance, roadmap, accessibility statement, disabled-user research protocol, and contribution guidance.
