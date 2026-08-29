@@ -52,6 +52,8 @@ This evidence verifies the real VoiceOver-enabled environment, browser mappings,
 
 Record the browser, assistive-technology version, language, scenario, spoken result, focus result, and pass/fail outcome. Do not convert an automated DOM pass into a manual assistive-technology pass.
 
+Use the [hermetic AT lab](AT-LAB.md) to launch an exact candidate with a disposable DSH home and synthetic session. Lab readiness and caption-panel output still require a human-observed speech/braille and task-completion record.
+
 ## Automated gates
 
 - Seventeen deterministic semantic diagnostics in the installed settings page.

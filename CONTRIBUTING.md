@@ -18,6 +18,8 @@ npm pack --dry-run
 
 Behavior changes must include deterministic tests. Changes to support claims must update both accessibility documents and identify the exact browser, assistive-technology version, language, scenario, spoken result, and focus result. Automated checks do not count as manual screen-reader certification.
 
+For real AT observation, use the [hermetic AT lab](AT-LAB.md) with synthetic content and submit the copyable, consent-aware result record. A lab startup is not itself an AT result.
+
 Keep host and client behavior within documented DSH extension seams. Do not patch generated CSS classes or inspect conversation text.
 
 Do not use a DOM observer to rewrite host semantics, focus, or keyboard behavior. Any future access to conversation or workspace content requires a privacy review and an explicit boundary from the current read-only diagnostics.

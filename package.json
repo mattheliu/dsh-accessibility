@@ -41,9 +41,13 @@
     "RFC-ACCESSIBLE-VIEW.zh.md",
     "RFC-BROWSER-EVIDENCE.md",
     "RFC-BROWSER-EVIDENCE.zh.md",
+    "AT-LAB.md",
+    "AT-LAB.zh.md",
     "scripts/run-assembled-browser.mjs",
     "scripts/assembled-browser.e2e.template.ts",
     "scripts/browser-contract.e2e-helper.ts",
+    "scripts/run-at-lab.mjs",
+    "scripts/at-lab.template.ts",
     "SECURITY.md",
     "LICENSE"
   ],
@@ -94,7 +98,8 @@
     "prepack": "pnpm run build",
     "typecheck": "tsc -p tsconfig.host.json --noEmit && tsc -p tsconfig.client.json --noEmit",
     "test": "vitest run",
-    "test:assembled": "node scripts/run-assembled-browser.mjs"
+    "test:assembled": "node scripts/run-assembled-browser.mjs",
+    "lab:at": "node scripts/run-at-lab.mjs"
   },
   "peerDependencies": {
     "@deepseek-ai/cordis": ">=4.0.1 <5",

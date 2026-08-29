@@ -68,6 +68,8 @@ jobs:
           pnpm --dir apps/web exec playwright install --with-deps chromium firefox webkit
       - name: Run external-plugin assembled browser protocol
         run: pnpm run test:assembled .assembled/dsh . chromium,firefox,webkit
+      - name: Smoke-test disposable AT lab startup and cleanup
+        run: pnpm run lab:at .assembled/dsh . none 500
 
   ci:
     name: CI gate
