@@ -13,14 +13,14 @@ Reviewed: 2026-08-30. This ledger records source compatibility and evidence stat
 | rc.2 full-patch accessibility candidate | `dsh-v0.1.1-rc.2-a11y.4`, commit `3064d99cdc9653327e774b7306b839395b24a272` | maintained reference; real-AT evidence remains incomplete |
 | Official alpha.1 source | `dsh-v0.1.2-alpha.1`, commit `cd5ef8148158c3a752a658978873241fdf8e2bbc` | current upstream source HEAD on 2026-08-30; not published to npm |
 | Fork portability base | `073359c4d5a5b284d60dbc052f5aa370b4639892` | official alpha.1 plus 16 fork CI, test, and terminal fixes |
-| Partial alpha.1 accessibility candidate | PR [omdsh-dev/deepseek-harness#1](https://github.com/omdsh-dev/deepseek-harness/pull/1), commit `76aa5dfd7ca98288f425857f1c9ce5da979692af` | automated review passed; incomplete core-port scope |
+| Partial alpha.1 accessibility candidate | PR [omdsh-dev/deepseek-harness#1](https://github.com/omdsh-dev/deepseek-harness/pull/1), commit `ee2420bcf34a0932db682c3dc3d77fe126fe2358` | automated review passed; incomplete core-port scope |
 | Published companion | `@oh-my-dsh/dsh-accessibility@0.1.0-beta.6` | exact rc.2 peers only; npm `beta` on 2026-08-30 |
 
 The npm `latest` tag for the companion still points to `0.1.0-beta.3`. Install `0.1.0-beta.6` explicitly. Do not force the rc.2 companion onto alpha.1: its peer range and structured client interfaces have not been reviewed for that line.
 
 ## rc.2-to-alpha.1 disposition
 
-The rc.2 candidate changed 191 paths across the pre-alpha client. Alpha.1 reorganized the Web client and test projections, so path equality is not a compatibility result. The partial alpha.1 candidate changes 21 client source paths and retains 80 test or snapshot paths relative to its fork base. Each behavior still needs an explicit disposition.
+The rc.2 candidate changed 191 paths across the pre-alpha client. Alpha.1 reorganized the Web client and test projections, so path equality is not a compatibility result. The partial alpha.1 candidate changes 26 client source paths and retains 95 test or snapshot paths across 143 changed paths relative to its fork base. Each behavior still needs an explicit disposition.
 
 Status terms:
 
@@ -36,8 +36,8 @@ Status terms:
 | Context Meter disclosure controlling a named information region | **Rebuilt and automated** | Component and assembled-tree evidence pass. Spoken state/relationship output remains pending. |
 | Settings modal reflow, focus visibility, focus unobscuration, and focused-control scrolling at 640/320 CSS pixels | **Rebuilt and automated** | Chromium, Firefox, and WebKit gate passes. CSS-pixel equivalence is not real 200%/400% zoom evidence. |
 | Reduced-motion and forced-color participation | **Evidence only** in the alpha.1 cross-browser gate | Reduced-motion runs in three engines and Chromium forced-color emulation passes. Windows High Contrast, authored system-color usability, and motion-disability review remain pending. |
-| Session/workspace/search trees, roving focus, disclosure keys, collapsed-search exclusion, and focus restoration | **Pending re-audit** | rc.2 code was not ported as a unit. Audit current alpha.1 navigation and search owners, then add focused and assembled task evidence. |
-| Model selector, command combobox/listbox, and popup highlight behavior | **Pending re-audit** | No alpha.1 disposition or release-level AT evidence is recorded. |
+| Session/workspace/search trees, roving focus, disclosure keys, collapsed-search exclusion, and focus restoration | **Rebuilt and automated** in the Workspace and Session tree owners | Grouped, flat, and search-result trees expose one roving row entry, authored levels, disclosure keys, and search focus return in focused and assembled browser checks. Real AT hierarchy/virtual-cursor output and disabled-developer task evidence remain pending. |
+| Model selector, command combobox/listbox, and popup highlight behavior | **Rebuilt and automated** in the model seat and command popup owners | The model menu has one trigger entry, edge opening, pane navigation, and trigger restoration. The command search owns its listbox through active descendant and returns focus to the exact composer through an executed binder injection. Real spoken/braille output and disabled-developer task evidence remain pending. |
 | Chat/Trajectory tab lists, Trajectory listbox/range selection, ledger keyboard navigation, and details separator | **Pending re-audit** | No alpha.1 disposition or release-level AT evidence is recorded. |
 | User-question radio groups/custom fields and feedback-note focus ownership | **Pending re-audit** | Shared primitive coverage does not prove these consumers. Complete keyboard, error, cancellation, and recovery tasks are required. |
 | Conversation log naming, user/Assistant articles, composer naming, and one bounded completion announcement | **Pending re-audit** | No alpha.1 disposition is recorded. Token-by-token live speech must remain avoided while completion is discoverable. |
@@ -48,7 +48,9 @@ Status terms:
 
 ## Candidate evidence
 
-The exact merge candidate tested by GitHub Actions is represented by PR #1 at `76aa5dfd7ca98288f425857f1c9ce5da979692af`. The CI run passed the required accessibility browser matrix, Node 22/24/26 lanes, Windows build/coverage/native/observational lanes, Python release-shaped matrix, package assembly, and aggregate status. The accessibility browser job is [Actions run 33264686646, job 99132574894](https://github.com/omdsh-dev/deepseek-harness/actions/runs/33264686646/job/99132574894).
+The exact merge candidate tested by GitHub Actions is represented by PR #1 at `ee2420bcf34a0932db682c3dc3d77fe126fe2358`. [Actions run 33274552384, attempt 3](https://github.com/omdsh-dev/deepseek-harness/actions/runs/33274552384) passed the required accessibility browser matrix, Node 22/24/26 lanes, Linux and Windows exhaustive coverage, Windows build/native/observational lanes, Python release-shaped matrix, package assembly, snapshots, and aggregate status. The accessibility browser job is [99162093697](https://github.com/omdsh-dev/deepseek-harness/actions/runs/33274552384/job/99162093697), the snapshot/artifact job is [99162074140](https://github.com/omdsh-dev/deepseek-harness/actions/runs/33274552384/job/99162074140), and the aggregate job is [99162373315](https://github.com/omdsh-dev/deepseek-harness/actions/runs/33274552384/job/99162373315). Linux coverage passed 989 files with 7 existing skips; Windows coverage passed 956 files with 3 existing skips; reported source coverage remained 100%.
+
+The first two Windows-native attempts ended when the Vitest pool worker running the unchanged `workflow-worker-thread` file exited without an assertion failure; the immediately preceding candidate had passed the same file. The retained third attempt passed all 5 native files, 69 tests, and 1 existing skip in [job 99162073625](https://github.com/omdsh-dev/deepseek-harness/actions/runs/33274552384/job/99162073625). This records runner variability rather than erasing it; no product assertion was waived or marked successful from a failed attempt.
 
 These results establish deterministic source, build, keyboard, DOM, browser accessibility-tree, reflow-equivalent, focus-geometry, reduced-motion, and forced-color-emulation evidence for the implemented rows only. They do not establish exact screen-reader speech, braille output, operating-system accessibility API behavior on physical target systems, independent task completion, effectiveness, safety, or disabled-user acceptance.
 

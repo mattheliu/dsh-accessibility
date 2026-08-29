@@ -13,14 +13,14 @@
 | rc.2 完整补丁范围无障碍候选 | `dsh-v0.1.1-rc.2-a11y.4`，commit `3064d99cdc9653327e774b7306b839395b24a272` | 维护参考；真实辅助技术证据仍不完整 |
 | 官方 alpha.1 源码 | `dsh-v0.1.2-alpha.1`，commit `cd5ef8148158c3a752a658978873241fdf8e2bbc` | 2026-08-30 的当前上游源码 HEAD；尚未发布到 npm |
 | fork 可移植性基线 | `073359c4d5a5b284d60dbc052f5aa370b4639892` | 官方 alpha.1 加 16 个 fork CI、测试和终端修复 |
-| alpha.1 部分无障碍候选 | PR [omdsh-dev/deepseek-harness#1](https://github.com/omdsh-dev/deepseek-harness/pull/1)，commit `76aa5dfd7ca98288f425857f1c9ce5da979692af` | 自动化评审通过；核心移植范围不完整 |
+| alpha.1 部分无障碍候选 | PR [omdsh-dev/deepseek-harness#1](https://github.com/omdsh-dev/deepseek-harness/pull/1)，commit `ee2420bcf34a0932db682c3dc3d77fe126fe2358` | 自动化评审通过；核心移植范围不完整 |
 | 已发布 companion | `@oh-my-dsh/dsh-accessibility@0.1.0-beta.6` | 仅精确匹配 rc.2 peer；2026-08-30 的 npm `beta` |
 
 companion 的 npm `latest` 仍指向 `0.1.0-beta.3`，安装时必须明确指定 `0.1.0-beta.6`。不得强行把 rc.2 companion 安装到 alpha.1：其 peer 范围和结构化客户端接口尚未针对该版本线完成审查。
 
 ## rc.2 到 alpha.1 的处置清单
 
-rc.2 候选在 alpha 之前的客户端中修改了 191 个路径。alpha.1 重组了 Web 客户端和测试 projection，因此文件路径相同不等于兼容。alpha.1 部分候选相对 fork 基线修改了 21 个客户端源码路径，并保留了 80 个测试或快照路径。每项行为仍需明确处置。
+rc.2 候选在 alpha 之前的客户端中修改了 191 个路径。alpha.1 重组了 Web 客户端和测试 projection，因此文件路径相同不等于兼容。alpha.1 部分候选相对 fork 基线修改了 26 个客户端源码路径，并在总计 143 个变更路径中保留了 95 个测试或快照路径。每项行为仍需明确处置。
 
 状态含义：
 
@@ -36,8 +36,8 @@ rc.2 候选在 alpha 之前的客户端中修改了 191 个路径。alpha.1 重�
 | Context Meter disclosure 控制具名信息 region | **已重建并自动验证** | 组件和组装树证据通过；实际朗读的状态和关系仍待验证。 |
 | 设置弹窗在 640／320 CSS px 下的重排、焦点可见／无遮挡和聚焦控件滚动 | **已重建并自动验证** | Chromium、Firefox、WebKit 门禁通过；CSS 像素等价不是真实 200%／400% 缩放证据。 |
 | 减少动态效果和强制颜色参与 | alpha.1 跨浏览器门禁中**仅有自动证据** | 三个引擎运行减少动态效果，Chromium 强制颜色模拟通过；Windows 高对比度、系统颜色可用性和动态效果残障审查仍待补。 |
-| Session／Workspace／搜索树、漫游焦点、展开键、折叠搜索排除和焦点恢复 | **待重新审计** | rc.2 代码没有整体移植。必须审计当前 alpha.1 导航和搜索责任组件，再增加聚焦及组装任务证据。 |
-| 模型选择器、命令 combobox／listbox 和弹出项高亮 | **待重新审计** | 尚无 alpha.1 处置记录或发布级辅助技术证据。 |
+| Session／Workspace／搜索树、漫游焦点、展开键、折叠搜索排除和焦点恢复 | 在 Workspace 与 Session 树责任组件中**已重建并自动验证** | 分组、扁平与搜索结果树在聚焦和组装浏览器检查中暴露单一漫游行入口、显式层级、展开键与搜索焦点返回。真实辅助技术层级／虚拟光标输出和残障开发者任务证据仍待补。 |
+| 模型选择器、命令 combobox／listbox 和弹出项高亮 | 在模型位与命令弹窗责任组件中**已重建并自动验证** | 模型菜单具有单一触发器入口、边缘打开、面板导航与触发器焦点恢复。命令搜索通过 active descendant 拥有其 listbox，并通过实际执行的 binder 注入把焦点还给确切 composer。真实朗读／盲文输出和残障开发者任务证据仍待补。 |
 | Chat／Trajectory 标签页、Trajectory listbox／范围选择、ledger 键盘导航和详情分隔条 | **待重新审计** | 尚无 alpha.1 处置记录或发布级辅助技术证据。 |
 | 用户问题单选组／自定义输入和反馈说明焦点管理 | **待重新审计** | 共享 primitive 的覆盖不能证明这些使用方；还需完整键盘、错误、取消和恢复任务。 |
 | 对话 log 名称、用户／Assistant article、输入框名称和一次有界完成播报 | **待重新审计** | 尚无 alpha.1 处置记录；既要避免逐 token 实时朗读，也要让完成状态可发现。 |
@@ -48,7 +48,9 @@ rc.2 候选在 alpha 之前的客户端中修改了 191 个路径。alpha.1 重�
 
 ## 候选证据
 
-GitHub Actions 测试的精确候选为 PR #1 的 `76aa5dfd7ca98288f425857f1c9ce5da979692af`。CI 通过了必需的无障碍浏览器矩阵、Node 22／24／26、Windows 构建／覆盖率／原生／观察性通道、Python 发布形态矩阵、包组装和汇总状态。无障碍浏览器 job 为 [Actions run 33264686646，job 99132574894](https://github.com/omdsh-dev/deepseek-harness/actions/runs/33264686646/job/99132574894)。
+GitHub Actions 测试的精确候选为 PR #1 的 `ee2420bcf34a0932db682c3dc3d77fe126fe2358`。[Actions run 33274552384，第 3 次 attempt](https://github.com/omdsh-dev/deepseek-harness/actions/runs/33274552384) 通过了必需的无障碍浏览器矩阵、Node 22／24／26、Linux 与 Windows 穷尽覆盖率、Windows 构建／原生／观察性通道、Python 发布形态矩阵、包组装、快照和汇总状态。无障碍浏览器 job 为 [99162093697](https://github.com/omdsh-dev/deepseek-harness/actions/runs/33274552384/job/99162093697)，快照／产物 job 为 [99162074140](https://github.com/omdsh-dev/deepseek-harness/actions/runs/33274552384/job/99162074140)，汇总 job 为 [99162373315](https://github.com/omdsh-dev/deepseek-harness/actions/runs/33274552384/job/99162373315)。Linux 覆盖率通过 989 个文件并保留 7 个既有跳过；Windows 覆盖率通过 956 个文件并保留 3 个既有跳过；报告的源码覆盖率继续保持 100%。
+
+前两次 Windows 原生 attempt 都因运行未变更 `workflow-worker-thread` 文件的 Vitest pool worker 在没有断言失败的情况下退出而结束；紧邻的上一候选曾通过同一文件。保留的第三次 attempt 在 [job 99162073625](https://github.com/omdsh-dev/deepseek-harness/actions/runs/33274552384/job/99162073625) 中通过全部 5 个原生文件、69 个测试和 1 个既有跳过。这一记录保留 runner 波动，而不是抹去它；没有放弃任何产品断言，也没有把失败 attempt 标记为成功。
 
 这些结果只为已经实现的行提供确定性的源码、构建、键盘、DOM、浏览器辅助功能树、重排等价、焦点几何、减少动态效果和强制颜色模拟证据。它们不能证明精确读屏朗读、盲文输出、目标实机操作系统无障碍 API 行为、独立任务完成、有效性、安全性或残障用户认可。
 
