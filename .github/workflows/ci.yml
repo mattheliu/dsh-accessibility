@@ -65,7 +65,7 @@ jobs:
         run: |
           pnpm install --frozen-lockfile
           pnpm run build:official
-          pnpm exec playwright install --with-deps chromium
+          pnpm --dir apps/web exec playwright install --with-deps chromium
       - name: Run external-plugin assembled browser protocol
         run: pnpm run test:assembled .assembled/dsh .
 
