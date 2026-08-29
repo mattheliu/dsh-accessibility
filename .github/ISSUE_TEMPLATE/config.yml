@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Upstream DSH accessibility discussion
+    url: https://github.com/deepseek-ai/deepseek-harness/discussions/4546
+    about: Report or discuss barriers that require changes in the official DSH core.
+  - name: Security and privacy report
+    url: https://github.com/omdsh-dev/dsh-accessibility/security/advisories/new
+    about: Privately report vulnerabilities, credentials exposure, or participant-data risks.
+  - name: Community conduct process
+    url: https://github.com/omdsh-dev/community/blob/main/CODE_OF_CONDUCT.md
+    about: Read the private reporting route for conduct incidents; do not file them publicly.

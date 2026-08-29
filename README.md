@@ -4,14 +4,18 @@ English | [简体中文](README.zh.md)
 
 An optional DeepSeek Harness companion that adds a Settings page with screen-reader operating guidance and semantic diagnostics. It intentionally uses DSH slots and does not patch or observe hashed DOM classes.
 
+This repository is also the public project hub of the [DSH Accessibility Working Group](https://github.com/omdsh-dev/community/blob/main/working-groups/accessibility.md). Its mission is to enable disabled developers to complete DSH's core tasks independently, effectively, and safely; help every developer produce more accessible digital content with DSH; and validate both goals with versioned standards, real assistive technology, and evidence from disabled users.
+
+Project links: [Accessibility statement](ACCESSIBILITY_STATEMENT.md) · [Roadmap](ROADMAP.md) · [Governance](GOVERNANCE.md) · [Research and evidence protocol](RESEARCH.md) · [Contributing](CONTRIBUTING.md)
+
 ## Compatibility
 
-The `0.1.0-beta.5` line targets `@deepseek-ai/dsh@0.1.1-rc.2` plus the accessibility core patch tracked in [upstream Discussion #4546](https://github.com/deepseek-ai/deepseek-harness/discussions/4546). The companion reports missing core semantics; it cannot safely replace focus traps, composite-widget keyboard behavior, landmarks, or live-region policy from outside the owning components.
+The `0.1.0-beta.6` line targets exactly the `@deepseek-ai/dsh@0.1.1-rc.2` client package line plus the accessibility core patch tracked in [upstream Discussion #4546](https://github.com/deepseek-ai/deepseek-harness/discussions/4546). Compatibility is deliberately version-scoped: a newer DSH release needs a fresh review before the peer range expands. The companion reports missing core semantics; it cannot safely replace focus traps, composite-widget keyboard behavior, landmarks, or live-region policy from outside the owning components.
 
 ## Install from npm
 
 ```sh
-dsh plugin --profile web add @oh-my-dsh/dsh-accessibility@0.1.0-beta.5
+dsh plugin --profile web add @oh-my-dsh/dsh-accessibility@0.1.0-beta.6
 dsh --profile web
 ```
 
@@ -23,7 +27,7 @@ cd deepseek-harness
 git checkout dsh-v0.1.1-rc.2-a11y.4
 pnpm install
 pnpm run build:official
-pnpm dsh plugin --profile web add @oh-my-dsh/dsh-accessibility@0.1.0-beta.5
+pnpm dsh plugin --profile web add @oh-my-dsh/dsh-accessibility@0.1.0-beta.6
 pnpm dsh web
 ```
 

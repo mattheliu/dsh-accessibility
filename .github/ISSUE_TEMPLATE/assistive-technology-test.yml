@@ -1,0 +1,65 @@
+name: Assistive-technology test result
+description: Submit a consented, sanitized VoiceOver, NVDA, JAWS, Narrator, Orca, braille, speech, switch, or other AT result.
+title: "[AT result]: "
+labels:
+  - at-test-result
+  - needs-at-verification
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Partial results are welcome. Submit one issue per product/browser/AT/language combination. Do not attach raw participant recordings or personal data.
+  - type: checkboxes
+    id: authority
+    attributes:
+      label: Consent and privacy
+      options:
+        - label: I am submitting my own result or have explicit permission to submit this de-identified result.
+          required: true
+        - label: I removed credentials, private prompts, conversations, usernames, personal data, and sensitive paths.
+          required: true
+        - label: I understand that this public result will be used only within the exact versions and scenarios recorded here.
+          required: true
+  - type: textarea
+    id: versions
+    attributes:
+      label: Exact test matrix row
+      placeholder: |
+        DSH tag/build:
+        Companion version:
+        OS and hardware/VM:
+        Browser:
+        Assistive technology and version:
+        UI and speech language:
+        Verbosity, punctuation, browse/focus mode, braille, or other relevant settings:
+    validations:
+      required: true
+  - type: textarea
+    id: scenarios
+    attributes:
+      label: Scenarios and results
+      description: For each scenario, record pass/fail/partial, task completion, focus destination, exact spoken or braille output where relevant, and workaround.
+    validations:
+      required: true
+  - type: textarea
+    id: blockers
+    attributes:
+      label: Blocking and high-impact findings
+      description: List the smallest reproducible barrier first. State whether a core task can still be completed independently.
+  - type: textarea
+    id: limitations
+    attributes:
+      label: Coverage and limitations
+      description: State what was not tested and anything that prevents generalizing this result.
+    validations:
+      required: true
+  - type: checkboxes
+    id: screenoff
+    attributes:
+      label: Optional confidence signals
+      options:
+        - label: I completed the main task without visually inspecting the screen.
+        - label: I repeated the critical path with keyboard only.
+        - label: I checked 200% or 400% zoom/reflow.
+        - label: I checked forced colors/high contrast or reduced motion.
+        - label: I checked braille output or another non-speech AT modality.

@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.1.0-beta.6 - 2026-08-29
+
+- Establish the DSH Accessibility Working Group project hub with bilingual governance, roadmap, accessibility statement, disabled-user research protocol, and contribution guidance.
+- Define versioned evidence levels and stable-release gates for automated review, real assistive-technology testing, and disabled-user validation.
+- Add structured bilingual issue forms, a pull-request evidence checklist, code ownership, labels, milestones, and an initial public work backlog.
+- Scope DSH client peer dependencies to the verified `0.1.1-rc.2` line instead of advertising untested compatibility through `<0.2.0`.
+
 ## 0.1.0-beta.5 - 2026-08-26
 
 - Expand the deterministic page audit from fourteen to seventeen checks with an application-heading contract, native/ARIA list ownership, and nested-interactive detection.
