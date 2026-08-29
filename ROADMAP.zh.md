@@ -2,7 +2,7 @@
 
 简体中文 | [English](ROADMAP.md)
 
-更新日期：2026-08-29。路线图由证据驱动，会根据上游兼容情况和辅助技术结果调整。只有链接了验收证据的事项才算完成；只有实现代码不算完成。
+更新日期：2026-08-30。路线图由证据驱动，会根据上游兼容情况和辅助技术结果调整。只有链接了验收证据的事项才算完成；只有实现代码不算完成。
 
 ## 当前基线
 
@@ -10,6 +10,7 @@
 - 已测试 DSH 基线：`@deepseek-ai/dsh@0.1.1-rc.2` 加 `dsh-v0.1.1-rc.2-a11y.4`。
 - 正在审查的上游开发线：`0.1.2-alpha.1`。
 - companion 确定性自检：17 项结构检查。
+- Accessible View MVP：已有实验性实现候选；自动评审进行中，真实 AT 与残障开发者证据待补。
 - Windows 和 Linux 的人工听读结果仍待补；完整 VoiceOver 实际朗读记录仍待补。
 
 ## 阶段 0——基础与上游兼容（截至 2026-09-12）
@@ -22,7 +23,7 @@
 
 ## 阶段 1——companion 与开发反馈闭环（截至 2026-10-10）
 
-- 通过增量式 `conversation.view` slot 构建 Accessible View MVP，使用 DSH 对话 projection，不抓取 DOM。
+- 完成 Accessible View MVP 评审：它已通过增量式 `conversation.view` slot 和 DSH 对话 projection 实现；隐私评审、组装浏览器证据、人工听读 VoiceOver／NVDA 和残障开发者任务证据齐备前，不把该项标为完成。
 - 增加上下文无障碍帮助、焦点／名称／角色／状态检查和脱敏报告导出。
 - 编写 `dsh-a11y-testkit` RFC；只有第一批可复用测试代码准备好后才创建仓库。
 - 完成一轮人工听读 VoiceOver 和一轮 Windows NVDA 验证，记录精确版本、语言、实际朗读、焦点结果和脱敏证据。
