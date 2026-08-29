@@ -1,0 +1,65 @@
+name: 辅助技术测试结果
+description: 提交经过同意和脱敏的 VoiceOver、NVDA、JAWS、Narrator、Orca、盲文、语音、开关控制或其他辅助技术结果。
+title: "[辅助技术结果]: "
+labels:
+  - at-test-result
+  - needs-at-verification
+body:
+  - type: markdown
+    attributes:
+      value: |
+        欢迎部分结果。每个产品／浏览器／辅助技术／语言组合单独提交一个 Issue。不要附加参与者原始录音或个人数据。
+  - type: checkboxes
+    id: authority
+    attributes:
+      label: 同意与隐私
+      options:
+        - label: 我提交的是自己的结果，或已获得提交此去标识化结果的明确许可。
+          required: true
+        - label: 我已移除凭据、私人提示词、对话、用户名、个人数据和敏感路径。
+          required: true
+        - label: 我理解此公开结果只适用于这里记录的精确版本和场景。
+          required: true
+  - type: textarea
+    id: versions
+    attributes:
+      label: 精确测试矩阵行
+      placeholder: |
+        DSH tag/build：
+        Companion 版本：
+        操作系统及物理设备／虚拟机：
+        浏览器：
+        辅助技术及版本：
+        UI 与语音语言：
+        详细度、标点、浏览／焦点模式、盲文或其他相关设置：
+    validations:
+      required: true
+  - type: textarea
+    id: scenarios
+    attributes:
+      label: 场景与结果
+      description: 每个场景记录通过／失败／部分通过、任务是否完成、焦点落点、相关时的精确语音或盲文输出，以及变通方式。
+    validations:
+      required: true
+  - type: textarea
+    id: blockers
+    attributes:
+      label: 阻断及高影响发现
+      description: 最小可复现障碍优先。请说明核心任务是否仍能独立完成。
+  - type: textarea
+    id: limitations
+    attributes:
+      label: 覆盖与限制
+      description: 说明未测试内容，以及任何使本结果不能推广的因素。
+    validations:
+      required: true
+  - type: checkboxes
+    id: screenoff
+    attributes:
+      label: 可选置信信号
+      options:
+        - label: 我在不目视检查屏幕的情况下完成了主要任务。
+        - label: 我使用纯键盘重复了关键路径。
+        - label: 我检查了 200% 或 400% 缩放／重排。
+        - label: 我检查了强制颜色／高对比或减少动态效果。
+        - label: 我检查了盲文输出或其他非语音辅助技术方式。
