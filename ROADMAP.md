@@ -18,7 +18,7 @@ Updated: 2026-08-30. This roadmap is evidence-driven and may change after upstre
 - Rebase or port the core candidate to the current `0.1.2-alpha.1` line, auditing overlapping upstream changes instead of mechanically replaying the old patch.
 - Freeze and document the rc.2 maintenance line; narrow package compatibility to versions actually tested.
 - Align npm installation guidance and distribution tags so unqualified installs cannot silently receive an older beta.
-- Add Firefox/WebKit assembled-browser coverage, forced-colors, 200%/400% reflow, focus-obscuration, and reduced-motion scenarios.
+- Expand the new versioned Chromium/Firefox/WebKit reflow, focus-obscuration, reduced-motion, and forced-color contract from Accessible View to every P0 Web task route; retain real zoom, Windows High Contrast, and low-vision checks as separately owned manual rows.
 - Publish the working-group charter, project governance, accessibility statement, research protocol, issue forms, evidence labels, and release gates.
 
 ## Phase 1 — companion and developer feedback loop (through 2026-10-10)

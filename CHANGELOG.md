@@ -7,6 +7,8 @@
 - Require separate disclosures for context, reasoning, tool arguments/output, command input, and raw errors; provide explicit per-message copy, pagination feedback, and focus restoration on clear.
 - Add bilingual privacy/threat review, versioned real-AT protocol, known limitations, registration/privacy/interaction tests, and idle/loaded axe-core gates.
 - Keep stable support and npm publication gated on assembled-browser, listener-verified VoiceOver/NVDA, privacy review, and disabled-developer task evidence.
+- Seed `dsh-non-at-browser/1.0.0-draft` with reusable browser assertions and exact-revision JSON evidence across Chromium, Firefox, and WebKit for 640/320 CSS px reflow, focus visibility/obscuration, reduced motion, and Chromium forced colors.
+- Prevent Accessible View controls from receiving keyboard focus underneath the sticky DSH composer at narrow reflow widths.
 
 ## 0.1.0-beta.6 - 2026-08-29
 

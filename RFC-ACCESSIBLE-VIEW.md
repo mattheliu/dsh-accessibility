@@ -50,6 +50,7 @@ Loading older history invokes the current session's existing `loadOlder()` privi
 - DSH's untrusted-Markdown renderer preserves GFM headings, lists, tables, links, code, and math while disabling raw HTML and unsafe protocols.
 - Exact tool output, command input, arguments, and errors render as preformatted code only after disclosure.
 - The load action moves focus to the title. Clear unmounts content and returns focus to Load. Disclosure buttons keep focus while changing `aria-expanded`.
+- Every view button includes the conversation shell's inherited composer height in its focus scroll margin, preventing keyboard focus from settling underneath the sticky composer at narrow reflow widths.
 - A polite, atomic status reports record count, response-in-progress state, copy result, pagination result, and recoverable failure. The transcript itself is not a token-by-token live region.
 - Current errors are announced generically; raw error text requires disclosure and is never placed in the live alert.
 - History loading exposes `aria-busy`; unavailable and removed-session states remain readable.
@@ -77,6 +78,7 @@ Public fixtures use synthetic markers only. Screenshots, logs, issue comments, a
 - Privacy tests proving the default clipboard projection excludes context, reasoning, tool material, and source metadata.
 - axe-core checks in idle and loaded states.
 - Typecheck, host/client build, package-content inspection, and assembled DSH browser tests on the exact supported line.
+- The versioned [non-AT browser contract](RFC-BROWSER-EVIDENCE.md) runs the assembled candidate in Chromium, Firefox, and WebKit at 640/320 CSS px and checks sampled focus obscuration, reduced motion, and Chromium forced-color participation.
 
 Automated evidence can reach only the project's `automated` evidence level. It does not prove spoken output, screen-reader browse-mode behavior, clipboard announcements, or independent task completion.
 

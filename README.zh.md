@@ -6,7 +6,7 @@
 
 本仓库也是 [DSH 无障碍工作组](https://github.com/omdsh-dev/community/blob/main/working-groups/accessibility.zh-CN.md)的公开项目中心。项目使命是：让残障开发者能够独立、有效、安全地完成 DSH 的核心任务；让 DSH 帮助所有开发者产出更无障碍的数字内容；并用版本化标准、真实辅助技术和残障用户证据持续验证。
 
-项目入口：[无障碍声明](ACCESSIBILITY_STATEMENT.zh.md) · [路线图](ROADMAP.zh.md) · [治理](GOVERNANCE.zh.md) · [研究与证据规程](RESEARCH.zh.md) · [Accessible View RFC](RFC-ACCESSIBLE-VIEW.zh.md) · [贡献指南](CONTRIBUTING.zh.md)
+项目入口：[无障碍声明](ACCESSIBILITY_STATEMENT.zh.md) · [路线图](ROADMAP.zh.md) · [治理](GOVERNANCE.zh.md) · [研究与证据规程](RESEARCH.zh.md) · [Accessible View RFC](RFC-ACCESSIBLE-VIEW.zh.md) · [浏览器证据 RFC](RFC-BROWSER-EVIDENCE.zh.md) · [贡献指南](CONTRIBUTING.zh.md)
 
 ## 兼容性
 
@@ -49,6 +49,8 @@ dsh --profile web
 只选择标签页不会保留对话内容。激活“加载阅读视图”后，DSH 的结构化会话快照才进入组件。随后可以按来源顺序阅读最终和正在生成的记录，保留 Markdown 与代码语义；上下文、推理、工具参数／输出、命令输入和错误详情都要分别主动展开；还可以逐条复制消息和加载更早历史。“清除阅读视图并返回”会卸载内容，并把焦点还给“加载”。
 
 MVP 仍以阅读为主。发送、停止、批准、编辑排队任务或使用专用工具控件时需返回 Chat。数据流、威胁评审、精确限制及 VoiceOver／NVDA 验证方式见 [RFC-ACCESSIBLE-VIEW.zh.md](RFC-ACCESSIBLE-VIEW.zh.md)。
+
+开发期组装门禁还会在 Chromium、Firefox 和 WebKit 中以 640／320 CSS px 运行候选，采样焦点控件是否被遮挡、审计减少动态效果，并检查 Chromium 强制颜色参与情况。这些是版本化确定性结果，不是真实缩放、Windows 高对比度、辅助技术或残障用户证据。详见 [RFC-BROWSER-EVIDENCE.zh.md](RFC-BROWSER-EVIDENCE.zh.md)。
 
 ## 自检范围
 

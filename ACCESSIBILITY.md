@@ -58,6 +58,7 @@ Record the browser, assistive-technology version, language, scenario, spoken res
 - Unit tests for names, references, landmarks, headings, list ownership, nested controls, menus, listboxes, trees, radio groups, tabs, dialogs, and separators.
 - axe-core regression for the rendered plugin settings surface.
 - Accessible View registration, unloaded-selector, focus lifecycle, delayed-sensitive-content, clipboard-projection, pagination, source-order, and idle/loaded axe-core tests.
+- Versioned `dsh-non-at-browser/1.0.0-draft` assembled evidence for Accessible View in Chromium, Firefox, and WebKit: 640/320 CSS px page reflow, sampled focus visibility/obscuration, reduced motion, and Chromium forced-color participation. Scope and limitations are defined in [RFC-BROWSER-EVIDENCE.md](RFC-BROWSER-EVIDENCE.md).
 - Cross-platform Node, type, unit, build, and package-content checks in GitHub Actions.
 - The patched core retains its component, GUI, production-build, and browser-replay suites.
 
