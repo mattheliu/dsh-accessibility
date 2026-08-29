@@ -2,7 +2,7 @@
 
 [English](README.md) | 简体中文
 
-这是 DeepSeek Harness 的可选无障碍 companion 插件：在设置中提供读屏操作说明和语义自检。它只使用 DSH 官方 slot，不修改或监听易变化的哈希 CSS 类名。
+这是 DeepSeek Harness 的可选无障碍 companion 插件：在设置中提供读屏操作说明和语义自检。当前源码还包含一个实验性的、受权限控制的静态 HTML 无障碍创作检查。它只使用 DSH 官方 slot，不修改或监听易变化的哈希 CSS 类名。
 
 本仓库也是 [DSH 无障碍工作组](https://github.com/omdsh-dev/community/blob/main/working-groups/accessibility.zh-CN.md)的公开项目中心。项目使命是：让残障开发者能够独立、有效、安全地完成 DSH 的核心任务；让 DSH 帮助所有开发者产出更无障碍的数字内容；并用版本化标准、真实辅助技术和残障用户证据持续验证。
 
@@ -50,6 +50,23 @@ dsh --profile web
 
 辅助技术矩阵、人工回归规程和支持边界见 [ACCESSIBILITY.zh.md](ACCESSIBILITY.zh.md)。
 
+## 实验性无障碍创作预览
+
+尚未发布的源码分支可以增加 Host 侧 `a11y_check` 工具。它默认关闭；只有 profile 同时启用并配置一个或多个明确根目录时，模型才能看到该工具。默认模式每次读取前都会请求批准：
+
+```yaml
+# 用户层 cordis.patch.yml
+- id: accessibility
+  config:
+    authoring:
+      enabled: true
+      access: approval
+      allowedRoots:
+        - ./examples/a11y-check
+```
+
+工具读取一份普通 UTF-8 HTML 文件，运行固定的离线 `html-validate@11.4.0` 配置，并返回 `1.0.0` 报告。它不能写文件、上传内容、使用项目提供的规则，也不能认证无障碍。模型解释和修复建议与检测分开；批准后的修改仍使用 DSH 常规 edit/write 工具。完整的[权限、威胁、结果与扩展 RFC](RFC-A11Y-CHECK.zh.md)和[合成样例流程](examples/a11y-check/README.zh.md)可供审阅。
+
 ## 检查
 
 ```sh
@@ -61,8 +78,8 @@ pnpm pack --pack-destination ./artifacts
 
 ## 模型体验
 
-本包不会增加模型可见的工具、提示词、消息或上下文，只改变本地 Web UI 的设置界面。
+默认配置下，本包不会增加模型可见的工具、提示词、消息或上下文。只有管理员用非空根目录显式启用创作功能时，才会增加 `a11y_check`；其规范结果会明确写出：已运行自动检查，但尚未运行辅助技术和残障用户验证。
 
 ## 安全与隐私
 
-自检只在内存中读取当前页面的语义属性，不读取对话文本、不发起网络请求，也不持久化结果。
+浏览器自检只在内存中读取当前页面的语义属性，不读取对话文本、不发起网络请求，也不持久化结果。可选 Host 创作检查只读取配置根目录内的规范化路径，默认逐次请求批准，执行字节上限，不联网、不修改文件，也不持久化结果。

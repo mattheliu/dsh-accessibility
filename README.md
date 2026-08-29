@@ -2,7 +2,7 @@
 
 English | [简体中文](README.zh.md)
 
-An optional DeepSeek Harness companion that adds a Settings page with screen-reader operating guidance and semantic diagnostics. It intentionally uses DSH slots and does not patch or observe hashed DOM classes.
+An optional DeepSeek Harness companion that adds a Settings page with screen-reader operating guidance and semantic diagnostics. The current source also contains an experimental, permissioned static-HTML authoring check. It intentionally uses DSH slots and does not patch or observe hashed DOM classes.
 
 This repository is also the public project hub of the [DSH Accessibility Working Group](https://github.com/omdsh-dev/community/blob/main/working-groups/accessibility.md). Its mission is to enable disabled developers to complete DSH's core tasks independently, effectively, and safely; help every developer produce more accessible digital content with DSH; and validate both goals with versioned standards, real assistive technology, and evidence from disabled users.
 
@@ -50,6 +50,23 @@ A passing result means that the mounted DOM satisfies these deterministic contra
 
 See [ACCESSIBILITY.md](ACCESSIBILITY.md) for the assistive-technology matrix, manual regression protocol, and support boundary.
 
+## Experimental accessible-authoring preview
+
+The unreleased source branch can add a Host-side `a11y_check` tool. It is disabled by default and does not appear to the model until a profile both enables it and supplies one or more explicit roots. The default mode asks before every read:
+
+```yaml
+# User-layer cordis.patch.yml
+- id: accessibility
+  config:
+    authoring:
+      enabled: true
+      access: approval
+      allowedRoots:
+        - ./examples/a11y-check
+```
+
+The tool reads one regular UTF-8 HTML file, runs the pinned offline `html-validate@11.4.0` configuration, and returns report schema `1.0.0`. It cannot write, upload, use project-supplied rules, or certify accessibility. Model explanations and repair suggestions are separate; approved changes use DSH's normal edit/write tools. See the complete [permission, threat, result, and extension RFC](RFC-A11Y-CHECK.md) and [synthetic workflow](examples/a11y-check/README.md).
+
 ## Checks
 
 ```sh
@@ -61,8 +78,8 @@ pnpm pack --pack-destination ./artifacts
 
 ## Model Experience
 
-This package adds no model-visible tools, prompts, messages, or context. It changes only the local Web UI settings surface.
+With the default configuration, this package adds no model-visible tools, prompts, messages, or context. When an administrator explicitly enables authoring with non-empty roots, it adds only `a11y_check`; the canonical result states that automated checking ran while assistive-technology and disabled-user validation did not.
 
 ## Security and privacy
 
-Diagnostics inspect the current document's semantic attributes in memory. They do not read conversation text, make network requests, or persist results.
+Browser diagnostics inspect the current document's semantic attributes in memory. They do not read conversation text, make network requests, or persist results. The optional Host authoring check reads only canonical paths inside configured roots, asks by default, applies a byte cap, performs no network or file mutation, and does not persist results.

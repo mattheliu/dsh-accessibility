@@ -2,7 +2,7 @@
 
 [简体中文](ROADMAP.zh.md) | English
 
-Updated: 2026-08-29. This roadmap is evidence-driven and may change after upstream compatibility or assistive-technology findings. An item is complete only when its acceptance evidence is linked; implementation alone is not completion.
+Updated: 2026-08-30. This roadmap is evidence-driven and may change after upstream compatibility or assistive-technology findings. An item is complete only when its acceptance evidence is linked; implementation alone is not completion.
 
 ## Current baseline
 
@@ -11,6 +11,7 @@ Updated: 2026-08-29. This roadmap is evidence-driven and may change after upstre
 - Upstream development line under review: `0.1.2-alpha.1`.
 - Deterministic companion audit: 17 structural checks.
 - Listener-verified Windows and Linux screen-reader results remain pending; complete VoiceOver spoken-output records remain pending.
+- Experimental authoring source: report schema `1.0.0`, `html-validate@11.4.0`, configuration `web-static-1`; public review, privacy review, real AT, and disabled-developer workflow evidence remain pending.
 
 ## Phase 0 — foundation and upstream compatibility (through 2026-09-12)
 
@@ -32,7 +33,8 @@ Updated: 2026-08-29. This roadmap is evidence-driven and may change after upstre
 - Validate JAWS, Narrator, Orca, keyboard-only, Windows forced colors, browser zoom/reflow, and at least one braille-display workflow.
 - Prototype external AT automation by reusing W3C ARIA-AT drivers where possible; keep manual task completion as a release gate.
 - Propose a DSH CLI accessibility profile: static numbered prompts, no spinner/cursor redraw, predictable text progress, no-color/high-contrast modes, and machine-readable output.
-- Write the permission and deterministic-engine design for an accessibility authoring tool (`a11y_check`) that helps DSH users produce accessible code without implying automated certification.
+- Review and harden the implemented permission and deterministic-engine RFC for `a11y_check`; add rendered-page and other source kinds only behind separate permission/evidence designs.
+- Validate the complete detect–explain–user-approved-repair–verify workflow with disabled developers before any stable authoring claim.
 
 ## Release gates
 
