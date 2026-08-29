@@ -6,7 +6,7 @@ An optional DeepSeek Harness companion for screen-reader guidance, semantic diag
 
 This repository is also the public project hub of the [DSH Accessibility Working Group](https://github.com/omdsh-dev/community/blob/main/working-groups/accessibility.md). Its mission is to enable disabled developers to complete DSH's core tasks independently, effectively, and safely; help every developer produce more accessible digital content with DSH; and validate both goals with versioned standards, real assistive technology, and evidence from disabled users.
 
-Project links: [Accessibility statement](ACCESSIBILITY_STATEMENT.md) · [Roadmap](ROADMAP.md) · [Governance](GOVERNANCE.md) · [Research and evidence protocol](RESEARCH.md) · [Accessible View RFC](RFC-ACCESSIBLE-VIEW.md) · [Contributing](CONTRIBUTING.md)
+Project links: [Accessibility statement](ACCESSIBILITY_STATEMENT.md) · [Roadmap](ROADMAP.md) · [Governance](GOVERNANCE.md) · [Research and evidence protocol](RESEARCH.md) · [Accessible View RFC](RFC-ACCESSIBLE-VIEW.md) · [Browser evidence RFC](RFC-BROWSER-EVIDENCE.md) · [Contributing](CONTRIBUTING.md)
 
 ## Compatibility
 
@@ -49,6 +49,8 @@ The current development branch also registers an experimental Accessible View th
 Selecting the tab alone does not retain conversation content. Activate **Load reading view** to admit DSH's structured session snapshot. The view then presents finalized and in-progress records in source order, preserves semantic Markdown and code, offers explicit disclosures for context, reasoning, tool arguments/output, command input, and errors, and supports per-message copy plus older-history loading. **Clear reading view and return** unmounts the content and restores focus to Load.
 
 This MVP remains read-oriented. Return to Chat to send, stop, approve, edit queued work, or use specialized tool controls. See [RFC-ACCESSIBLE-VIEW.md](RFC-ACCESSIBLE-VIEW.md) for the data-flow, threat review, exact limitations, and VoiceOver/NVDA validation procedure.
+
+The assembled development gate also runs the candidate in Chromium, Firefox, and WebKit at 640 and 320 CSS px, samples focused controls against occluding content, audits reduced-motion behavior, and checks Chromium forced-color participation. These are versioned deterministic results, not real zoom, Windows High Contrast, assistive-technology, or disabled-user evidence. See [RFC-BROWSER-EVIDENCE.md](RFC-BROWSER-EVIDENCE.md).
 
 ## Diagnostics and scope
 

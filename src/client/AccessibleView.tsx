@@ -45,6 +45,10 @@ const buttonStyle: CSSProperties = {
   background: 'var(--dsw-alias-bg-layer-2)',
   color: 'inherit',
   cursor: 'pointer',
+  // The conversation shell publishes its sticky composer height as an
+  // inherited custom property. Include that occluding region in the button's
+  // focus scroll area so keyboard focus never settles underneath the composer.
+  scrollMarginBlock: 'calc(var(--dsh-composer-height, 152px) + 24px)',
 }
 
 const messageListStyle: CSSProperties = {

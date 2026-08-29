@@ -58,6 +58,7 @@
 - 名称、引用、地标、标题、列表归属、嵌套控件、菜单、列表框、树、单选组、标签页、弹窗及分隔条单元测试。
 - 插件设置界面的 axe-core 回归。
 - Accessible View 注册、未加载选择器、焦点生命周期、敏感内容延迟挂载、剪贴板 projection、分页、来源顺序及空闲／加载 axe-core 测试。
+- Accessible View 的版本化 `dsh-non-at-browser/1.0.0-draft` 组装证据：在 Chromium、Firefox、WebKit 中检查 640／320 CSS px 页面重排、焦点可见／遮挡采样、减少动态效果及 Chromium 强制颜色参与情况。范围与限制见 [RFC-BROWSER-EVIDENCE.zh.md](RFC-BROWSER-EVIDENCE.zh.md)。
 - GitHub Actions 中的跨平台 Node、类型、单元、构建和包内容检查。
 - 补丁核心保留组件、GUI、生产构建及浏览器回放套件。
 

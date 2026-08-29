@@ -39,8 +39,11 @@
     "RESEARCH.zh.md",
     "RFC-ACCESSIBLE-VIEW.md",
     "RFC-ACCESSIBLE-VIEW.zh.md",
+    "RFC-BROWSER-EVIDENCE.md",
+    "RFC-BROWSER-EVIDENCE.zh.md",
     "scripts/run-assembled-browser.mjs",
     "scripts/assembled-browser.e2e.template.ts",
+    "scripts/browser-contract.e2e-helper.ts",
     "SECURITY.md",
     "LICENSE"
   ],

@@ -1,14 +1,21 @@
 /** External-plugin assembled browser evidence. Copied temporarily into DSH's Web test lane. */
 import { mkdir, mkdtemp, readFile, rm, symlink, writeFile } from 'node:fs/promises'
 import { createRequire } from 'node:module'
-import { tmpdir } from 'node:os'
+import { arch, platform, release, tmpdir } from 'node:os'
 import { dirname, join } from 'node:path'
-import type { Browser, BrowserContext, Page } from 'playwright'
-import { chromium } from 'playwright'
+import type { Browser, BrowserContext, BrowserType, Page } from 'playwright'
+import { chromium, firefox, webkit } from 'playwright'
 import { afterAll, beforeAll, describe, expect, it } from 'vitest'
 import {
   fixtureUserPrompts, launchWebScaffold, seedSession, type WebScaffold,
 } from './scaffold.ts'
+import {
+  NON_AT_BROWSER_PROTOCOL,
+  assertFocusNotObscured,
+  assertNoHorizontalPageOverflow,
+  inspectForcedColors,
+  inspectReducedMotion,
+} from './dsh-accessibility.browser-contract.helper.ts'
 
 interface AxeResult {
   violations: Array<{ id: string; impact: string | null; nodes: unknown[] }>
@@ -24,6 +31,17 @@ const pluginManifest = JSON.parse(await readFile(join(pluginRoot, 'package.json'
   version?: string
 }
 if (pluginManifest.name !== '@oh-my-dsh/dsh-accessibility') throw new Error('external package identity mismatch')
+
+type EvidenceBrowser = 'chromium' | 'firefox' | 'webkit'
+const browserTypes: Record<EvidenceBrowser, BrowserType> = { chromium, firefox, webkit }
+const evidenceBrowsers = (process.env.DSH_ACCESSIBILITY_BROWSERS ?? 'chromium')
+  .split(',').map(value => value.trim()).filter(Boolean)
+if (evidenceBrowsers.length === 0
+  || evidenceBrowsers.some(name => !(name in browserTypes))) {
+  throw new Error(`invalid DSH_ACCESSIBILITY_BROWSERS: ${String(process.env.DSH_ACCESSIBILITY_BROWSERS)}`)
+}
+const dshRevision = process.env.DSH_ACCESSIBILITY_DSH_REVISION ?? 'unavailable'
+const pluginRevision = process.env.DSH_ACCESSIBILITY_PLUGIN_REVISION ?? 'unavailable'
 
 const fixturePath = join(process.cwd(), 'apps/web/tests/snapshots/seeded-history/seed.jsonl')
 const fixture = await readFile(fixturePath, 'utf8')
@@ -160,4 +178,132 @@ describe('external dsh-accessibility Accessible View', () => {
       clipboardProjection: true,
     }, null, 2)}\n`)
   }, 120_000)
+})
+
+describe.each(evidenceBrowsers)('external non-AT browser contract: %s', (browserName) => {
+  const engine = browserName as EvidenceBrowser
+  let temporaryRoot: string
+  let scaffold: WebScaffold
+  let browser: Browser
+  let context: BrowserContext
+  let page: Page
+  const browserErrors: string[] = []
+
+  beforeAll(async () => {
+    temporaryRoot = await mkdtemp(join(tmpdir(), `dsh-non-at-${engine}-`))
+    const harnessHome = join(temporaryRoot, 'dsh-home')
+    const moduleLink = join(harnessHome, 'profiles', 'node_modules', '@oh-my-dsh', 'dsh-accessibility')
+    const overlayPath = join(temporaryRoot, 'accessibility.overlay.yml')
+    await mkdir(dirname(moduleLink), { recursive: true })
+    await symlink(pluginRoot, moduleLink, 'dir')
+    await writeFile(overlayPath, [
+      '- insert:',
+      `    - id: accessibility-non-at-${engine}`,
+      "      name: '@oh-my-dsh/dsh-accessibility'",
+      '',
+    ].join('\n'))
+
+    scaffold = await launchWebScaffold({ extraOverlayPath: overlayPath, harnessHome })
+    await seedSession(scaffold, fixture, `dsh-non-at-${engine}`)
+
+    browser = await browserTypes[engine].launch({ headless: true })
+    context = await browser.newContext({ viewport: { width: 1280, height: 900 }, locale: 'en-US' })
+    page = await context.newPage()
+    await page.emulateMedia({ reducedMotion: 'reduce' })
+    page.on('console', (message) => {
+      if (message.type() === 'error') browserErrors.push(message.text())
+    })
+    page.on('pageerror', error => browserErrors.push(error.message))
+    await page.goto(scaffold.baseUrl, { waitUntil: 'load' })
+  }, 180_000)
+
+  afterAll(async () => {
+    const failures: unknown[] = []
+    await context?.close().catch(error => failures.push(error))
+    await browser?.close().catch(error => failures.push(error))
+    await scaffold?.close().catch(error => failures.push(error))
+    await rm(temporaryRoot, { recursive: true, force: true }).catch(error => failures.push(error))
+    if (failures.length > 0) throw new AggregateError(failures, `${engine} non-AT cleanup failed`)
+  })
+
+  it('reflows and preserves focus, forced-color participation, and reduced motion', async () => {
+    const groupRow = page.locator('[role="treeitem"]').first()
+    await groupRow.waitFor({ state: 'visible', timeout: 30_000 })
+    await groupRow.click()
+    const sessionRow = page.locator('[role="treeitem"]').nth(1)
+    await sessionRow.waitFor({ state: 'visible', timeout: 15_000 })
+    await sessionRow.click()
+    await page.getByText(prompt, { exact: true }).waitFor({ state: 'visible', timeout: 20_000 })
+
+    const accessibleTab = page.getByRole('tab', { name: 'Accessible view' })
+    await accessibleTab.focus()
+    await accessibleTab.press('Enter')
+    const viewHeading = page.getByRole('heading', { level: 2, name: 'Accessible reading view' })
+    await viewHeading.waitFor({ state: 'visible' })
+    const viewRoot = viewHeading.locator('..')
+    const loadButton = page.getByRole('button', { name: 'Load reading view' })
+    await loadButton.focus()
+    await loadButton.press('Enter')
+    await page.getByText(prompt, { exact: true }).waitFor({ state: 'visible', timeout: 15_000 })
+
+    const viewportEvidence = []
+    for (const width of [640, 320]) {
+      await page.setViewportSize({ width, height: 900 })
+      await expect.poll(() => page.evaluate(() => window.innerWidth), { timeout: 5_000 }).toBe(width)
+      viewportEvidence.push(await assertNoHorizontalPageOverflow(page, `${engine}:${String(width)}csspx`))
+    }
+
+    const clearButton = page.getByRole('button', { name: 'Clear reading view and return' })
+    const copyButton = page.getByRole('button', {
+      name: /Copy visible message text from record \d+, Your message/u,
+    }).first()
+    const toolArticle = page.getByRole('article').filter({
+      has: page.getByText(/^Record \d+: Tool result$/u),
+    }).first()
+    const outputDisclosure = toolArticle.getByRole('button', { name: 'Show tool output' })
+    const focusEvidence = [
+      await assertFocusNotObscured(clearButton, `${engine}:clear@320`),
+      await assertFocusNotObscured(copyButton, `${engine}:copy@320`),
+      await assertFocusNotObscured(outputDisclosure, `${engine}:tool-disclosure@320`),
+    ]
+
+    await outputDisclosure.press('Enter')
+    await toolArticle.getByRole('button', { name: 'Hide tool output' }).waitFor({ state: 'visible' })
+    const reducedMotion = await inspectReducedMotion(viewRoot)
+
+    let forcedColors = null
+    if (engine === 'chromium') {
+      await page.emulateMedia({ reducedMotion: 'reduce', forcedColors: 'active' })
+      await expect.poll(() => page.evaluate(() => matchMedia('(forced-colors: active)').matches), {
+        timeout: 5_000,
+      }).toBe(true)
+      forcedColors = await inspectForcedColors(viewRoot)
+      focusEvidence.push(await assertFocusNotObscured(clearButton, 'chromium:clear@forced-colors'))
+    }
+
+    expect(browserErrors, `${engine} browser console errors: ${JSON.stringify(browserErrors)}`).toHaveLength(0)
+    process.stdout.write(`${JSON.stringify({
+      protocol: NON_AT_BROWSER_PROTOCOL,
+      evidence: 'assembled-browser-non-at',
+      standards: ['WCAG-2.2:1.4.10', 'WCAG-2.2:2.4.11', 'WCAG-2.2:2.3.3', 'CSS-COLOR-ADJUST-1'],
+      dsh: { version: '0.1.1-rc.2', revision: dshRevision },
+      plugin: { version: pluginManifest.version, revision: pluginRevision },
+      environment: {
+        os: platform(),
+        osRelease: release(),
+        architecture: arch(),
+        engine,
+        engineVersion: browser.version(),
+      },
+      viewportEvidence,
+      focusEvidence,
+      reducedMotion,
+      forcedColors,
+      limitations: [
+        'headless browser evidence, not assistive-technology or disabled-user evidence',
+        'forced colors is browser emulation, not a Windows High Contrast observation',
+        'focus sampling does not replace visual focus-indicator contrast review',
+      ],
+    }, null, 2)}\n`)
+  }, 180_000)
 })

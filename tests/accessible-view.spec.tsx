@@ -130,6 +130,10 @@ describe('AccessibleView', () => {
     expect(screen.queryByText('Private reasoning content')).toBeNull()
     expect(screen.queryByText('{"path":"/private/path"}')).toBeNull()
     expect(screen.queryByText('Private tool output')).toBeNull()
+    const copy = screen.getByRole('button', {
+      name: 'Copy visible message text from record 1, Your message',
+    }) as HTMLButtonElement
+    expect(copy.style.scrollMarginBlock).toContain('--dsh-composer-height')
 
     fireEvent.click(screen.getByRole('button', { name: 'Clear reading view and return' }))
     const restored = await screen.findByRole('button', { name: 'Load reading view' })
