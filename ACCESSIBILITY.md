@@ -12,6 +12,8 @@ This project targets operable, understandable DeepSeek Harness Web workflows for
 
 Installing this npm package into an unpatched official build adds diagnostics and guidance, but cannot replace missing core focus or composite-widget behavior.
 
+The development branch contains an experimental Accessible View candidate. Its automated component evidence is not yet an assistive-technology support claim and it is not present in the published `0.1.0-beta.6` package. See [RFC-ACCESSIBLE-VIEW.md](RFC-ACCESSIBLE-VIEW.md).
+
 ## Assistive-technology matrix
 
 | Platform | Browser | Assistive technology | Status |
@@ -44,6 +46,9 @@ This evidence verifies the real VoiceOver-enabled environment, browser mappings,
 10. Open feedback notes, traverse boundaries, submit or cancel, and verify returned focus.
 11. Exercise offline, reconnecting, loading, authentication-error, interrupted, and retried states.
 12. Repeat critical flows at 200% and 400% zoom and with reduced motion or forced colors enabled.
+13. Select Accessible View and prove conversation markers are absent before the explicit Load action; then load and verify focus moves to the view title.
+14. Navigate source-order records and semantic Markdown/code; inspect context, reasoning, tool arguments/output, command input, and errors through their separate disclosures without losing focus.
+15. Copy addressed messages, load older history through success and sanitized failure, clear the view, verify focus returns to Load, and confirm Chat source data is unchanged.
 
 Record the browser, assistive-technology version, language, scenario, spoken result, focus result, and pass/fail outcome. Do not convert an automated DOM pass into a manual assistive-technology pass.
 
@@ -52,6 +57,7 @@ Record the browser, assistive-technology version, language, scenario, spoken res
 - Seventeen deterministic semantic diagnostics in the installed settings page.
 - Unit tests for names, references, landmarks, headings, list ownership, nested controls, menus, listboxes, trees, radio groups, tabs, dialogs, and separators.
 - axe-core regression for the rendered plugin settings surface.
+- Accessible View registration, unloaded-selector, focus lifecycle, delayed-sensitive-content, clipboard-projection, pagination, source-order, and idle/loaded axe-core tests.
 - Cross-platform Node, type, unit, build, and package-content checks in GitHub Actions.
 - The patched core retains its component, GUI, production-build, and browser-replay suites.
 

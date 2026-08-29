@@ -1,5 +1,13 @@
 # Changelog
 
+## Unreleased
+
+- Add an experimental, user-loaded Accessible View through DSH's official `conversation.view` slot and structured session projection.
+- Preserve source-order conversation records and semantic Markdown/code, including an in-progress assistant record, without scraping or rewriting host DOM.
+- Require separate disclosures for context, reasoning, tool arguments/output, command input, and raw errors; provide explicit per-message copy, pagination feedback, and focus restoration on clear.
+- Add bilingual privacy/threat review, versioned real-AT protocol, known limitations, registration/privacy/interaction tests, and idle/loaded axe-core gates.
+- Keep stable support and npm publication gated on assembled-browser, listener-verified VoiceOver/NVDA, privacy review, and disabled-developer task evidence.
+
 ## 0.1.0-beta.6 - 2026-08-29
 
 - Establish the DSH Accessibility Working Group project hub with bilingual governance, roadmap, accessibility statement, disabled-user research protocol, and contribution guidance.

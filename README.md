@@ -2,11 +2,11 @@
 
 English | [简体中文](README.zh.md)
 
-An optional DeepSeek Harness companion that adds a Settings page with screen-reader operating guidance and semantic diagnostics. It intentionally uses DSH slots and does not patch or observe hashed DOM classes.
+An optional DeepSeek Harness companion for screen-reader guidance, semantic diagnostics, and an experimental user-loaded conversation reading view. It intentionally uses DSH slots and structured projections; it does not patch or observe hashed DOM classes.
 
 This repository is also the public project hub of the [DSH Accessibility Working Group](https://github.com/omdsh-dev/community/blob/main/working-groups/accessibility.md). Its mission is to enable disabled developers to complete DSH's core tasks independently, effectively, and safely; help every developer produce more accessible digital content with DSH; and validate both goals with versioned standards, real assistive technology, and evidence from disabled users.
 
-Project links: [Accessibility statement](ACCESSIBILITY_STATEMENT.md) · [Roadmap](ROADMAP.md) · [Governance](GOVERNANCE.md) · [Research and evidence protocol](RESEARCH.md) · [Contributing](CONTRIBUTING.md)
+Project links: [Accessibility statement](ACCESSIBILITY_STATEMENT.md) · [Roadmap](ROADMAP.md) · [Governance](GOVERNANCE.md) · [Research and evidence protocol](RESEARCH.md) · [Accessible View RFC](RFC-ACCESSIBLE-VIEW.md) · [Contributing](CONTRIBUTING.md)
 
 ## Compatibility
 
@@ -42,6 +42,14 @@ dsh --profile web
 
 Open Settings → Accessibility to run the current-page diagnostic and read the VoiceOver/NVDA/JAWS quick guide.
 
+## Accessible View candidate
+
+The current development branch also registers an experimental Accessible View through DSH's official `conversation.view` slot. It is not part of the published `0.1.0-beta.6` package and is not yet a stable-support claim.
+
+Selecting the tab alone does not retain conversation content. Activate **Load reading view** to admit DSH's structured session snapshot. The view then presents finalized and in-progress records in source order, preserves semantic Markdown and code, offers explicit disclosures for context, reasoning, tool arguments/output, command input, and errors, and supports per-message copy plus older-history loading. **Clear reading view and return** unmounts the content and restores focus to Load.
+
+This MVP remains read-oriented. Return to Chat to send, stop, approve, edit queued work, or use specialized tool controls. See [RFC-ACCESSIBLE-VIEW.md](RFC-ACCESSIBLE-VIEW.md) for the data-flow, threat review, exact limitations, and VoiceOver/NVDA validation procedure.
+
 ## Diagnostics and scope
 
 The page audit now runs 17 structural checks covering landmarks, the application heading, control names, image alternatives, list ownership, nested interactive controls, ARIA references, composer and log names, menus, listboxes, trees, radio groups, tab lists, dialogs, and adjustable separators. It recognizes the single-tab-stop/active-descendant patterns used by the patched DSH components and ignores static menu separators.
@@ -61,8 +69,8 @@ pnpm pack --pack-destination ./artifacts
 
 ## Model Experience
 
-This package adds no model-visible tools, prompts, messages, or context. It changes only the local Web UI settings surface.
+This branch adds no model-visible tools, prompts, messages, or context. It changes only local Web UI surfaces.
 
 ## Security and privacy
 
-Diagnostics inspect the current document's semantic attributes in memory. They do not read conversation text, make network requests, or persist results.
+Diagnostics inspect only the current document's semantic attributes in memory and never read conversation text. Accessible View reads the current structured conversation only after an explicit load action; sensitive technical sections require separate disclosure, and copying is a per-message system-clipboard action. Neither feature makes network requests, emits telemetry, or persists its own results or conversation copy.

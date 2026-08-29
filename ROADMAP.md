@@ -2,7 +2,7 @@
 
 [简体中文](ROADMAP.zh.md) | English
 
-Updated: 2026-08-29. This roadmap is evidence-driven and may change after upstream compatibility or assistive-technology findings. An item is complete only when its acceptance evidence is linked; implementation alone is not completion.
+Updated: 2026-08-30. This roadmap is evidence-driven and may change after upstream compatibility or assistive-technology findings. An item is complete only when its acceptance evidence is linked; implementation alone is not completion.
 
 ## Current baseline
 
@@ -10,6 +10,7 @@ Updated: 2026-08-29. This roadmap is evidence-driven and may change after upstre
 - Tested DSH baseline: `@deepseek-ai/dsh@0.1.1-rc.2` plus `dsh-v0.1.1-rc.2-a11y.4`.
 - Upstream development line under review: `0.1.2-alpha.1`.
 - Deterministic companion audit: 17 structural checks.
+- Accessible View MVP: experimental implementation candidate; automated review in progress, real AT and disabled-developer evidence pending.
 - Listener-verified Windows and Linux screen-reader results remain pending; complete VoiceOver spoken-output records remain pending.
 
 ## Phase 0 — foundation and upstream compatibility (through 2026-09-12)
@@ -22,7 +23,7 @@ Updated: 2026-08-29. This roadmap is evidence-driven and may change after upstre
 
 ## Phase 1 — companion and developer feedback loop (through 2026-10-10)
 
-- Build an Accessible View MVP through the additive `conversation.view` slot using the DSH conversation projection rather than DOM scraping.
+- Complete review of the Accessible View MVP built through the additive `conversation.view` slot and DSH conversation projection; require privacy review, assembled-browser evidence, listener-verified VoiceOver/NVDA, and disabled-developer task evidence before treating the item as complete.
 - Add contextual accessibility help, focus/name/role/state inspection, and a redacted report exporter.
 - Write the `dsh-a11y-testkit` RFC and create its repository only when the first reusable test code is ready.
 - Complete one listener-verified VoiceOver round and one Windows NVDA round with exact versions, language, spoken output, focus results, and sanitized evidence.
