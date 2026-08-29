@@ -24,6 +24,8 @@
     "cordis.patch.yml",
     "README.md",
     "README.zh.md",
+    "CORE-COMPATIBILITY.md",
+    "CORE-COMPATIBILITY.zh.md",
     "ACCESSIBILITY.md",
     "ACCESSIBILITY.zh.md",
     "ACCESSIBILITY_STATEMENT.md",

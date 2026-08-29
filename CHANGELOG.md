@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+- Add a bilingual, revision-pinned rc.2-to-alpha.1 core compatibility ledger that separates rebuilt behavior, automated-only evidence, and unverified deferred rows.
+- Keep the alpha.1 PR explicitly classified as a partial candidate; it does not replace the rc.2 maintenance build or expand the companion peer range.
+
 ## 0.1.0-beta.6 - 2026-08-29
 
 - Establish the DSH Accessibility Working Group project hub with bilingual governance, roadmap, accessibility statement, disabled-user research protocol, and contribution guidance.
