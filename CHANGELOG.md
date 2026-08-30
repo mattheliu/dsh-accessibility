@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Record nested shared-Modal inertness, the directory-browser create-folder path, the preserved Windows worker-pool failure, its deterministic isolation, and the final no-rerun 19-job evidence.
 - Add a bilingual, revision-pinned rc.2-to-alpha.1 core compatibility ledger that separates rebuilt behavior, automated-only evidence, and unverified deferred rows.
 - Record the rebuilt plugin inventory, JSON-tree, and subagent-lineage navigation slice with its final cross-platform evidence and complete failed-checkpoint history.
 - Record the shared-Modal image-lightbox rebuild, deterministic PowerShell coverage capability fix, final 19-job evidence, and complete superseded-checkpoint history.

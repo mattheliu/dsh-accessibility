@@ -13,14 +13,14 @@
 | rc.2 完整补丁范围无障碍候选 | `dsh-v0.1.1-rc.2-a11y.4`，commit `3064d99cdc9653327e774b7306b839395b24a272` | 维护参考；真实辅助技术证据仍不完整 |
 | 官方 alpha.1 源码 | `dsh-v0.1.2-alpha.1`，commit `cd5ef8148158c3a752a658978873241fdf8e2bbc` | 2026-08-30 的当前上游源码 HEAD；尚未发布到 npm |
 | fork 可移植性基线 | `073359c4d5a5b284d60dbc052f5aa370b4639892` | 官方 alpha.1 加 16 个 fork CI、测试和终端修复 |
-| alpha.1 部分无障碍候选 | PR [omdsh-dev/deepseek-harness#1](https://github.com/omdsh-dev/deepseek-harness/pull/1)，commit `36e991a27c9d5cc673b79503a9dccf130fda2083` | 最终自动化评审无需重跑 job 即通过；核心移植范围不完整 |
+| alpha.1 部分无障碍候选 | PR [omdsh-dev/deepseek-harness#1](https://github.com/omdsh-dev/deepseek-harness/pull/1)，commit `9dfe8b961bf65bb2502b90c66e331e7b81fe1791` | 对 Windows worker 生命周期测试做确定性隔离后，最终自动化评审通过；核心移植范围不完整 |
 | 已发布 companion | `@oh-my-dsh/dsh-accessibility@0.1.0-beta.6` | 仅精确匹配 rc.2 peer；2026-08-30 的 npm `beta` |
 
 companion 的 npm `latest` 仍指向 `0.1.0-beta.3`，安装时必须明确指定 `0.1.0-beta.6`。不得强行把 rc.2 companion 安装到 alpha.1：其 peer 范围和结构化客户端接口尚未针对该版本线完成审查。
 
 ## rc.2 到 alpha.1 的处置清单
 
-rc.2 候选在 alpha 之前的客户端中修改了 191 个路径。alpha.1 重组了 Web 客户端和测试 projection，因此文件路径相同不等于兼容。alpha.1 部分候选相对 fork 基线共修改 251 个路径，其中包括 140 个测试或快照路径。每项行为仍需明确处置。
+rc.2 候选在 alpha 之前的客户端中修改了 191 个路径。alpha.1 重组了 Web 客户端和测试 projection，因此文件路径相同不等于兼容。alpha.1 部分候选相对 fork 基线共修改 259 个路径，其中包括 141 个测试或快照路径。每项行为仍需明确处置。
 
 状态含义：
 
@@ -30,7 +30,7 @@ rc.2 候选在 alpha 之前的客户端中修改了 191 个路径。alpha.1 重�
 
 | rc.2 行为组 | alpha.1 处置 | 当前证据与剩余门禁 |
 | --- | --- | --- |
-| 共享弹窗的显式初始焦点、焦点约束、嵌套关闭、应用 inert 和已连接触发器焦点恢复 | 在 `Modal` 中**已重建并自动验证** | 聚焦组件测试、首次配置路径和组装图片灯箱键盘路径通过。越界的初始焦点引用会被拒绝；焦点从弹窗内不可 Tab 的标题起步时，Tab 会被确定性地重定向。VoiceOver／NVDA 朗读、虚拟光标约束和其余使用方工作流仍待验证。 |
+| 共享弹窗的显式初始焦点、焦点约束、嵌套关闭、应用 inert 和已连接触发器焦点恢复 | 在 `Modal` 中**已重建并自动验证** | 聚焦组件测试、首次配置路径、组装图片灯箱键盘路径和有状态嵌套弹窗路径通过。越界的初始焦点引用会被拒绝；焦点从弹窗内不可 Tab 的标题起步时，Tab 会被确定性地重定向；每个被覆盖弹窗都会变为 inert；只有最上层弹窗处理 Escape 或遮罩关闭；移除它后会恢复下一层弹窗及已连接触发器。VoiceOver／NVDA 朗读、虚拟光标约束和其余使用方工作流仍待验证。 |
 | 共享菜单按钮关系、方向键／Home／End／首字母导航、子菜单、Tab 退出和焦点返回 | 在 `Menu` 中**已重建并自动验证**；新增 Tooltip 触发器 ref 转发以适配 alpha.1 组合 | 组件和辅助功能树快照通过；真实辅助技术菜单播报及浏览器交互模式仍待验证。 |
 | 应用 `main`、唯一的本地化 H1、具名 Session 导航／详情地标、关闭 Details 排除和键盘可调分隔条 | 在 alpha.1 shell 中**已重建并自动验证** | 组件、组装树、重排和键盘检查通过；真实缩放、放大镜、开关、语音输入及真实辅助技术任务证据仍待补。 |
 | Context Meter disclosure 控制具名信息 region | **已重建并自动验证** | 组件和组装树证据通过；实际朗读的状态和关系仍待验证。 |
@@ -45,17 +45,20 @@ rc.2 候选在 alpha 之前的客户端中修改了 191 个路径。alpha.1 重�
 | 插件清单语义、JSON 树和子智能体 lineage 树 | 在插件清单、inspector `JsonTree` 与子智能体 lineage 责任组件中**已重建并自动验证** | 插件清单暴露状态摘要、完整行名称、精确 Loader ID 搜索优先级，并把装饰图标排除出语义树。JSON 与 lineage 树只暴露一个漫游入口，支持方向键／Home／End 与父子导航，可在折叠／删除后修复焦点，并排除禁用的 lineage 行。聚焦测试、91 文件组装快照和 Chromium／Firefox／WebKit 门禁均通过。精确层级朗读、盲文／虚拟光标操作、动态状态播报和残障开发者任务有效性仍待补。 |
 | 图片灯箱命名、受约束的关闭控件、隐式关闭、Escape 和触发器焦点恢复 | 通过共享 `Modal` **已重建并自动验证** | 组件与组装 Web 测试证明具名 dialog、焦点约束、遮罩／Escape 关闭、背景 inert 和已连接触发器焦点恢复。精确朗读、虚拟光标与盲文操作、放大图片理解和残障用户任务证据仍待补。 |
 | 欢迎与凭据首次配置弹窗 | 通过共享 `Modal` **已重建并自动验证** | 共享 Modal 是唯一的 inert 与焦点所有者。欢迎标题是显式初始目标，Tab 与 Shift+Tab 都会到达唯一操作；凭据字段保留表单自动聚焦。Escape／遮罩不能静默完成任一强制步骤，既有凭据写入／就绪流程仍有覆盖。精确朗读、错误播报、盲文／虚拟光标操作、凭据安全理解和残障开发者任务证据仍待补。 |
-| Workspace／目录弹窗及其他 Modal 使用方 | **待重新审计** | 每个剩余使用方都必须证明命名、初始焦点、关闭策略、焦点约束、inert 生命周期和焦点恢复，并避免重复管理焦点。 |
+| 目录浏览器与嵌套新建文件夹弹窗 | 通过共享 `Modal` **已重建并自动验证** | 父级浏览器具有名称，初始输入会获得焦点；打开新建文件夹子弹窗时，父级保持 inert，子级保持可操作。父级控件继续禁用，Escape 只关闭子级，焦点先返回子级触发器，随后父级恢复。精确朗读、虚拟光标／盲文操作、错误处理、路径安全理解和残障开发者任务证据仍待补。 |
+| Workspace 重命名／删除、目录错误弹窗及其他 Modal 使用方 | **待重新审计** | 每个剩余使用方都必须证明命名、初始焦点、关闭策略、破坏性操作防护、错误播报、焦点约束、inert 生命周期和焦点恢复，并避免重复管理焦点。 |
 | 主题文本对比度和非颜色状态提示 | **待重新审计** | rc.2 token 改动没有作为一组完成移植评审；需要自动对比度检查和两套主题下的低视力审查。 |
 | Linux／macOS／Windows 发布工作流和组装应用扫描 | **已替换为版本化确定性证据** | 候选 CI 的仓库矩阵和聚焦 Chromium／Firefox／WebKit 门禁均通过；这仍是 `a11y-automated-reviewed`，不是 `a11y-at-tested`。 |
 
 ## 候选证据
 
-GitHub Actions 测试的精确候选为 PR #1 的 `36e991a27c9d5cc673b79503a9dccf130fda2083`。[Actions run 33302223540](https://github.com/omdsh-dev/deepseek-harness/actions/runs/33302223540) 无需重跑 job 即最终成功，覆盖必需的无障碍浏览器矩阵、Node 22／24／26、Linux 与 Windows 穷尽覆盖率、Windows 构建／原生／观察性及 Wine 通道、Python 发布形态矩阵、包组装、快照和汇总状态。无障碍浏览器 job 为 [99232373910](https://github.com/omdsh-dev/deepseek-harness/actions/runs/33302223540/job/99232373910)，快照／产物 job 为 [99232373860](https://github.com/omdsh-dev/deepseek-harness/actions/runs/33302223540/job/99232373860)，Linux 覆盖率为 [99232373902](https://github.com/omdsh-dev/deepseek-harness/actions/runs/33302223540/job/99232373902)，Windows 覆盖率为 [99232373903](https://github.com/omdsh-dev/deepseek-harness/actions/runs/33302223540/job/99232373903)，Windows 原生测试为 [99232373968](https://github.com/omdsh-dev/deepseek-harness/actions/runs/33302223540/job/99232373968)，汇总 job 为 [99233767954](https://github.com/omdsh-dev/deepseek-harness/actions/runs/33302223540/job/99233767954)。
+GitHub Actions 测试的精确候选为 PR #1 的 `9dfe8b961bf65bb2502b90c66e331e7b81fe1791`。[Actions run 33304086558](https://github.com/omdsh-dev/deepseek-harness/actions/runs/33304086558) 无需重跑 job 即通过全部 19 个 job，覆盖必需的无障碍浏览器矩阵、Node 22／24／26、Linux 与 Windows 穷尽覆盖率、Windows 构建／原生／观察性及 Wine 通道、Python 发布形态矩阵、包组装、快照和汇总状态。无障碍浏览器 job 为 [99237469194](https://github.com/omdsh-dev/deepseek-harness/actions/runs/33304086558/job/99237469194)，快照／产物 job 为 [99237469214](https://github.com/omdsh-dev/deepseek-harness/actions/runs/33304086558/job/99237469214)，Linux 覆盖率为 [99237469275](https://github.com/omdsh-dev/deepseek-harness/actions/runs/33304086558/job/99237469275)，Windows 覆盖率为 [99237469260](https://github.com/omdsh-dev/deepseek-harness/actions/runs/33304086558/job/99237469260)，Windows 原生测试为 [99237469251](https://github.com/omdsh-dev/deepseek-harness/actions/runs/33304086558/job/99237469251)，汇总 job 为 [99238856435](https://github.com/omdsh-dev/deepseek-harness/actions/runs/33304086558/job/99238856435)。
 
-无障碍浏览器 job 中，Chromium 8 个场景全部通过；Firefox 通过 8 个场景中的 7 个，按能力边界跳过强制颜色场景；WebKit 同样通过 7 个并跳过 1 个。快照 job 的 91 个 Web 测试文件全部通过，320 个测试中 307 个通过、13 个按条件跳过；其中冷历史文件操作场景通过 12 个测试中的 11 个，跳过仅用于录制的 1 个。Linux 覆盖率通过 998 个文件中的 991 个、16,070 个测试中的 16,029 个，41 个测试按条件跳过；Windows 覆盖率通过 961 个文件中的 958 个、15,382 个测试中的 15,357 个，25 个测试按条件跳过。两个平台的语句、分支、函数和行覆盖率均为 100%。Windows 原生测试 5 个文件全部通过，69 个测试通过，1 个平台限定测试跳过。
+无障碍浏览器 job 中，Chromium 8 个场景全部通过；Firefox 通过 8 个场景中的 7 个，按能力边界跳过强制颜色场景；WebKit 同样通过 7 个并跳过 1 个。快照 job 的 91 个 Web 测试文件全部通过，320 个测试中 307 个通过、13 个按条件跳过；其中冷历史文件操作场景通过 12 个测试中的 11 个，跳过仅用于录制的 1 个。Linux 覆盖率通过 998 个文件中的 991 个、16,071 个测试中的 16,030 个，41 个测试按条件跳过；Windows 覆盖率通过 961 个文件中的 958 个、15,383 个测试中的 15,358 个，25 个测试按条件跳过。两个平台的语句、分支、函数和行覆盖率均为 100%。Windows 原生测试刻意把 worker 生命周期文件单独运行（54 个测试全部通过），再运行其余 4 个文件（15 个测试通过、1 个平台限定测试跳过），在不共享 fork 池的情况下保留 5 个文件、69 个通过、1 个跳过的相同总量。
 
 首次配置焦点检查点是独立的产品切片。commit `36e991a27c9d5cc673b79503a9dccf130fda2083` 为共享 `Modal` 增加受包含约束的显式初始焦点约定，修复从程序化聚焦的不可 Tab 标题出发时正向／反向 Tab 路由，并移除 `OnboardingModal` 重复的 inert 与焦点 effect。针对两个变更源文件的本地聚焦覆盖率在语句、分支、函数和行四项均为 100%；随后链接的原始 CI 无需重跑即通过全部 19 个 job。该自动化结果不能证明欢迎或凭据流程的精确读屏朗读、虚拟光标或盲文操作、凭据安全理解，也不能证明残障开发者能够独立完成任务。
+
+嵌套弹窗与目录浏览器检查点也保留完整 CI 历史。commit `de97e9811ab9ced184dee1fbf05365ab5843dea5` 让每个被覆盖的共享弹窗变为 inert，只允许最上层处理 Escape／遮罩关闭，并恢复下一层弹窗及已连接触发器；目录浏览器的新建文件夹路径证明子弹窗拥有焦点时，父级保持 inert 且其操作继续禁用。针对 `Modal` 与 `DirectoryBrowser` 的本地聚焦覆盖率在语句、分支、函数和行四项均为 100%。其原始 [run 33303729776](https://github.com/omdsh-dev/deepseek-harness/actions/runs/33303729776) 保留了一次 [Windows 原生测试失败](https://github.com/omdsh-dev/deepseek-harness/actions/runs/33303729776/job/99236449576)：4 个文件完成并有 59 个测试通过、1 个跳过，但运行生命周期文件的 fork worker 在 Vitest 产出该文件结果前退出。没有无障碍断言失败，也没有重跑该 job。commit `9dfe8b961bf65bb2502b90c66e331e7b81fe1791` 以单文件、单 worker 调用确定性隔离生命周期文件，再单独运行其余 4 个文件；链接的最终运行中，两次调用和仓库全部 job 均通过。这些证据不能证明真实读屏朗读、虚拟光标或盲文行为、路径安全理解、错误恢复，也不能证明残障开发者可以独立完成任务。
 
 图片灯箱检查点历史被完整保留，没有呈现成一路通过。commit `9e6fb95b93f224bff71dd3a6195d760170567129` 的 [run 33297847205](https://github.com/omdsh-dev/deepseek-harness/actions/runs/33297847205) 把该使用方重建到共享 `Modal` 上，但覆盖率发现附件测试把合成 Escape 派发到 `window`，而产品约定监听 `document`；组装快照还暴露了测试缺少侧栏搜索状态屏障。commit `ccc5736f649ee411c30f60cd58dc8d692e69d86c` 修正事件目标，并同时断言所属 frame 和搜索使用方状态。其 [run 33299180192](https://github.com/omdsh-dev/deepseek-harness/actions/runs/33299180192) 除 [Linux coverage 99223971430](https://github.com/omdsh-dev/deepseek-harness/actions/runs/33299180192/job/99223971430) 及依赖它的汇总外，其余独立 job 全部通过：所有真实 PowerShell 套件所在进程都观测到 `pwsh` 不可用并跳过，但稍后的覆盖率合并进程独立观测到可用，因而移除了对应源码豁免。commit `261182f4c988d35e03367bf5278346398b7ad143` 在所有分区、套件和合并之间固定同一个继承 PowerShell 能力事实，没有降低逐文件 100% 阈值。其 [run 33300378323](https://github.com/omdsh-dev/deepseek-harness/actions/runs/33300378323) 随后在静态 `knip` 门禁中暴露过期依赖和二进制忽略元数据，并在该直接失败后被后续提交取代和取消。最终提交只删除这些失效声明。上述失败 job 均未重跑，没有豁免任何断言或阈值，每项失败都可在链接运行历史中追溯。
 
