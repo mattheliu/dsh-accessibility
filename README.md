@@ -6,11 +6,13 @@ An optional DeepSeek Harness companion that adds a Settings page with screen-rea
 
 This repository is also the public project hub of the [DSH Accessibility Working Group](https://github.com/omdsh-dev/community/blob/main/working-groups/accessibility.md). Its mission is to enable disabled developers to complete DSH's core tasks independently, effectively, and safely; help every developer produce more accessible digital content with DSH; and validate both goals with versioned standards, real assistive technology, and evidence from disabled users.
 
-Project links: [Accessibility statement](ACCESSIBILITY_STATEMENT.md) · [Roadmap](ROADMAP.md) · [Governance](GOVERNANCE.md) · [Research and evidence protocol](RESEARCH.md) · [Contributing](CONTRIBUTING.md)
+Project links: [Accessibility statement](ACCESSIBILITY_STATEMENT.md) · [Core compatibility ledger](CORE-COMPATIBILITY.md) · [Roadmap](ROADMAP.md) · [Governance](GOVERNANCE.md) · [Research and evidence protocol](RESEARCH.md) · [Contributing](CONTRIBUTING.md)
 
 ## Compatibility
 
 The `0.1.0-beta.6` line targets exactly the `@deepseek-ai/dsh@0.1.1-rc.2` client package line plus the accessibility core patch tracked in [upstream Discussion #4546](https://github.com/deepseek-ai/deepseek-harness/discussions/4546). Compatibility is deliberately version-scoped: a newer DSH release needs a fresh review before the peer range expands. The companion reports missing core semantics; it cannot safely replace focus traps, composite-widget keyboard behavior, landmarks, or live-region policy from outside the owning components.
+
+The current alpha.1 core PR is a partial candidate, not a replacement or expanded support range. Its exact revisions, completed ports, deferred behavior groups, evidence, and rollback decision are recorded in [CORE-COMPATIBILITY.md](CORE-COMPATIBILITY.md).
 
 ## Install from npm
 

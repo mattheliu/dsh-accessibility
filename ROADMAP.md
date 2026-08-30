@@ -2,19 +2,19 @@
 
 [简体中文](ROADMAP.zh.md) | English
 
-Updated: 2026-08-29. This roadmap is evidence-driven and may change after upstream compatibility or assistive-technology findings. An item is complete only when its acceptance evidence is linked; implementation alone is not completion.
+Updated: 2026-08-30. This roadmap is evidence-driven and may change after upstream compatibility or assistive-technology findings. An item is complete only when its acceptance evidence is linked; implementation alone is not completion.
 
 ## Current baseline
 
 - Runtime companion release candidate: `@oh-my-dsh/dsh-accessibility@0.1.0-beta.6`.
 - Tested DSH baseline: `@deepseek-ai/dsh@0.1.1-rc.2` plus `dsh-v0.1.1-rc.2-a11y.4`.
-- Upstream development line under review: `0.1.2-alpha.1`.
+- Upstream development line under review: `0.1.2-alpha.1`; the current PR is a partial candidate with completed and deferred rows recorded in [CORE-COMPATIBILITY.md](CORE-COMPATIBILITY.md).
 - Deterministic companion audit: 17 structural checks.
 - Listener-verified Windows and Linux screen-reader results remain pending; complete VoiceOver spoken-output records remain pending.
 
 ## Phase 0 — foundation and upstream compatibility (through 2026-09-12)
 
-- Rebase or port the core candidate to the current `0.1.2-alpha.1` line, auditing overlapping upstream changes instead of mechanically replaying the old patch.
+- Complete every pending rc.2-to-alpha.1 behavior disposition in [CORE-COMPATIBILITY.md](CORE-COMPATIBILITY.md); keep the current partial candidate unmerged and unsupported as a replacement until the P0 rows and evidence gates pass.
 - Freeze and document the rc.2 maintenance line; narrow package compatibility to versions actually tested.
 - Align npm installation guidance and distribution tags so unqualified installs cannot silently receive an older beta.
 - Add Firefox/WebKit assembled-browser coverage, forced-colors, 200%/400% reflow, focus-obscuration, and reduced-motion scenarios.

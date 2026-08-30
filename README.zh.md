@@ -6,11 +6,13 @@
 
 本仓库也是 [DSH 无障碍工作组](https://github.com/omdsh-dev/community/blob/main/working-groups/accessibility.zh-CN.md)的公开项目中心。项目使命是：让残障开发者能够独立、有效、安全地完成 DSH 的核心任务；让 DSH 帮助所有开发者产出更无障碍的数字内容；并用版本化标准、真实辅助技术和残障用户证据持续验证。
 
-项目入口：[无障碍声明](ACCESSIBILITY_STATEMENT.zh.md) · [路线图](ROADMAP.zh.md) · [治理](GOVERNANCE.zh.md) · [研究与证据规程](RESEARCH.zh.md) · [贡献指南](CONTRIBUTING.zh.md)
+项目入口：[无障碍声明](ACCESSIBILITY_STATEMENT.zh.md) · [核心兼容性台账](CORE-COMPATIBILITY.zh.md) · [路线图](ROADMAP.zh.md) · [治理](GOVERNANCE.zh.md) · [研究与证据规程](RESEARCH.zh.md) · [贡献指南](CONTRIBUTING.zh.md)
 
 ## 兼容性
 
 `0.1.0-beta.6` 仅面向 `@deepseek-ai/dsh@0.1.1-rc.2` 对应的客户端软件包版本线及 [上游 Discussion #4546](https://github.com/deepseek-ai/deepseek-harness/discussions/4546) 跟踪的无障碍核心补丁。兼容性声明按版本收窄；DSH 发布新版本后，必须重新审查才能扩大 peer 范围。插件能报告核心语义缺失，但无法从外部可靠替代组件本身的焦点陷阱、复合控件键盘操作、页面地标或 live region 策略。
+
+当前 alpha.1 核心 PR 只是部分候选，不能替代既有构建或扩大支持范围。精确 revision、已完成移植、待处理行为组、证据和回滚决定见 [CORE-COMPATIBILITY.zh.md](CORE-COMPATIBILITY.zh.md)。
 
 ## 从 npm 安装
 

@@ -2,7 +2,7 @@
 
 [简体中文](ACCESSIBILITY_STATEMENT.zh.md) | English
 
-Last reviewed: 2026-08-29.
+Last reviewed: 2026-08-30.
 
 The DSH Accessibility Working Group wants disabled developers to complete DSH's core tasks independently, effectively, and safely, and wants DSH to help every developer produce more accessible digital content.
 
@@ -16,13 +16,14 @@ This statement covers the `@oh-my-dsh/dsh-accessibility` companion and the organ
 - The rc.2 accessibility candidate includes landmarks, named dialogs, focus containment and return, composite-widget keyboard patterns, conversation/log semantics, status announcements, and keyboard-adjustable separators.
 - Production-browser, component, build, and cross-platform automation evidence is available for the versioned candidate.
 - macOS Safari and Chrome accessibility-tree and keyboard routes have been exercised with VoiceOver enabled.
+- A partial alpha.1 core candidate has green deterministic component, assembled-browser, and cross-browser evidence for its implemented rows; its deferred rows are public in the [core compatibility ledger](CORE-COMPATIBILITY.md).
 
 ## Known limitations
 
 - Listener-verified complete spoken-output records are still pending for VoiceOver.
 - Physical Windows NVDA, JAWS, and Narrator results and Linux Orca results are still pending.
 - The current companion cannot repair missing core focus, keyboard, or announcement behavior and does not directly observe the operating system accessibility API or exact screen-reader speech.
-- The tested core candidate is based on DSH `0.1.1-rc.2`; upstream `0.1.2-alpha.1` requires a fresh compatibility audit.
+- The full-patch maintenance candidate remains based on DSH `0.1.1-rc.2`. The alpha.1 core candidate is partial and cannot replace that build or expand the companion peer range until every pending ledger row is resolved.
 - Forced-colors, 200%/400% reflow, braille display, speech recognition, switch access, and broader cognitive and low-vision scenarios are not yet complete.
 - Passing automated checks is not a statement that every disabled person can use every workflow.
 

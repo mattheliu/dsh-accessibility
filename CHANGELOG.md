@@ -1,5 +1,15 @@
 # Changelog
 
+## Unreleased
+
+- Record the WorkspacePicker adoption-error recovery slice, the preserved two-stage coverage/lint failure history, the final no-rerun 19-job alpha.1 evidence, and the newly published alpha.2 re-review boundary.
+- Record nested shared-Modal inertness, the directory-browser create-folder path, the preserved Windows worker-pool failure, its deterministic isolation, and the final no-rerun 19-job evidence.
+- Add a bilingual, revision-pinned rc.2-to-alpha.1 core compatibility ledger that separates rebuilt behavior, automated-only evidence, and unverified deferred rows.
+- Record the rebuilt plugin inventory, JSON-tree, and subagent-lineage navigation slice with its final cross-platform evidence and complete failed-checkpoint history.
+- Record the shared-Modal image-lightbox rebuild, deterministic PowerShell coverage capability fix, final 19-job evidence, and complete superseded-checkpoint history.
+- Record the onboarding handoff to shared Modal focus/inert ownership, explicit contained initial focus, deterministic Tab routing from the welcome heading, and its no-rerun 19-job evidence.
+- Keep the alpha.1 PR explicitly classified as a partial candidate; it does not replace the rc.2 maintenance build or expand the companion peer range.
+
 ## 0.1.0-beta.6 - 2026-08-29
 
 - Establish the DSH Accessibility Working Group project hub with bilingual governance, roadmap, accessibility statement, disabled-user research protocol, and contribution guidance.
