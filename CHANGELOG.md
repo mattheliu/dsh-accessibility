@@ -3,6 +3,7 @@
 ## Unreleased
 
 - Add a bilingual, revision-pinned rc.2-to-alpha.1 core compatibility ledger that separates rebuilt behavior, automated-only evidence, and unverified deferred rows.
+- Record the rebuilt plugin inventory, JSON-tree, and subagent-lineage navigation slice with its final cross-platform evidence and complete failed-checkpoint history.
 - Keep the alpha.1 PR explicitly classified as a partial candidate; it does not replace the rc.2 maintenance build or expand the companion peer range.
 
 ## 0.1.0-beta.6 - 2026-08-29
