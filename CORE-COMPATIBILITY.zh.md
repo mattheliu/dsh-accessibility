@@ -13,14 +13,14 @@
 | rc.2 完整补丁范围无障碍候选 | `dsh-v0.1.1-rc.2-a11y.4`，commit `3064d99cdc9653327e774b7306b839395b24a272` | 维护参考；真实辅助技术证据仍不完整 |
 | 官方 alpha.1 源码 | `dsh-v0.1.2-alpha.1`，commit `cd5ef8148158c3a752a658978873241fdf8e2bbc` | 2026-08-30 的当前上游源码 HEAD；尚未发布到 npm |
 | fork 可移植性基线 | `073359c4d5a5b284d60dbc052f5aa370b4639892` | 官方 alpha.1 加 16 个 fork CI、测试和终端修复 |
-| alpha.1 部分无障碍候选 | PR [omdsh-dev/deepseek-harness#1](https://github.com/omdsh-dev/deepseek-harness/pull/1)，commit `0f65b7f13b343c096f3e901889753c81feaa8155` | 自动化评审通过；核心移植范围不完整 |
+| alpha.1 部分无障碍候选 | PR [omdsh-dev/deepseek-harness#1](https://github.com/omdsh-dev/deepseek-harness/pull/1)，commit `a734cec0a00efdd18e6bd5286c7641f608c6311c` | 一次独立 Windows 覆盖率重跑后自动化评审通过；核心移植范围不完整 |
 | 已发布 companion | `@oh-my-dsh/dsh-accessibility@0.1.0-beta.6` | 仅精确匹配 rc.2 peer；2026-08-30 的 npm `beta` |
 
 companion 的 npm `latest` 仍指向 `0.1.0-beta.3`，安装时必须明确指定 `0.1.0-beta.6`。不得强行把 rc.2 companion 安装到 alpha.1：其 peer 范围和结构化客户端接口尚未针对该版本线完成审查。
 
 ## rc.2 到 alpha.1 的处置清单
 
-rc.2 候选在 alpha 之前的客户端中修改了 191 个路径。alpha.1 重组了 Web 客户端和测试 projection，因此文件路径相同不等于兼容。alpha.1 部分候选相对 fork 基线修改了 35 个客户端源码路径，并在总计 175 个变更路径中保留了 105 个测试或快照路径。每项行为仍需明确处置。
+rc.2 候选在 alpha 之前的客户端中修改了 191 个路径。alpha.1 重组了 Web 客户端和测试 projection，因此文件路径相同不等于兼容。alpha.1 部分候选相对 fork 基线修改了 39 个客户端源码路径，并在总计 187 个变更路径中保留了 109 个测试或快照路径。每项行为仍需明确处置。
 
 状态含义：
 
@@ -40,7 +40,7 @@ rc.2 候选在 alpha 之前的客户端中修改了 191 个路径。alpha.1 重�
 | 模型选择器、命令 combobox／listbox 和弹出项高亮 | 在模型位与命令弹窗责任组件中**已重建并自动验证** | 模型菜单具有单一触发器入口、边缘打开、面板导航与触发器焦点恢复。命令搜索通过 active descendant 拥有其 listbox，并通过实际执行的 binder 注入把焦点还给确切 composer。真实朗读／盲文输出和残障开发者任务证据仍待补。 |
 | Chat／Trajectory 标签页、Trajectory listbox／范围选择、ledger 键盘导航和详情分隔条 | 在 Chat 与 Trajectory 责任组件中**已重建并自动验证** | 具名且有归属的 tablist 只有一个漫游 Tab 停靠点，支持方向键／Home／End 并保持 panel 稳定。Trajectory active-descendant listbox 支持范围／全选和 Escape；虚拟 ledger 支持方向键／Home／End／Enter／Space；详情分隔条可用键盘调整。真实辅助技术朗读、盲文、虚拟光标操作及残障开发者任务证据仍待补。 |
 | 用户问题单选组／自定义输入和反馈说明焦点管理 | 在用户问题 composer 中**已重建并自动验证** | 具名单选组使用漫游方向键／Home／End，自定义答案具有可访问字段，现代输入组合路径与旧式 key code 229 下的焦点转换均保持稳定；取消、错误和恢复路径已有自动化证据。真实辅助技术朗读／盲文、错误播报行为和残障用户任务证据仍待补。 |
-| 对话 log 名称、用户／Assistant article、输入框名称和一次有界完成播报 | **待重新审计** | 尚无 alpha.1 处置记录；既要避免逐 token 实时朗读，也要让完成状态可发现。 |
+| 对话 log 名称、用户／Assistant article、输入框名称和一次有界完成播报 | 在 `ChatView`、`ChatNodeSeat` 与 `MessageItem` 中**已重建并自动验证** | 对话记录是具名非实时 log，并暴露运行状态；持久用户消息与 Assistant 步骤是具名 article。初始已稳定历史和流式分块保持静默，只在实际观察到运行转为空闲后创建一次原子 polite 状态。聚焦组件测试、91 文件组装快照和 Chromium／Firefox／WebKit 对话场景均通过。精确读屏朗读、盲文输出、长对话导航、中断行为和残障开发者任务证据仍待补。 |
 | 工具 disclosure、稳定朗读名称、独立文件链接、插件列表语义、JSON 树和子智能体 lineage 树 | **待重新审计** | 尚无 alpha.1 处置记录；工具批准、失败、破坏性操作理解和恢复需任务证据。 |
 | 图片灯箱、首次配置、Workspace／目录弹窗及其他 Modal 使用方 | **待重新审计** | 共享 Modal 已覆盖，但每个使用方都必须证明命名、初始焦点、关闭策略和焦点恢复。 |
 | 主题文本对比度和非颜色状态提示 | **待重新审计** | rc.2 token 改动没有作为一组完成移植评审；需要自动对比度检查和两套主题下的低视力审查。 |
@@ -48,9 +48,13 @@ rc.2 候选在 alpha 之前的客户端中修改了 191 个路径。alpha.1 重�
 
 ## 候选证据
 
-GitHub Actions 测试的精确候选为 PR #1 的 `0f65b7f13b343c096f3e901889753c81feaa8155`。[Actions run 33281137892，第 1 次 attempt](https://github.com/omdsh-dev/deepseek-harness/actions/runs/33281137892) 的每个 job 都通过：必需的无障碍浏览器矩阵、Node 22／24／26、Linux 与 Windows 穷尽覆盖率、Windows 构建／原生／观察性及 Wine 通道、Python 发布形态矩阵、包组装、快照和汇总状态。无障碍浏览器 job 为 [99176395484](https://github.com/omdsh-dev/deepseek-harness/actions/runs/33281137892/job/99176395484)，快照／产物 job 为 [99176395583](https://github.com/omdsh-dev/deepseek-harness/actions/runs/33281137892/job/99176395583)，Linux 覆盖率为 [99176395520](https://github.com/omdsh-dev/deepseek-harness/actions/runs/33281137892/job/99176395520)，Windows 覆盖率为 [99176395514](https://github.com/omdsh-dev/deepseek-harness/actions/runs/33281137892/job/99176395514)，Windows 原生测试为 [99176395543](https://github.com/omdsh-dev/deepseek-harness/actions/runs/33281137892/job/99176395543)，汇总 job 为 [99177724104](https://github.com/omdsh-dev/deepseek-harness/actions/runs/33281137892/job/99177724104)。Linux 覆盖率通过 996 个文件中的 989 个、16,057 个测试中的 16,016 个；Windows 覆盖率通过 959 个文件中的 956 个、15,369 个测试中的 15,344 个；两者的语句、分支、函数和行覆盖率均为 100%。
+GitHub Actions 测试的精确候选为 PR #1 的 `a734cec0a00efdd18e6bd5286c7641f608c6311c`。[Actions run 33285824826，第 2 次 attempt](https://github.com/omdsh-dev/deepseek-harness/actions/runs/33285824826) 最终成功，覆盖必需的无障碍浏览器矩阵、Node 22／24／26、Linux 与 Windows 穷尽覆盖率、Windows 构建／原生／观察性及 Wine 通道、Python 发布形态矩阵、包组装、快照和汇总状态。最终无障碍浏览器 job 为 [99191121382](https://github.com/omdsh-dev/deepseek-harness/actions/runs/33285824826/job/99191121382)，快照／产物 job 为 [99191106736](https://github.com/omdsh-dev/deepseek-harness/actions/runs/33285824826/job/99191106736)，Linux 覆盖率为 [99191122841](https://github.com/omdsh-dev/deepseek-harness/actions/runs/33285824826/job/99191122841)，Windows 覆盖率为 [99191106211](https://github.com/omdsh-dev/deepseek-harness/actions/runs/33285824826/job/99191106211)，Windows 原生测试为 [99191117211](https://github.com/omdsh-dev/deepseek-harness/actions/runs/33285824826/job/99191117211)，汇总 job 为 [99191107436](https://github.com/omdsh-dev/deepseek-harness/actions/runs/33285824826/job/99191107436)。
 
-验证历史被完整保留，没有改写成一路通过。早期 `ee2420bcf34a0932db682c3dc3d77fe126fe2358` 检查点之后，扩大范围的候选在 [run 33277553260](https://github.com/omdsh-dev/deepseek-harness/actions/runs/33277553260) 的 Windows 覆盖率中，第一次因两个过期 projection-cache 断言及一个凭据锁 `EPERM` 失败，重跑后仍在 turn-end 检查点出现一个过期值。重复结果定位出真实产品竞态：同一 session 的新旧 projection 写入可能不按调用顺序提交。commit `01d4eb8fce45e2643dfccb88ef451e69bbc1a91d` 对每个 session 的写入进行了串行化；其 [run 33279877992](https://github.com/omdsh-dev/deepseek-harness/actions/runs/33279877992) 的 Windows 原生测试和其他所有 job 均通过，但 Windows coverage 暴露出新顺序回归测试在重负载下仍依赖 5 秒文件系统轮询窗口。最终候选改为等待较新写入 Promise，作为确定性的队列屏障，同时让 spill 清理的相等边界测试比较文件系统实际保存的时间戳。没有放弃任何失败断言，最终 run 也没有重跑。
+无障碍浏览器 job 中，Chromium 7 个场景全部通过；Firefox 通过 7 个场景中的 6 个，按能力边界跳过强制颜色场景；WebKit 同样通过 6 个并跳过 1 个。快照 job 的 91 个 Web 测试文件全部通过，320 个测试中 307 个通过、13 个按条件跳过。Linux 覆盖率通过 996 个文件中的 989 个、16,059 个测试中的 16,018 个；Windows 覆盖率通过 959 个文件中的 956 个、15,371 个测试中的 15,346 个。两个平台的语句、分支、函数和行覆盖率均为 100%。
+
+当前运行历史被完整保留，没有改写成一路通过。第 1 次 attempt 唯一失败的是 [Windows 覆盖率 99188759858](https://github.com/omdsh-dev/deepseek-harness/actions/runs/33285824826/job/99188759858)：独立的 `SessionProjectionCache` 阈值测试在轮询窗口内读到 `null`，而不是预期 mark。其余 job 均通过，包括完整快照和跨浏览器无障碍门禁。只在全新 runner 上重跑一次失败 job，Windows 测试与上述覆盖率总数即通过。该断言没有被豁免，重跑历史仍属于证据边界。
+
+更早的验证历史同样保留。早期 `ee2420bcf34a0932db682c3dc3d77fe126fe2358` 检查点之后，扩大范围的候选在 [run 33277553260](https://github.com/omdsh-dev/deepseek-harness/actions/runs/33277553260) 的 Windows 覆盖率中，第一次因两个过期 projection-cache 断言及一个凭据锁 `EPERM` 失败，重跑后仍在 turn-end 检查点出现一个过期值。重复结果定位出真实产品竞态：同一 session 的新旧 projection 写入可能不按调用顺序提交。commit `01d4eb8fce45e2643dfccb88ef451e69bbc1a91d` 对每个 session 的写入进行了串行化；其 [run 33279877992](https://github.com/omdsh-dev/deepseek-harness/actions/runs/33279877992) 的 Windows 原生测试和其他所有 job 均通过，但 Windows coverage 暴露出新顺序回归测试在重负载下仍依赖 5 秒文件系统轮询窗口。`0f65b7f13b343c096f3e901889753c81feaa8155` 检查点改为等待较新写入 Promise，作为确定性的队列屏障，同时让 spill 清理的相等边界测试比较文件系统实际保存的时间戳。没有放弃任何失败断言，那个更早的检查点也不需要重跑。
 
 这些结果只为已经实现的行提供确定性的源码、构建、键盘、DOM、浏览器辅助功能树、重排等价、焦点几何、减少动态效果和强制颜色模拟证据。它们不能证明精确读屏朗读、盲文输出、目标实机操作系统无障碍 API 行为、独立任务完成、有效性、安全性或残障用户认可。
 
