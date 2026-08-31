@@ -1,6 +1,7 @@
 import { mkdtemp, readFile, rm, stat } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
+import { fileURLToPath } from 'node:url'
 import { spawnSync } from 'node:child_process'
 import { describe, expect, it } from 'vitest'
 import { DEFAULT_EVIDENCE_CATALOG } from '../scripts/evidence-catalog-lib.mjs'
@@ -8,6 +9,7 @@ import { createHumanEvidenceTemplate } from '../scripts/human-evidence-template-
 import { validateHumanEvidenceRecord } from '../scripts/human-evidence-lib.mjs'
 
 const cli = new URL('../scripts/create-human-evidence-template.mjs', import.meta.url)
+const cliPath = fileURLToPath(cli)
 const baseArguments = [
   '--protocol', 'dsh-core-at-lab/1.0.0-draft',
   '--tasks', 'representative-core',
@@ -88,7 +90,7 @@ describe('human-evidence template scaffolding', () => {
   })
 
   it('prints clean JSON to stdout while keeping the non-claim warning on stderr', () => {
-    const result = spawnSync(process.execPath, [cli.pathname, ...baseArguments], { encoding: 'utf8' })
+    const result = spawnSync(process.execPath, [cliPath, ...baseArguments], { encoding: 'utf8' })
     expect(result.status, result.stderr).toBe(0)
     expect(JSON.parse(result.stdout)).toMatchObject({
       recordType: 'template',
@@ -102,14 +104,14 @@ describe('human-evidence template scaffolding', () => {
     const temporaryRoot = await mkdtemp(join(tmpdir(), 'dsh-evidence-template-test-'))
     const output = join(temporaryRoot, 'draft.json')
     try {
-      const first = spawnSync(process.execPath, [cli.pathname, ...baseArguments, '--output', output], {
+      const first = spawnSync(process.execPath, [cliPath, ...baseArguments, '--output', output], {
         encoding: 'utf8',
       })
       expect(first.status, first.stderr).toBe(0)
       expect(JSON.parse(await readFile(output, 'utf8'))).toMatchObject({ claim: 'none' })
       if (process.platform !== 'win32') expect((await stat(output)).mode & 0o077).toBe(0)
 
-      const second = spawnSync(process.execPath, [cli.pathname, ...baseArguments, '--output', output], {
+      const second = spawnSync(process.execPath, [cliPath, ...baseArguments, '--output', output], {
         encoding: 'utf8',
       })
       expect(second.status).not.toBe(0)
