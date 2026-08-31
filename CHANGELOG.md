@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- Add a machine-readable primary human-validation campaign pinned to exact core and lab revisions, keep recruitment closed while public availability is stale, and define first-wave VoiceOver/Safari, NVDA/Chrome, and disabled-developer acceptance rows.
+- Require every support-claimed task to be independent and every declared AT modality to have a direct per-task human observation; require focus evidence for claimed Web tasks while preserving incomplete results with `claim: none`.
+- Extend every isolated Chrome/Chromium human lab to macOS, Windows, and Linux so NVDA, JAWS, Narrator, and Orca testers do not need to reuse a personal browser profile.
 - Extend `dsh-non-at-browser/1.0.0-draft` to the core DSH static P0 Web routes, add a fail-closed public schema, and archive an exact clean-revision three-engine report covering fourteen checks and nine cataloged tasks without promoting it to AT or disabled-user evidence.
 - Add a versioned six-package authoring publication-readiness graph and fail-closed reporter that distinguishes clean, independently installable npm sources from accessibility conformance or human evidence.
 - Replace publishable authoring manifests' source-local dependency protocols with exact prerelease versions, retain local development overrides outside the packed manifests, and add a disposable six-tarball installation/import gate.

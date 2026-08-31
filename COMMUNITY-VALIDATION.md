@@ -4,6 +4,8 @@
 
 Status: public participation guide. This guide does not itself create human evidence or a support claim.
 
+The exact first-wave candidate and availability blockers are tracked in the [primary AT campaign](PRIMARY-AT-CAMPAIGN.md). Do not recruit against that campaign while it is `prepared-not-open`.
+
 DSH needs two different kinds of human result: interoperability observations from people using real assistive technology, and task outcomes from disabled developers. The same person may contribute both, but the records answer different questions and must not be silently combined.
 
 ## Choose one route

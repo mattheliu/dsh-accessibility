@@ -1,0 +1,79 @@
+{
+  "$schema": "https://raw.githubusercontent.com/omdsh-dev/dsh-accessibility/main/PRIMARY-AT-CAMPAIGN.schema.json",
+  "protocol": "dsh-a11y-primary-at-campaign/0.1.0-draft",
+  "campaignId": "dsh-0.1.2-alpha.2-primary-at-2026-08-31",
+  "status": "prepared-not-open",
+  "preparedOn": "2026-08-31",
+  "candidate": {
+    "repository": "https://github.com/omdsh-dev/deepseek-harness",
+    "package": "@deepseek-ai/dsh",
+    "version": "0.1.2-alpha.2",
+    "revision": "5803bfcfdd502adac26ae9b8eec12d6aed263ec6"
+  },
+  "lab": {
+    "repository": "https://github.com/omdsh-dev/dsh-accessibility",
+    "package": "@oh-my-dsh/dsh-accessibility",
+    "version": "0.1.0-beta.6",
+    "revision": "6aed71615edd1db1ec5b12897e1ad40b79294c78"
+  },
+  "catalog": {
+    "protocol": "dsh-a11y-evidence-catalog/0.1.0-draft",
+    "catalogId": "dsh-accessibility-core-tasks-2026-08-31-r2"
+  },
+  "priorityRequirements": [
+    {
+      "requirementId": "voiceover-safari-core-web",
+      "scenarioProtocol": "dsh-core-at-lab/1.0.0-draft",
+      "taskSelector": "claim-eligible",
+      "environment": "Physical macOS, exact Safari, VoiceOver speech and keyboard; Chinese or English is one separate cohort.",
+      "intake": "https://github.com/omdsh-dev/dsh-accessibility/issues/2"
+    },
+    {
+      "requirementId": "nvda-chrome-core-web",
+      "scenarioProtocol": "dsh-core-at-lab/1.0.0-draft",
+      "taskSelector": "claim-eligible",
+      "environment": "Physical Windows, exact Chrome, NVDA speech and keyboard; Chinese or English is one separate cohort.",
+      "intake": "https://github.com/omdsh-dev/dsh-accessibility/issues/1"
+    },
+    {
+      "requirementId": "disabled-developer-core-web",
+      "scenarioProtocol": "dsh-core-at-lab/1.0.0-draft",
+      "taskSelector": "representative-core",
+      "environment": "One disabled developer, one exact environment, with only the access technologies actually used.",
+      "intake": "https://github.com/omdsh-dev/dsh-accessibility/issues/new?template=disabled-developer-task-result.yml"
+    }
+  ],
+  "availabilityGates": [
+    {
+      "id": "core-revision-public",
+      "status": "missing",
+      "detail": "The public accessibility-core branch does not yet contain candidate revision 5803bfcfdd502adac26ae9b8eec12d6aed263ec6."
+    },
+    {
+      "id": "lab-revision-public",
+      "status": "missing",
+      "detail": "The public lab branch does not yet contain lab revision 6aed71615edd1db1ec5b12897e1ad40b79294c78."
+    },
+    {
+      "id": "default-branch-intake",
+      "status": "missing",
+      "detail": "The default branch does not yet contain the AT and disabled-developer Issue forms or this campaign guide."
+    },
+    {
+      "id": "discussion-current",
+      "status": "missing",
+      "detail": "Discussion 16 still names the superseded 0.1.1-rc.2 candidate and must be updated before recruitment."
+    },
+    {
+      "id": "tracking-issues-current",
+      "status": "missing",
+      "detail": "Issues 1 and 2 still name the superseded 0.1.1-rc.2 candidate and must be updated before recruitment."
+    }
+  ],
+  "evidenceBoundary": [
+    "This manifest coordinates a future human campaign; it is not assistive-technology or disabled-user evidence.",
+    "The isolated Chrome smoke run proves lab readiness and cleanup only; it does not prove spoken, braille, focus, or task behavior.",
+    "The public human-evidence ledger contains zero human records when this campaign is prepared.",
+    "External recruitment must not begin until status is open and every availability gate is ready."
+  ]
+}
