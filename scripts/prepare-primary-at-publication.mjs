@@ -11,7 +11,7 @@ import {
 import { verifyPrimaryAtPublicReadiness } from './primary-at-public-readiness-lib.mjs'
 
 const execFileAsync = promisify(execFile)
-const argumentsValue = process.argv.slice(2)
+const argumentsValue = process.argv.slice(2).filter(argument => argument !== '--')
 const requireLocalReady = argumentsValue.includes('--require-local-ready')
 const positional = argumentsValue.filter(argument => argument !== '--require-local-ready')
 if (positional.length !== 1) {
