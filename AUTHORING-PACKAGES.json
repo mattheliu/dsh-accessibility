@@ -1,12 +1,18 @@
 {
   "$schema": "./AUTHORING-PACKAGES.schema.json",
-  "protocol": "dsh-a11y-authoring-package-readiness/0.1.0-draft",
+  "protocol": "dsh-a11y-authoring-package-readiness/0.1.1-draft",
   "packages": [
     {
       "directory": "dsh-a11y-testkit",
       "name": "@oh-my-dsh/dsh-a11y-testkit",
       "version": "0.1.0-alpha.0",
       "role": "bounded automated evidence engine",
+      "publication": {
+        "repository": "git+https://github.com/omdsh-dev/dsh-a11y-testkit.git",
+        "homepage": "https://github.com/omdsh-dev/dsh-a11y-testkit#readme",
+        "bugs": "https://github.com/omdsh-dev/dsh-a11y-testkit/issues",
+        "distTag": "alpha"
+      },
       "internalDependencies": {}
     },
     {
@@ -14,6 +20,12 @@
       "name": "@oh-my-dsh/dsh-a11y-authoring",
       "version": "0.1.0-alpha.0",
       "role": "model-visible read-only a11y_check adapter",
+      "publication": {
+        "repository": "git+https://github.com/omdsh-dev/dsh-a11y-authoring.git",
+        "homepage": "https://github.com/omdsh-dev/dsh-a11y-authoring#readme",
+        "bugs": "https://github.com/omdsh-dev/dsh-a11y-authoring/issues",
+        "distTag": "alpha"
+      },
       "internalDependencies": {
         "@oh-my-dsh/dsh-a11y-testkit": "0.1.0-alpha.0"
       }
@@ -23,6 +35,12 @@
       "name": "@oh-my-dsh/dsh-a11y-page-provider",
       "version": "0.1.0-alpha.0",
       "role": "caller-owned page capability provider",
+      "publication": {
+        "repository": "git+https://github.com/omdsh-dev/dsh-a11y-page-provider.git",
+        "homepage": "https://github.com/omdsh-dev/dsh-a11y-page-provider#readme",
+        "bugs": "https://github.com/omdsh-dev/dsh-a11y-page-provider/issues",
+        "distTag": "alpha"
+      },
       "internalDependencies": {
         "@oh-my-dsh/dsh-a11y-authoring": "0.1.0-alpha.0",
         "@oh-my-dsh/dsh-a11y-testkit": "0.1.0-alpha.0"
@@ -33,6 +51,12 @@
       "name": "@oh-my-dsh/dsh-a11y-loopback-provider",
       "version": "0.1.0-alpha.0",
       "role": "isolated literal-loopback page provider",
+      "publication": {
+        "repository": "git+https://github.com/omdsh-dev/dsh-a11y-loopback-provider.git",
+        "homepage": "https://github.com/omdsh-dev/dsh-a11y-loopback-provider#readme",
+        "bugs": "https://github.com/omdsh-dev/dsh-a11y-loopback-provider/issues",
+        "distTag": "alpha"
+      },
       "internalDependencies": {
         "@oh-my-dsh/dsh-a11y-authoring": "0.1.0-alpha.0",
         "@oh-my-dsh/dsh-a11y-testkit": "0.1.0-alpha.0"
@@ -43,6 +67,12 @@
       "name": "@oh-my-dsh/dsh-a11y-local-preview",
       "version": "0.1.0-alpha.0",
       "role": "installable disposable-loopback DSH composition",
+      "publication": {
+        "repository": "git+https://github.com/omdsh-dev/dsh-a11y-local-preview.git",
+        "homepage": "https://github.com/omdsh-dev/dsh-a11y-local-preview#readme",
+        "bugs": "https://github.com/omdsh-dev/dsh-a11y-local-preview/issues",
+        "distTag": "alpha"
+      },
       "internalDependencies": {
         "@oh-my-dsh/dsh-a11y-authoring": "0.1.0-alpha.0",
         "@oh-my-dsh/dsh-a11y-loopback-provider": "0.1.0-alpha.0"
@@ -53,6 +83,12 @@
       "name": "@oh-my-dsh/dsh-a11y-caller-page",
       "version": "0.1.0-alpha.0",
       "role": "trusted-host caller-owned-page composition",
+      "publication": {
+        "repository": "git+https://github.com/omdsh-dev/dsh-a11y-caller-page.git",
+        "homepage": "https://github.com/omdsh-dev/dsh-a11y-caller-page#readme",
+        "bugs": "https://github.com/omdsh-dev/dsh-a11y-caller-page/issues",
+        "distTag": "alpha"
+      },
       "internalDependencies": {
         "@oh-my-dsh/dsh-a11y-authoring": "0.1.0-alpha.0",
         "@oh-my-dsh/dsh-a11y-page-provider": "0.1.0-alpha.0",

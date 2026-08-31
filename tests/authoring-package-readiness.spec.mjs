@@ -5,7 +5,8 @@ import {
   AUTHORING_PACKAGE_READINESS_PROTOCOL,
   AUTHORING_PACKAGE_VERDICT_SCOPE,
   buildAuthoringPackageReadinessReport,
-  evaluateAuthoringPackageManifest
+  evaluateAuthoringPackageManifest,
+  normalizeGitHubRepositoryIdentity
 } from '../scripts/authoring-package-readiness-lib.mjs'
 
 const spec = {
@@ -13,6 +14,12 @@ const spec = {
   name: '@oh-my-dsh/dsh-a11y-example',
   version: '0.1.0-alpha.0',
   role: 'test fixture',
+  publication: {
+    repository: 'git+https://github.com/omdsh-dev/dsh-a11y-example.git',
+    homepage: 'https://github.com/omdsh-dev/dsh-a11y-example#readme',
+    bugs: 'https://github.com/omdsh-dev/dsh-a11y-example/issues',
+    distTag: 'alpha'
+  },
   internalDependencies: { '@oh-my-dsh/dsh-a11y-testkit': '0.1.0-alpha.0' }
 }
 
@@ -26,7 +33,7 @@ function publishableManifest() {
     repository: { type: 'git', url: 'git+https://github.com/omdsh-dev/dsh-a11y-example.git' },
     homepage: 'https://github.com/omdsh-dev/dsh-a11y-example#readme',
     bugs: { url: 'https://github.com/omdsh-dev/dsh-a11y-example/issues' },
-    publishConfig: { access: 'public' },
+    publishConfig: { access: 'public', tag: 'alpha' },
     engines: { node: '>=22' },
     packageManager: 'pnpm@11.7.0',
     files: ['README.md', 'README.zh.md', 'SECURITY.md', 'LICENSE'],
@@ -58,6 +65,30 @@ describe('authoring package publication readiness', () => {
     ]))
   })
 
+  it('rejects metadata drift and a prerelease that could occupy latest', () => {
+    const manifest = publishableManifest()
+    manifest.repository.url = 'git+https://github.com/example/wrong.git'
+    manifest.homepage = 'https://github.com/example/wrong#readme'
+    manifest.bugs.url = 'https://github.com/example/wrong/issues'
+    manifest.publishConfig.tag = 'latest'
+    expect(evaluateAuthoringPackageManifest(manifest, spec)).toEqual(expect.arrayContaining([
+      'metadata.repository-must-match-policy',
+      'metadata.homepage-must-match-policy',
+      'metadata.bugs-must-match-policy',
+      'publication.publishConfig-tag-must-match-policy'
+    ]))
+  })
+
+  it('matches HTTPS and SSH origins only to the exact policy repository', () => {
+    const expected = 'github.com/omdsh-dev/dsh-a11y-example'
+    expect(normalizeGitHubRepositoryIdentity(spec.publication.repository)).toBe(expected)
+    expect(normalizeGitHubRepositoryIdentity('https://github.com/omdsh-dev/dsh-a11y-example.git')).toBe(expected)
+    expect(normalizeGitHubRepositoryIdentity('git@github.com:omdsh-dev/dsh-a11y-example.git')).toBe(expected)
+    expect(normalizeGitHubRepositoryIdentity('ssh://git@github.com/omdsh-dev/dsh-a11y-example.git')).toBe(expected)
+    expect(normalizeGitHubRepositoryIdentity('git@github.com:omdsh-dev/wrong.git')).not.toBe(expected)
+    expect(normalizeGitHubRepositoryIdentity('https://example.com/omdsh-dev/dsh-a11y-example.git')).toBeNull()
+  })
+
   it('keeps publication readiness separate from accessibility claims', () => {
     const report = buildAuthoringPackageReadinessReport(
       { protocol: AUTHORING_PACKAGE_READINESS_PROTOCOL },
@@ -80,6 +111,12 @@ describe('authoring package publication readiness', () => {
     const known = new Set(policy.packages.map(item => item.name))
     for (const item of policy.packages) {
       expect(Object.keys(item.internalDependencies).every(name => known.has(name))).toBe(true)
+      expect(item.publication).toEqual({
+        repository: `git+https://github.com/omdsh-dev/${item.directory}.git`,
+        homepage: `https://github.com/omdsh-dev/${item.directory}#readme`,
+        bugs: `https://github.com/omdsh-dev/${item.directory}/issues`,
+        distTag: 'alpha'
+      })
     }
   })
 })
