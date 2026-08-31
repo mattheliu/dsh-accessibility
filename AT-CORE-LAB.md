@@ -39,14 +39,18 @@ pnpm run lab:at:core ../deepseek-harness none
 # Open the system default browser on macOS, Windows, or Linux.
 pnpm run lab:at:core ../deepseek-harness system
 
-# Open the installed Safari or Google Chrome on macOS.
+# Open Safari on macOS. This can reuse its existing browser context, so use a
+# dedicated clean profile and stop immediately if any personal UI appears.
 pnpm run lab:at:core ../deepseek-harness safari
+
+# Open Google Chrome on macOS with a fresh temporary profile. Background
+# networking is disabled and non-loopback host resolution is blocked.
 pnpm run lab:at:core ../deepseek-harness chrome
 ```
 
-The launcher prints a versioned JSON readiness record with the exact DSH revision and operating-system information. It prints the temporary one-use sign-in URL separately: use it locally, but do not paste it into a public result. It creates no screenshot, recording, upload, or public artifact.
+The launcher prints a versioned JSON readiness record with the exact DSH revision, operating-system information, and browser-context isolation. It prints the temporary one-use sign-in URL separately: use it locally, but do not paste it into a public result. It creates no screenshot, recording, upload, or public artifact. The `chrome` mode is the safest local default because it never opens the tester's ordinary Chrome profile; `system` and `safari` may reuse an existing browser context and therefore require a dedicated clean profile.
 
-Return to the terminal and press Ctrl+C to request cleanup. The launcher then removes its disposable DSH home, Session persistence, and workspace. Close the now-inactive browser tab manually. A forcibly killed process may leave only its printed `dsh-core-at-lab-...` directory under the operating system's temporary directory; inspect and move that exact directory to Trash rather than deleting a broad temporary path.
+Return to the terminal and press Ctrl+C to request cleanup. The launcher then closes an isolated Chrome process and removes its temporary profile, disposable DSH home, Session persistence, and workspace. Close a now-inactive `system` or `safari` tab manually. A forcibly killed process may leave only its printed `dsh-core-at-lab-...` directory under the operating system's temporary directory; inspect and move that exact directory to Trash rather than deleting a broad temporary path.
 
 For an automated startup-and-cleanup smoke check only:
 
@@ -114,6 +118,7 @@ Submit one public result per OS/browser/AT/language combination through the assi
 ## Privacy and safety
 
 - Never use a normal DSH home, real workspace, API key, prompt, conversation, username, or private path.
+- Prefer `chrome` for its disposable browser profile. Use `system` or `safari` only with a dedicated clean profile, and stop before testing if personal tabs, history, bookmarks, accounts, extensions, or autofill surfaces appear.
 - Do not publish the one-use local sign-in URL or raw speech history. Do not publish screen/audio recordings, logs, screenshots, or braille output without reviewing every frame or line and obtaining consent from identifiable participants.
 - Stop if the browser opens a non-local URL, an unexpected account/profile surface appears, or synthetic content cannot be distinguished from personal data.
 - Lab output is local test metadata. It must not be uploaded automatically or used to claim whole-product accessibility.
