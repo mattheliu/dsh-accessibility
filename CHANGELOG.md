@@ -14,6 +14,9 @@
 - Add a six-scenario live-announcement AT lab for completed, stopped, failed, question, plan-review, and approval transitions, with finite replay inputs and explicit Host-versus-human evidence boundaries.
 - Add the draft `dsh-cli-accessibility/1.0.0-draft` protocol, an exact product-entry conformance runner, and a disposable manual terminal lab that never promotes launcher output into AT evidence.
 - Add the bilingual deterministic-authoring RFC and establish the first standalone local `dsh-a11y-testkit/0.1.0-draft` implementation with bounded, privacy-minimized browser reports.
+- Establish the first standalone local `dsh-a11y-authoring/0.1.0-draft` adapter with one read-only `a11y_check` tool, opaque provider handles, strict report canonicalization, and real DSH `ToolRuntime` integration tests; concrete page-provider and human evidence remain separate gates.
+- Add a standalone caller-owned-page provider that retains only the audit capability surface, maps exact pre-registered handles without navigation or browser-lifecycle authority, and verifies the full testkit-to-provider-to-`a11y_check` chain in real Chromium and the published DSH `ToolRuntime`.
+- Make package builds remove stale generated declarations before compiling so removed experimental APIs cannot survive in an npm artifact.
 
 ## 0.1.0-beta.6 - 2026-08-29
 

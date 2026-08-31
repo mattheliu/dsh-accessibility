@@ -4,6 +4,8 @@
 
 Status: draft. Protocols: `dsh-a11y-testkit/0.1.0-draft` and `dsh-a11y-authoring/0.1.0-draft`.
 
+Implementation status: three private local prototypes now implement the deterministic testkit, a caller-owned-page provider, and the read-only DSH adapter. Their no-navigation chain is assembled against real Chromium and the published `0.1.2-alpha.2` DSH `ToolRuntime`; production composition, remote publication, real assistive-technology evidence, and disabled-author task evidence remain open release gates.
+
 ## Problem
 
 DSH should help authors find and repair accessibility barriers without claiming that an automated scan proves WCAG conformance. The implementation must also remain usable by disabled developers, avoid silently reading or publishing sensitive product content, and preserve DSH's existing filesystem, network, sandbox, and approval boundaries.
@@ -19,17 +21,18 @@ The first release must:
 - distinguish detected failures from items needing human review;
 - omit page HTML, screenshots, cookies, credentials, and response bodies from the report by default;
 - let local tests and CI consume the same engine without loading a DSH runtime;
-- let a future model-visible `a11y_check` adapter request the scan without acquiring mutation authority; and
+- let an opt-in model-visible `a11y_check` adapter request the scan without acquiring mutation authority; and
 - preserve enough location information for an author to find a problem while warning that selectors may contain project data.
 
 It does not certify a page, site, application, organization, or release; replace manual keyboard, screen-reader, low-vision, cognitive, speech, switch, or disabled-user evaluation; judge whether alternative text is contextually appropriate; or silently repair source code.
 
-## Three release and trust boundaries
+## Four release and trust boundaries
 
 | Boundary | Responsibility | Authority | Distribution |
 | --- | --- | --- | --- |
 | Deterministic engine | Normalize provider results into a stable report and enforce evidence wording | Pure data transformation; no filesystem, browser, network, clipboard, or process access | Small library owned by the testkit |
-| `dsh-a11y-testkit` | Start or receive an isolated browser page, run pinned deterministic providers, and emit the versioned report | Development/CI process; no DSH model tools | Separate development dependency and CLI |
+| `dsh-a11y-testkit` | Receive a caller-owned browser page, run pinned deterministic providers, and emit the versioned report | Development/CI process; no DSH model tools | Separate development dependency |
+| Caller-owned-page provider | Map an exact pre-registered opaque handle to only the testkit's injection/evaluation page surface; bound waiting, cancellation, revocation, and concurrency | No discovery, creation, navigation, URL read, authentication, screenshot, HTML serialization, download, close, filesystem, or process authority | Separate opt-in provider package |
 | `a11y_check` adapter | Expose a bounded read-only scan to a DSH agent and render actionable findings | Existing DSH tool policy plus explicit browser/network approval; no write method | Separate opt-in DSH plugin |
 
 The runtime companion remains responsible for DSH's own diagnostics and accessible UI. It must not gain general browser automation, workspace scanning, or model-visible tools merely because it hosts the program documentation.
@@ -63,15 +66,21 @@ The library accepts a Playwright-compatible page that the caller already owns. I
 
 A later CLI may navigate only to loopback HTTP(S) by default. Remote origins, custom headers, persisted browser profiles, authentication state, cross-origin resource access, downloads, pop-ups, and service workers require explicit design and approval. A CLI or adapter must use a new temporary browser profile, bound time and output, close all contexts, and never print a signed URL.
 
+## Caller-owned-page provider boundary
+
+The initial private provider accepts a page created and owned by a trusted host and retains a new wrapper containing only `addScriptTag` and `evaluate`. The host registers one exact opaque handle and an explicitly model-visible subject label. The provider does not enumerate targets to the model, inspect extra page methods, read a URL, or close the page. It permits one audit per handle at a time, rejects unknown and duplicate handles without revealing the registry, bounds model-visible waiting, and propagates caller cancellation and registration revocation.
+
+Because this provider deliberately cannot close a caller-owned page, a timed-out or cancelled underlying evaluation may continue until the page or operation settles. The handle remains busy for that actual lifetime, and the host retains responsibility for stronger cancellation and page cleanup. A future provider that creates pages or navigates loopback origins is a separate authority expansion and requires its own threat model and lifecycle evidence.
+
 ## Model-visible `a11y_check` boundary
 
-The future opt-in tool has one responsibility: request a scan and return the bounded report plus repair guidance. It does not edit files. Source changes continue through DSH's existing read/edit tools, sandbox policy, observed-version checks, diff presentation, and user approvals.
+The initial private opt-in tool implementation has one responsibility: request a scan and return the bounded report plus repair guidance. It does not edit files. Source changes continue through DSH's existing read/edit tools, sandbox policy, observed-version checks, diff presentation, and user approvals. The local caller-owned-page provider now exercises this boundary in an assembled test, but it is not yet a production DSH composition.
 
-The minimum call identifies a caller-owned local page handle or loopback URL and an optional standards/rule selection. The adapter must:
+The minimum call identifies an exact caller-owned opaque page handle and an optional subtree selector. The model never supplies a URL. A future separately approved provider may map a host-created handle to an approved loopback page. The adapter must:
 
 1. resolve the target through an injected browser-audit service rather than importing a concrete browser or filesystem backend;
 2. fail closed if no compatible isolated provider is mounted;
-3. reject credentials in URLs, arbitrary request headers, cookies, filesystem URLs, `data:` URLs, and non-loopback navigation unless a separately advertised approval path exists;
+3. reject URLs and filesystem paths at the tool boundary; any future provider mapping must separately reject credentials, arbitrary request headers, cookies, file and `data:` URLs, and non-loopback navigation unless an explicit approval path exists;
 4. propagate cancellation and enforce configured time, page, finding, node, and byte caps;
 5. return provider failures as tool errors without converting them into a clean report;
 6. label every automated outcome and limitation in model-visible text; and
@@ -100,6 +109,6 @@ Stable authoring support still requires disabled developers to use the complete 
 1. Publish the pure report contract and the first page-audit testkit as an experimental development package.
 2. Migrate the companion's assembled-browser assertions to consume the testkit without changing their evidence scope.
 3. Add a loopback-only CLI after navigation and cleanup policy tests exist.
-4. Implement the opt-in `a11y_check` DSH adapter against an injected audit service, not directly against Playwright.
+4. Review the implemented private caller-owned-page provider and assembled `a11y_check` chain, then integrate it through an injected audit service rather than a direct Playwright dependency in the product composition.
 5. Validate report reading and repair with VoiceOver and NVDA, then with disabled developers completing representative authoring tasks.
 6. Expand beyond rendered Web pages only through separately versioned rules, evidence, and permission reviews.

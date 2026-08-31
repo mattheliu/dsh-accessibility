@@ -107,7 +107,8 @@
   },
   "packageManager": "pnpm@11.7.0",
   "scripts": {
-    "build": "tsc -p tsconfig.host.json && tsc -p tsconfig.client.json && tsdown --config tsdown.config.ts",
+    "clean": "node scripts/clean.mjs",
+    "build": "pnpm run clean && tsc -p tsconfig.host.json && tsc -p tsconfig.client.json && tsdown --config tsdown.config.ts",
     "prepare": "pnpm run build",
     "prepack": "pnpm run build",
     "typecheck": "tsc -p tsconfig.host.json --noEmit && tsc -p tsconfig.client.json --noEmit",

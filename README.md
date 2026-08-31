@@ -66,7 +66,7 @@ The `0.1.2-alpha.2` development line adds an explicit low-noise headless present
 
 ## Accessible authoring candidate
 
-The draft [authoring/testkit RFC](RFC-A11Y-AUTHORING.md) separates a pure versioned evidence engine, a development-only browser testkit, and a future opt-in model-visible `a11y_check` adapter. The first standalone local testkit implementation now runs pinned axe-core against a caller-owned rendered page and excludes serialized HTML and page URLs from its bounded report. It remains private and unpublished while its protocol and fixtures are reviewed; a clean automated report is never represented as WCAG conformance.
+The draft [authoring/testkit RFC](RFC-A11Y-AUTHORING.md) separates a pure versioned evidence engine, a development-only browser testkit, a caller-owned-page provider, and an opt-in model-visible `a11y_check` adapter. Standalone local prototypes now cover the complete no-navigation chain: pinned axe-core audits a host-owned rendered page, the provider maps only a pre-registered opaque handle to that restricted page surface, and the DSH adapter strips unapproved fields while exposing no write, fix, score, or certification operation. Real Chromium and published DSH `ToolRuntime` tests assemble all three packages. They remain private and unpublished while the protocol, product composition, and human-evidence gates are reviewed; a clean automated report is never represented as WCAG conformance.
 
 ## Checks
 
