@@ -11,6 +11,7 @@
 - Prevent Accessible View controls from receiving keyboard focus underneath the sticky DSH composer at narrow reflow widths.
 - Add a versioned hermetic AT lab launcher with a disposable DSH home, synthetic seeded session, exact-revision readiness record, visible system/Safari/Chrome launch modes, bounded smoke mode, and signal-safe cleanup.
 - Add a separate `0.1.2-alpha.2` DSH core AT lab, keep core and companion evidence version-scoped, and open system browsers through the disposable one-use sign-in URL without publishing it in readiness JSON.
+- Add a six-scenario live-announcement AT lab for completed, stopped, failed, question, plan-review, and approval transitions, with finite replay inputs and explicit Host-versus-human evidence boundaries.
 
 ## 0.1.0-beta.6 - 2026-08-29
 

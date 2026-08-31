@@ -12,6 +12,7 @@ Updated: 2026-08-30. This roadmap is evidence-driven and may change after upstre
 - Deterministic companion audit: 17 structural checks.
 - Accessible View MVP: experimental implementation candidate; automated review in progress, real AT and disabled-developer evidence pending.
 - Hermetic AT labs: separate synthetic, disposable launchers cover the `0.1.2-alpha.2` core candidate and the rc.2 companion; they reduce setup/privacy risk but produce no AT evidence without human observation.
+- Live-announcement lab: six synthetic alpha.2 replay scenarios separate durable Host boundaries from actual AT speech/braille evidence.
 - Listener-verified Windows and Linux screen-reader results remain pending; complete VoiceOver spoken-output records remain pending.
 
 ## Phase 0 — foundation and upstream compatibility (through 2026-09-12)
@@ -28,6 +29,7 @@ Updated: 2026-08-30. This roadmap is evidence-driven and may change after upstre
 - Add contextual accessibility help, focus/name/role/state inspection, and a redacted report exporter.
 - Write the `dsh-a11y-testkit` RFC and create its repository only when the first reusable test code is ready.
 - Use the versioned hermetic AT lab to make exact VoiceOver/NVDA and disabled-developer task runs reproducible without exposing testers' normal DSH state.
+- Run every response/tool/request terminal scenario through the live-announcement lab; retain failed, repeated, coalesced, and silent results by exact AT/browser/language row.
 - Complete one listener-verified VoiceOver round and one Windows NVDA round with exact versions, language, spoken output, focus results, and sanitized evidence.
 
 ## Phase 2 — assistive-technology matrix and authoring (through 2026-11-21)

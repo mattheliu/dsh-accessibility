@@ -12,7 +12,7 @@ Tracking: [alpha.2 core migration #22](https://github.com/omdsh-dev/dsh-accessib
 
 This lab launches the exact DSH `0.1.2-alpha.2` core candidate with two copies of DSH's committed synthetic seeded-history Session. It uses a disposable DSH home, persistence root, and workspace, and needs no API key or companion plugin. It covers the core shell, Workspace tree, Session views, Chat history, Trajectory, Settings dialog, menus, disclosures, and adjustable separators.
 
-Lab readiness, an accessibility-tree dump, or a visible screen-reader caption is not an assistive-technology pass. A valid result needs a person to observe actual speech or braille, focus or cursor behavior, independent task completion, errors, and workarounds. Disabled-user evidence additionally requires informed consent and a de-identified task record. This static fixture does not test live response, tool, approval, question, or plan-review announcements; those remain a separate evidence row.
+Lab readiness, an accessibility-tree dump, or a visible screen-reader caption is not an assistive-technology pass. A valid result needs a person to observe actual speech or braille, focus or cursor behavior, independent task completion, errors, and workarounds. Disabled-user evidence additionally requires informed consent and a de-identified task record. This static fixture does not test live response, tool, approval, question, or plan-review announcements; use the separate [live-announcement lab](AT-LIVE-LAB.md) for those evidence rows.
 
 ## Exact candidate setup
 
