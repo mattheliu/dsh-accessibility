@@ -32,6 +32,9 @@ describe('community validation intake', () => {
     expect(form).toMatch(/private withdrawal route|私密撤回渠道/)
     expect(form).toMatch(/independently, effectively, and safely|独立、有效、安全/)
     expect(form).toMatch(/never creates an `a11y-user-validated` claim|绝不会自行形成 `a11y-user-validated` 声明/)
+    for (const level of ['none', 'setup-only', 'verbal', 'sighted-operation', 'other']) {
+      expect(form).toContain(`\`${level}\``)
+    }
   })
 
   it.each(['COMMUNITY-VALIDATION.md', 'COMMUNITY-VALIDATION.zh.md'])('%s preserves the evidence boundary', (file) => {

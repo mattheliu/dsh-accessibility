@@ -54,9 +54,20 @@
 ## 创建与验证记录
 
 1. 从 [EVIDENCE-CATALOG.json](EVIDENCE-CATALOG.json) 选择精确规程和稳定任务 ID，再使用匹配的一次性实验室并遵循 [RESEARCH.zh.md](RESEARCH.zh.md)。
-2. 提交中英文辅助技术结果 Issue 表单；不要在 Issue 中放原始数据。
-3. 复制[创作示例模板](evidence/templates/authoring-at.allow-once.template.json)，或在 `evidence/records/<year>/` 下创建另一个符合 schema 的记录。
-4. 替换所有合成值，将 `recordType` 设为 `human-evidence`，记录真实结果；除非每个声明条件都有证据，否则保持 `claim: none`。
+2. 提交匹配的辅助技术或残障开发者结果 Issue 表单；不要在 Issue 中放原始数据。
+3. 生成由目录控制、私有权限的 scaffold。它拒绝未知规程／任务、保持目录顺序、不读取 Issue 正文，并始终输出 `recordType: template` 与 `claim: none`：
+
+```sh
+pnpm run evidence:scaffold -- \
+  --protocol dsh-core-at-lab/1.0.0-draft \
+  --tasks representative-core \
+  --kind disabled-user-task-run \
+  --locale zh-CN \
+  --output human-evidence.template.json
+```
+
+适用时可把 `representative-core` 换成 `claim-eligible`、`safety-critical`、`all` 或逗号分隔的精确任务清单。输出必须是尚不存在的 `.json` 文件；工具绝不覆盖既有文件。仍可复制[创作示例模板](evidence/templates/authoring-at.allow-once.template.json)。
+4. 评审去标识化 Issue 源材料，替换所有合成值，选择新的唯一 `recordId`，将 `recordType` 设为 `human-evidence`，并把已评审记录写入 `evidence/records/<year>/`。记录真实结果；除非每个声明条件都有证据，否则保持 `claim: none`。不得把原始 Issue 导出或私有研究材料粘贴进生成器或公开记录。
 5. 声明支持时链接公开评审 Issue，并运行：
 
 ```sh

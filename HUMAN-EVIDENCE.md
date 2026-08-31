@@ -54,9 +54,20 @@ CI intentionally fails when a row still says `current` after `validUntil`. This 
 ## Create and validate a record
 
 1. Select the exact protocol and stable task ID from [EVIDENCE-CATALOG.json](EVIDENCE-CATALOG.json), then use the relevant disposable lab and follow [RESEARCH.md](RESEARCH.md).
-2. Submit the bilingual assistive-technology result Issue form. Do not put raw data in the issue.
-3. Copy [the authoring example template](evidence/templates/authoring-at.allow-once.template.json) or create another schema-conforming record under `evidence/records/<year>/`.
-4. Replace every synthetic value, set `recordType` to `human-evidence`, record the actual result, and keep `claim: none` unless every claim condition is proven.
+2. Submit the matching assistive-technology or disabled-developer result Issue form. Do not put raw data in the issue.
+3. Generate a catalog-owned, private-permission scaffold. It refuses unknown protocols/tasks, preserves catalog order, never ingests Issue text, and always emits `recordType: template` with `claim: none`:
+
+```sh
+pnpm run evidence:scaffold -- \
+  --protocol dsh-core-at-lab/1.0.0-draft \
+  --tasks representative-core \
+  --kind disabled-user-task-run \
+  --locale en-US \
+  --output human-evidence.template.json
+```
+
+Use `claim-eligible`, `safety-critical`, `all`, or a comma-separated exact task list instead of `representative-core` when appropriate. The output path must be a new `.json` file; existing files are never overwritten. Copying [the authoring example template](evidence/templates/authoring-at.allow-once.template.json) remains supported.
+4. Review the de-identified Issue source, replace every synthetic value, choose a new unique `recordId`, set `recordType` to `human-evidence`, and write the reviewed record under `evidence/records/<year>/`. Record the actual result and keep `claim: none` unless every claim condition is proven. Never paste raw Issue exports or private study material into the generator or record.
 5. Link the public review issue for a claim and run:
 
 ```sh

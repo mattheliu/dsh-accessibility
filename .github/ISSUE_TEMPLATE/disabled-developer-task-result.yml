@@ -53,11 +53,13 @@ body:
     id: assistance
     attributes:
       label: Highest assistance level used
-      description: Setup-only means help before the task. Operational assistance means another person helped perform or interpret the task; disclose it even when the task succeeded.
+      description: Select the exact ledger category. Disclose assistance even when the task succeeded.
       options:
-        - None
-        - Setup only
-        - Operational assistance
+        - None (`none`)
+        - Setup only (`setup-only`)
+        - Verbal guidance during the task (`verbal`)
+        - Sighted operation during the task (`sighted-operation`)
+        - Other operational assistance (`other`)
     validations:
       required: true
   - type: textarea

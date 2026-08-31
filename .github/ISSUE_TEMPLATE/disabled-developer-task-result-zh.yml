@@ -53,11 +53,13 @@ body:
     id: assistance
     attributes:
       label: 使用过的最高协助等级
-      description: “仅设置”指任务开始前的帮助；“操作协助”指他人帮助执行或解释任务，即使任务成功也必须披露。
+      description: 选择与账本完全一致的类别；即使任务成功，也必须披露协助。
       options:
-        - 无
-        - 仅设置
-        - 操作协助
+        - 无（`none`）
+        - 仅设置（`setup-only`）
+        - 任务中的口头指导（`verbal`）
+        - 任务中的明眼人代操作（`sighted-operation`）
+        - 其他操作协助（`other`）
     validations:
       required: true
   - type: textarea

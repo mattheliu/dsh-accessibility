@@ -45,7 +45,7 @@ For every stable task ID, record:
 - whether completion was independent, effective, and safe;
 - actual speech or braille only when a person observed it, plus focus/cursor before and after important transitions;
 - control role, name, state, approval consequence, error, and recovery as understood by the tester;
-- assistance level (`none`, `setup-only`, or `operational`), workaround, and smallest reproducible barrier;
+- exact ledger assistance level (`none`, `setup-only`, `verbal`, `sighted-operation`, or `other`), workaround, and smallest reproducible barrier;
 - what was not tested and every reason the result cannot be generalized.
 
 Do not “correct” surprising speech into expected wording. Do not infer spoken output from captions, DOM, platform accessibility APIs, terminal events, or an AI agent's interaction.
@@ -61,7 +61,7 @@ For a private withdrawal or participant-data request, use the repository's [priv
 ## Review lifecycle
 
 1. A tester or authorized study owner submits the minimum de-identified public result.
-2. A maintainer preserves failures and creates a structured `dsh-a11y-human-evidence/0.1.0-draft` summary with `claim: none` first.
+2. A maintainer preserves failures and uses `pnpm run evidence:scaffold` to create a catalog-owned `dsh-a11y-human-evidence/0.1.0-draft` template with `claim: none`. The command accepts protocol/task selectors, not Issue or participant text.
 3. Review checks consent, privacy, exact versions, stable task IDs, observations, focus, assistance, effectiveness, safety, barriers, and limitations.
 4. The repository validator checks the record; it never manufactures evidence or upgrades a result automatically.
 5. A narrowly scoped claim may be proposed only when every claim gate passes and a public review Issue is linked.
