@@ -47,6 +47,8 @@
     "AT-CORE-LAB.zh.md",
     "AT-LIVE-LAB.md",
     "AT-LIVE-LAB.zh.md",
+    "CLI-ACCESSIBILITY.md",
+    "CLI-ACCESSIBILITY.zh.md",
     "scripts/run-assembled-browser.mjs",
     "scripts/assembled-browser.e2e.template.ts",
     "scripts/browser-contract.e2e-helper.ts",
@@ -56,6 +58,8 @@
     "scripts/core-at-lab.template.ts",
     "scripts/run-live-at-lab.mjs",
     "scripts/live-at-lab.template.ts",
+    "scripts/run-cli-conformance.mjs",
+    "scripts/cli-conformance.template.ts",
     "SECURITY.md",
     "LICENSE"
   ],
@@ -109,7 +113,8 @@
     "test:assembled": "node scripts/run-assembled-browser.mjs",
     "lab:at": "node scripts/run-at-lab.mjs",
     "lab:at:core": "node scripts/run-core-at-lab.mjs",
-    "lab:at:live": "node scripts/run-live-at-lab.mjs"
+    "lab:at:live": "node scripts/run-live-at-lab.mjs",
+    "lab:cli": "node scripts/run-cli-conformance.mjs"
   },
   "peerDependencies": {
     "@deepseek-ai/cordis": ">=4.0.1 <5",

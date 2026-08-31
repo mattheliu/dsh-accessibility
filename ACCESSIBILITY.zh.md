@@ -2,7 +2,7 @@
 
 [English](ACCESSIBILITY.md)
 
-本项目的目标是让仅使用键盘或读屏软件的用户可以操作并理解 DeepSeek Harness Web 的完整工作流。companion 自检只提供附加证据；语义、焦点、复合控件键盘模型和状态播报仍由 DSH 自有组件负责。
+本项目的目标是让仅使用键盘或读屏软件的用户可以操作并理解 DeepSeek Harness Web 与 CLI 的完整工作流。companion 自检只提供附加证据；语义、焦点、复合控件键盘模型、状态播报和稳定终端输出仍由 DSH 自有组件负责。
 
 ## 支持的核心版本
 
@@ -13,6 +13,8 @@
 把本 npm 包装入未打核心补丁的官方构建，只会增加诊断和操作指南，不能替代缺失的核心焦点或复合控件行为。
 
 开发分支包含实验性的 Accessible View 候选。当前自动组件证据不构成辅助技术支持声明，该功能也尚未进入已发布的 `0.1.0-beta.6`。详见 [RFC-ACCESSIBLE-VIEW.zh.md](RFC-ACCESSIBLE-VIEW.zh.md)。
+
+DSH `0.1.2-alpha.2` 开发线还包含一次性 CLI 无障碍候选。其低噪声文本与版本化 JSON 输出已通过 draft 进程契约，真实终端、读屏、盲文和残障开发者证据仍待补。详见 [CLI-ACCESSIBILITY.zh.md](CLI-ACCESSIBILITY.zh.md)。
 
 ## 辅助技术矩阵
 
@@ -54,6 +56,8 @@
 
 可用[隔离式 AT 实验室](AT-LAB.zh.md)启动精确候选、一次性 DSH home 和合成会话。实验室可启动或字幕面板出现文字，仍必须补充人工观察的语音／盲文和任务完成记录。
 
+一次性终端候选请使用 [CLI 无障碍人工实验室](CLI-ACCESSIBILITY.zh.md#人工终端与读屏实验室)。真实语音／盲文顺序及独立任务结果必须与自动进程输出分开记录。
+
 ## 自动门禁
 
 - 设置页内 17 项确定性语义自检。
@@ -61,6 +65,7 @@
 - 插件设置界面的 axe-core 回归。
 - Accessible View 注册、未加载选择器、焦点生命周期、敏感内容延迟挂载、剪贴板 projection、分页、来源顺序及空闲／加载 axe-core 测试。
 - Accessible View 的版本化 `dsh-non-at-browser/1.0.0-draft` 组装证据：在 Chromium、Firefox、WebKit 中检查 640／320 CSS px 页面重排、焦点可见／遮挡采样、减少动态效果及 Chromium 强制颜色参与情况。范围与限制见 [RFC-BROWSER-EVIDENCE.zh.md](RFC-BROWSER-EVIDENCE.zh.md)。
+- 版本化 `dsh-cli-accessibility/1.0.0-draft` 产品入口进程符合性：覆盖可发现性、参数闭合失败、低噪声文本、单行 JSON、终端控制字符、退出状态与成功／失败投影；该结果明确不属于 AT 证据。
 - GitHub Actions 中的跨平台 Node、类型、单元、构建和包内容检查。
 - 补丁核心保留组件、GUI、生产构建及浏览器回放套件。
 

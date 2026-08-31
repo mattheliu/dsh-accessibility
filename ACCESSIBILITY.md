@@ -2,7 +2,7 @@
 
 [简体中文](ACCESSIBILITY.zh.md)
 
-This project targets operable, understandable DeepSeek Harness Web workflows for keyboard-only and screen-reader users. The companion diagnostics are additive evidence; the owning DSH components remain responsible for semantics, focus, keyboard models, and announcements.
+This project targets operable, understandable DeepSeek Harness Web and CLI workflows for keyboard-only and screen-reader users. The companion diagnostics are additive evidence; the owning DSH components remain responsible for semantics, focus, keyboard models, announcements, and stable terminal output.
 
 ## Supported core
 
@@ -13,6 +13,8 @@ This project targets operable, understandable DeepSeek Harness Web workflows for
 Installing this npm package into an unpatched official build adds diagnostics and guidance, but cannot replace missing core focus or composite-widget behavior.
 
 The development branch contains an experimental Accessible View candidate. Its automated component evidence is not yet an assistive-technology support claim and it is not present in the published `0.1.0-beta.6` package. See [RFC-ACCESSIBLE-VIEW.md](RFC-ACCESSIBLE-VIEW.md).
+
+The DSH `0.1.2-alpha.2` development line also contains a one-shot CLI accessibility candidate. Its low-noise text and versioned JSON output pass a draft process contract, while real terminal, screen-reader, braille, and disabled-developer evidence remain pending. See [CLI-ACCESSIBILITY.md](CLI-ACCESSIBILITY.md).
 
 ## Assistive-technology matrix
 
@@ -54,6 +56,8 @@ Record the browser, assistive-technology version, language, scenario, spoken res
 
 Use the [hermetic AT lab](AT-LAB.md) to launch an exact candidate with a disposable DSH home and synthetic session. Lab readiness and caption-panel output still require a human-observed speech/braille and task-completion record.
 
+For the one-shot terminal candidate, use the [CLI accessibility manual lab](CLI-ACCESSIBILITY.md#manual-terminal-and-screen-reader-lab). Record the real speech or braille sequence and independent task result separately from its automated process output.
+
 ## Automated gates
 
 - Seventeen deterministic semantic diagnostics in the installed settings page.
@@ -61,6 +65,7 @@ Use the [hermetic AT lab](AT-LAB.md) to launch an exact candidate with a disposa
 - axe-core regression for the rendered plugin settings surface.
 - Accessible View registration, unloaded-selector, focus lifecycle, delayed-sensitive-content, clipboard-projection, pagination, source-order, and idle/loaded axe-core tests.
 - Versioned `dsh-non-at-browser/1.0.0-draft` assembled evidence for Accessible View in Chromium, Firefox, and WebKit: 640/320 CSS px page reflow, sampled focus visibility/obscuration, reduced motion, and Chromium forced-color participation. Scope and limitations are defined in [RFC-BROWSER-EVIDENCE.md](RFC-BROWSER-EVIDENCE.md).
+- Versioned `dsh-cli-accessibility/1.0.0-draft` product-entry process conformance for discoverability, fail-closed arguments, low-noise text, one-line JSON, terminal controls, exit status, and success/failure projection. This is explicitly non-AT evidence.
 - Cross-platform Node, type, unit, build, and package-content checks in GitHub Actions.
 - The patched core retains its component, GUI, production-build, and browser-replay suites.
 

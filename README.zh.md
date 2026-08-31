@@ -6,7 +6,7 @@
 
 本仓库也是 [DSH 无障碍工作组](https://github.com/omdsh-dev/community/blob/main/working-groups/accessibility.zh-CN.md)的公开项目中心。项目使命是：让残障开发者能够独立、有效、安全地完成 DSH 的核心任务；让 DSH 帮助所有开发者产出更无障碍的数字内容；并用版本化标准、真实辅助技术和残障用户证据持续验证。
 
-项目入口：[无障碍声明](ACCESSIBILITY_STATEMENT.zh.md) · [路线图](ROADMAP.zh.md) · [治理](GOVERNANCE.zh.md) · [研究与证据规程](RESEARCH.zh.md) · [Accessible View RFC](RFC-ACCESSIBLE-VIEW.zh.md) · [浏览器证据 RFC](RFC-BROWSER-EVIDENCE.zh.md) · [核心 AT 实验室](AT-CORE-LAB.zh.md) · [实时播报 AT 实验室](AT-LIVE-LAB.zh.md) · [Companion AT 实验室](AT-LAB.zh.md) · [贡献指南](CONTRIBUTING.zh.md)
+项目入口：[无障碍声明](ACCESSIBILITY_STATEMENT.zh.md) · [路线图](ROADMAP.zh.md) · [治理](GOVERNANCE.zh.md) · [研究与证据规程](RESEARCH.zh.md) · [Accessible View RFC](RFC-ACCESSIBLE-VIEW.zh.md) · [浏览器证据 RFC](RFC-BROWSER-EVIDENCE.zh.md) · [CLI 无障碍规程](CLI-ACCESSIBILITY.zh.md) · [核心 AT 实验室](AT-CORE-LAB.zh.md) · [实时播报 AT 实验室](AT-LIVE-LAB.zh.md) · [Companion AT 实验室](AT-LAB.zh.md) · [贡献指南](CONTRIBUTING.zh.md)
 
 ## 兼容性
 
@@ -59,6 +59,10 @@ MVP 仍以阅读为主。发送、停止、批准、编辑排队任务或使用�
 全部通过只表示当前已挂载 DOM 满足这些可重复验证的结构契约，是测试证据而不是“完全合规”认证。实际朗读、浏览器到无障碍 API 的映射、焦点时序和 Windows 读屏表现，仍需按照插件内的 VoiceOver、NVDA、JAWS 场景做人工验证。
 
 辅助技术矩阵、人工回归规程和支持边界见 [ACCESSIBILITY.zh.md](ACCESSIBILITY.zh.md)。
+
+## CLI 无障碍候选
+
+`0.1.2-alpha.2` 开发线增加了显式低噪声 headless 展示与版本化最终 JSON 结果。本仓库负责 draft `dsh-cli-accessibility/1.0.0-draft` 符合性规程，以及一次性自动与人工启动器。自动进程输出不属于读屏证据；人工启动器仍须补充人类实际观察的语音或盲文记录。详见 [CLI-ACCESSIBILITY.zh.md](CLI-ACCESSIBILITY.zh.md)。
 
 ## 检查
 

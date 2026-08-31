@@ -8,7 +8,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        欢迎部分结果。每个产品／浏览器／辅助技术／语言组合单独提交一个 Issue。不要附加参与者原始录音或个人数据。
+        欢迎部分结果。每个产品／浏览器或终端／辅助技术／语言组合单独提交一个 Issue。请使用匹配的版本化规程；一次性 CLI 使用 dsh-cli-accessibility/1.0.0-draft。不要附加参与者原始录音或个人数据。
   - type: checkboxes
     id: authority
     attributes:
@@ -29,7 +29,8 @@ body:
         DSH tag/build：
         Companion 版本：
         操作系统及物理设备／虚拟机：
-        浏览器：
+        浏览器，或终端与 shell：
+        PTY 或重定向流（CLI）：
         辅助技术及版本：
         UI 与语音语言：
         详细度、标点、浏览／焦点模式、盲文或其他相关设置：

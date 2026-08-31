@@ -18,7 +18,7 @@ npm pack --dry-run
 
 Behavior changes must include deterministic tests. Changes to support claims must update both accessibility documents and identify the exact browser, assistive-technology version, language, scenario, spoken result, and focus result. Automated checks do not count as manual screen-reader certification.
 
-For real AT observation, use the [core lab](AT-CORE-LAB.md) for static core tasks, the [live-announcement lab](AT-LIVE-LAB.md) for response/tool/request transitions, or the [companion lab](AT-LAB.md) for Accessible View. All use synthetic content and provide a copyable, consent-aware result record. A lab startup is not itself an AT result.
+For real AT observation, use the [core lab](AT-CORE-LAB.md) for static core tasks, the [live-announcement lab](AT-LIVE-LAB.md) for response/tool/request transitions, the [companion lab](AT-LAB.md) for Accessible View, or the [CLI lab](CLI-ACCESSIBILITY.md#manual-terminal-and-screen-reader-lab) for the one-shot terminal candidate. All use synthetic content and provide a copyable, consent-aware result record. A lab startup is not itself an AT result.
 
 Keep host and client behavior within documented DSH extension seams. Do not patch generated CSS classes or inspect conversation text.
 

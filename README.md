@@ -6,7 +6,7 @@ An optional DeepSeek Harness companion for screen-reader guidance, semantic diag
 
 This repository is also the public project hub of the [DSH Accessibility Working Group](https://github.com/omdsh-dev/community/blob/main/working-groups/accessibility.md). Its mission is to enable disabled developers to complete DSH's core tasks independently, effectively, and safely; help every developer produce more accessible digital content with DSH; and validate both goals with versioned standards, real assistive technology, and evidence from disabled users.
 
-Project links: [Accessibility statement](ACCESSIBILITY_STATEMENT.md) · [Roadmap](ROADMAP.md) · [Governance](GOVERNANCE.md) · [Research and evidence protocol](RESEARCH.md) · [Accessible View RFC](RFC-ACCESSIBLE-VIEW.md) · [Browser evidence RFC](RFC-BROWSER-EVIDENCE.md) · [Core AT lab](AT-CORE-LAB.md) · [Live-announcement AT lab](AT-LIVE-LAB.md) · [Companion AT lab](AT-LAB.md) · [Contributing](CONTRIBUTING.md)
+Project links: [Accessibility statement](ACCESSIBILITY_STATEMENT.md) · [Roadmap](ROADMAP.md) · [Governance](GOVERNANCE.md) · [Research and evidence protocol](RESEARCH.md) · [Accessible View RFC](RFC-ACCESSIBLE-VIEW.md) · [Browser evidence RFC](RFC-BROWSER-EVIDENCE.md) · [CLI accessibility protocol](CLI-ACCESSIBILITY.md) · [Core AT lab](AT-CORE-LAB.md) · [Live-announcement AT lab](AT-LIVE-LAB.md) · [Companion AT lab](AT-LAB.md) · [Contributing](CONTRIBUTING.md)
 
 ## Compatibility
 
@@ -59,6 +59,10 @@ The page audit now runs 17 structural checks covering landmarks, the application
 A passing result means that the mounted DOM satisfies these deterministic contracts. It is evidence, not a claim of complete conformance: it cannot prove spoken output, browser/accessibility-API mappings, focus timing, or Windows screen-reader behavior. Those still require the manual VoiceOver/NVDA/JAWS scenarios in the in-app guide.
 
 See [ACCESSIBILITY.md](ACCESSIBILITY.md) for the assistive-technology matrix, manual regression protocol, and support boundary.
+
+## CLI accessibility candidate
+
+The `0.1.2-alpha.2` development line adds an explicit low-noise headless presentation and a versioned final JSON result. This repository owns the draft `dsh-cli-accessibility/1.0.0-draft` conformance protocol plus disposable automated and manual launchers. Automated process output is not screen-reader evidence; the manual launcher still requires a human speech or braille record. See [CLI-ACCESSIBILITY.md](CLI-ACCESSIBILITY.md).
 
 ## Checks
 

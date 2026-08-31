@@ -2,7 +2,7 @@
 
 [简体中文](ROADMAP.zh.md) | English
 
-Updated: 2026-08-30. This roadmap is evidence-driven and may change after upstream compatibility or assistive-technology findings. An item is complete only when its acceptance evidence is linked; implementation alone is not completion.
+Updated: 2026-08-31. This roadmap is evidence-driven and may change after upstream compatibility or assistive-technology findings. An item is complete only when its acceptance evidence is linked; implementation alone is not completion.
 
 ## Current baseline
 
@@ -13,6 +13,7 @@ Updated: 2026-08-30. This roadmap is evidence-driven and may change after upstre
 - Accessible View MVP: experimental implementation candidate; automated review in progress, real AT and disabled-developer evidence pending.
 - Hermetic AT labs: separate synthetic, disposable launchers cover the `0.1.2-alpha.2` core candidate and the rc.2 companion; they reduce setup/privacy risk but produce no AT evidence without human observation.
 - Live-announcement lab: six synthetic alpha.2 replay scenarios separate durable Host boundaries from actual AT speech/braille evidence.
+- CLI accessibility candidate: low-noise text and `dsh-headless-result/1.0.0` output are implemented on the alpha.2 branch; draft process conformance is reproducible, while real terminal/screen-reader and disabled-developer evidence remain pending.
 - Listener-verified Windows and Linux screen-reader results remain pending; complete VoiceOver spoken-output records remain pending.
 
 ## Phase 0 — foundation and upstream compatibility (through 2026-09-12)
@@ -36,7 +37,7 @@ Updated: 2026-08-30. This roadmap is evidence-driven and may change after upstre
 
 - Validate JAWS, Narrator, Orca, keyboard-only, Windows forced colors, browser zoom/reflow, and at least one braille-display workflow.
 - Prototype external AT automation by reusing W3C ARIA-AT drivers where possible; keep manual task completion as a release gate.
-- Propose a DSH CLI accessibility profile: static numbered prompts, no spinner/cursor redraw, predictable text progress, no-color/high-contrast modes, and machine-readable output.
+- Validate the DSH CLI accessibility candidate across VoiceOver, NVDA, JAWS, Narrator, and Orca terminals; retain the automated `dsh-cli-accessibility/1.0.0-draft` process result separately from human speech/braille and independent-task evidence.
 - Write the permission and deterministic-engine design for an accessibility authoring tool (`a11y_check`) that helps DSH users produce accessible code without implying automated certification.
 
 ## Release gates
