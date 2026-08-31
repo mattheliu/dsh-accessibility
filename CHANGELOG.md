@@ -2,7 +2,7 @@
 
 ## Unreleased
 
-- Add `dsh-a11y-author-review-plan/0.1.0-draft`: eleven stable, always-unresolved author-review rows appended to every model-visible scan, and upgrade the real-product authoring lab to `0.1.2-draft` so either persisted scan fails if automation drops or promotes that manual work.
+- Add `dsh-a11y-author-review-plan/0.1.0-draft`: eleven stable, always-unresolved author-review rows appended to every model-visible scan; upgrade the real-product authoring lab to `0.1.2-draft` so either persisted scan fails if automation drops or promotes that manual work, and archive one exact-revision passing replay.
 - Archive the independently regenerated three-engine core-browser report for exact primary-campaign DSH revision `5803bfcfdd`, retaining the earlier `33eb2d9e1e` record instead of letting evidence silently carry across commits.
 - Add an anonymous, versioned primary-campaign public-readiness report that checks exact public revisions, default-branch intake, Discussion 16, and Issues 1/2 without credentials; strict mode fails closed without mutating campaign state or creating human evidence.
 - Add a machine-readable primary human-validation campaign pinned to exact core and lab revisions, keep recruitment closed while public availability is stale, and define first-wave VoiceOver/Safari, NVDA/Chrome, and disabled-developer acceptance rows.
