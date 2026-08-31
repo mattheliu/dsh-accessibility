@@ -10,6 +10,7 @@ Updated: 2026-08-31. This roadmap is evidence-driven and may change after upstre
 - Tested DSH baseline: `@deepseek-ai/dsh@0.1.1-rc.2` plus `dsh-v0.1.1-rc.2-a11y.4`.
 - Upstream development line under review: `0.1.2-alpha.2`.
 - Deterministic companion audit: 17 structural checks.
+- Developer feedback loop candidate: each failed diagnostic has localized repair guidance; an explicit ephemeral focus tracker exposes approximate name/role/state without selectors; and `dsh-accessibility-diagnostic/1.0.0-draft` provides a strict, no-claim, user-copied redacted report. Automated privacy, schema, UI, and axe evidence pass locally; real AT comprehension and disabled-developer usefulness remain pending.
 - Accessible View MVP: experimental implementation candidate; automated review in progress, real AT and disabled-developer evidence pending.
 - Hermetic AT labs: separate synthetic, disposable launchers cover the `0.1.2-alpha.2` core candidate and the rc.2 companion; they reduce setup/privacy risk but produce no AT evidence without human observation.
 - Live-announcement lab: six synthetic alpha.2 replay scenarios separate durable Host boundaries from actual AT speech/braille evidence.
@@ -29,7 +30,7 @@ Updated: 2026-08-31. This roadmap is evidence-driven and may change after upstre
 ## Phase 1 — companion and developer feedback loop (through 2026-10-10)
 
 - Complete review of the Accessible View MVP built through the additive `conversation.view` slot and DSH conversation projection; require privacy review, assembled-browser evidence, listener-verified VoiceOver/NVDA, and disabled-developer task evidence before treating the item as complete.
-- Add contextual accessibility help, focus/name/role/state inspection, and a redacted report exporter.
+- Review the implemented contextual repair help, ephemeral focus/name/role/state inspector, and strict redacted-report exporter; require listener-verified AT comprehension, privacy review, and disabled-developer usefulness evidence before treating the feedback loop as complete.
 - Review the bilingual authoring RFC and the six reusable standalone implementations (`dsh-a11y-testkit`, `dsh-a11y-page-provider`, `dsh-a11y-loopback-provider`, `dsh-a11y-authoring`, `dsh-a11y-local-preview`, and `dsh-a11y-caller-page`); create remote repositories only after each protocol, privacy boundary, fixture set, and package is ready for public review.
 - Use the versioned hermetic AT labs, including the authoring approval/repair protocol, to make exact VoiceOver/NVDA and disabled-developer task runs reproducible without exposing testers' normal DSH state.
 - Run every response/tool/request terminal scenario through the live-announcement lab; retain failed, repeated, coalesced, and silent results by exact AT/browser/language row.

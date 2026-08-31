@@ -56,6 +56,9 @@ This evidence verifies the real VoiceOver-enabled environment, browser mappings,
 13. Select Accessible View and prove conversation markers are absent before the explicit Load action; then load and verify focus moves to the view title.
 14. Navigate source-order records and semantic Markdown/code; inspect context, reasoning, tool arguments/output, command input, and errors through their separate disclosures without losing focus.
 15. Copy addressed messages, load older history through success and sanitized failure, clear the view, verify focus returns to Load, and confirm Chat source data is unchanged.
+16. Run a failing page diagnostic, open its contextual guidance, and determine the next repair without relying on color or visual location alone.
+17. Start focus tracking, move to a named stateful control, return to the inspector, and verify its name, role, Tab position, and state are understandable; confirm the snapshot is not announced continuously while browsing.
+18. Explicitly copy a redacted diagnostic report, review its JSON, and confirm it contains no page title, URL, selector, element name, conversation content, or browser identity and is not described as AT or WCAG evidence.
 
 Record the browser, assistive-technology version, language, scenario, spoken result, focus result, and pass/fail outcome. Do not convert an automated DOM pass into a manual assistive-technology pass.
 
@@ -68,6 +71,7 @@ For the complete audit/read/approve-or-reject/edit/re-audit flow, use the [autho
 ## Automated gates
 
 - Seventeen deterministic semantic diagnostics in the installed settings page.
+- Localized per-check repair guidance, ephemeral focus-name/role/state inspection, and strict allowlist projection under [dsh-accessibility-diagnostic/1.0.0-draft](DIAGNOSTIC-REPORT.md); focus snapshots never enter the report.
 - Unit tests for names, references, landmarks, headings, list ownership, nested controls, menus, listboxes, trees, radio groups, tabs, dialogs, and separators.
 - axe-core regression for the rendered plugin settings surface.
 - Accessible View registration, unloaded-selector, focus lifecycle, delayed-sensitive-content, clipboard-projection, pagination, source-order, and idle/loaded axe-core tests.

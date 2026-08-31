@@ -27,6 +27,7 @@
 - Add bilingual community-validation guidance, a dedicated disabled-developer task-result intake that does not require a named AT or diagnosis details, a private withdrawal route, and schema-aligned assistance categories without prematurely applying a support-evidence label.
 - Add a catalog-owned `evidence:scaffold` command that generates only validator-clean, private-permission `recordType: template` / `claim: none` JSON, rejects unknown protocols and tasks, preserves authoritative task order, refuses overwrite, and never ingests participant or Issue text.
 - Make package builds remove stale generated declarations before compiling so removed experimental APIs cannot survive in an npm artifact.
+- Add localized repair guidance for all seventeen diagnostics, an explicit in-memory focus name/role/state inspector, and the strict `dsh-accessibility-diagnostic/1.0.0-draft` user-copied redacted report with bilingual protocol, JSON Schema, privacy boundary, and automated UI/schema/axe tests.
 
 ## 0.1.0-beta.6 - 2026-08-29
 

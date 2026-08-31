@@ -10,6 +10,7 @@
 - 已测试 DSH 基线：`@deepseek-ai/dsh@0.1.1-rc.2` 加 `dsh-v0.1.1-rc.2-a11y.4`。
 - 正在审查的上游开发线：`0.1.2-alpha.2`。
 - companion 确定性自检：17 项结构检查。
+- 开发者反馈闭环候选：每项失败诊断已有本地化修复建议；显式启用的短暂焦点跟踪器在不输出 selector 的前提下展示近似名称／角色／状态；`dsh-accessibility-diagnostic/1.0.0-draft` 提供严格、无声明且仅由用户主动复制的脱敏报告。本地自动隐私、Schema、UI 与 axe 证据已通过；真实辅助技术理解情况和残障开发者有效性仍待验证。
 - Accessible View MVP：已有实验性实现候选；自动评审进行中，真实 AT 与残障开发者证据待补。
 - 隔离式 AT 实验室：分别用合成、一次性启动器覆盖 `0.1.2-alpha.2` 核心候选与 rc.2 companion；它们降低配置与隐私风险，但没有人工观察就不能产生 AT 证据。
 - 实时播报实验室：六个合成 alpha.2 replay 场景把持久 Host 终态与真实 AT 语音／盲文证据分开记录。
@@ -29,7 +30,7 @@
 ## 阶段 1——companion 与开发反馈闭环（截至 2026-10-10）
 
 - 完成 Accessible View MVP 评审：它已通过增量式 `conversation.view` slot 和 DSH 对话 projection 实现；隐私评审、组装浏览器证据、人工听读 VoiceOver／NVDA 和残障开发者任务证据齐备前，不把该项标为完成。
-- 增加上下文无障碍帮助、焦点／名称／角色／状态检查和脱敏报告导出。
+- 评审已实现的上下文修复帮助、短暂焦点／名称／角色／状态检查器和严格脱敏报告导出；在人工听读辅助技术理解、隐私评审与残障开发者有效性证据齐备前，不把反馈闭环标为完成。
 - 评审中英文创作 RFC 与六个可复用独立实现（`dsh-a11y-testkit`、`dsh-a11y-page-provider`、`dsh-a11y-loopback-provider`、`dsh-a11y-authoring`、`dsh-a11y-local-preview`、`dsh-a11y-caller-page`）；只有各自规程、隐私边界、fixture 和包可以接受公开评审后，才创建远程仓库。
 - 使用版本化隔离 AT 实验室（包括创作审批／修复规程）复现精确 VoiceOver／NVDA 和残障开发者任务验证，不暴露测试者日常 DSH 状态。
 - 通过实时播报实验室验证每个回答／工具／请求终态；按精确 AT／浏览器／语言矩阵保留失败、重复、合并和静默结果。

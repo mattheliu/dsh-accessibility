@@ -15,8 +15,21 @@ declare module '@deepseek-ai/dsh-client-ui-slots' {
 export { AccessibilitySection } from './AccessibilitySection.tsx'
 export { AccessibleView } from './AccessibleView.tsx'
 export { conversationNodeKey, messageClipboardText } from './accessible-conversation.ts'
-export { hasAccessibleName, hasAuthorName, runAccessibilityAudit } from './audit.ts'
-export type { AccessibilityCheck } from './audit.ts'
+export {
+  ACCESSIBILITY_CHECK_IDS,
+  hasAccessibleName,
+  hasAuthorName,
+  runAccessibilityAudit,
+} from './audit.ts'
+export type { AccessibilityCheck, AccessibilityCheckId } from './audit.ts'
+export {
+  createRedactedDiagnosticReport,
+  REDACTED_DIAGNOSTIC_PROTOCOL,
+  redactedDiagnosticReportText,
+} from './diagnostic-report.ts'
+export type { RedactedDiagnosticCheck, RedactedDiagnosticReport } from './diagnostic-report.ts'
+export { inspectFocusedElement } from './focus-inspector.ts'
+export type { FocusInspection, FocusNameSource, FocusState } from './focus-inspector.ts'
 export type { AccessibilityKey } from './locales.ts'
 
 export const inject = ['slots', 'locale', 'sessions']

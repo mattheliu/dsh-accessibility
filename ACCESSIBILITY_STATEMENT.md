@@ -12,7 +12,7 @@ This statement covers the `@oh-my-dsh/dsh-accessibility` companion and the organ
 
 ## Current support
 
-- The companion provides screen-reader guidance and 17 deterministic checks for mounted HTML and ARIA structure.
+- The companion provides screen-reader guidance, 17 deterministic checks for mounted HTML and ARIA structure, contextual repair guidance, an explicit ephemeral focus inspector, and a user-copied strict redacted report candidate.
 - The rc.2 accessibility candidate includes landmarks, named dialogs, focus containment and return, composite-widget keyboard patterns, conversation/log semantics, status announcements, and keyboard-adjustable separators.
 - Production-browser, component, build, and cross-platform automation evidence is available for the versioned candidate.
 - macOS Safari and Chrome accessibility-tree and keyboard routes have been exercised with VoiceOver enabled.
@@ -27,6 +27,7 @@ This statement covers the `@oh-my-dsh/dsh-accessibility` companion and the organ
 - The authoring/testkit packages and complete approval/repair lab remain development candidates; live-model, real-AT, disabled-author, review, and publication evidence are still pending.
 - The versioned human-evidence ledger currently contains only a non-evidence template. Its task catalog prevents submitters from self-classifying arbitrary work as core or claim-eligible, and its coverage policy prevents incompatible exact environments from being combined, but it does not yet support an `a11y-at-tested` or `a11y-user-validated` claim. All twenty-six aggregate requirements remain missing.
 - Passing automated checks is not a statement that every disabled person can use every workflow.
+- The focus inspector is a conservative DOM approximation rather than platform accessibility-API or actual screen-reader output; its accessible-name snapshot can contain page content and is never included in the redacted report.
 
 The exact support matrix and manual scenarios are maintained in [ACCESSIBILITY.md](ACCESSIBILITY.md). Consented public human results use [HUMAN-EVIDENCE.md](HUMAN-EVIDENCE.md), its authoritative [evidence task catalog](EVIDENCE-CATALOG.json), and the [aggregate coverage policy](EVIDENCE-COVERAGE.md). The forward plan and release gates are in [ROADMAP.md](ROADMAP.md).
 

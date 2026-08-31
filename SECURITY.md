@@ -2,6 +2,12 @@
 
 The Settings diagnostics inspect semantic attributes in the current document. They must not read conversation content, send telemetry, make network requests, or persist audit results.
 
+## Diagnostic inspection and export boundary
+
+Focus tracking is disabled by default and begins only after a user gesture. While active, it retains only the latest focus target outside its own panel and projects a bounded element tag, role, approximate accessible name and source, tab index, and allowlisted ARIA/native states. It must not retain class names, IDs, selectors, URLs, HTML, or a focus history. The snapshot is cleared on unmount and is never copied into the diagnostic report. Because an accessible name can contain page content, users must review it before capturing or sharing the screen.
+
+The `dsh-accessibility-diagnostic/1.0.0-draft` exporter writes only after the user activates its Copy action. It canonicalizes the complete internal check set onto the strict [JSON Schema](DIAGNOSTIC-REPORT.schema.json), discards unknown fields, and excludes page and element data. Clipboard denial must fail visibly without falling back to downloads, storage, telemetry, or network transfer. See [DIAGNOSTIC-REPORT.md](DIAGNOSTIC-REPORT.md).
+
 ## Conversation-access boundary
 
 The experimental Accessible View is the only companion surface on this branch authorized to read conversation content. It must:

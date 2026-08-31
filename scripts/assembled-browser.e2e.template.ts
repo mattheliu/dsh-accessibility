@@ -82,6 +82,8 @@ describe('external dsh-accessibility Accessible View', () => {
     })
     page.on('pageerror', error => browserErrors.push(error.message))
     await page.goto(scaffold.baseUrl, { waitUntil: 'load' })
+    const requireFromPlugin = createRequire(join(pluginRoot, 'package.json'))
+    await page.addScriptTag({ path: requireFromPlugin.resolve('axe-core/axe.min.js') })
   }, 120_000)
 
   afterAll(async () => {
@@ -111,8 +113,6 @@ describe('external dsh-accessibility Accessible View', () => {
     await viewHeading.waitFor({ state: 'visible' })
     expect(await page.getByText(prompt, { exact: true }).count(), 'conversation content leaked before Load').toBe(0)
 
-    const requireFromPlugin = createRequire(join(pluginRoot, 'package.json'))
-    await page.addScriptTag({ path: requireFromPlugin.resolve('axe-core/axe.min.js') })
     const runAxe = async (): Promise<AxeResult> => await viewHeading.evaluate(async (heading): Promise<AxeResult> => {
       const root = heading.closest('section')
       if (root === null) throw new Error('accessible view section missing')
@@ -177,6 +177,87 @@ describe('external dsh-accessibility Accessible View', () => {
       focusRestored: true,
       clipboardProjection: true,
     }, null, 2)}\n`)
+  }, 120_000)
+
+  it('runs contextual diagnostics, focus inspection, and strict redacted export in real DSH', async () => {
+    await page.getByRole('button', { name: 'Settings', exact: true }).click()
+    const dialog = page.getByRole('dialog', { name: 'Settings' })
+    await dialog.waitFor({ state: 'visible', timeout: 15_000 })
+    await dialog.getByRole('button', { name: 'Accessibility', exact: true }).click()
+    const heading = dialog.getByRole('heading', { level: 2, name: 'Accessibility and screen readers' })
+    await heading.waitFor({ state: 'visible', timeout: 15_000 })
+    const section = heading.locator('..').locator('..')
+
+    await dialog.evaluate((root) => {
+      const named = document.createElement('button')
+      named.type = 'button'
+      named.dataset.assembledPrivateFocus = 'true'
+      named.setAttribute('aria-label', 'Synthetic private customer control')
+      named.setAttribute('aria-expanded', 'true')
+      root.append(named)
+      const unnamed = document.createElement('button')
+      unnamed.type = 'button'
+      unnamed.dataset.assembledUnnamed = 'true'
+      root.append(unnamed)
+    })
+
+    try {
+      await section.getByRole('button', { name: 'Check current page' }).click()
+      await section.getByText('1 of 17 checks need attention.', { exact: true })
+        .waitFor({ state: 'visible' })
+      const controlResult = section.getByText('Interactive control names', { exact: true }).locator('..')
+      await controlResult.getByText('Show inspection and repair guidance', { exact: true }).click()
+      await section.getByText(/Inspect control names in the browser accessibility tree/u)
+        .waitFor({ state: 'visible' })
+
+      await section.getByRole('button', { name: 'Start tracking focus' }).click()
+      await dialog.locator('[data-assembled-private-focus="true"]').focus()
+      await section.getByRole('button', { name: 'Stop tracking focus' }).focus()
+      await section.getByText('Synthetic private customer control', { exact: true })
+        .waitFor({ state: 'visible' })
+      await section.getByText('aria-expanded=true', { exact: true }).waitFor({ state: 'visible' })
+
+      await section.getByRole('button', { name: 'Copy redacted JSON report' }).click()
+      await section.getByText('The redacted diagnostic report was copied to the system clipboard.')
+        .waitFor({ state: 'visible' })
+      const reportText = await page.evaluate(async () => await navigator.clipboard.readText())
+      const report = JSON.parse(reportText) as {
+        protocol?: string
+        claim?: string
+        checks?: Array<{ id?: string, outcome?: string, affected?: number }>
+      }
+      expect(report.protocol).toBe('dsh-accessibility-diagnostic/1.0.0-draft')
+      expect(report.claim).toBe('none')
+      expect(report.checks?.find(check => check.id === 'controls')).toEqual({
+        id: 'controls', outcome: 'needs-attention', affected: 1,
+      })
+      expect(reportText).not.toMatch(/Synthetic private|assembled-private|about:blank|customer control/iu)
+
+      const result = await heading.evaluate(async (title): Promise<AxeResult> => {
+        const root = title.closest('section')
+        if (root === null) throw new Error('accessibility settings section missing')
+        return await (window as unknown as {
+          axe: { run(node: Element, options: unknown): Promise<AxeResult> }
+        }).axe.run(root, { rules: { 'color-contrast': { enabled: false } } })
+      })
+      expect(result.violations, JSON.stringify(result.violations, null, 2)).toHaveLength(0)
+      expect(browserErrors, `browser console errors: ${JSON.stringify(browserErrors)}`).toHaveLength(0)
+
+      process.stdout.write(`${JSON.stringify({
+        protocol: 'dsh-accessibility-diagnostic/1.0.0-draft',
+        evidence: 'assembled-browser-not-at-or-disabled-user-evidence',
+        dsh: '0.1.1-rc.2',
+        plugin: pluginManifest.version,
+        contextualGuidance: true,
+        focusInspection: true,
+        reportRedaction: true,
+        axeViolations: result.violations.length,
+      }, null, 2)}\n`)
+    } finally {
+      await dialog.locator('[data-assembled-private-focus="true"], [data-assembled-unnamed="true"]')
+        .evaluateAll(elements => { for (const element of elements) element.remove() })
+      await page.keyboard.press('Escape')
+    }
   }, 120_000)
 })
 
