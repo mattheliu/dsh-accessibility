@@ -8,7 +8,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        Partial results are welcome. Submit one issue per product/browser-or-terminal/AT/language combination. Use the matching versioned protocol, including dsh-cli-accessibility/1.0.0-draft for the one-shot CLI. Do not attach raw participant recordings or personal data.
+        Partial results are welcome. Submit one issue per product/browser-or-terminal/AT/language combination. Use the matching versioned protocol, including dsh-cli-accessibility/1.0.0-draft for the one-shot CLI and dsh-a11y-authoring-at-lab/0.1.0-draft for the authoring allow/reject task. Do not attach raw participant recordings, one-use sign-in URLs, unreviewed session logs, or personal data.
   - type: checkboxes
     id: authority
     attributes:
@@ -26,8 +26,10 @@ body:
       label: Exact test matrix row
       placeholder: |
         Protocol and task numbers:
+        Scenario (for example allow-once or reject):
         DSH tag/build:
         Companion version:
+        Authoring composition version/revision, if used:
         OS and hardware/VM:
         Browser, or terminal and shell:
         PTY or redirected streams (CLI):
@@ -40,7 +42,7 @@ body:
     id: scenarios
     attributes:
       label: Scenarios and results
-      description: For each numbered protocol task, record pass/fail/partial, task completion, focus destination, exact spoken or braille output where relevant, and workaround.
+      description: For each numbered protocol task, record pass/fail/partial, task completion, focus destination, exact spoken or braille output where relevant, approval comprehension/decision where applicable, assistance, and workaround.
     validations:
       required: true
   - type: textarea

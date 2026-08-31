@@ -6,7 +6,7 @@
 
 本仓库也是 [DSH 无障碍工作组](https://github.com/omdsh-dev/community/blob/main/working-groups/accessibility.zh-CN.md)的公开项目中心。项目使命是：让残障开发者能够独立、有效、安全地完成 DSH 的核心任务；让 DSH 帮助所有开发者产出更无障碍的数字内容；并用版本化标准、真实辅助技术和残障用户证据持续验证。
 
-项目入口：[无障碍声明](ACCESSIBILITY_STATEMENT.zh.md) · [路线图](ROADMAP.zh.md) · [治理](GOVERNANCE.zh.md) · [研究与证据规程](RESEARCH.zh.md) · [Accessible View RFC](RFC-ACCESSIBLE-VIEW.zh.md) · [浏览器证据 RFC](RFC-BROWSER-EVIDENCE.zh.md) · [创作／testkit RFC](RFC-A11Y-AUTHORING.zh.md) · [创作 agent 实验室](AUTHORING-AGENT-LAB.zh.md) · [CLI 无障碍规程](CLI-ACCESSIBILITY.zh.md) · [核心 AT 实验室](AT-CORE-LAB.zh.md) · [实时播报 AT 实验室](AT-LIVE-LAB.zh.md) · [Companion AT 实验室](AT-LAB.zh.md) · [贡献指南](CONTRIBUTING.zh.md)
+项目入口：[无障碍声明](ACCESSIBILITY_STATEMENT.zh.md) · [路线图](ROADMAP.zh.md) · [治理](GOVERNANCE.zh.md) · [研究与证据规程](RESEARCH.zh.md) · [Accessible View RFC](RFC-ACCESSIBLE-VIEW.zh.md) · [浏览器证据 RFC](RFC-BROWSER-EVIDENCE.zh.md) · [创作／testkit RFC](RFC-A11Y-AUTHORING.zh.md) · [创作 agent 实验室](AUTHORING-AGENT-LAB.zh.md) · [创作辅助技术实验室](AUTHORING-AT-LAB.zh.md) · [CLI 无障碍规程](CLI-ACCESSIBILITY.zh.md) · [核心 AT 实验室](AT-CORE-LAB.zh.md) · [实时播报 AT 实验室](AT-LIVE-LAB.zh.md) · [Companion AT 实验室](AT-LAB.zh.md) · [贡献指南](CONTRIBUTING.zh.md)
 
 ## 兼容性
 
@@ -66,7 +66,7 @@ MVP 仍以阅读为主。发送、停止、批准、编辑排队任务或使用�
 
 ## 无障碍创作候选
 
-Draft [创作／testkit RFC](RFC-A11Y-AUTHORING.zh.md) 把纯版本化证据引擎、仅用于开发的浏览器 testkit、两个独立评审的页面提供层、选择性启用且模型可见的 `a11y_check` 适配器，以及产品组合分成独立边界。五个独立本地包现已覆盖两条提供链路，并增加首个可安装的 `dsh-a11y-local-preview/0.1.0-draft` DSH bundle。该 bundle 通过已发布 DSH 插件生命周期挂载字面量 loopback 提供层与只读工具，只向模型公布规范化不透明目标句柄，在挂载前拒绝可能承载秘密的 query／fragment，并且在宿主提供可丢弃 loopback 目标前保持禁用。真实 Chromium、真实 loopback HTTP、已发布 DSH `SystemPrompt`／`ToolRuntime`、bundle 安装、配置 dump、生命周期释放、隐私和包内容测试均已在本地通过。版本化[创作 agent 实验室](AUTHORING-AGENT-LAB.zh.md)还证明了一项无密钥真实产品 agent-loop 任务：工具轨迹精确为 `a11y_check → read → edit → a11y_check`，自动 finding 从两项降到零。这项 replay 不属于模型、辅助技术或残障作者证据。五个包继续保持 private、尚未发布；评审、live-model 修复、辅助技术和残障作者门禁仍待完成，自动报告干净永远不能表述成 WCAG 符合。
+Draft [创作／testkit RFC](RFC-A11Y-AUTHORING.zh.md) 把纯版本化证据引擎、仅用于开发的浏览器 testkit、两个独立评审的页面提供层、选择性启用且模型可见的 `a11y_check` 适配器，以及产品组合分成独立边界。五个独立本地包现已覆盖两条提供链路，并增加首个可安装的 `dsh-a11y-local-preview/0.1.0-draft` DSH bundle。该 bundle 通过已发布 DSH 插件生命周期挂载字面量 loopback 提供层与只读工具，只向模型公布规范化不透明目标句柄，在挂载前拒绝可能承载秘密的 query／fragment，并且在宿主提供可丢弃 loopback 目标前保持禁用。真实 Chromium、真实 loopback HTTP、已发布 DSH `SystemPrompt`／`ToolRuntime`、bundle 安装、配置 dump、生命周期释放、隐私和包内容测试均已在本地通过。版本化[创作 agent 实验室](AUTHORING-AGENT-LAB.zh.md)证明了一项无密钥真实产品 agent-loop 任务：工具轨迹精确为 `a11y_check → read → edit → a11y_check`，自动 finding 从两项降到零。另行提供的[创作辅助技术实验室](AUTHORING-AT-LAB.zh.md)现可通过真实 DSH Web 与审批 UI 操作该流程，并加入“仅允许一次”和“拒绝后源码不变”的自动安全门禁，以及经同意的 VoiceOver／NVDA 真人记录格式；自动浏览器和 Host 结果仍明确不属于辅助技术证据。五个包继续保持 private、尚未发布；评审、live-model 修复、人工听读辅助技术和残障作者门禁仍待完成，自动报告干净永远不能表述成 WCAG 符合。
 
 ## 检查
 

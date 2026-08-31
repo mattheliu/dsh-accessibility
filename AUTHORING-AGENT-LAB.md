@@ -64,7 +64,7 @@ Raw session logs are private diagnostic material: they contain the task, tool ar
 
 ## Real assistive-technology validation still required
 
-The next evidence tier must use the complete interactive DSH surface, not this headless replay alone. At minimum, record separate VoiceOver/Safari and NVDA/Chrome or Edge rows in which the tester can discover the available preview target, invoke the audit, read each finding and limitation, locate the source, make or approve the repair, re-run the audit, understand that the clean result is limited, and recover from an error without sighted assistance. Record exact versions, language, input method, spoken or braille observations, focus outcomes, task completion, assistance, safety/privacy issues and sanitized evidence using [RESEARCH.md](RESEARCH.md). Disabled-author evidence remains a separate gate even after those AT rows pass.
+The next evidence tier must use the complete interactive DSH surface, not this headless replay alone. The versioned [authoring AT lab](AUTHORING-AT-LAB.md) now supplies the disposable Web task, real approval interaction, allow/reject safety rows, and exact human record format. At minimum, retain separate VoiceOver/Safari and NVDA/Chrome or Edge results under that protocol. Disabled-author evidence remains a separate gate even after those AT rows pass.
 
 ## Known limitations
 

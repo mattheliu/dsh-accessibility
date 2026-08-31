@@ -14,7 +14,7 @@
 - 隔离式 AT 实验室：分别用合成、一次性启动器覆盖 `0.1.2-alpha.2` 核心候选与 rc.2 companion；它们降低配置与隐私风险，但没有人工观察就不能产生 AT 证据。
 - 实时播报实验室：六个合成 alpha.2 replay 场景把持久 Host 终态与真实 AT 语音／盲文证据分开记录。
 - CLI 无障碍候选：alpha.2 分支已实现低噪声文本与 `dsh-headless-result/1.0.0` 输出；draft 进程符合性可复现，真实终端／读屏和残障开发者证据仍待补。
-- 无障碍创作基础：中英文 RFC 与五个独立本地包现已覆盖两条提供链路，并增加默认禁用、可安装的 `dsh-a11y-local-preview/0.1.0-draft` 字面量 loopback DSH 产品组合。本地已通过真实产品 bundle 安装、配置组合、已发布 DSH runtime 加载、Chromium 审计、隐私、生命周期和包内容证据。`dsh-a11y-authoring-agent-lab/0.1.0-draft` replay 门禁还证明了一项精确真实产品审计／读取／编辑／复审循环：初始两项 finding，精确修复后为零；它属于产品循环证据，不属于模型、AT 或残障作者证据。评审／发布、调用方自有页面宿主组合、任何鉴权／跨 origin 扩权、live-model 修复、真实 AT 和残障作者证据仍待补。
+- 无障碍创作基础：中英文 RFC 与五个独立本地包现已覆盖两条提供链路，并增加默认禁用、可安装的 `dsh-a11y-local-preview/0.1.0-draft` 字面量 loopback DSH 产品组合。本地已通过真实产品 bundle 安装、配置组合、已发布 DSH runtime 加载、Chromium 审计、隐私、生命周期和包内容证据。`dsh-a11y-authoring-agent-lab/0.1.0-draft` replay 门禁证明了一项精确审计／读取／编辑／复审产品循环；新的 `dsh-a11y-authoring-at-lab/0.1.0-draft` 可通过真实 DSH Web 操作同一有界任务，证明“仅允许一次”后 finding 从两项降至零，也证明拒绝后源码不变，并定义独立的 VoiceOver／NVDA 真人记录。两种自动模式都只是产品证据，不属于辅助技术或残障作者证据。评审／发布、调用方自有页面宿主组合、任何鉴权／跨 origin 扩权、live-model 修复、人工听读真实辅助技术和残障作者证据仍待补。
 - Windows 和 Linux 的人工听读结果仍待补；完整 VoiceOver 实际朗读记录仍待补。
 
 ## 阶段 0——基础与上游兼容（截至 2026-09-12）
@@ -30,7 +30,7 @@
 - 完成 Accessible View MVP 评审：它已通过增量式 `conversation.view` slot 和 DSH 对话 projection 实现；隐私评审、组装浏览器证据、人工听读 VoiceOver／NVDA 和残障开发者任务证据齐备前，不把该项标为完成。
 - 增加上下文无障碍帮助、焦点／名称／角色／状态检查和脱敏报告导出。
 - 评审中英文创作 RFC 与五个可复用独立实现（`dsh-a11y-testkit`、`dsh-a11y-page-provider`、`dsh-a11y-loopback-provider`、`dsh-a11y-authoring`、`dsh-a11y-local-preview`）；只有各自规程、隐私边界、fixture 和包可以接受公开评审后，才创建远程仓库。
-- 使用版本化隔离 AT 实验室复现精确 VoiceOver／NVDA 和残障开发者任务验证，不暴露测试者日常 DSH 状态。
+- 使用版本化隔离 AT 实验室（包括创作审批／修复规程）复现精确 VoiceOver／NVDA 和残障开发者任务验证，不暴露测试者日常 DSH 状态。
 - 通过实时播报实验室验证每个回答／工具／请求终态；按精确 AT／浏览器／语言矩阵保留失败、重复、合并和静默结果。
 - 完成一轮人工听读 VoiceOver 和一轮 Windows NVDA 验证，记录精确版本、语言、实际朗读、焦点结果和脱敏证据。
 

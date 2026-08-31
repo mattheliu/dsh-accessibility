@@ -46,6 +46,8 @@
     "AUTHORING-AGENT-LAB.md",
     "AUTHORING-AGENT-LAB.zh.md",
     "AUTHORING-AGENT-LAB.schema.json",
+    "AUTHORING-AT-LAB.md",
+    "AUTHORING-AT-LAB.zh.md",
     "AT-LAB.md",
     "AT-LAB.zh.md",
     "AT-CORE-LAB.md",
@@ -68,6 +70,9 @@
     "scripts/run-authoring-agent-lab.mjs",
     "scripts/authoring-agent-lab-lib.mjs",
     "scripts/authoring-agent-replay.jsonl",
+    "scripts/run-authoring-at-lab.mjs",
+    "scripts/authoring-at-lab.template.ts",
+    "scripts/authoring-at-replay.jsonl",
     "SECURITY.md",
     "LICENSE"
   ],
@@ -124,7 +129,8 @@
     "lab:at:core": "node scripts/run-core-at-lab.mjs",
     "lab:at:live": "node scripts/run-live-at-lab.mjs",
     "lab:cli": "node scripts/run-cli-conformance.mjs",
-    "lab:authoring": "node scripts/run-authoring-agent-lab.mjs"
+    "lab:authoring": "node scripts/run-authoring-agent-lab.mjs",
+    "lab:at:authoring": "node scripts/run-authoring-at-lab.mjs"
   },
   "peerDependencies": {
     "@deepseek-ai/cordis": ">=4.0.1 <5",
