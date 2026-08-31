@@ -7,7 +7,7 @@
   "required": ["protocol", "packages"],
   "properties": {
     "$schema": { "type": "string" },
-    "protocol": { "const": "dsh-a11y-authoring-package-readiness/0.1.1-draft" },
+    "protocol": { "const": "dsh-a11y-authoring-package-readiness/0.1.2-draft" },
     "packages": {
       "type": "array",
       "minItems": 6,
@@ -24,11 +24,13 @@
           "publication": {
             "type": "object",
             "additionalProperties": false,
-            "required": ["repository", "homepage", "bugs", "distTag"],
+            "required": ["repository", "homepage", "bugs", "branch", "visibility", "distTag"],
             "properties": {
               "repository": { "type": "string", "pattern": "^git\\+https://github\\.com/omdsh-dev/dsh-a11y-[a-z-]+\\.git$" },
               "homepage": { "type": "string", "pattern": "^https://github\\.com/omdsh-dev/dsh-a11y-[a-z-]+#readme$" },
               "bugs": { "type": "string", "pattern": "^https://github\\.com/omdsh-dev/dsh-a11y-[a-z-]+/issues$" },
+              "branch": { "const": "main" },
+              "visibility": { "const": "public" },
               "distTag": { "const": "alpha" }
             }
           },

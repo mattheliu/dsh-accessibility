@@ -1,6 +1,6 @@
 {
   "$schema": "./AUTHORING-PACKAGES.schema.json",
-  "protocol": "dsh-a11y-authoring-package-readiness/0.1.1-draft",
+  "protocol": "dsh-a11y-authoring-package-readiness/0.1.2-draft",
   "packages": [
     {
       "directory": "dsh-a11y-testkit",
@@ -11,6 +11,8 @@
         "repository": "git+https://github.com/omdsh-dev/dsh-a11y-testkit.git",
         "homepage": "https://github.com/omdsh-dev/dsh-a11y-testkit#readme",
         "bugs": "https://github.com/omdsh-dev/dsh-a11y-testkit/issues",
+        "branch": "main",
+        "visibility": "public",
         "distTag": "alpha"
       },
       "internalDependencies": {}
@@ -24,6 +26,8 @@
         "repository": "git+https://github.com/omdsh-dev/dsh-a11y-authoring.git",
         "homepage": "https://github.com/omdsh-dev/dsh-a11y-authoring#readme",
         "bugs": "https://github.com/omdsh-dev/dsh-a11y-authoring/issues",
+        "branch": "main",
+        "visibility": "public",
         "distTag": "alpha"
       },
       "internalDependencies": {
@@ -39,6 +43,8 @@
         "repository": "git+https://github.com/omdsh-dev/dsh-a11y-page-provider.git",
         "homepage": "https://github.com/omdsh-dev/dsh-a11y-page-provider#readme",
         "bugs": "https://github.com/omdsh-dev/dsh-a11y-page-provider/issues",
+        "branch": "main",
+        "visibility": "public",
         "distTag": "alpha"
       },
       "internalDependencies": {
@@ -55,6 +61,8 @@
         "repository": "git+https://github.com/omdsh-dev/dsh-a11y-loopback-provider.git",
         "homepage": "https://github.com/omdsh-dev/dsh-a11y-loopback-provider#readme",
         "bugs": "https://github.com/omdsh-dev/dsh-a11y-loopback-provider/issues",
+        "branch": "main",
+        "visibility": "public",
         "distTag": "alpha"
       },
       "internalDependencies": {
@@ -71,6 +79,8 @@
         "repository": "git+https://github.com/omdsh-dev/dsh-a11y-local-preview.git",
         "homepage": "https://github.com/omdsh-dev/dsh-a11y-local-preview#readme",
         "bugs": "https://github.com/omdsh-dev/dsh-a11y-local-preview/issues",
+        "branch": "main",
+        "visibility": "public",
         "distTag": "alpha"
       },
       "internalDependencies": {
@@ -87,6 +97,8 @@
         "repository": "git+https://github.com/omdsh-dev/dsh-a11y-caller-page.git",
         "homepage": "https://github.com/omdsh-dev/dsh-a11y-caller-page#readme",
         "bugs": "https://github.com/omdsh-dev/dsh-a11y-caller-page/issues",
+        "branch": "main",
+        "visibility": "public",
         "distTag": "alpha"
       },
       "internalDependencies": {

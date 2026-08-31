@@ -11,3 +11,5 @@ pnpm run authoring:readiness
 该报告不会执行测试，也不构成无障碍声明。发布前仍需分别运行各包的 typecheck、测试、覆盖率、构建、包内容、隔离 tarball 安装和真实 DSH 创作门禁。真实辅助技术和残障作者证据继续作为 `EVIDENCE-COVERAGE.zh.md` 中的独立要求。
 
 当所有源码检出均干净，且内部依赖都改为策略固定的精确版本后，运行 `pnpm run authoring:install`。该命令会重新打包六个检出，在一次性消费项目中仅通过 tarball override 安装两个顶层组合，并导入全部包。它能证明发布清单不再依赖相邻源码目录，但不会声称这些包已经存在于 npm。
+
+执行任何外部发布动作前，运行版本化 [alpha 发布预检](AUTHORING-ALPHA-PREFLIGHT.zh.md)。它会增加时间点明确的 GitHub 可见性、远端 revision、registry 版本、发布者认证、一次性打包与依赖顺序检查，但不会创建、push、tag 或发布任何内容。

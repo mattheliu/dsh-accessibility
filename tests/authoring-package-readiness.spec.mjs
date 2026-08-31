@@ -18,6 +18,8 @@ const spec = {
     repository: 'git+https://github.com/omdsh-dev/dsh-a11y-example.git',
     homepage: 'https://github.com/omdsh-dev/dsh-a11y-example#readme',
     bugs: 'https://github.com/omdsh-dev/dsh-a11y-example/issues',
+    branch: 'main',
+    visibility: 'public',
     distTag: 'alpha'
   },
   internalDependencies: { '@oh-my-dsh/dsh-a11y-testkit': '0.1.0-alpha.0' }
@@ -115,6 +117,8 @@ describe('authoring package publication readiness', () => {
         repository: `git+https://github.com/omdsh-dev/${item.directory}.git`,
         homepage: `https://github.com/omdsh-dev/${item.directory}#readme`,
         bugs: `https://github.com/omdsh-dev/${item.directory}/issues`,
+        branch: 'main',
+        visibility: 'public',
         distTag: 'alpha'
       })
     }

@@ -3,7 +3,7 @@ import { readFile } from 'node:fs/promises'
 import { resolve } from 'node:path'
 import { promisify } from 'node:util'
 
-export const AUTHORING_PACKAGE_READINESS_PROTOCOL = 'dsh-a11y-authoring-package-readiness/0.1.1-draft'
+export const AUTHORING_PACKAGE_READINESS_PROTOCOL = 'dsh-a11y-authoring-package-readiness/0.1.2-draft'
 export const AUTHORING_PACKAGE_VERDICT_SCOPE = 'package-publication-prerequisites-only-not-accessibility-conformance'
 
 const execFile = promisify(execFileCallback)

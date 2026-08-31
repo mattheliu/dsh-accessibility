@@ -10,7 +10,8 @@
 - Frame every model-visible authoring report string as JSON-quoted untrusted page/provider data and prohibit embedded commands from becoming instructions or authority expansion.
 - Upgrade the authoring-agent evidence protocol to `0.1.1-draft` and fail unless both real persisted audit results retain the security boundary and confine an injection-like subject to one quoted data record.
 - Prepare all six authoring manifests for public scoped alpha packages with independent `omdsh-dev` repository metadata while keeping remote creation and npm publication as explicit remaining gates.
-- Upgrade package readiness to `0.1.1-draft`, require every origin and metadata URL to match the exact policy repository, and force prereleases onto the `alpha` dist-tag instead of npm `latest`.
+- Upgrade package readiness to `0.1.2-draft`, require every origin and metadata URL to match the exact policy repository, record the required public visibility and `main` branch, and force prereleases onto the `alpha` dist-tag instead of npm `latest`.
+- Add a versioned read-only alpha release preflight that derives dependency-first publication layers, verifies public GitHub state and exact remote revisions, detects npm version conflicts and publisher authentication, and packs every clean source without creating, pushing, tagging, or publishing.
 
 - Add an experimental, user-loaded Accessible View through DSH's official `conversation.view` slot and structured session projection.
 - Preserve source-order conversation records and semantic Markdown/code, including an in-progress assistant record, without scraping or rewriting host DOM.
