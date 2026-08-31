@@ -1,0 +1,123 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/omdsh-dev/dsh-accessibility/main/PRIMARY-AT-CAMPAIGN.schema.json",
+  "title": "DSH primary assistive-technology community campaign",
+  "description": "Coordination metadata for an exact DSH candidate and human-validation lab. This is never human accessibility evidence.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "protocol",
+    "campaignId",
+    "status",
+    "preparedOn",
+    "candidate",
+    "lab",
+    "automatedEvidence",
+    "catalog",
+    "priorityRequirements",
+    "availabilityGates",
+    "evidenceBoundary"
+  ],
+  "properties": {
+    "$schema": { "type": "string", "format": "uri", "maxLength": 300 },
+    "protocol": { "const": "dsh-a11y-primary-at-campaign/0.1.0-draft" },
+    "campaignId": { "type": "string", "pattern": "^[a-z0-9][a-z0-9._-]{7,99}$" },
+    "status": { "enum": ["prepared-not-open", "open", "closed"] },
+    "preparedOn": { "type": "string", "format": "date" },
+    "candidate": { "$ref": "#/$defs/source" },
+    "lab": { "$ref": "#/$defs/source" },
+    "automatedEvidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["protocol", "evidence", "path", "dshRevision", "result", "claimBoundary"],
+      "properties": {
+        "protocol": { "const": "dsh-non-at-browser/1.0.0-draft" },
+        "evidence": { "const": "dsh-core-browser-non-at" },
+        "path": { "type": "string", "pattern": "^automated-evidence/core-browser/[0-9]{4}-[0-9]{2}-[0-9]{2}-dsh-[0-9A-Za-z.-]+-[0-9a-f]{10}\\.json$" },
+        "dshRevision": { "type": "string", "pattern": "^[0-9a-f]{40}$" },
+        "result": { "const": "pass" },
+        "claimBoundary": { "const": "automated-only-not-at-or-user-evidence" }
+      }
+    },
+    "catalog": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["protocol", "catalogId"],
+      "properties": {
+        "protocol": { "const": "dsh-a11y-evidence-catalog/0.1.0-draft" },
+        "catalogId": { "const": "dsh-accessibility-core-tasks-2026-08-31-r2" }
+      }
+    },
+    "priorityRequirements": {
+      "type": "array",
+      "minItems": 3,
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["requirementId", "scenarioProtocol", "taskSelector", "environment", "intake"],
+        "properties": {
+          "requirementId": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]{2,79}$" },
+          "scenarioProtocol": { "const": "dsh-core-at-lab/1.0.0-draft" },
+          "taskSelector": { "enum": ["claim-eligible", "representative-core"] },
+          "environment": { "type": "string", "minLength": 1, "maxLength": 200 },
+          "intake": { "type": "string", "format": "uri", "pattern": "^https://github\\.com/omdsh-dev/dsh-accessibility/" }
+        }
+      }
+    },
+    "availabilityGates": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/gate" }
+    },
+    "evidenceBoundary": {
+      "type": "array",
+      "minItems": 3,
+      "uniqueItems": true,
+      "items": { "type": "string", "minLength": 1, "maxLength": 300 }
+    }
+  },
+  "allOf": [
+    {
+      "if": { "type": "object", "properties": { "status": { "const": "open" } }, "required": ["status"] },
+      "then": {
+        "type": "object",
+        "properties": {
+          "availabilityGates": {
+            "type": "array",
+            "items": {
+              "allOf": [
+                { "$ref": "#/$defs/gate" },
+                { "type": "object", "properties": { "status": { "const": "ready" } } }
+              ]
+            }
+          }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["repository", "package", "version", "revision"],
+      "properties": {
+        "repository": { "type": "string", "format": "uri", "pattern": "^https://github\\.com/omdsh-dev/" },
+        "package": { "type": "string", "minLength": 1, "maxLength": 120 },
+        "version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+(?:-[0-9A-Za-z.-]+)?$" },
+        "revision": { "type": "string", "pattern": "^[0-9a-f]{40}$" }
+      }
+    },
+    "gate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "status", "detail"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]{2,79}$" },
+        "status": { "enum": ["missing", "ready"] },
+        "detail": { "type": "string", "minLength": 1, "maxLength": 300 }
+      }
+    }
+  }
+}

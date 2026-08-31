@@ -14,7 +14,9 @@ Describe the behavior, the product boundary that owns it, and any compatibility 
 - [ ] Keyboard behavior and focus lifecycle are covered for changed interaction.
 - [ ] Names, roles, states, relationships, and announcements are covered for changed UI.
 - [ ] English and Simplified Chinese product/support documentation remain aligned.
-- [ ] Support claims identify exact DSH, OS, browser, AT, language, and configuration versions.
+- [ ] The public human-evidence ledger validates when evidence files change.
+- [ ] Aggregate evidence coverage was reviewed when records, catalog tasks, or coverage policy changed; incompatible environments were not combined.
+- [ ] Support claims identify exact DSH and component revisions, OS, browser or terminal, AT when used, language, configuration, task, and validity period.
 - [ ] Automated evidence is not described as manual screen-reader or disabled-user validation.
 
 List commands, scenarios, artifacts, and assistive-technology results:
@@ -27,4 +29,4 @@ List commands, scenarios, artifacts, and assistive-technology results:
 
 ## Release evidence
 
-Does this change add, expand, invalidate, or renew an accessibility support claim or evidence badge? If yes, link the updated matrix, limitations, evidence, owner, and review date.
+Does this change add, expand, invalidate, or renew an accessibility support claim or evidence badge? If yes, link the updated matrix, limitations, validated `dsh-a11y-human-evidence/0.1.0-draft` record, public review, owner, and review date.

@@ -24,7 +24,7 @@ Enable disabled developers to complete DSH's core tasks independently, effective
 
 ## Evidence and releases
 
-Support is always scoped to exact product, operating-system, browser, assistive-technology, language, and configuration versions. Automated DOM or accessibility-tree checks are evidence, not screen-reader certification.
+Support is always scoped to exact product, operating-system, browser, language, configuration, and any assistive-technology versions used. Automated DOM or accessibility-tree checks are evidence, not screen-reader certification.
 
 Public evidence levels are:
 
@@ -33,6 +33,8 @@ Public evidence levels are:
 3. `a11y-user-validated` — consented disabled participants completed representative tasks.
 
 Evidence expires when an affected DSH minor line, browser/AT behavior, or relevant UI implementation changes. Stable releases require a current compatibility ledger, known limitations, repeatable test artifacts, and the release criteria in [ROADMAP.md](ROADMAP.md).
+
+Public human results use `dsh-a11y-human-evidence/0.1.0-draft` under [HUMAN-EVIDENCE.md](HUMAN-EVIDENCE.md). The separately reviewed [evidence catalog](EVIDENCE-CATALOG.json) is authoritative for protocol/task identity, representative-core status, safety criticality, and claim eligibility; a result author cannot self-classify those properties. The [aggregate coverage policy](EVIDENCE-COVERAGE.md) may combine AT records only inside one exact build/environment cohort and may never combine disabled-developer records to imply that one unidentified person completed a larger task set. Failed and partial results remain publishable with `claim: none`; a support claim additionally requires exact revisions, consent, a public review, current validity, effective and safe task completion, no hidden operational assistance, and the level-specific human evidence. A JSON file, aggregate report, or validator pass never creates evidence that a person did not actually produce.
 
 ## Access and review
 

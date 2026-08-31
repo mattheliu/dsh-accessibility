@@ -1,0 +1,362 @@
+{
+  "$schema": "https://raw.githubusercontent.com/omdsh-dev/dsh-accessibility/main/EVIDENCE-COVERAGE-POLICY.schema.json",
+  "protocol": "dsh-a11y-evidence-coverage-policy/0.1.0-draft",
+  "policyId": "dsh-accessibility-platform-baseline-2026-08-31",
+  "catalog": {
+    "protocol": "dsh-a11y-evidence-catalog/0.1.0-draft",
+    "catalogId": "dsh-accessibility-core-tasks-2026-08-31-r2"
+  },
+  "description": "A draft human-evidence baseline for the currently cataloged DSH tasks. It measures exact-environment coverage and is not by itself a release or conformance decision.",
+  "profiles": [
+    {
+      "id": "core-web-primary-screen-readers",
+      "title": "Core Web and live-state coverage with primary screen readers",
+      "requirements": [
+        {
+          "id": "voiceover-safari-core-web",
+          "claim": "a11y-at-tested",
+          "scenarioProtocol": "dsh-core-at-lab/1.0.0-draft",
+          "taskSelector": "claim-eligible",
+          "aggregation": "same-environment-cohort",
+          "environment": {
+            "osNames": ["macOS"],
+            "surfaceKind": "browser",
+            "surfaceNames": ["Safari"],
+            "accessTechnologyNames": ["VoiceOver"],
+            "requiredModalities": ["speech", "keyboard"]
+          }
+        },
+        {
+          "id": "nvda-chrome-core-web",
+          "claim": "a11y-at-tested",
+          "scenarioProtocol": "dsh-core-at-lab/1.0.0-draft",
+          "taskSelector": "claim-eligible",
+          "aggregation": "same-environment-cohort",
+          "environment": {
+            "osNames": ["Windows", "Windows 11"],
+            "surfaceKind": "browser",
+            "surfaceNames": ["Chrome", "Google Chrome"],
+            "accessTechnologyNames": ["NVDA"],
+            "requiredModalities": ["speech", "keyboard"]
+          }
+        },
+        {
+          "id": "voiceover-safari-live-states",
+          "claim": "a11y-at-tested",
+          "scenarioProtocol": "dsh-live-at-lab/1.0.0-draft",
+          "taskSelector": "claim-eligible",
+          "aggregation": "same-environment-cohort",
+          "environment": {
+            "osNames": ["macOS"],
+            "surfaceKind": "browser",
+            "surfaceNames": ["Safari"],
+            "accessTechnologyNames": ["VoiceOver"],
+            "requiredModalities": ["speech", "keyboard"]
+          }
+        },
+        {
+          "id": "nvda-chrome-live-states",
+          "claim": "a11y-at-tested",
+          "scenarioProtocol": "dsh-live-at-lab/1.0.0-draft",
+          "taskSelector": "claim-eligible",
+          "aggregation": "same-environment-cohort",
+          "environment": {
+            "osNames": ["Windows", "Windows 11"],
+            "surfaceKind": "browser",
+            "surfaceNames": ["Chrome", "Google Chrome"],
+            "accessTechnologyNames": ["NVDA"],
+            "requiredModalities": ["speech", "keyboard"]
+          }
+        }
+      ]
+    },
+    {
+      "id": "companion-primary-screen-readers",
+      "title": "Accessible View coverage with primary screen readers",
+      "requirements": [
+        {
+          "id": "voiceover-safari-accessible-view",
+          "claim": "a11y-at-tested",
+          "scenarioProtocol": "dsh-at-lab/1.0.0-draft",
+          "taskSelector": "claim-eligible",
+          "aggregation": "same-environment-cohort",
+          "environment": {
+            "osNames": ["macOS"],
+            "surfaceKind": "browser",
+            "surfaceNames": ["Safari"],
+            "accessTechnologyNames": ["VoiceOver"],
+            "requiredModalities": ["speech", "keyboard"]
+          }
+        },
+        {
+          "id": "nvda-chrome-accessible-view",
+          "claim": "a11y-at-tested",
+          "scenarioProtocol": "dsh-at-lab/1.0.0-draft",
+          "taskSelector": "claim-eligible",
+          "aggregation": "same-environment-cohort",
+          "environment": {
+            "osNames": ["Windows", "Windows 11"],
+            "surfaceKind": "browser",
+            "surfaceNames": ["Chrome", "Google Chrome"],
+            "accessTechnologyNames": ["NVDA"],
+            "requiredModalities": ["speech", "keyboard"]
+          }
+        }
+      ]
+    },
+    {
+      "id": "cli-primary-screen-readers",
+      "title": "One-shot CLI coverage with primary screen readers",
+      "requirements": [
+        {
+          "id": "voiceover-terminal-cli",
+          "claim": "a11y-at-tested",
+          "scenarioProtocol": "dsh-cli-accessibility/1.0.0-draft",
+          "taskSelector": "claim-eligible",
+          "aggregation": "same-environment-cohort",
+          "environment": {
+            "osNames": ["macOS"],
+            "surfaceKind": "terminal",
+            "accessTechnologyNames": ["VoiceOver"],
+            "requiredModalities": ["speech", "keyboard"]
+          }
+        },
+        {
+          "id": "nvda-terminal-cli",
+          "claim": "a11y-at-tested",
+          "scenarioProtocol": "dsh-cli-accessibility/1.0.0-draft",
+          "taskSelector": "claim-eligible",
+          "aggregation": "same-environment-cohort",
+          "environment": {
+            "osNames": ["Windows", "Windows 11"],
+            "surfaceKind": "terminal",
+            "accessTechnologyNames": ["NVDA"],
+            "requiredModalities": ["speech", "keyboard"]
+          }
+        }
+      ]
+    },
+    {
+      "id": "authoring-primary-screen-readers",
+      "title": "Accessible authoring approval and rejection coverage",
+      "requirements": [
+        {
+          "id": "voiceover-safari-authoring",
+          "claim": "a11y-at-tested",
+          "scenarioProtocol": "dsh-a11y-authoring-at-lab/0.1.0-draft",
+          "taskSelector": "claim-eligible",
+          "aggregation": "same-environment-cohort",
+          "environment": {
+            "osNames": ["macOS"],
+            "surfaceKind": "browser",
+            "surfaceNames": ["Safari"],
+            "accessTechnologyNames": ["VoiceOver"],
+            "requiredModalities": ["speech", "keyboard"]
+          }
+        },
+        {
+          "id": "nvda-chrome-authoring",
+          "claim": "a11y-at-tested",
+          "scenarioProtocol": "dsh-a11y-authoring-at-lab/0.1.0-draft",
+          "taskSelector": "claim-eligible",
+          "aggregation": "same-environment-cohort",
+          "environment": {
+            "osNames": ["Windows", "Windows 11"],
+            "surfaceKind": "browser",
+            "surfaceNames": ["Chrome", "Google Chrome"],
+            "accessTechnologyNames": ["NVDA"],
+            "requiredModalities": ["speech", "keyboard"]
+          }
+        }
+      ]
+    },
+    {
+      "id": "extended-assistive-technology-matrix",
+      "title": "Extended screen-reader, braille, voice, switch, and magnification coverage",
+      "requirements": [
+        {
+          "id": "jaws-chrome-core-web",
+          "claim": "a11y-at-tested",
+          "scenarioProtocol": "dsh-core-at-lab/1.0.0-draft",
+          "taskSelector": "claim-eligible",
+          "aggregation": "same-environment-cohort",
+          "environment": {
+            "osNames": ["Windows", "Windows 11"],
+            "surfaceKind": "browser",
+            "surfaceNames": ["Chrome", "Google Chrome"],
+            "accessTechnologyNames": ["JAWS"],
+            "requiredModalities": ["speech", "keyboard"]
+          }
+        },
+        {
+          "id": "narrator-edge-core-web",
+          "claim": "a11y-at-tested",
+          "scenarioProtocol": "dsh-core-at-lab/1.0.0-draft",
+          "taskSelector": "claim-eligible",
+          "aggregation": "same-environment-cohort",
+          "environment": {
+            "osNames": ["Windows", "Windows 11"],
+            "surfaceKind": "browser",
+            "surfaceNames": ["Edge", "Microsoft Edge"],
+            "accessTechnologyNames": ["Narrator"],
+            "requiredModalities": ["speech", "keyboard"]
+          }
+        },
+        {
+          "id": "orca-firefox-core-web",
+          "claim": "a11y-at-tested",
+          "scenarioProtocol": "dsh-core-at-lab/1.0.0-draft",
+          "taskSelector": "claim-eligible",
+          "aggregation": "same-environment-cohort",
+          "environment": {
+            "osNames": ["Linux"],
+            "surfaceKind": "browser",
+            "surfaceNames": ["Firefox"],
+            "accessTechnologyNames": ["Orca"],
+            "requiredModalities": ["speech", "keyboard"]
+          }
+        },
+        {
+          "id": "braille-core-web",
+          "claim": "a11y-at-tested",
+          "scenarioProtocol": "dsh-core-at-lab/1.0.0-draft",
+          "taskSelector": "claim-eligible",
+          "aggregation": "same-environment-cohort",
+          "environment": {
+            "surfaceKind": "browser",
+            "requiredModalities": ["braille", "keyboard"]
+          }
+        },
+        {
+          "id": "voice-input-core-web",
+          "claim": "a11y-at-tested",
+          "scenarioProtocol": "dsh-core-at-lab/1.0.0-draft",
+          "taskSelector": "claim-eligible",
+          "aggregation": "same-environment-cohort",
+          "environment": {
+            "surfaceKind": "browser",
+            "requiredModalities": ["voice"]
+          }
+        },
+        {
+          "id": "switch-core-web",
+          "claim": "a11y-at-tested",
+          "scenarioProtocol": "dsh-core-at-lab/1.0.0-draft",
+          "taskSelector": "claim-eligible",
+          "aggregation": "same-environment-cohort",
+          "environment": {
+            "surfaceKind": "browser",
+            "requiredModalities": ["switch"]
+          }
+        },
+        {
+          "id": "magnification-core-web",
+          "claim": "a11y-at-tested",
+          "scenarioProtocol": "dsh-core-at-lab/1.0.0-draft",
+          "taskSelector": "claim-eligible",
+          "aggregation": "same-environment-cohort",
+          "environment": {
+            "surfaceKind": "browser",
+            "requiredModalities": ["magnification", "keyboard"]
+          }
+        },
+        {
+          "id": "jaws-terminal-cli",
+          "claim": "a11y-at-tested",
+          "scenarioProtocol": "dsh-cli-accessibility/1.0.0-draft",
+          "taskSelector": "claim-eligible",
+          "aggregation": "same-environment-cohort",
+          "environment": {
+            "osNames": ["Windows", "Windows 11"],
+            "surfaceKind": "terminal",
+            "accessTechnologyNames": ["JAWS"],
+            "requiredModalities": ["speech", "keyboard"]
+          }
+        },
+        {
+          "id": "narrator-terminal-cli",
+          "claim": "a11y-at-tested",
+          "scenarioProtocol": "dsh-cli-accessibility/1.0.0-draft",
+          "taskSelector": "claim-eligible",
+          "aggregation": "same-environment-cohort",
+          "environment": {
+            "osNames": ["Windows", "Windows 11"],
+            "surfaceKind": "terminal",
+            "accessTechnologyNames": ["Narrator"],
+            "requiredModalities": ["speech", "keyboard"]
+          }
+        },
+        {
+          "id": "orca-terminal-cli",
+          "claim": "a11y-at-tested",
+          "scenarioProtocol": "dsh-cli-accessibility/1.0.0-draft",
+          "taskSelector": "claim-eligible",
+          "aggregation": "same-environment-cohort",
+          "environment": {
+            "osNames": ["Linux"],
+            "surfaceKind": "terminal",
+            "accessTechnologyNames": ["Orca"],
+            "requiredModalities": ["speech", "keyboard"]
+          }
+        },
+        {
+          "id": "braille-terminal-cli",
+          "claim": "a11y-at-tested",
+          "scenarioProtocol": "dsh-cli-accessibility/1.0.0-draft",
+          "taskSelector": "claim-eligible",
+          "aggregation": "same-environment-cohort",
+          "environment": {
+            "surfaceKind": "terminal",
+            "requiredModalities": ["braille", "keyboard"]
+          }
+        }
+      ]
+    },
+    {
+      "id": "disabled-developer-core-task-validation",
+      "title": "Independent disabled-developer completion of every representative core task",
+      "requirements": [
+        {
+          "id": "disabled-developer-core-web",
+          "claim": "a11y-user-validated",
+          "scenarioProtocol": "dsh-core-at-lab/1.0.0-draft",
+          "taskSelector": "representative-core",
+          "aggregation": "single-record",
+          "environment": { "surfaceKind": "browser" }
+        },
+        {
+          "id": "disabled-developer-live-states",
+          "claim": "a11y-user-validated",
+          "scenarioProtocol": "dsh-live-at-lab/1.0.0-draft",
+          "taskSelector": "representative-core",
+          "aggregation": "single-record",
+          "environment": { "surfaceKind": "browser" }
+        },
+        {
+          "id": "disabled-developer-accessible-view",
+          "claim": "a11y-user-validated",
+          "scenarioProtocol": "dsh-at-lab/1.0.0-draft",
+          "taskSelector": "representative-core",
+          "aggregation": "single-record",
+          "environment": { "surfaceKind": "browser" }
+        },
+        {
+          "id": "disabled-developer-cli",
+          "claim": "a11y-user-validated",
+          "scenarioProtocol": "dsh-cli-accessibility/1.0.0-draft",
+          "taskSelector": "representative-core",
+          "aggregation": "single-record",
+          "environment": { "surfaceKind": "terminal" }
+        },
+        {
+          "id": "disabled-developer-authoring",
+          "claim": "a11y-user-validated",
+          "scenarioProtocol": "dsh-a11y-authoring-at-lab/0.1.0-draft",
+          "taskSelector": "representative-core",
+          "aggregation": "single-record",
+          "environment": { "surfaceKind": "browser" }
+        }
+      ]
+    }
+  ]
+}

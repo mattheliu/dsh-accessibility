@@ -1,0 +1,153 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/omdsh-dev/dsh-accessibility/raw/main/AUTHORING-ALPHA-PREFLIGHT.schema.json",
+  "title": "DSH accessibility authoring alpha release preflight",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "protocol",
+    "generatedAt",
+    "evidence",
+    "result",
+    "lab",
+    "npm",
+    "publicationLayers",
+    "packages",
+    "blockerCount",
+    "blockers",
+    "limitations"
+  ],
+  "properties": {
+    "protocol": { "const": "dsh-a11y-authoring-alpha-preflight/0.1.0-draft" },
+    "generatedAt": { "type": "string", "format": "date-time" },
+    "evidence": { "const": "release-preflight-only-no-publish-no-accessibility-claim" },
+    "result": { "enum": ["pass", "blocked"] },
+    "lab": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["package", "version", "revision"],
+      "properties": {
+        "package": { "const": "@oh-my-dsh/dsh-accessibility" },
+        "version": { "const": "0.1.0-beta.6" },
+        "revision": { "type": "string", "pattern": "^[0-9a-f]{40}$" }
+      }
+    },
+    "npm": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["registry", "authentication", "distTag"],
+      "properties": {
+        "registry": { "const": "https://registry.npmjs.org" },
+        "authentication": { "enum": ["available", "missing", "unknown"] },
+        "distTag": { "const": "alpha" }
+      }
+    },
+    "publicationLayers": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 6,
+      "items": {
+        "type": "array",
+        "minItems": 1,
+        "maxItems": 6,
+        "items": { "type": "string", "pattern": "^@oh-my-dsh/dsh-a11y-[a-z-]+$" }
+      }
+    },
+    "packages": {
+      "type": "array",
+      "minItems": 6,
+      "maxItems": 6,
+      "items": { "$ref": "#/$defs/package" }
+    },
+    "blockerCount": { "type": "integer", "minimum": 0 },
+    "blockers": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "limitations": {
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 3,
+      "items": { "type": "string", "minLength": 1 }
+    }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "result": { "const": "pass" } }, "required": ["result"] },
+      "then": {
+        "properties": {
+          "blockerCount": { "type": "integer", "const": 0 },
+          "blockers": { "type": "array", "maxItems": 0 }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "result": { "const": "blocked" } }, "required": ["result"] },
+      "then": {
+        "properties": {
+          "blockerCount": { "type": "integer", "minimum": 1 },
+          "blockers": { "type": "array", "minItems": 1 }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "package": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "version",
+        "role",
+        "revision",
+        "source",
+        "github",
+        "registryVersion",
+        "tarball",
+        "readinessBlockers"
+      ],
+      "properties": {
+        "name": { "type": "string", "pattern": "^@oh-my-dsh/dsh-a11y-[a-z-]+$" },
+        "version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+-alpha\\.[0-9]+$" },
+        "role": { "type": "string", "minLength": 1 },
+        "revision": { "type": "string", "pattern": "^[0-9a-f]{40}$" },
+        "source": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["clean", "originConfigured", "originMatchesPolicy", "remoteRevision"],
+          "properties": {
+            "clean": { "type": "boolean" },
+            "originConfigured": { "type": "boolean" },
+            "originMatchesPolicy": { "type": "boolean" },
+            "remoteRevision": { "enum": ["matches", "missing", "mismatch", "unknown", "unchecked"] }
+          }
+        },
+        "github": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["state"],
+          "properties": {
+            "state": { "enum": ["ready", "missing", "mismatch", "unknown"] },
+            "visibility": { "type": ["string", "null"] },
+            "defaultBranch": { "type": ["string", "null"] },
+            "archived": { "type": ["boolean", "null"] }
+          }
+        },
+        "registryVersion": { "enum": ["available", "already-exists", "unknown"] },
+        "tarball": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["integrity", "filename"],
+          "properties": {
+            "integrity": { "type": "string", "pattern": "^sha512-[A-Za-z0-9+/]+={0,2}$" },
+            "filename": { "type": "string", "pattern": "^oh-my-dsh-dsh-a11y-[a-z-]+-[0-9]+\\.[0-9]+\\.[0-9]+-alpha\\.[0-9]+\\.tgz$" }
+          }
+        },
+        "readinessBlockers": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 }
+        }
+      }
+    }
+  }
+}

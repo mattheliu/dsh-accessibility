@@ -1,23 +1,29 @@
+/** Stable order and identifier set for the versioned diagnostic report. */
+export const ACCESSIBILITY_CHECK_IDS = [
+  'main',
+  'navigation',
+  'heading',
+  'controls',
+  'images',
+  'lists',
+  'nested-interactive',
+  'references',
+  'composer',
+  'message-log',
+  'menus',
+  'listboxes',
+  'tree-keyboard',
+  'radio-keyboard',
+  'tabs',
+  'dialogs',
+  'separators',
+] as const
+
+export type AccessibilityCheckId = typeof ACCESSIBILITY_CHECK_IDS[number]
+
 /** One deterministic page-level accessibility diagnostic. */
 export interface AccessibilityCheck {
-  id:
-    | 'main'
-    | 'navigation'
-    | 'heading'
-    | 'controls'
-    | 'images'
-    | 'lists'
-    | 'nested-interactive'
-    | 'references'
-    | 'composer'
-    | 'message-log'
-    | 'menus'
-    | 'listboxes'
-    | 'tree-keyboard'
-    | 'radio-keyboard'
-    | 'tabs'
-    | 'dialogs'
-    | 'separators'
+  id: AccessibilityCheckId
   passed: boolean
   affected: number
 }
@@ -93,7 +99,7 @@ function referencesMissing(element: Element, attribute: string): boolean {
   return ids.split(/\s+/u).some(id => element.ownerDocument.getElementById(id) === null)
 }
 
-function check(id: AccessibilityCheck['id'], affected: readonly unknown[]): AccessibilityCheck {
+function check(id: AccessibilityCheckId, affected: readonly unknown[]): AccessibilityCheck {
   return { id, passed: affected.length === 0, affected: affected.length }
 }
 
@@ -240,4 +246,22 @@ export function runAccessibilityAudit(root: ParentNode = document): Accessibilit
     check('dialogs', unnamedDialogs),
     check('separators', unusableSeparators),
   ]
+}
+
+/**
+ * Run the same engine against a detached, synthetic one-defect document. This
+ * gives human evaluators a stable guidance exercise without modifying or
+ * reading the current page and can never become a report export source.
+ */
+export function runSyntheticAccessibilityExample(): AccessibilityCheck[] {
+  const example = document.implementation.createHTMLDocument('Synthetic accessibility example')
+  const navigation = example.createElement('nav')
+  navigation.setAttribute('aria-label', 'Synthetic primary navigation')
+  const main = example.createElement('main')
+  const heading = example.createElement('h1')
+  heading.textContent = 'Synthetic application'
+  const unnamedButton = example.createElement('button')
+  main.append(heading, unnamedButton)
+  example.body.append(navigation, main)
+  return runAccessibilityAudit(example)
 }

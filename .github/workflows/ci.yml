@@ -28,18 +28,61 @@ jobs:
           node-version: ${{ matrix.node }}
           cache: pnpm
       - run: pnpm install --frozen-lockfile
+      - if: matrix.os == 'ubuntu-latest' && matrix.node == '24.x'
+        run: pnpm run evidence:validate
       - run: pnpm run typecheck
       - run: pnpm test
       - run: pnpm run build
       - run: npm pack --dry-run --json
 
+  assembled-browser:
+    name: Assembled DSH browser contract
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Check out companion
+        uses: actions/checkout@v7
+      - name: Check out exact patched DSH baseline
+        uses: actions/checkout@v7
+        with:
+          repository: omdsh-dev/deepseek-harness
+          ref: dsh-v0.1.1-rc.2-a11y.4
+          path: .assembled/dsh
+      - uses: pnpm/action-setup@v6
+        with:
+          version: 11.7.0
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24.x
+          cache: pnpm
+          cache-dependency-path: |
+            pnpm-lock.yaml
+            .assembled/dsh/pnpm-lock.yaml
+      - name: Install and build companion
+        run: |
+          pnpm install --frozen-lockfile
+          pnpm run build
+      - name: Install and build DSH baseline
+        working-directory: .assembled/dsh
+        run: |
+          pnpm install --frozen-lockfile
+          pnpm run build:official
+          pnpm --dir apps/web exec playwright install --with-deps chromium firefox webkit
+      - name: Run external-plugin assembled browser protocol
+        run: pnpm run test:assembled .assembled/dsh . chromium,firefox,webkit
+      - name: Smoke-test disposable AT lab startup and cleanup
+        run: pnpm run lab:at .assembled/dsh . none 500
+
   ci:
     name: CI gate
     if: always()
-    needs: validate
+    needs: [validate, assembled-browser]
     runs-on: ubuntu-latest
     steps:
       - name: Require every matrix job
         env:
           VALIDATE_RESULT: ${{ needs.validate.result }}
-        run: test "$VALIDATE_RESULT" = success
+          ASSEMBLED_RESULT: ${{ needs.assembled-browser.result }}
+        run: |
+          test "$VALIDATE_RESULT" = success
+          test "$ASSEMBLED_RESULT" = success

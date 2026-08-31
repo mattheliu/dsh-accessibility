@@ -6,6 +6,9 @@ contact_links:
   - name: Security and privacy report
     url: https://github.com/omdsh-dev/dsh-accessibility/security/advisories/new
     about: Privately report vulnerabilities, credentials exposure, or participant-data risks.
+  - name: Evidence withdrawal or participant-data request
+    url: https://github.com/omdsh-dev/dsh-accessibility/security/advisories/new
+    about: Privately request withdrawal, correction, or deletion of covered accessibility-research material; never post participant contact details publicly.
   - name: Community conduct process
     url: https://github.com/omdsh-dev/community/blob/main/CODE_OF_CONDUCT.md
     about: Read the private reporting route for conduct incidents; do not file them publicly.

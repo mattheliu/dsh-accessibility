@@ -1,5 +1,6 @@
 node_modules/
 lib/
 artifacts/
+.assembled/
 *.tgz
 .DS_Store

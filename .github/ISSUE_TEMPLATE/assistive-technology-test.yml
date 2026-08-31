@@ -8,13 +8,15 @@ body:
   - type: markdown
     attributes:
       value: |
-        Partial results are welcome. Submit one issue per product/browser/AT/language combination. Do not attach raw participant recordings or personal data.
+        Partial results are welcome. Submit one issue per product/browser-or-terminal/AT/language combination. Use the matching versioned protocol: dsh-core-at-lab/1.0.0-draft for core Web tasks, dsh-live-at-lab/1.0.0-draft for live response and decision states, dsh-at-lab/1.0.0-draft for companion reading/diagnostic tasks, dsh-cli-accessibility/1.0.0-draft for the one-shot CLI, or dsh-a11y-authoring-at-lab/0.1.0-draft for the authoring allow/reject task. An issue is source material; a public support claim additionally requires a reviewed record under dsh-a11y-human-evidence/0.1.0-draft. Do not attach raw participant recordings, one-use sign-in URLs, unreviewed session logs, or personal data.
   - type: checkboxes
     id: authority
     attributes:
       label: Consent and privacy
       options:
         - label: I am submitting my own result or have explicit permission to submit this de-identified result.
+          required: true
+        - label: A person directly operated the named assistive technology and observed the reported output or interaction; this is not an automated, accessibility-tree-only, caption-inferred, or AI-operated result.
           required: true
         - label: I removed credentials, private prompts, conversations, usernames, personal data, and sensitive paths.
           required: true
@@ -25,10 +27,14 @@ body:
     attributes:
       label: Exact test matrix row
       placeholder: |
-        DSH tag/build:
-        Companion version:
+        Protocol and stable catalog task IDs:
+        Scenario/task ID (for example allow-once or reject):
+        DSH version and full revision:
+        Companion version and full revision, if used:
+        Authoring composition version and full revision, if used:
         OS and hardware/VM:
-        Browser:
+        Browser, or terminal and shell:
+        PTY or redirected streams (CLI):
         Assistive technology and version:
         UI and speech language:
         Verbosity, punctuation, browse/focus mode, braille, or other relevant settings:
@@ -38,7 +44,7 @@ body:
     id: scenarios
     attributes:
       label: Scenarios and results
-      description: For each scenario, record pass/fail/partial, task completion, focus destination, exact spoken or braille output where relevant, and workaround.
+      description: For each stable catalog task ID, record pass/fail/partial, independent task completion, focus destination, a direct observation for every AT modality you claim, approval comprehension/decision where applicable, assistance, and workaround. An unobserved modality is a limitation, not a pass.
     validations:
       required: true
   - type: textarea

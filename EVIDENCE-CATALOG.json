@@ -1,0 +1,302 @@
+{
+  "$schema": "https://raw.githubusercontent.com/omdsh-dev/dsh-accessibility/main/EVIDENCE-CATALOG.schema.json",
+  "protocol": "dsh-a11y-evidence-catalog/0.1.0-draft",
+  "catalogId": "dsh-accessibility-core-tasks-2026-08-31-r2",
+  "reviewedOn": "2026-08-31",
+  "scenarios": [
+    {
+      "protocol": "dsh-core-at-lab/1.0.0-draft",
+      "interface": "web",
+      "tasks": [
+        {
+          "id": "discover-structure",
+          "title": "Discover the application structure",
+          "description": "Find the application title and named Sidebar, main, and Details regions without a pointer.",
+          "representativeCoreTask": false,
+          "safetyCritical": false,
+          "claimEligible": true
+        },
+        {
+          "id": "navigate-sessions",
+          "title": "Navigate and activate Sessions",
+          "description": "Operate the Sessions tree, activate a synthetic Session, visit a row action, and return predictably.",
+          "representativeCoreTask": true,
+          "safetyCritical": false,
+          "claimEligible": true
+        },
+        {
+          "id": "search-sessions",
+          "title": "Search Sessions",
+          "description": "Open, use, clear, and dismiss Session search with correct focus return.",
+          "representativeCoreTask": true,
+          "safetyCritical": false,
+          "claimEligible": true
+        },
+        {
+          "id": "adjust-layout",
+          "title": "Adjust the application layout",
+          "description": "Discover and operate both separators, including values, bounds, Details toggle, and focus stability.",
+          "representativeCoreTask": false,
+          "safetyCritical": false,
+          "claimEligible": true
+        },
+        {
+          "id": "switch-session-view",
+          "title": "Switch Session views",
+          "description": "Operate Chat and Trajectory as a single-tab-stop tab list and identify the selected panel.",
+          "representativeCoreTask": true,
+          "safetyCritical": false,
+          "claimEligible": true
+        },
+        {
+          "id": "read-conversation",
+          "title": "Read a conversation",
+          "description": "Read messages, code, links, tool information, terminal-state vocabulary, and a tool disclosure in source order.",
+          "representativeCoreTask": true,
+          "safetyCritical": false,
+          "claimEligible": true
+        },
+        {
+          "id": "inspect-trajectory",
+          "title": "Inspect Trajectory",
+          "description": "Navigate the event table, open details, operate its tabs and separator, close it, and recover predictably.",
+          "representativeCoreTask": true,
+          "safetyCritical": false,
+          "claimEligible": true
+        },
+        {
+          "id": "configure-settings",
+          "title": "Configure Settings",
+          "description": "Open Settings, operate a menu, dismiss nested and outer surfaces separately, and verify focus return.",
+          "representativeCoreTask": true,
+          "safetyCritical": false,
+          "claimEligible": true
+        },
+        {
+          "id": "edit-composer-draft",
+          "title": "Edit a composer draft",
+          "description": "Find the composer and send control, edit a synthetic draft, clear it without submitting, and retain keyboard access.",
+          "representativeCoreTask": true,
+          "safetyCritical": false,
+          "claimEligible": true
+        },
+        {
+          "id": "nonvisual-repeat",
+          "title": "Repeat the riskiest route nonvisually",
+          "description": "Repeat the most failure-prone route while safely ignoring the display and record recovery details.",
+          "representativeCoreTask": false,
+          "safetyCritical": false,
+          "claimEligible": false
+        }
+      ]
+    },
+    {
+      "protocol": "dsh-live-at-lab/1.0.0-draft",
+      "interface": "web",
+      "tasks": [
+        {
+          "id": "complete",
+          "title": "Complete a response",
+          "description": "Distinguish response start and durable completion without premature or replayed announcements.",
+          "representativeCoreTask": true,
+          "safetyCritical": false,
+          "claimEligible": true
+        },
+        {
+          "id": "stop",
+          "title": "Stop a response",
+          "description": "Stop generation nonvisually, distinguish stopped from completed, retain partial output, and recover the composer.",
+          "representativeCoreTask": true,
+          "safetyCritical": true,
+          "claimEligible": true
+        },
+        {
+          "id": "fail",
+          "title": "Recover from a failed response",
+          "description": "Distinguish failure from completion, understand recovery, retain usable focus, and avoid sensitive speech.",
+          "representativeCoreTask": true,
+          "safetyCritical": true,
+          "claimEligible": true
+        },
+        {
+          "id": "question",
+          "title": "Answer a question request",
+          "description": "Understand a question-needs-answer transition, operate all answer controls, and finish the response.",
+          "representativeCoreTask": true,
+          "safetyCritical": false,
+          "claimEligible": true
+        },
+        {
+          "id": "plan",
+          "title": "Review a plan",
+          "description": "Read a complete plan, approve it, and understand decision, tool, response, and focus transitions.",
+          "representativeCoreTask": true,
+          "safetyCritical": true,
+          "claimEligible": true
+        },
+        {
+          "id": "approval",
+          "title": "Review a tool approval",
+          "description": "Understand bounded command details and risk, decide with reachable controls, and follow tool settlement.",
+          "representativeCoreTask": true,
+          "safetyCritical": true,
+          "claimEligible": true
+        }
+      ]
+    },
+    {
+      "protocol": "dsh-at-lab/1.0.0-draft",
+      "interface": "web",
+      "tasks": [
+        {
+          "id": "discover-structure",
+          "title": "Discover the application structure",
+          "description": "Find the DSH application title and major landmarks without a pointer.",
+          "representativeCoreTask": false,
+          "safetyCritical": false,
+          "claimEligible": true
+        },
+        {
+          "id": "open-synthetic-session",
+          "title": "Open the synthetic Session",
+          "description": "Locate and open the synthetic conversation from the Sessions tree.",
+          "representativeCoreTask": true,
+          "safetyCritical": false,
+          "claimEligible": true
+        },
+        {
+          "id": "activate-accessible-view",
+          "title": "Activate Accessible View",
+          "description": "Find and activate the Accessible View tab.",
+          "representativeCoreTask": true,
+          "safetyCritical": false,
+          "claimEligible": true
+        },
+        {
+          "id": "verify-unloaded-privacy",
+          "title": "Verify the unloaded privacy boundary",
+          "description": "Confirm conversation content is absent before Load and understand the privacy notice.",
+          "representativeCoreTask": false,
+          "safetyCritical": true,
+          "claimEligible": true
+        },
+        {
+          "id": "load-reading-view",
+          "title": "Load the reading view",
+          "description": "Load Accessible View and understand its title, focus target, count, status, and source order.",
+          "representativeCoreTask": true,
+          "safetyCritical": false,
+          "claimEligible": true
+        },
+        {
+          "id": "read-semantic-content",
+          "title": "Read semantic conversation content",
+          "description": "Navigate headings, records, code, links, and tool disclosures in reading and focus modes.",
+          "representativeCoreTask": true,
+          "safetyCritical": false,
+          "claimEligible": true
+        },
+        {
+          "id": "operate-tool-disclosure",
+          "title": "Operate a tool disclosure",
+          "description": "Expand and collapse tool output while retaining its name, state, content boundary, and stable focus.",
+          "representativeCoreTask": true,
+          "safetyCritical": false,
+          "claimEligible": true
+        },
+        {
+          "id": "copy-visible-message",
+          "title": "Copy only a visible message",
+          "description": "Copy a visible message and verify hidden context, reasoning, tools, paths, and metadata are excluded.",
+          "representativeCoreTask": true,
+          "safetyCritical": true,
+          "claimEligible": true
+        },
+        {
+          "id": "clear-reading-view",
+          "title": "Clear the reading view",
+          "description": "Unmount sensitive content and restore focus to Load reading view.",
+          "representativeCoreTask": true,
+          "safetyCritical": true,
+          "claimEligible": true
+        },
+        {
+          "id": "return-to-chat",
+          "title": "Return to Chat",
+          "description": "Return to Chat and complete the ordinary keyboard route without pointer recovery.",
+          "representativeCoreTask": true,
+          "safetyCritical": false,
+          "claimEligible": true
+        },
+        {
+          "id": "use-diagnostic-guidance",
+          "title": "Use diagnostic repair guidance",
+          "description": "Run the detached one-defect practice, understand the result without visual location, and use its contextual guidance to identify the missing control-name repair.",
+          "representativeCoreTask": true,
+          "safetyCritical": false,
+          "claimEligible": true
+        },
+        {
+          "id": "inspect-focused-control",
+          "title": "Inspect a focused control",
+          "description": "Track one external focus target, return without losing the snapshot, and understand its element, name source, role, Tab position, and exposed state without continuous announcements.",
+          "representativeCoreTask": true,
+          "safetyCritical": false,
+          "claimEligible": true
+        },
+        {
+          "id": "copy-redacted-diagnostic",
+          "title": "Review and copy a redacted diagnostic",
+          "description": "Run the current-page check, review the exact no-claim JSON preview, verify its explicit exclusions, and copy that same preview without page, element, conversation, or browser data.",
+          "representativeCoreTask": true,
+          "safetyCritical": true,
+          "claimEligible": true
+        }
+      ]
+    },
+    {
+      "protocol": "dsh-cli-accessibility/1.0.0-draft",
+      "interface": "cli",
+      "tasks": [
+        {
+          "id": "completed-response",
+          "title": "Complete a headless CLI task",
+          "description": "Read one start line, the final response, and one completion line, then review and classify the outcome.",
+          "representativeCoreTask": true,
+          "safetyCritical": false,
+          "claimEligible": true
+        },
+        {
+          "id": "authentication-failure",
+          "title": "Understand an authentication failure",
+          "description": "Read one start and failure sequence, distinguish failure from success, and observe exit status 1 without sensitive output.",
+          "representativeCoreTask": true,
+          "safetyCritical": true,
+          "claimEligible": true
+        }
+      ]
+    },
+    {
+      "protocol": "dsh-a11y-authoring-at-lab/0.1.0-draft",
+      "interface": "web",
+      "tasks": [
+        {
+          "id": "allow-once",
+          "title": "Review and allow one accessible repair",
+          "description": "Audit, read, understand a one-time write request, allow once, inspect the diff, and re-audit the synthetic page.",
+          "representativeCoreTask": true,
+          "safetyCritical": true,
+          "claimEligible": true
+        },
+        {
+          "id": "reject",
+          "title": "Reject an accessible repair safely",
+          "description": "Reject the write request, perceive the failed edit, confirm source remains unchanged, and distinguish flow completion from repair success.",
+          "representativeCoreTask": true,
+          "safetyCritical": true,
+          "claimEligible": true
+        }
+      ]
+    }
+  ]
+}

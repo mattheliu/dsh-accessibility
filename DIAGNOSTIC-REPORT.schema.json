@@ -1,0 +1,106 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/omdsh-dev/dsh-accessibility/main/DIAGNOSTIC-REPORT.schema.json",
+  "title": "DSH redacted accessibility diagnostic report",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["protocol", "generatedAt", "scope", "claim", "summary", "checks", "omitted", "limitations"],
+  "properties": {
+    "protocol": { "const": "dsh-accessibility-diagnostic/1.0.0-draft" },
+    "generatedAt": { "type": "string", "format": "date-time" },
+    "scope": { "const": "current-document-structure" },
+    "claim": { "const": "none" },
+    "summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["total", "passed", "needsAttention"],
+      "properties": {
+        "total": { "const": 17 },
+        "passed": { "type": "integer", "minimum": 0, "maximum": 17 },
+        "needsAttention": { "type": "integer", "minimum": 0, "maximum": 17 }
+      }
+    },
+    "checks": {
+      "type": "array",
+      "minItems": 17,
+      "maxItems": 17,
+      "prefixItems": [
+        { "$ref": "#/$defs/main" },
+        { "$ref": "#/$defs/navigation" },
+        { "$ref": "#/$defs/heading" },
+        { "$ref": "#/$defs/controls" },
+        { "$ref": "#/$defs/images" },
+        { "$ref": "#/$defs/lists" },
+        { "$ref": "#/$defs/nestedInteractive" },
+        { "$ref": "#/$defs/references" },
+        { "$ref": "#/$defs/composer" },
+        { "$ref": "#/$defs/messageLog" },
+        { "$ref": "#/$defs/menus" },
+        { "$ref": "#/$defs/listboxes" },
+        { "$ref": "#/$defs/treeKeyboard" },
+        { "$ref": "#/$defs/radioKeyboard" },
+        { "$ref": "#/$defs/tabs" },
+        { "$ref": "#/$defs/dialogs" },
+        { "$ref": "#/$defs/separators" }
+      ],
+      "items": false
+    },
+    "omitted": {
+      "const": [
+        "page-url",
+        "page-title",
+        "dom-content",
+        "selectors",
+        "element-names",
+        "conversation-content",
+        "user-agent"
+      ]
+    },
+    "limitations": {
+      "const": [
+        "deterministic-structure-only",
+        "manual-and-assistive-technology-evaluation-required",
+        "not-a-wcag-conformance-claim"
+      ]
+    }
+  },
+  "$defs": {
+    "check": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "outcome", "affected"],
+      "properties": {
+        "id": { "type": "string" },
+        "outcome": { "enum": ["passed", "needs-attention"] },
+        "affected": { "type": "integer", "minimum": 0 }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "outcome": { "const": "passed" } }, "required": ["outcome"] },
+          "then": { "properties": { "affected": { "type": "integer", "const": 0 } } }
+        },
+        {
+          "if": { "properties": { "outcome": { "const": "needs-attention" } }, "required": ["outcome"] },
+          "then": { "properties": { "affected": { "type": "integer", "minimum": 1 } } }
+        }
+      ]
+    },
+    "main": { "$ref": "#/$defs/check", "type": "object", "properties": { "id": { "const": "main" } } },
+    "navigation": { "$ref": "#/$defs/check", "type": "object", "properties": { "id": { "const": "navigation" } } },
+    "heading": { "$ref": "#/$defs/check", "type": "object", "properties": { "id": { "const": "heading" } } },
+    "controls": { "$ref": "#/$defs/check", "type": "object", "properties": { "id": { "const": "controls" } } },
+    "images": { "$ref": "#/$defs/check", "type": "object", "properties": { "id": { "const": "images" } } },
+    "lists": { "$ref": "#/$defs/check", "type": "object", "properties": { "id": { "const": "lists" } } },
+    "nestedInteractive": { "$ref": "#/$defs/check", "type": "object", "properties": { "id": { "const": "nested-interactive" } } },
+    "references": { "$ref": "#/$defs/check", "type": "object", "properties": { "id": { "const": "references" } } },
+    "composer": { "$ref": "#/$defs/check", "type": "object", "properties": { "id": { "const": "composer" } } },
+    "messageLog": { "$ref": "#/$defs/check", "type": "object", "properties": { "id": { "const": "message-log" } } },
+    "menus": { "$ref": "#/$defs/check", "type": "object", "properties": { "id": { "const": "menus" } } },
+    "listboxes": { "$ref": "#/$defs/check", "type": "object", "properties": { "id": { "const": "listboxes" } } },
+    "treeKeyboard": { "$ref": "#/$defs/check", "type": "object", "properties": { "id": { "const": "tree-keyboard" } } },
+    "radioKeyboard": { "$ref": "#/$defs/check", "type": "object", "properties": { "id": { "const": "radio-keyboard" } } },
+    "tabs": { "$ref": "#/$defs/check", "type": "object", "properties": { "id": { "const": "tabs" } } },
+    "dialogs": { "$ref": "#/$defs/check", "type": "object", "properties": { "id": { "const": "dialogs" } } },
+    "separators": { "$ref": "#/$defs/check", "type": "object", "properties": { "id": { "const": "separators" } } }
+  }
+}

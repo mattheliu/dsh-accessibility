@@ -2,7 +2,7 @@
 
 [简体中文](ACCESSIBILITY.zh.md)
 
-This project targets operable, understandable DeepSeek Harness Web workflows for keyboard-only and screen-reader users. The companion diagnostics are additive evidence; the owning DSH components remain responsible for semantics, focus, keyboard models, and announcements.
+This project targets operable, understandable DeepSeek Harness Web and CLI workflows for keyboard-only and screen-reader users. The companion diagnostics are additive evidence; the owning DSH components remain responsible for semantics, focus, keyboard models, announcements, and stable terminal output.
 
 ## Supported core
 
@@ -11,6 +11,10 @@ This project targets operable, understandable DeepSeek Harness Web workflows for
 - Upstream tracking: [deepseek-ai/deepseek-harness Discussion #4546](https://github.com/deepseek-ai/deepseek-harness/discussions/4546).
 
 Installing this npm package into an unpatched official build adds diagnostics and guidance, but cannot replace missing core focus or composite-widget behavior.
+
+The development branch contains an experimental Accessible View candidate. Its automated component evidence is not yet an assistive-technology support claim and it is not present in the published `0.1.0-beta.6` package. See [RFC-ACCESSIBLE-VIEW.md](RFC-ACCESSIBLE-VIEW.md).
+
+The DSH `0.1.2-alpha.2` development line also contains a one-shot CLI accessibility candidate. Its low-noise text and versioned JSON output pass a draft process contract, while real terminal, screen-reader, braille, and disabled-developer evidence remain pending. See [CLI-ACCESSIBILITY.md](CLI-ACCESSIBILITY.md).
 
 ## Assistive-technology matrix
 
@@ -21,6 +25,11 @@ Installing this npm package into an unpatched official build adds diagnostics an
 | Windows 11 | Chrome / Firefox | NVDA | Automated Windows gate passed; physical screen-reader regression pending |
 | Windows 11 | Edge / Chrome | JAWS | Automated Windows gate passed; physical screen-reader regression pending |
 | Windows 11 | Edge | Narrator | Recommended compatibility signal; not a replacement for NVDA or JAWS |
+| Linux | Firefox | Orca | Physical screen-reader regression pending |
+| Supported desktop platforms | Browser / terminal | Named screen-reader and refreshable-braille-display stack | Core Web and CLI human braille records pending |
+| Supported desktop platforms | Browser | Named voice-input, switch-input, or magnification technology | Core Web human task records pending |
+
+This matrix is a planning and limitation summary, not a support claim by itself. A row may support `a11y-at-tested` or `a11y-user-validated` only when its current, exact-version human result appears in the validated [human evidence ledger](HUMAN-EVIDENCE.md) and uses an eligible task from the authoritative [evidence catalog](EVIDENCE-CATALOG.json). The [aggregate coverage policy](EVIDENCE-COVERAGE.md) additionally prevents incompatible rows from being combined. The ledger currently contains only a non-evidence template, so every listener-verified and disabled-user row and all twenty-six aggregate requirements remain pending.
 
 ## Recorded macOS evidence
 
@@ -44,14 +53,33 @@ This evidence verifies the real VoiceOver-enabled environment, browser mappings,
 10. Open feedback notes, traverse boundaries, submit or cancel, and verify returned focus.
 11. Exercise offline, reconnecting, loading, authentication-error, interrupted, and retried states.
 12. Repeat critical flows at 200% and 400% zoom and with reduced motion or forced colors enabled.
+13. Select Accessible View and prove conversation markers are absent before the explicit Load action; then load and verify focus moves to the view title.
+14. Navigate source-order records and semantic Markdown/code; inspect context, reasoning, tool arguments/output, command input, and errors through their separate disclosures without losing focus.
+15. Copy addressed messages, load older history through success and sanitized failure, clear the view, verify focus returns to Load, and confirm Chat source data is unchanged.
+16. Run the detached synthetic diagnostic practice, understand its fixed one-of-seventeen failure, open contextual guidance, and determine the missing-name repair without relying on color or visual location alone.
+17. Start focus tracking, move to a named stateful control, return to the inspector, and verify its name, role, Tab position, and state are understandable; confirm the snapshot is not announced continuously while browsing.
+18. Run the current-page diagnostic, separately prepare and review the exact redacted JSON, then copy it; confirm it contains no page title, URL, selector, element/focus name, practice result, conversation content, or browser identity and is not described as AT or WCAG evidence.
 
 Record the browser, assistive-technology version, language, scenario, spoken result, focus result, and pass/fail outcome. Do not convert an automated DOM pass into a manual assistive-technology pass.
+
+Use the [hermetic AT lab](AT-LAB.md) to launch an exact candidate with a disposable DSH home and synthetic session. Lab readiness and caption-panel output still require a human-observed speech/braille and task-completion record.
+
+For the one-shot terminal candidate, use the [CLI accessibility manual lab](CLI-ACCESSIBILITY.md#manual-terminal-and-screen-reader-lab). Record the real speech or braille sequence and independent task result separately from its automated process output.
+
+For the complete audit/read/approve-or-reject/edit/re-audit flow, use the [authoring AT lab](AUTHORING-AT-LAB.md). Publish only a consented, de-identified result, then encode any reviewed support evidence with `dsh-a11y-human-evidence/0.1.0-draft`; failures and partial results remain valuable with `claim: none`.
 
 ## Automated gates
 
 - Seventeen deterministic semantic diagnostics in the installed settings page.
+- Localized per-check repair guidance, ephemeral focus-name/role/state inspection, and strict allowlist projection under [dsh-accessibility-diagnostic/1.0.0-draft](DIAGNOSTIC-REPORT.md); focus snapshots never enter the report.
 - Unit tests for names, references, landmarks, headings, list ownership, nested controls, menus, listboxes, trees, radio groups, tabs, dialogs, and separators.
 - axe-core regression for the rendered plugin settings surface.
+- Accessible View registration, unloaded-selector, focus lifecycle, delayed-sensitive-content, clipboard-projection, pagination, source-order, and idle/loaded axe-core tests.
+- Versioned `dsh-non-at-browser/1.0.0-draft` assembled evidence for Accessible View in Chromium, Firefox, and WebKit: 640/320 CSS px page reflow, sampled focus visibility/obscuration, reduced motion, and Chromium forced-color participation. Scope and limitations are defined in [RFC-BROWSER-EVIDENCE.md](RFC-BROWSER-EVIDENCE.md).
+- Schema-validated `dsh-core-browser-non-at` evidence on exact clean campaign revision `5803bfcfdd502adac26ae9b8eec12d6aed263ec6`: fourteen required checks cover all nine cataloged static P0 Web tasks in Chromium, Firefox, and WebKit. The [archived report](automated-evidence/core-browser/2026-08-31-dsh-0.1.2-alpha.2-5803bfcfdd.json) remains non-AT and non-user evidence.
+- Versioned `dsh-cli-accessibility/1.0.0-draft` product-entry process conformance for discoverability, fail-closed arguments, low-noise text, one-line JSON, terminal controls, exit status, and success/failure projection. This is explicitly non-AT evidence.
+- `dsh-a11y-human-evidence/0.1.0-draft` schema and repository validator plus the pinned `dsh-a11y-evidence-catalog/0.1.0-draft` for exact scope, known stable tasks, authoritative core/safety/claim classification, consent flags, privacy, assistance, task safety/effectiveness, public review, and evidence freshness. This gate can reject an unsupported claim; it cannot manufacture human evidence.
+- `dsh-a11y-evidence-coverage-policy/0.1.0-draft` and its versioned report aggregate only compatible exact-environment AT records, require disabled-developer task sets to stay within one record, and expose every missing baseline row without turning coverage into release readiness.
 - Cross-platform Node, type, unit, build, and package-content checks in GitHub Actions.
 - The patched core retains its component, GUI, production-build, and browser-replay suites.
 

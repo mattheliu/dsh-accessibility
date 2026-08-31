@@ -4,19 +4,23 @@ Contributions that improve screen-reader interoperability, keyboard operation, d
 
 [简体中文](CONTRIBUTING.zh.md) | English
 
-Organization membership is not required. Use the accessibility-barrier form for product defects and the assistive-technology test form for AT evidence. Architecture proposals should identify whether work belongs in DSH core, the runtime companion, a development testkit, the external AT lab, or a separately permissioned model-visible authoring tool.
+Organization membership is not required. Use the accessibility-barrier form for product defects, the assistive-technology test form for actual AT observations, and the disabled-developer task form for consented task outcomes with or without dedicated AT. The [community validation guide](COMMUNITY-VALIDATION.md) explains the safe setup, evidence boundary, and review lifecycle. Architecture proposals should identify whether work belongs in DSH core, the runtime companion, a development testkit, the external AT lab, or a separately permissioned model-visible authoring tool.
 
 ## Local checks
 
 ```sh
 pnpm install
+pnpm run evidence:validate
+pnpm run evidence:coverage
 pnpm run typecheck
 pnpm test
 pnpm run build
 npm pack --dry-run
 ```
 
-Behavior changes must include deterministic tests. Changes to support claims must update both accessibility documents and identify the exact browser, assistive-technology version, language, scenario, spoken result, and focus result. Automated checks do not count as manual screen-reader certification.
+Behavior changes must include deterministic tests. Changes to support claims must update both accessibility documents and identify the exact browser, assistive-technology version, language, scenario, spoken result, and focus result. Claimed human evidence must also add or update a record governed by [HUMAN-EVIDENCE.md](HUMAN-EVIDENCE.md) using protocol/task IDs and classifications from [EVIDENCE-CATALOG.json](EVIDENCE-CATALOG.json), then review the effect on [aggregate coverage](EVIDENCE-COVERAGE.md). Add or revise the catalog and coverage policy through review before recording a new task or changing a program requirement; never self-classify a result as representative core or claim-eligible. Failed and partial results are retained with `claim: none`; raw data never belongs in that public record. Automated checks do not count as manual screen-reader certification.
+
+For real AT observation, use the [core lab](AT-CORE-LAB.md) for static core tasks, the [live-announcement lab](AT-LIVE-LAB.md) for response/tool/request transitions, the [companion lab](AT-LAB.md) for Accessible View, the [authoring AT lab](AUTHORING-AT-LAB.md) for approval and repair, or the [CLI lab](CLI-ACCESSIBILITY.md#manual-terminal-and-screen-reader-lab) for the one-shot terminal candidate. All use synthetic content and provide a copyable, consent-aware result record. A lab startup is not itself an AT result. Disabled-developer evidence additionally follows [RESEARCH.md](RESEARCH.md), requires a private withdrawal route, and never requires diagnosis details.
 
 Keep host and client behavior within documented DSH extension seams. Do not patch generated CSS classes or inspect conversation text.
 

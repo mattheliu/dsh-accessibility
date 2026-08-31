@@ -1,6 +1,11 @@
 // @vitest-environment jsdom
 import { afterEach, describe, expect, it } from 'vitest'
-import { hasAccessibleName, hasAuthorName, runAccessibilityAudit } from '../src/client/audit.ts'
+import {
+  hasAccessibleName,
+  hasAuthorName,
+  runAccessibilityAudit,
+  runSyntheticAccessibilityExample,
+} from '../src/client/audit.ts'
 
 afterEach(() => { document.body.replaceChildren() })
 
@@ -120,5 +125,16 @@ describe('accessibility diagnostics', () => {
 
     const failed = runAccessibilityAudit().filter(result => !result.passed).map(result => result.id)
     expect(failed).toEqual(['heading', 'lists', 'nested-interactive'])
+  })
+
+  it('provides a detached, deterministic one-defect human guidance exercise', () => {
+    document.body.innerHTML = '<main><h1>Private current page</h1><button>Do not inspect me</button></main>'
+    const result = runSyntheticAccessibilityExample()
+    expect(result).toHaveLength(17)
+    expect(result.filter(check => !check.passed)).toEqual([
+      { id: 'controls', passed: false, affected: 1 },
+    ])
+    expect(document.body.textContent).toContain('Private current page')
+    expect(document.body.textContent).toContain('Do not inspect me')
   })
 })

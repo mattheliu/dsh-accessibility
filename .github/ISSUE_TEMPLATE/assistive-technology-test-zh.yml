@@ -8,13 +8,15 @@ body:
   - type: markdown
     attributes:
       value: |
-        欢迎部分结果。每个产品／浏览器／辅助技术／语言组合单独提交一个 Issue。不要附加参与者原始录音或个人数据。
+        欢迎部分结果。每个产品／浏览器或终端／辅助技术／语言组合单独提交一个 Issue。请使用匹配的版本化规程：核心 Web 任务使用 dsh-core-at-lab/1.0.0-draft，实时回答与决策状态使用 dsh-live-at-lab/1.0.0-draft，companion 阅读／诊断任务使用 dsh-at-lab/1.0.0-draft，一次性 CLI 使用 dsh-cli-accessibility/1.0.0-draft，创作允许／拒绝任务使用 dsh-a11y-authoring-at-lab/0.1.0-draft。Issue 只是源材料；公开支持声明还必须具备按 dsh-a11y-human-evidence/0.1.0-draft 评审的记录。不要附加参与者原始录音、一次性登录 URL、未经检查的 session log 或个人数据。
   - type: checkboxes
     id: authority
     attributes:
       label: 同意与隐私
       options:
         - label: 我提交的是自己的结果，或已获得提交此去标识化结果的明确许可。
+          required: true
+        - label: 真人直接操作了具名辅助技术，并观察了所报告的输出或交互；这不是自动化、仅无障碍树、从字幕推断或 AI 操作的结果。
           required: true
         - label: 我已移除凭据、私人提示词、对话、用户名、个人数据和敏感路径。
           required: true
@@ -25,10 +27,14 @@ body:
     attributes:
       label: 精确测试矩阵行
       placeholder: |
-        DSH tag/build：
-        Companion 版本：
+        规程及稳定目录任务 ID：
+        场景／任务 ID（例如 allow-once 或 reject）：
+        DSH 版本及完整 revision：
+        Companion 版本及完整 revision（如使用）：
+        创作组合版本及完整 revision（如使用）：
         操作系统及物理设备／虚拟机：
-        浏览器：
+        浏览器，或终端与 shell：
+        PTY 或重定向流（CLI）：
         辅助技术及版本：
         UI 与语音语言：
         详细度、标点、浏览／焦点模式、盲文或其他相关设置：
@@ -38,7 +44,7 @@ body:
     id: scenarios
     attributes:
       label: 场景与结果
-      description: 每个场景记录通过／失败／部分通过、任务是否完成、焦点落点、相关时的精确语音或盲文输出，以及变通方式。
+      description: 按每个稳定目录任务 ID 记录通过／失败／部分通过、是否独立完成、焦点落点、对每种已声明辅助技术模态的直接观察、审批理解／决策、协助情况及变通方式。未观察模态属于限制，不是通过。
     validations:
       required: true
   - type: textarea
