@@ -66,7 +66,7 @@ The `0.1.2-alpha.2` development line adds an explicit low-noise headless present
 
 ## Accessible authoring candidate
 
-The draft [authoring/testkit RFC](RFC-A11Y-AUTHORING.md) separates a pure versioned evidence engine, a development-only browser testkit, two independently reviewed page providers, and an opt-in model-visible `a11y_check` adapter. Four standalone local packages now cover both a caller-owned no-navigation chain and `dsh-a11y-loopback-provider/0.1.0-draft`: the latter creates a fresh non-persistent Chromium context, accepts only host-registered opaque handles for literal loopback URLs, and blocks cross-origin requests, unsafe HTTP methods, WebSockets, downloads, service workers, and authentication data. Real Chromium and published DSH `ToolRuntime` tests assemble both chains. They remain private and unpublished while product composition and human-evidence gates are reviewed; a clean automated report is never represented as WCAG conformance.
+The draft [authoring/testkit RFC](RFC-A11Y-AUTHORING.md) separates a pure versioned evidence engine, a development-only browser testkit, two independently reviewed page providers, an opt-in model-visible `a11y_check` adapter, and product composition. Five standalone local packages now cover both provider chains plus the first installable `dsh-a11y-local-preview/0.1.0-draft` DSH bundle. That bundle mounts the literal-loopback provider and read-only tool through the published DSH plugin lifecycle, advertises only normalized opaque target handles, rejects query/fragment secret carriers before mounting, and remains inert until a host supplies disposable loopback targets. Real Chromium, real loopback HTTP, published DSH `SystemPrompt`/`ToolRuntime`, bundle installation, config-dump, lifecycle disposal, privacy, and package-content tests pass locally. The five packages remain private and unpublished while review, real-agent repair, assistive-technology, and disabled-author evidence gates stay open; a clean automated report is never represented as WCAG conformance.
 
 ## Checks
 
@@ -79,7 +79,7 @@ pnpm pack --pack-destination ./artifacts
 
 ## Model Experience
 
-This branch adds no model-visible tools, prompts, messages, or context. It changes only local Web UI surfaces.
+The runtime companion in this branch adds no model-visible tools, prompts, messages, or context. The separately permissioned private authoring packages are not bundled into the companion.
 
 ## Security and privacy
 

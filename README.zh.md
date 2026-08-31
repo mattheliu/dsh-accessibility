@@ -66,7 +66,7 @@ MVP 仍以阅读为主。发送、停止、批准、编辑排队任务或使用�
 
 ## 无障碍创作候选
 
-Draft [创作／testkit RFC](RFC-A11Y-AUTHORING.zh.md) 把纯版本化证据引擎、仅用于开发的浏览器 testkit、两个独立评审的页面提供层，以及选择性启用、模型可见的 `a11y_check` 适配器分成独立边界。四个独立本地包现已同时覆盖调用方自有的无导航链路与 `dsh-a11y-loopback-provider/0.1.0-draft`：后者每次创建全新非持久 Chromium context，只接受宿主为字面量 loopback URL 注册的不透明句柄，并阻断跨 origin 请求、不安全 HTTP 方法、WebSocket、下载、service worker 和鉴权数据。真实 Chromium 与已发布 DSH `ToolRuntime` 测试已经组装两条链路。产品接入与人工证据门禁评审期间，它们继续保持 private、尚未发布；自动报告干净永远不能表述成 WCAG 符合。
+Draft [创作／testkit RFC](RFC-A11Y-AUTHORING.zh.md) 把纯版本化证据引擎、仅用于开发的浏览器 testkit、两个独立评审的页面提供层、选择性启用且模型可见的 `a11y_check` 适配器，以及产品组合分成独立边界。五个独立本地包现已覆盖两条提供链路，并增加首个可安装的 `dsh-a11y-local-preview/0.1.0-draft` DSH bundle。该 bundle 通过已发布 DSH 插件生命周期挂载字面量 loopback 提供层与只读工具，只向模型公布规范化不透明目标句柄，在挂载前拒绝可能承载秘密的 query／fragment，并且在宿主提供可丢弃 loopback 目标前保持禁用。真实 Chromium、真实 loopback HTTP、已发布 DSH `SystemPrompt`／`ToolRuntime`、bundle 安装、配置 dump、生命周期释放、隐私和包内容测试均已在本地通过。五个包继续保持 private、尚未发布；真实 agent 修复、辅助技术和残障作者证据门禁仍待完成，自动报告干净永远不能表述成 WCAG 符合。
 
 ## 检查
 
@@ -79,7 +79,7 @@ pnpm pack --pack-destination ./artifacts
 
 ## 模型体验
 
-本分支不会增加模型可见的工具、提示词、消息或上下文，只改变本地 Web UI 界面。
+本分支的 runtime companion 不会增加模型可见的工具、提示词、消息或 context。另行授权的私有创作包不会被捆绑进 companion。
 
 ## 安全与隐私
 

@@ -2,9 +2,9 @@
 
 [简体中文](RFC-A11Y-AUTHORING.zh.md) | English
 
-Status: draft. Protocols: `dsh-a11y-testkit/0.1.0-draft`, `dsh-a11y-loopback-provider/0.1.0-draft`, and `dsh-a11y-authoring/0.1.0-draft`.
+Status: draft. Protocols: `dsh-a11y-testkit/0.1.0-draft`, `dsh-a11y-loopback-provider/0.1.0-draft`, `dsh-a11y-authoring/0.1.0-draft`, and `dsh-a11y-local-preview/0.1.0-draft`.
 
-Implementation status: four private local packages now implement the deterministic testkit, a caller-owned-page provider, a separately versioned literal-loopback provider, and the read-only DSH adapter. Both provider chains are assembled against real Chromium and the published `0.1.2-alpha.2` DSH `ToolRuntime`; production composition, remote publication, real assistive-technology evidence, and disabled-author task evidence remain open release gates.
+Implementation status: five private local packages now implement the deterministic testkit, a caller-owned-page provider, a separately versioned literal-loopback provider, the read-only DSH adapter, and an installable literal-loopback product composition. Both provider chains are assembled against real Chromium and the published `0.1.2-alpha.2` DSH `ToolRuntime`; the product composition additionally passes real DSH profile installation, config-dump, plugin loading, SystemPrompt target inventory, lifecycle, privacy, and package-artifact checks. Review and remote publication, a host composition for the caller-owned-page path, real-agent repair, real assistive-technology evidence, and disabled-author task evidence remain open release gates.
 
 ## Problem
 
@@ -26,7 +26,7 @@ The first release must:
 
 It does not certify a page, site, application, organization, or release; replace manual keyboard, screen-reader, low-vision, cognitive, speech, switch, or disabled-user evaluation; judge whether alternative text is contextually appropriate; or silently repair source code.
 
-## Five release and trust boundaries
+## Six release and trust boundaries
 
 | Boundary | Responsibility | Authority | Distribution |
 | --- | --- | --- | --- |
@@ -35,6 +35,7 @@ It does not certify a page, site, application, organization, or release; replace
 | Caller-owned-page provider | Map an exact pre-registered opaque handle to only the testkit's injection/evaluation page surface; bound waiting, cancellation, revocation, and concurrency | No discovery, creation, navigation, URL read, authentication, screenshot, HTML serialization, download, close, filesystem, or process authority | Separate opt-in provider package |
 | Literal-loopback provider | Map an opaque host registration to one literal-loopback URL, own a fresh browser context, constrain network/browser actions, run the testkit, and close every owned context | Chromium process plus bounded GET/HEAD/OPTIONS access to one host-approved literal-loopback origin; no model-supplied URL, DNS name, authentication, cross-origin request, WebSocket forwarding, persistent profile, download, screenshot, or HTML serialization | Separate opt-in provider package and versioned policy |
 | `a11y_check` adapter | Expose a bounded read-only scan to a DSH agent and render actionable findings | Existing DSH tool policy plus explicit browser/network approval; no write method | Separate opt-in DSH plugin |
+| Product composition | Validate trusted host mappings, mount exactly one provider and adapter, and advertise only model-safe handles through the DSH lifecycle | Only the authority of the selected provider; no extra navigation, mutation, target discovery, URL disclosure, or certification authority | Separate default-inert DSH profile bundle with its own protocol |
 
 The runtime companion remains responsible for DSH's own diagnostics and accessible UI. It must not gain general browser automation, workspace scanning, or model-visible tools merely because it hosts the program documentation.
 
@@ -85,7 +86,7 @@ This is containment, not proof of harmlessness. A hostile local page can consume
 
 ## Model-visible `a11y_check` boundary
 
-The initial private opt-in tool implementation has one responsibility: request a scan and return the bounded report plus repair guidance. It does not edit files. Source changes continue through DSH's existing read/edit tools, sandbox policy, observed-version checks, diff presentation, and user approvals. The local caller-owned-page provider now exercises this boundary in an assembled test, but it is not yet a production DSH composition.
+The initial private opt-in tool implementation has one responsibility: request a scan and return the bounded report plus repair guidance. It does not edit files. Source changes continue through DSH's existing read/edit tools, sandbox policy, observed-version checks, diff presentation, and user approvals. Both providers exercise this boundary in assembled tests; the literal-loopback path additionally has the separate product composition below.
 
 The minimum call identifies an exact caller-owned opaque page handle and an optional subtree selector. The model never supplies a URL. The separately mounted provider may map that host-created handle to either a caller-owned page or a policy-approved literal-loopback page. The adapter must:
 
@@ -99,6 +100,14 @@ The minimum call identifies an exact caller-owned opaque page handle and an opti
 
 Repair help names the affected requirement, location, why it matters, what evidence is still needed, and one or more author choices. It must not generate generic or filename-based alternative text. Any proposed alternative must remain editable and require the author to accept, modify, or reject it before insertion, following ATAG 2.0 B.2.3.2.
 
+## Local-preview product composition boundary
+
+`dsh-a11y-local-preview/0.1.0-draft` is a private, default-inert DSH profile bundle and Cordis plugin. A trusted profile may configure one to eight exact mappings from normalized opaque handles to literal-loopback targets. The plugin validates every mapping before creating the provider, rejects duplicates and URL query strings or fragments, mounts the versioned loopback provider, registers the read-only adapter, and contributes one SystemPrompt runtime-context record containing only the composition protocol and handle list. Target URLs, paths, subject labels, ready selectors, cookies, credentials, headers, browser errors, screenshots, HTML, and filesystem paths are absent from that inventory and the tool schema.
+
+The bundle's shipped row is disabled and carries no active target. A later trusted profile patch must restate the complete config and enable it. The host, not the plugin, owns preview-server start, readiness, shutdown, logs, and retained data. The installation guide therefore requires a disposable, unprivileged server and test data; it does not turn the provider into a server launcher or grant authenticated access. Plugin disposal revokes the target inventory, tool registration, provider registrations, active browser contexts, and owned browser process through the same DSH lifecycle.
+
+Current evidence loads the package through the real Cordis plugin API with published DSH SystemPrompt and ToolRuntime packages, runs a real loopback HTTP fixture and Chromium audit, verifies injection-like labels and private configuration do not enter the target inventory, tests pre-mount rejection and disposal, parses the bundle artifact, installs the local checkout through `dsh plugin`, composes an enabling patch through `dsh --dump-config`, and boots the headless product entry. This remains pre-release evidence, not a stable support or conformance claim.
+
 ## Privacy and threat model
 
 Rendered pages and selectors may contain confidential product data. Reports therefore use a caller-supplied non-sensitive subject label, exclude DOM snippets by default, and stay local unless the caller deliberately stores them. Public evidence must be redacted under [RESEARCH.md](RESEARCH.md).
@@ -111,7 +120,7 @@ Selectors can expose names, IDs, test data, or application structure. They are n
 
 The deterministic engine requires unit fixtures for failed, needs-review, passed, inapplicable, malformed, oversized, and provider-error inputs. The browser adapter requires assembled tests against accessible and intentionally failing pages, exact package-content tests, cancellation/cleanup checks, and a privacy assertion proving serialized HTML is absent.
 
-The model-visible adapter additionally requires DSH tool-schema snapshots, filesystem/network denial tests, approval tests for every expanded authority, cancellation and output-retention tests, prompt-language review, and a real agent task showing that a developer can locate and repair a finding without the tool editing anything itself.
+The model-visible adapter and product composition additionally require DSH tool-schema snapshots, target-inventory privacy tests, filesystem/network denial tests, approval tests for every expanded authority, cancellation and output-retention tests, prompt-language review, exact installable-artifact checks, and a real agent task showing that a developer can locate and repair a finding without the tool editing anything itself.
 
 Stable authoring support still requires disabled developers to use the complete flow, named assistive technologies to read the report and repair interaction, and manual review of issues automation cannot decide. Test counts, an axe score, or a clean automated run are insufficient release evidence.
 
@@ -120,6 +129,6 @@ Stable authoring support still requires disabled developers to use the complete 
 1. Publish the pure report contract and the first page-audit testkit as an experimental development package.
 2. Migrate the companion's assembled-browser assertions to consume the testkit without changing their evidence scope.
 3. Review the implemented literal-loopback provider policy and lifecycle evidence; add a loopback-only CLI only after defining who owns server startup, readiness, shutdown, logs, and retained output.
-4. Review both implemented private provider chains, then integrate them through an injected audit service rather than a direct Playwright dependency in the product composition.
+4. Review the implemented private literal-loopback product composition and define a separately permissioned host composition for the caller-owned-page provider; both paths must retain the injected audit service instead of importing Playwright in the model adapter.
 5. Validate report reading and repair with VoiceOver and NVDA, then with disabled developers completing representative authoring tasks.
 6. Expand beyond rendered Web pages only through separately versioned rules, evidence, and permission reviews.

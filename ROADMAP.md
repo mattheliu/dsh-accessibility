@@ -14,7 +14,7 @@ Updated: 2026-08-31. This roadmap is evidence-driven and may change after upstre
 - Hermetic AT labs: separate synthetic, disposable launchers cover the `0.1.2-alpha.2` core candidate and the rc.2 companion; they reduce setup/privacy risk but produce no AT evidence without human observation.
 - Live-announcement lab: six synthetic alpha.2 replay scenarios separate durable Host boundaries from actual AT speech/braille evidence.
 - CLI accessibility candidate: low-noise text and `dsh-headless-result/1.0.0` output are implemented on the alpha.2 branch; draft process conformance is reproducible, while real terminal/screen-reader and disabled-developer evidence remain pending.
-- Accessible authoring foundation: the bilingual RFC and four standalone local packages now cover both a caller-owned no-navigation chain and a versioned literal-loopback provider with fresh-context, same-origin, read-oriented network containment; production DSH/companion composition, publication, any authenticated/cross-origin authority, real AT, and disabled-author evidence remain pending.
+- Accessible authoring foundation: the bilingual RFC and five standalone local packages now cover both provider chains plus an installable, default-inert `dsh-a11y-local-preview/0.1.0-draft` DSH composition for the literal-loopback path. Real product bundle installation, config composition, published DSH runtime loading, Chromium auditing, privacy, lifecycle, and package evidence pass locally; review/publication, a caller-owned-page host composition, any authenticated/cross-origin authority, real-agent repair, real AT, and disabled-author evidence remain pending.
 - Listener-verified Windows and Linux screen-reader results remain pending; complete VoiceOver spoken-output records remain pending.
 
 ## Phase 0 — foundation and upstream compatibility (through 2026-09-12)
@@ -29,7 +29,7 @@ Updated: 2026-08-31. This roadmap is evidence-driven and may change after upstre
 
 - Complete review of the Accessible View MVP built through the additive `conversation.view` slot and DSH conversation projection; require privacy review, assembled-browser evidence, listener-verified VoiceOver/NVDA, and disabled-developer task evidence before treating the item as complete.
 - Add contextual accessibility help, focus/name/role/state inspection, and a redacted report exporter.
-- Review the bilingual authoring RFC and the four reusable standalone implementations (`dsh-a11y-testkit`, `dsh-a11y-page-provider`, `dsh-a11y-loopback-provider`, and `dsh-a11y-authoring`); create remote repositories only after each protocol, privacy boundary, fixture set, and package is ready for public review.
+- Review the bilingual authoring RFC and the five reusable standalone implementations (`dsh-a11y-testkit`, `dsh-a11y-page-provider`, `dsh-a11y-loopback-provider`, `dsh-a11y-authoring`, and `dsh-a11y-local-preview`); create remote repositories only after each protocol, privacy boundary, fixture set, and package is ready for public review.
 - Use the versioned hermetic AT lab to make exact VoiceOver/NVDA and disabled-developer task runs reproducible without exposing testers' normal DSH state.
 - Run every response/tool/request terminal scenario through the live-announcement lab; retain failed, repeated, coalesced, and silent results by exact AT/browser/language row.
 - Complete one listener-verified VoiceOver round and one Windows NVDA round with exact versions, language, spoken output, focus results, and sanitized evidence.
@@ -39,7 +39,7 @@ Updated: 2026-08-31. This roadmap is evidence-driven and may change after upstre
 - Validate JAWS, Narrator, Orca, keyboard-only, Windows forced colors, browser zoom/reflow, and at least one braille-display workflow.
 - Prototype external AT automation by reusing W3C ARIA-AT drivers where possible; keep manual task completion as a release gate.
 - Validate the DSH CLI accessibility candidate across VoiceOver, NVDA, JAWS, Narrator, and Orca terminals; retain the automated `dsh-cli-accessibility/1.0.0-draft` process result separately from human speech/braille and independent-task evidence.
-- Integrate the two locally assembled opt-in `a11y_check` provider chains into a reviewed DSH product composition; retain cancellation, cleanup, network-containment, privacy, and exact-package evidence while keeping them read-only, preserving repair choice, and never implying automated certification.
+- Review and publish the installable literal-loopback `a11y_check` composition, define a separately permissioned host composition for the caller-owned-page provider, and complete real-agent repair tasks; retain cancellation, cleanup, network-containment, privacy, and exact-package evidence while keeping both paths read-only, preserving repair choice, and never implying automated certification.
 
 ## Release gates
 
