@@ -1,0 +1,98 @@
+name: 残障开发者任务结果
+description: 提交残障开发者完成版本化 DSH 任务规程后，经同意并去标识化的结果。
+title: "[残障开发者结果]: "
+labels:
+  - accessibility
+body:
+  - type: markdown
+    attributes:
+      value: |
+        欢迎部分通过与失败结果。每个 Issue 只对应一位参与者、一套版本化规程和一个精确产品／环境组合。专门辅助技术不是必填项：只记录实际使用的技术。不得披露身份、诊断、残障详情、联系方式、一次性 URL、凭据、私人提示词、原始录音或未经检查的日志。Issue 只是源材料，绝不会自行形成 `a11y-user-validated` 声明。
+  - type: checkboxes
+    id: authority
+    attributes:
+      label: 参与、同意与隐私
+      options:
+        - label: 任务执行者自我认同为残障开发者；无需且未包含诊断或残障详情。
+          required: true
+        - label: 我提交的是自己的结果，或已取得提交此去标识化摘要的明确许可。
+          required: true
+        - label: 参与者已单独明确同意公开此去标识化摘要；该同意不同于参与或录制同意。
+          required: true
+        - label: 已提供私密撤回渠道；研究负责人无需公开参与者联系方式即可定位并删除相关材料。
+          required: true
+        - label: 我已移除凭据、私人提示词、对话、用户名、个人数据、敏感路径、原始录音、同意记录和联系方式。
+          required: true
+  - type: textarea
+    id: protocol
+    attributes:
+      label: 版本化规程与任务清单
+      description: 从证据目录中选择一套规程并列出所有尝试过的稳定任务 ID。要满足一行残障开发者基线，同一位参与者必须在这一条记录中完成该规程的全部代表性核心任务。
+      placeholder: |
+        规程：
+        尝试的稳定任务 ID：
+        使用的精确实验室或 CLI 说明：
+        测试日期：
+    validations:
+      required: true
+  - type: textarea
+    id: matrix
+    attributes:
+      label: 精确构建与环境
+      placeholder: |
+        DSH 版本及完整 revision：
+        参与组件版本及完整 revision：
+        操作系统／build、物理设备或虚拟机：
+        浏览器及版本，或终端／shell 及版本：
+        实际使用的辅助技术及版本（如有）：
+        输入与输出方式：
+        UI locale 与相关设置：
+    validations:
+      required: true
+  - type: dropdown
+    id: assistance
+    attributes:
+      label: 使用过的最高协助等级
+      description: “仅设置”指任务开始前的帮助；“操作协助”指他人帮助执行或解释任务，即使任务成功也必须披露。
+      options:
+        - 无
+        - 仅设置
+        - 操作协助
+    validations:
+      required: true
+  - type: textarea
+    id: tasks
+    attributes:
+      label: 逐任务结果
+      description: 每个稳定任务 ID 都要记录通过／部分／失败；是否独立、有效、安全地完成；焦点／光标行为；仅在确实观察到时记录真实辅助技术输出；协助；必要时的耗时；变通方式及最小可复现障碍。
+      placeholder: |
+        task-id：
+        - 结果：通过 / 部分 / 失败
+        - 独立：是 / 否
+        - 有效：是 / 否
+        - 安全：是 / 否
+        - 焦点／光标及真实辅助技术观察（如适用）：
+        - 协助、变通方式与障碍：
+    validations:
+      required: true
+  - type: textarea
+    id: safety
+    attributes:
+      label: 安全与控制权
+      description: 记录参与者是否理解审批、拒绝、破坏性或隐私后果、错误、恢复路径和最终任务结果；说明任何失去控制或信心的时刻。
+    validations:
+      required: true
+  - type: textarea
+    id: limitations
+    attributes:
+      label: 限制与不得推广的范围
+      description: 说明未测试内容、所有目视或人工协助渠道，以及为何这一条结果不能代表所有残障开发者或环境。
+    validations:
+      required: true
+  - type: checkboxes
+    id: claim_boundary
+    attributes:
+      label: 证据边界
+      options:
+        - label: 我理解维护者必须另行完成脱敏、编码、验证、公开评审和日期确认，证据记录才能支持严格限定范围的声明。
+          required: true

@@ -4,6 +4,8 @@
 
 This protocol applies to moderated tests, community AT submissions, recordings, interviews, and any evidence used for `a11y-user-validated` or `a11y-at-tested` claims.
 
+The operational intake routes, isolated lab selection, and review lifecycle are summarized in [Community accessibility validation](COMMUNITY-VALIDATION.md). This document remains authoritative when the summary and research rules differ.
+
 ## Participation
 
 - Recruit actual or likely DSH users across relevant disability, assistive-technology, language, and experience profiles. One participant does not represent a disability group.

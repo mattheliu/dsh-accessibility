@@ -1,0 +1,98 @@
+name: Disabled-developer task result
+description: Submit a consented, de-identified result from a disabled developer completing a versioned DSH task protocol.
+title: "[Disabled developer result]: "
+labels:
+  - accessibility
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Partial and failed results are welcome. Use one Issue for one participant, one versioned protocol, and one exact product/environment combination. A dedicated assistive technology is optional: record it only when it was actually used. Do not disclose identity, diagnosis, disability details, contact information, one-use URLs, credentials, private prompts, raw recordings, or unreviewed logs. This Issue is source material and never creates an `a11y-user-validated` claim by itself.
+  - type: checkboxes
+    id: authority
+    attributes:
+      label: Participation, consent, and privacy
+      options:
+        - label: The task performer identifies as a disabled developer; no diagnosis or disability detail is required or included.
+          required: true
+        - label: I am submitting my own result or have explicit permission to submit this de-identified summary.
+          required: true
+        - label: The participant separately consented to publication of this de-identified summary.
+          required: true
+        - label: A private withdrawal route was provided; covered material can be removed without publishing participant contact details.
+          required: true
+        - label: I removed credentials, private prompts, conversations, usernames, personal data, sensitive paths, raw recordings, consent records, and contact details.
+          required: true
+  - type: textarea
+    id: protocol
+    attributes:
+      label: Versioned protocol and task inventory
+      description: Use one protocol from the evidence catalog. List every stable task ID attempted. To satisfy a disabled-developer baseline row, one participant must complete every representative-core task for that protocol in this one record.
+      placeholder: |
+        Protocol:
+        Stable task IDs attempted:
+        Exact lab or CLI instructions used:
+        Date of the run:
+    validations:
+      required: true
+  - type: textarea
+    id: matrix
+    attributes:
+      label: Exact build and environment
+      placeholder: |
+        DSH version and full revision:
+        Participating component versions and full revisions:
+        OS/build and physical hardware or VM:
+        Browser and version, or terminal/shell and versions:
+        Assistive technologies and versions actually used, if any:
+        Input and output methods:
+        UI locale and relevant settings:
+    validations:
+      required: true
+  - type: dropdown
+    id: assistance
+    attributes:
+      label: Highest assistance level used
+      description: Setup-only means help before the task. Operational assistance means another person helped perform or interpret the task; disclose it even when the task succeeded.
+      options:
+        - None
+        - Setup only
+        - Operational assistance
+    validations:
+      required: true
+  - type: textarea
+    id: tasks
+    attributes:
+      label: Task-by-task result
+      description: For every stable task ID, record pass, partial, or fail; whether it was completed independently, effectively, and safely; focus/cursor behavior; actual AT output only when observed; assistance; elapsed time if useful; workaround; and the smallest reproducible barrier.
+      placeholder: |
+        task-id:
+        - Outcome: pass / partial / fail
+        - Independent: yes / no
+        - Effective: yes / no
+        - Safe: yes / no
+        - Focus/cursor and actual AT observation, if applicable:
+        - Assistance, workaround, and barrier:
+    validations:
+      required: true
+  - type: textarea
+    id: safety
+    attributes:
+      label: Safety and control
+      description: Record whether the participant understood approvals, rejection, destructive or privacy consequences, errors, recovery, and the final task outcome. State any moment when control or confidence was lost.
+    validations:
+      required: true
+  - type: textarea
+    id: limitations
+    attributes:
+      label: Limitations and non-generalization
+      description: State what was not tested, every visual or human assistance channel used, and why this one result cannot represent all disabled developers or environments.
+    validations:
+      required: true
+  - type: checkboxes
+    id: claim_boundary
+    attributes:
+      label: Evidence boundary
+      options:
+        - label: I understand that a support claim requires a separate sanitized, validated, dated, and publicly reviewed evidence record.
+          required: true
