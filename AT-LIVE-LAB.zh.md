@@ -27,7 +27,7 @@ pnpm run lab:at:live ../deepseek-harness plan system
 pnpm run lab:at:live ../deepseek-harness approval system
 ```
 
-共享的来源门禁会在创建状态前拒绝脏的 DSH 或无障碍实验室 checkout。macOS 上应优先用 `chrome` 代替 `system`：它会创建全新临时浏览器 profile、禁用后台联网并阻断非 loopback 主机解析。`safari` 只能配合专门的干净 profile；`system` 可能复用当前默认浏览器上下文。使用 `none` 时只打印一次性本地登录地址，不打开浏览器。不得公开该地址。就绪 JSON 会记录浏览器上下文隔离、精确 DSH 与实验室 revision、场景、操作系统、合成 Session id 和 `taskInput`。
+共享的来源门禁会在创建状态前拒绝脏的 DSH 或无障碍实验室 checkout。macOS、Windows 或 Linux 都应优先用 `chrome` 代替 `system`：它会寻找已安装的 Chrome／Chromium，创建全新临时 profile、禁用后台联网并阻断非 loopback 主机解析。`safari` 只能配合专门的干净 profile；`system` 可能复用当前默认浏览器上下文。使用 `none` 时只打印一次性本地登录地址，不打开浏览器。不得公开该地址。就绪 JSON 会记录浏览器上下文隔离、精确 DSH 与实验室 revision、场景、操作系统、合成 Session id 和 `taskInput`。
 
 必须原样复制 `taskInput`。如果 Session 没有自动选中，打开 `live-at-workspace` 下唯一的 Session。不要提交第二条提示词：replay fixture 有意保持有限，第二次调用必须失败，绝不能转向网络模型。
 

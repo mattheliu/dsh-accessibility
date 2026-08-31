@@ -122,6 +122,7 @@
                   "type": "object",
                   "properties": {
                     "outcome": { "const": "pass" },
+                    "independent": { "const": true },
                     "effective": { "const": true },
                     "safe": { "const": true },
                     "assistance": { "type": "object", "properties": { "level": { "enum": ["none", "setup-only"] } } },
@@ -131,6 +132,28 @@
                   }
                 }
               ]
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "type": "object",
+        "properties": {
+          "claim": { "not": { "const": "none" } },
+          "scenario": { "type": "object", "properties": { "interface": { "const": "web" } }, "required": ["interface"] }
+        },
+        "required": ["claim", "scenario"]
+      },
+      "then": {
+        "type": "object",
+        "properties": {
+          "tasks": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": { "focus": { "type": "array", "minItems": 1 } }
             }
           }
         }

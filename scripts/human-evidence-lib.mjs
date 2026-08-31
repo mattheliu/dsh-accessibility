@@ -293,6 +293,7 @@ export function validateHumanEvidenceRecord(input, options = {}) {
   }
 
   let accessTechnologyCount = 0
+  const declaredAtModalities = new Set()
   const environment = exactKeys(
     record.environment,
     '$.environment',
@@ -326,7 +327,10 @@ export function validateHumanEvidenceRecord(input, options = {}) {
         string(row.name, `${path}.name`, issues, { max: 80 })
         exactVersion(row.version, `${path}.version`, issues)
         const modalities = array(row.modalities, `${path}.modalities`, issues, { min: 1, max: 7 })
-        modalities.forEach((modality, modalityIndex) => enumeration(modality, `${path}.modalities[${String(modalityIndex)}]`, MODALITIES, issues))
+        modalities.forEach((modality, modalityIndex) => {
+          const declaredModality = enumeration(modality, `${path}.modalities[${String(modalityIndex)}]`, MODALITIES, issues)
+          if (declaredModality !== undefined) declaredAtModalities.add(declaredModality)
+        })
         if (new Set(modalities).size !== modalities.length) issues.push(`${path}.modalities: duplicate values are not allowed`)
       })
     const accessTechnologyNames = accessTechnologies.flatMap(item => isObject(item) && typeof item.name === 'string' ? [item.name.toLocaleLowerCase('en-US')] : [])
@@ -459,15 +463,35 @@ export function validateHumanEvidenceRecord(input, options = {}) {
     if (summary?.overall !== 'pass') issues.push('$.claim: support claims require an overall pass')
     if (summary?.blockers?.length !== 0) issues.push('$.claim: support claims cannot retain blockers')
     if (typeof publication?.publicIssue !== 'string') issues.push('$.claim: a public review issue or discussion is required')
-    if (tasks.some(task => task.outcome !== 'pass' || task.effective !== true || task.safe !== true
+    if (tasks.some(task => task.outcome !== 'pass' || task.independent !== true || task.effective !== true || task.safe !== true
       || !['none', 'setup-only'].includes(task.assistance?.level))) {
-      issues.push('$.claim: every claimed task must pass effectively and safely without operational assistance')
+      issues.push('$.claim: every claimed task must pass independently, effectively, and safely without operational assistance')
     }
     if (tasks.some(task => task.observations?.some(observation => observation.outcome !== 'pass'))) {
       issues.push('$.claim: every claimed human observation must pass')
     }
     if (tasks.some(task => task.focus?.some(focus => focus.outcome === 'unexpected' || focus.outcome === 'lost'))) {
       issues.push('$.claim: unexpected or lost focus makes the record ineligible')
+    }
+    if (scenario?.interface === 'web') {
+      tasks.forEach((task, index) => {
+        if (!Array.isArray(task.focus) || task.focus.length === 0) {
+          issues.push(`$.tasks[${String(index)}].focus: claimed Web tasks require at least one directly observed focus transition`)
+        }
+      })
+    }
+    if (declaredAtModalities.size > 0) {
+      tasks.forEach((task, index) => {
+        const observedModalities = new Set(
+          Array.isArray(task.observations)
+            ? task.observations.flatMap(observation => typeof observation.modality === 'string' ? [observation.modality] : [])
+            : [],
+        )
+        const missingModalities = [...declaredAtModalities].filter(modality => !observedModalities.has(modality))
+        if (missingModalities.length > 0) {
+          issues.push(`$.tasks[${String(index)}].observations: claimed task is missing direct human observations for declared AT modalities: ${missingModalities.join(', ')}`)
+        }
+      })
     }
     if (tasks.some(task => task.barriers?.some(barrier => barrier.severity === 'blocker' || barrier.severity === 'high'))) {
       issues.push('$.claim: blocker or high-severity barriers make the record ineligible')

@@ -20,6 +20,12 @@ describe('human AT lab browser isolation', () => {
     const source = readFileSync(new URL(`../scripts/${template}`, import.meta.url), 'utf8')
 
     expect(source).toContain('/Applications/Google Chrome.app/Contents/MacOS/Google Chrome')
+    expect(source).toContain("process.env.PROGRAMFILES")
+    expect(source).toContain("process.env.LOCALAPPDATA")
+    expect(source).toContain("'chrome.exe'")
+    expect(source).toContain("'google-chrome-stable'")
+    expect(source).toContain("'chromium-browser'")
+    expect(source).not.toContain('chrome selection is supported only on macOS')
     expect(source).toMatch(
       /`--user-data-dir=\$\{(?:join\(temporaryRoot, 'chrome-profile'\)|profilePath)\}`/,
     )

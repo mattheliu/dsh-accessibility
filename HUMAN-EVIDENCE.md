@@ -15,7 +15,7 @@ Every valid human run may be recorded, including failures and partial results. `
 | `evidenceKind: assistive-technology-run` | A human observed and operated the named browser/terminal and access-technology combination. |
 | `evidenceKind: disabled-user-task-run` | A disabled developer performed the task; the public record does not require disability or diagnosis details. |
 | `claim: none` | Valuable result, but not eligible to support a public support label. Required for templates, failures, partial results, expired rows, and unresolved high-impact barriers. |
-| `claim: a11y-at-tested` | Every claimed task passed effectively and safely with only setup or no assistance; all human observations passed; focus was not lost; consent, exact versions, current review, and a public review issue are present. |
+| `claim: a11y-at-tested` | Every claimed task passed independently, effectively, and safely with only setup or no assistance; every modality declared for the named AT was directly observed on every claimed task; each claimed Web task includes a focus transition; consent, exact versions, current review, and a public review issue are present. |
 | `claim: a11y-user-validated` | A consented disabled-developer run in which at least one task classified as representative core by the pinned evidence catalog was completed independently, effectively, and safely without operational assistance. A dedicated AT is recorded when used but is not required for every disability or task. |
 
 The evidence level describes what was actually observed; it is not a badge granted because a JSON file exists. The validator fails closed when the record contradicts its claim.
@@ -28,7 +28,7 @@ The record includes:
 
 - exact product and component versions plus full commit revisions;
 - the pinned evidence-catalog protocol and ID, plus exact cataloged scenario protocol and task IDs;
-- OS, browser or terminal, any access technologies and modalities used, input methods, and relevant settings;
+- OS, browser or terminal, any access technologies and directly observed modalities, input methods, and relevant settings;
 - tester category without identity, diagnosis, or disability details;
 - affirmative authority to publish a de-identified summary and a private withdrawal route for disabled-user research;
 - per-task outcome, independence, effectiveness, safety, assistance, short observed speech/braille/interaction results, focus transitions, barriers, and limitations;
@@ -36,7 +36,7 @@ The record includes:
 - review status and `validUntil`; and
 - the public issue or discussion that reviewed any support claim.
 
-Task IDs in `scenario.taskIds` must exactly equal the task records and must exist under that protocol in the pinned evidence catalog. A record cannot declare its own task to be core or claim-eligible. New or changed tasks require a reviewed catalog update first; known exploratory tasks marked `claimEligible: false` may be recorded only with `claim: none`. Hidden assistance is invalid. A high or blocking barrier, a failed or unobserved claimed checkpoint, unexpected/lost focus, an unsafe or ineffective task, missing public review, or expired evidence prevents a claim.
+Task IDs in `scenario.taskIds` must exactly equal the task records and must exist under that protocol in the pinned evidence catalog. A record cannot declare its own task to be core or claim-eligible. New or changed tasks require a reviewed catalog update first; known exploratory tasks marked `claimEligible: false` may be recorded only with `claim: none`. Hidden assistance is invalid. Every task included in a support claim must be independent, effective, and safe. For a claim that names AT, `accessTechnologies[].modalities` lists only modalities directly observed on every claimed task—not every capability the device happens to have—and every listed modality must have a passed per-task observation. A claimed Web task must include at least one directly observed focus transition. Missing observations remain valuable with `claim: none`; they never become implied passes. A high or blocking barrier, a failed or unobserved claimed checkpoint, unexpected/lost focus, an unsafe or ineffective task, missing public review, or expired evidence prevents a claim.
 
 An `assistive-technology-run` must name at least one actual access technology and can support only `a11y-at-tested`. A `disabled-user-task-run` may leave `accessTechnologies` empty when the participant did not use a dedicated AT; do not invent a placeholder AT. Likewise, `builds.components` is empty for a DSH-only run and lists only components that actually participated.
 

@@ -32,7 +32,7 @@ The stable task inventory and representative-core classification come only from 
 
 1. Use the exact build and full revisions printed by the launcher. Human-evidence launchers fail closed when any participating checkout has tracked, staged, or untracked changes; do not bypass that gate, test `latest`, or use an unrecorded working tree.
 2. Use only the disposable DSH home, synthetic content, loopback origin, and temporary workspace supplied by the matching lab.
-3. On macOS prefer the lab's `chrome` mode, which creates and removes an isolated profile and blocks non-loopback name resolution. Safari or `system` requires a dedicated clean browser profile. Stop before testing if personal tabs, history, bookmarks, accounts, extensions, autofill, prompts, conversations, credentials, or paths appear.
+3. Prefer the lab's `chrome` mode on macOS, Windows, or Linux when Chrome/Chromium is installed. It creates and removes an isolated profile, disables background networking, and blocks non-loopback name resolution; on Windows this is the preferred NVDA/JAWS/Narrator route. Safari or `system` requires a dedicated clean browser profile. Stop before testing if personal tabs, history, bookmarks, accounts, extensions, autofill, prompts, conversations, credentials, or paths appear.
 4. Never publish the one-use sign-in URL. Do not tunnel the loopback server or substitute a real workspace.
 5. Record OS/build, browser or terminal/shell versions, every AT and version actually used, locale, input/output methods, relevant settings, exact DSH/component revisions, and all assistance.
 6. Return to the launcher and request cleanup. If interrupted state remains, inspect only the exact printed lab directory and move it to Trash; never remove a broad temporary or home path.
@@ -44,6 +44,7 @@ For every stable task ID, record:
 - pass, partial, or fail and whether the task was completed;
 - whether completion was independent, effective, and safe;
 - actual speech or braille only when a person observed it, plus focus/cursor before and after important transitions;
+- for a support claim, list an AT modality only when that modality was directly observed on every claimed task; record an unobserved modality as a limitation instead of an implied pass;
 - control role, name, state, approval consequence, error, and recovery as understood by the tester;
 - exact ledger assistance level (`none`, `setup-only`, `verbal`, `sighted-operation`, or `other`), workaround, and smallest reproducible barrier;
 - what was not tested and every reason the result cannot be generalized.

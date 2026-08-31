@@ -49,12 +49,13 @@ pnpm run lab:at ../deepseek-harness . system
 # Open Safari on macOS. Use a dedicated clean browser profile.
 pnpm run lab:at ../deepseek-harness . safari
 
-# Open Chrome on macOS with a fresh temporary profile, blocked background
-# networking, and non-loopback host resolution disabled.
+# Open Chrome on macOS or Windows, or Chrome/Chromium on Linux, with a fresh
+# temporary profile, blocked background networking, and non-loopback host
+# resolution disabled.
 pnpm run lab:at ../deepseek-harness . chrome
 ```
 
-The launcher prints a versioned JSON readiness record with exact Git revisions, OS information, browser-context isolation, the local origin, and explicit limitations. It prints the temporary local sign-in URL separately: use it locally, but do not paste it into a public result while the lab is active. It creates no screenshot, recording, upload, or public artifact. `chrome` is the safest local default because it never opens the tester's ordinary Chrome profile. `system` and `safari` may reuse an existing browser context and require a dedicated clean profile. Return to the terminal and press Ctrl+C to request cleanup. The launcher closes isolated Chrome and removes its temporary profile, disposable DSH home, session persistence, workspace, and temporary plugin link. Close an inactive `system` or `safari` tab manually.
+The launcher prints a versioned JSON readiness record with exact Git revisions, OS information, browser-context isolation, the local origin, and explicit limitations. It prints the temporary local sign-in URL separately: use it locally, but do not paste it into a public result while the lab is active. It creates no screenshot, recording, upload, or public artifact. The cross-platform `chrome` mode is the safest local default because it finds an installed Chrome/Chromium executable and never opens the tester's ordinary profile. `system` and `safari` may reuse an existing browser context and require a dedicated clean profile. Return to the terminal and press Ctrl+C to request cleanup. The launcher closes isolated Chrome and removes its temporary profile, disposable DSH home, session persistence, workspace, and temporary plugin link. Close an inactive `system` or `safari` tab manually.
 
 For an automated startup-and-cleanup smoke check only, pass a timeout in milliseconds:
 

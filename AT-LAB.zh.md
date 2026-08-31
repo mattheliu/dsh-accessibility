@@ -49,12 +49,12 @@ pnpm run lab:at ../deepseek-harness . system
 # 在 macOS 打开 Safari；必须使用专门的干净浏览器 profile。
 pnpm run lab:at ../deepseek-harness . safari
 
-# 在 macOS 用全新临时 profile 打开 Chrome，同时阻断后台联网与
-# 非 loopback 主机解析。
+# 在 macOS／Windows 打开 Chrome，或在 Linux 打开 Chrome／Chromium；
+# 使用全新临时 profile，同时阻断后台联网与非 loopback 主机解析。
 pnpm run lab:at ../deepseek-harness . chrome
 ```
 
-启动器会输出带版本的 JSON readiness 记录，包括精确 Git revision、操作系统、浏览器上下文隔离、本地 origin 和明确限制。临时本地登录地址会单独打印：只在本机使用，实验室运行期间不要粘贴进公开结果。启动器不会创建截图、录音、上传或公开 artifact。`chrome` 不会打开测试者日常 Chrome profile，因此是本机最安全的默认方式；`system` 与 `safari` 可能复用既有浏览器上下文，只能配合专门的干净 profile 使用。完成后返回终端按 Ctrl+C 请求清理。启动器会关闭隔离 Chrome，并删除其临时 profile、一次性 DSH home、会话存储、工作区和临时插件链接。`system` 或 `safari` 留下的失效标签页需手动关闭。
+启动器会输出带版本的 JSON readiness 记录，包括精确 Git revision、操作系统、浏览器上下文隔离、本地 origin 和明确限制。临时本地登录地址会单独打印：只在本机使用，实验室运行期间不要粘贴进公开结果。启动器不会创建截图、录音、上传或公开 artifact。跨平台 `chrome` 模式会寻找已安装的 Chrome／Chromium，且不会打开测试者日常 profile，因此是本机最安全的默认方式；`system` 与 `safari` 可能复用既有浏览器上下文，只能配合专门的干净 profile 使用。完成后返回终端按 Ctrl+C 请求清理。启动器会关闭隔离 Chrome，并删除其临时 profile、一次性 DSH home、会话存储、工作区和临时插件链接。`system` 或 `safari` 留下的失效标签页需手动关闭。
 
 仅做自动启动／清理冒烟检查时，可传入毫秒超时：
 

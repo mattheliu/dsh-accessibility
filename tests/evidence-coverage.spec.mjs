@@ -46,8 +46,9 @@ function evidenceRecord({
   const selectedTaskIds = taskIds ?? tasksFor(protocol, selector)
   const atName = environmentSelector.accessTechnologyNames?.[0]
     ?? (environmentSelector.requiredModalities === undefined ? undefined : 'Modality test assistive technology')
-  const observedModality = environmentSelector.requiredModalities?.find(modality => modality !== 'keyboard')
-    ?? (atName === undefined ? 'keyboard' : 'speech')
+  const observedModalities = atName === undefined
+    ? ['keyboard']
+    : (environmentSelector.requiredModalities ?? ['speech', 'keyboard'])
   const osName = environmentSelector.osNames?.[0] ?? (isCli ? 'Linux' : 'Linux')
   const surfaceName = environmentSelector.surfaceNames?.[0] ?? (isCli ? 'GNOME Terminal' : 'Firefox')
   const atVersion = accessTechnologyVersion ?? (atName === 'NVDA' ? '2025.3.1' : '10')
@@ -116,12 +117,12 @@ function evidenceRecord({
     effective: true,
     safe: true,
     assistance: { level: 'none', notes: [] },
-    observations: [{
-      checkpoint: `${taskId}-result`,
-      modality: observedModality,
+    observations: observedModalities.map(modality => ({
+      checkpoint: `${taskId}-${modality}-result`,
+      modality,
       outcome: 'pass',
-      observed: `The ${taskId} task result and next action were perceivable.`,
-    }],
+      observed: `The ${taskId} task result and next action were perceivable through ${modality}.`,
+    })),
     focus: [{ transition: `${taskId} completes`, destination: 'Next usable task control', outcome: 'expected' }],
     barriers: [],
     limitations: ['Only the exact recorded task, build, environment, and settings are covered.'],
@@ -228,6 +229,14 @@ describe('aggregate human evidence coverage', () => {
       { name: 'Screen reader under test', version: '10', modalities: ['keyboard'] },
       { name: 'Refreshable braille display under test', version: '4.2', modalities: ['braille'] },
     ]
+    record.tasks.forEach((task) => {
+      task.observations.push({
+        checkpoint: `${task.id}-keyboard-result`,
+        modality: 'keyboard',
+        outcome: 'pass',
+        observed: `The ${task.id} task was operated through the declared keyboard modality.`,
+      })
+    })
     const covered = evaluateEvidenceCoverage([record], { now })
     expect(covered.valid, covered.issues.join('\n')).toBe(true)
     expect(findRequirement(covered.report, requirement.id).status).toBe('satisfied')

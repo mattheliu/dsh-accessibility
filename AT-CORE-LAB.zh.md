@@ -45,12 +45,12 @@ pnpm run lab:at:core ../deepseek-harness system
 # 专门的干净 profile；只要出现个人界面就立即停止。
 pnpm run lab:at:core ../deepseek-harness safari
 
-# 在 macOS 用全新临时 profile 打开 Google Chrome。后台联网会被禁用，
-# 非 loopback 主机解析也会被阻止。
+# 在 macOS／Windows 打开 Google Chrome，或在 Linux 打开 Chrome／Chromium；
+# 都使用全新临时 profile。后台联网会被禁用，非 loopback 主机解析也会被阻止。
 pnpm run lab:at:core ../deepseek-harness chrome
 ```
 
-启动器会打印版本化 JSON 就绪记录，其中包含精确 DSH 与实验室 revision、操作系统信息和浏览器上下文隔离状态。临时一次性登录地址会单独打印：只在本机使用，不要粘贴进公开结果。启动器不会创建截图、录屏、上传或公开 artifact。`chrome` 模式不会打开测试者日常使用的 Chrome profile，因此是本机测试中最安全的默认选项；`system` 与 `safari` 可能复用既有浏览器上下文，只能配合专门的干净 profile 使用。
+启动器会打印版本化 JSON 就绪记录，其中包含精确 DSH 与实验室 revision、操作系统信息和浏览器上下文隔离状态。临时一次性登录地址会单独打印：只在本机使用，不要粘贴进公开结果。启动器不会创建截图、录屏、上传或公开 artifact。跨平台 `chrome` 模式会寻找已安装的 Chrome／Chromium，且不会打开测试者日常 profile，因此是本机测试中最安全的默认选项；`system` 与 `safari` 可能复用既有浏览器上下文，只能配合专门的干净 profile 使用。
 
 测试结束后回到终端按 Ctrl+C 请求清理。启动器随后关闭隔离的 Chrome 进程，并移除其临时 profile、一次性 DSH home、Session 持久化和工作区；`system` 或 `safari` 模式留下的失效标签页仍需手动关闭。如果进程被强制终止，只可能在操作系统临时目录留下启动器打印过的 `dsh-core-at-lab-...` 目录；先检查，再把这个精确目录移到废纸篓，绝不能删除宽泛的临时路径。
 
@@ -87,7 +87,7 @@ VoiceOver 测试者应根据控件使用转子、VO+左／右、VO+空格及 Tab
 - 规程：dsh-core-at-lab/1.0.0-draft
 - 日期／时间及测试者时区：
 - 同意公开此去标识化结果：是／否
-- 残障用户证据：否／是（只记录测试者愿意披露的相关使用需求）
+- 残障用户证据：否／是（只记录类别；不要包含使用需求、诊断或残障详情）
 - 操作系统及 build：
 - 浏览器及精确版本：
 - 辅助技术及精确版本：

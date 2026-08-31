@@ -52,13 +52,13 @@ VoiceOver with Safari on macOS:
 pnpm run lab:at:authoring -- ../deepseek-harness-alpha2 ../dsh-a11y-local-preview safari 0
 ```
 
-VoiceOver with Chrome on macOS:
+VoiceOver/NVDA/JAWS/Narrator/Orca with an isolated Chrome/Chromium profile on macOS, Windows, or Linux:
 
 ```sh
 pnpm run lab:at:authoring -- ../deepseek-harness-alpha2 ../dsh-a11y-local-preview chrome 0
 ```
 
-Chrome mode creates a fresh temporary profile, disables background networking, blocks non-loopback host resolution, closes the isolated browser on exit, and removes the profile. Safari can reuse its existing browser context, so use it only with a dedicated clean profile and stop immediately if personal UI appears. For NVDA/JAWS/Narrator on Windows or Orca on Linux, use `none 0`, copy the separately printed one-use sign-in URL into a dedicated clean browser profile, and do not publish that URL. `system 0` may be used when the default browser is the intended browser and already has a dedicated clean profile.
+Cross-platform Chrome mode finds an installed Chrome/Chromium executable, creates a fresh temporary profile, disables background networking, blocks non-loopback host resolution, closes the isolated browser on exit, and removes the profile. It is the preferred Windows NVDA/JAWS/Narrator and Linux Orca route. Safari can reuse its existing browser context, so use it only with a dedicated clean profile and stop immediately if personal UI appears. Use `none 0` only when an isolated Chrome/Chromium executable is unavailable, then copy the separately printed one-use sign-in URL into a dedicated clean browser profile and never publish it. `system 0` may be used when the default browser is the intended browser and already has a dedicated clean profile.
 
 The readiness JSON contains DSH, lab, and composition versions and revisions, exact tarball installation metadata, environment, browser-context isolation, synthetic Session ID, exact task text, persistence policy, and limitations. It intentionally excludes the one-use sign-in URL, preview origin, and temporary install path.
 

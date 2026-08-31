@@ -45,12 +45,13 @@ pnpm run lab:at:core ../deepseek-harness system
 # dedicated clean profile and stop immediately if any personal UI appears.
 pnpm run lab:at:core ../deepseek-harness safari
 
-# Open Google Chrome on macOS with a fresh temporary profile. Background
-# networking is disabled and non-loopback host resolution is blocked.
+# Open Google Chrome on macOS or Windows, or Chrome/Chromium on Linux, with a
+# fresh temporary profile. Background networking is disabled and non-loopback
+# host resolution is blocked.
 pnpm run lab:at:core ../deepseek-harness chrome
 ```
 
-The launcher prints a versioned JSON readiness record with the exact DSH and lab revisions, operating-system information, and browser-context isolation. It prints the temporary one-use sign-in URL separately: use it locally, but do not paste it into a public result. It creates no screenshot, recording, upload, or public artifact. The `chrome` mode is the safest local default because it never opens the tester's ordinary Chrome profile; `system` and `safari` may reuse an existing browser context and therefore require a dedicated clean profile.
+The launcher prints a versioned JSON readiness record with the exact DSH and lab revisions, operating-system information, and browser-context isolation. It prints the temporary one-use sign-in URL separately: use it locally, but do not paste it into a public result. It creates no screenshot, recording, upload, or public artifact. The cross-platform `chrome` mode is the safest local default because it finds an installed Chrome/Chromium executable and never opens the tester's ordinary profile; `system` and `safari` may reuse an existing browser context and therefore require a dedicated clean profile.
 
 Return to the terminal and press Ctrl+C to request cleanup. The launcher then closes an isolated Chrome process and removes its temporary profile, disposable DSH home, Session persistence, and workspace. Close a now-inactive `system` or `safari` tab manually. A forcibly killed process may leave only its printed `dsh-core-at-lab-...` directory under the operating system's temporary directory; inspect and move that exact directory to Trash rather than deleting a broad temporary path.
 
@@ -87,7 +88,7 @@ VoiceOver testers should use the rotor, VO+Left/Right, VO+Space, and Tab/Shift+T
 - Protocol: dsh-core-at-lab/1.0.0-draft
 - Date/time and tester time zone:
 - Consent to publish this de-identified result: yes / no
-- Disabled-user evidence: no / yes (state only the relevant access need the tester chose to disclose)
+- Disabled-user evidence: no / yes (category only; do not include an access need, diagnosis, or disability detail)
 - OS and build:
 - Browser and exact version:
 - AT and exact version:

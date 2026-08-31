@@ -34,13 +34,48 @@ interface LaunchedBrowser {
   readonly context: 'none' | 'existing-browser-context' | 'temporary-isolated-chrome-profile'
 }
 
+function chromeCommandCandidates(os: NodeJS.Platform): string[] {
+  if (os === 'darwin') return ['/Applications/Google Chrome.app/Contents/MacOS/Google Chrome']
+  if (os === 'win32') {
+    const roots = [
+      process.env.PROGRAMFILES,
+      process.env['PROGRAMFILES(X86)'],
+      process.env['ProgramFiles(x86)'],
+      process.env.LOCALAPPDATA,
+    ].filter((value): value is string => typeof value === 'string' && value.length > 0)
+    return [...new Set(roots.map(root => join(root, 'Google', 'Chrome', 'Application', 'chrome.exe'))), 'chrome.exe']
+  }
+  return ['google-chrome', 'google-chrome-stable', 'chromium', 'chromium-browser']
+}
+
+function launchChrome(commands: readonly string[], args: readonly string[]): Promise<ChildProcess> {
+  return new Promise((resolveLaunch, rejectLaunch) => {
+    let index = 0
+    const attempt = (): void => {
+      const command = commands[index]
+      index += 1
+      if (command === undefined) {
+        rejectLaunch(new Error(`Chrome or Chromium executable not found; tried: ${commands.join(', ')}`))
+        return
+      }
+      const chromeProcess = spawn(command, [...args], { stdio: 'ignore' })
+      chromeProcess.once('error', (error: NodeJS.ErrnoException) => {
+        if (error.code === 'ENOENT') attempt()
+        else rejectLaunch(error)
+      })
+      chromeProcess.once('spawn', () => resolveLaunch(chromeProcess))
+    }
+    attempt()
+  })
+}
+
 function openBrowser(url: string, temporaryRoot: string): Promise<LaunchedBrowser> {
   if (browser === 'none') return Promise.resolve({ context: 'none' })
   const os = platform()
   if (browser === 'chrome') {
-    if (os !== 'darwin') throw new Error('chrome selection is supported only on macOS; use system or none')
-    const process = spawn('/Applications/Google Chrome.app/Contents/MacOS/Google Chrome', [
-      `--user-data-dir=${join(temporaryRoot, 'chrome-profile')}`,
+    const profilePath = join(temporaryRoot, 'chrome-profile')
+    const args = [
+      `--user-data-dir=${profilePath}`,
       '--no-first-run',
       '--no-default-browser-check',
       '--disable-background-networking',
@@ -50,14 +85,11 @@ function openBrowser(url: string, temporaryRoot: string): Promise<LaunchedBrowse
       '--metrics-recording-only',
       '--host-resolver-rules=MAP * 0.0.0.0, EXCLUDE 127.0.0.1, EXCLUDE localhost',
       url,
-    ], { stdio: 'ignore' })
-    return new Promise((resolveOpen, reject) => {
-      process.once('error', reject)
-      process.once('spawn', () => resolveOpen({
-        process,
-        context: 'temporary-isolated-chrome-profile',
-      }))
-    })
+    ]
+    return launchChrome(chromeCommandCandidates(os), args).then(chromeProcess => ({
+      process: chromeProcess,
+      context: 'temporary-isolated-chrome-profile',
+    } as const))
   }
   let command: string
   let args: string[]

@@ -27,7 +27,7 @@ pnpm run lab:at:live ../deepseek-harness plan system
 pnpm run lab:at:live ../deepseek-harness approval system
 ```
 
-The shared launcher provenance gate rejects a dirty DSH or accessibility-lab checkout before it creates state. Use `chrome` instead of `system` on macOS for a fresh temporary browser profile with background networking disabled and non-loopback host resolution blocked. `safari` may be used only with a dedicated clean profile. `system` may reuse the current default-browser context. Use `none` to print the one-use local sign-in URL without opening a browser. Do not publish that URL. The readiness JSON records browser-context isolation, the exact DSH and lab revisions, scenario, operating system, synthetic Session id, and `taskInput`.
+The shared launcher provenance gate rejects a dirty DSH or accessibility-lab checkout before it creates state. Prefer `chrome` to `system` on macOS, Windows, or Linux for a fresh temporary Chrome/Chromium profile with background networking disabled and non-loopback host resolution blocked. `safari` may be used only with a dedicated clean profile. `system` may reuse the current default-browser context. Use `none` to print the one-use local sign-in URL without opening a browser. Do not publish that URL. The readiness JSON records browser-context isolation, the exact DSH and lab revisions, scenario, operating system, synthetic Session id, and `taskInput`.
 
 Copy `taskInput` exactly. If the Session is not already selected, open the only Session under `live-at-workspace`. Do not submit another prompt: replay fixtures are intentionally finite and a second call must fail rather than reaching a network model.
 

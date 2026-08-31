@@ -53,12 +53,20 @@ function atRecord() {
     effective: true,
     safe: true,
     assistance: { level: 'none', notes: [] },
-    observations: [{
-      checkpoint: 'approval-request',
-      modality: 'speech',
-      outcome: 'pass',
-      observed: 'Approval details and the one-time workspace write reason were announced before the action buttons.',
-    }],
+    observations: [
+      {
+        checkpoint: 'approval-request',
+        modality: 'speech',
+        outcome: 'pass',
+        observed: 'Approval details and the one-time workspace write reason were announced before the action buttons.',
+      },
+      {
+        checkpoint: 'approval-keyboard-route',
+        modality: 'keyboard',
+        outcome: 'pass',
+        observed: 'The tester reached and operated both approval choices with VoiceOver keyboard commands.',
+      },
+    ],
     focus: [{ transition: 'approval opens', destination: 'Approval details region', outcome: 'expected' }],
     barriers: [],
     limitations: ['Only the English allow-once authoring scenario was tested.'],
@@ -105,11 +113,14 @@ describe('versioned human accessibility evidence', () => {
 
   it.each([
     ['failed claimed task', (record) => { record.tasks[0].outcome = 'fail'; record.summary.overall = 'fail' }, /support claims require an overall pass|must pass effectively and safely/],
-    ['unsafe claimed task', (record) => { record.tasks[0].safe = false }, /must pass effectively and safely/],
-    ['ineffective claimed task', (record) => { record.tasks[0].effective = false }, /must pass effectively and safely/],
+    ['unsafe claimed task', (record) => { record.tasks[0].safe = false }, /pass independently, effectively, and safely/],
+    ['ineffective claimed task', (record) => { record.tasks[0].effective = false }, /pass independently, effectively, and safely/],
+    ['non-independent claimed task', (record) => { record.tasks[0].independent = false }, /pass independently, effectively, and safely/],
     ['operational assistance', (record) => { record.tasks[0].assistance.level = 'sighted-operation' }, /without operational assistance/],
     ['failed speech observation', (record) => { record.tasks[0].observations[0].outcome = 'fail' }, /human observation must pass/],
     ['lost focus', (record) => { record.tasks[0].focus[0].outcome = 'lost' }, /lost focus/],
+    ['missing Web focus observation', (record) => { record.tasks[0].focus = [] }, /directly observed focus transition/],
+    ['declared but unobserved AT modality', (record) => { record.tasks[0].observations.pop() }, /declared AT modalities: keyboard/],
     ['missing public review', (record) => { delete record.publication.publicIssue }, /public review issue or discussion/],
     ['unrecorded assistance', (record) => { record.tester.unrecordedAssistance = true }, /cannot hide assistance/],
     ['expired current record', (record) => { record.review.validUntil = '2026-09-01' }, /past validUntil/],
@@ -188,7 +199,7 @@ describe('versioned human accessibility evidence', () => {
     expect(result.issues.join('\n')).toMatch(/independent, effective, safe/)
   })
 
-  it('requires at least one, rather than every, catalog-defined core task to be independently completed', () => {
+  it('does not hide a non-independent task inside an otherwise passing user-validation claim', () => {
     const record = userValidatedRecord()
     const secondTask = structuredClone(record.tasks[0])
     secondTask.id = 'reject'
@@ -196,7 +207,9 @@ describe('versioned human accessibility evidence', () => {
     secondTask.limitations = ['The rejection task was observed but was not the independently completed core task.']
     record.scenario.taskIds.push('reject')
     record.tasks.push(secondTask)
-    expect(validateHumanEvidenceRecord(record, { now })).toMatchObject({ valid: true, claim: 'a11y-user-validated' })
+    const result = validateHumanEvidenceRecord(record, { now })
+    expect(result.valid).toBe(false)
+    expect(result.issues.join('\n')).toMatch(/pass independently, effectively, and safely/)
   })
 
   it('supports core-only builds and disabled-developer evidence without requiring a dedicated AT', () => {
@@ -221,6 +234,19 @@ describe('versioned human accessibility evidence', () => {
     record.scenario.taskIds = ['nonvisual-repeat']
     record.tasks[0].id = 'nonvisual-repeat'
     record.summary.claimScope = 'No support claim; exploratory nonvisual repetition only.'
+    delete record.publication.publicIssue
+    expect(validateHumanEvidenceRecord(record, { now })).toMatchObject({ valid: true, claim: 'none' })
+  })
+
+  it('retains partial human results even when a declared modality or Web focus transition was not observed', () => {
+    const record = atRecord()
+    record.claim = 'none'
+    record.summary.overall = 'partial'
+    record.summary.claimScope = 'No support claim; incomplete direct observation is retained as a gap.'
+    record.tasks[0].outcome = 'partial'
+    record.tasks[0].independent = false
+    record.tasks[0].observations.pop()
+    record.tasks[0].focus = []
     delete record.publication.publicIssue
     expect(validateHumanEvidenceRecord(record, { now })).toMatchObject({ valid: true, claim: 'none' })
   })
@@ -251,6 +277,16 @@ describe('versioned human accessibility evidence', () => {
     invalid.tasks[0].focus[0].outcome = 'lost'
     expect(validate(invalid)).toBe(false)
     expect(ajv.errorsText(validate.errors)).toMatch(/focus.*outcome|enum/)
+
+    const assisted = atRecord()
+    assisted.tasks[0].independent = false
+    expect(validate(assisted)).toBe(false)
+    expect(ajv.errorsText(validate.errors)).toMatch(/independent.*true|const/)
+
+    const unobservedWebFocus = atRecord()
+    unobservedWebFocus.tasks[0].focus = []
+    expect(validate(unobservedWebFocus)).toBe(false)
+    expect(ajv.errorsText(validate.errors)).toMatch(/focus.*items|minItems/)
   })
 
   it('validates the repository evidence directory through the public CLI', () => {

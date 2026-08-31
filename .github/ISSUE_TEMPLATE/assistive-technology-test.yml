@@ -16,6 +16,8 @@ body:
       options:
         - label: I am submitting my own result or have explicit permission to submit this de-identified result.
           required: true
+        - label: A person directly operated the named assistive technology and observed the reported output or interaction; this is not an automated, accessibility-tree-only, caption-inferred, or AI-operated result.
+          required: true
         - label: I removed credentials, private prompts, conversations, usernames, personal data, and sensitive paths.
           required: true
         - label: I understand that this public result will be used only within the exact versions and scenarios recorded here.
@@ -42,7 +44,7 @@ body:
     id: scenarios
     attributes:
       label: Scenarios and results
-      description: For each stable catalog task ID, record pass/fail/partial, task completion, focus destination, exact spoken or braille output where relevant, approval comprehension/decision where applicable, assistance, and workaround.
+      description: For each stable catalog task ID, record pass/fail/partial, independent task completion, focus destination, a direct observation for every AT modality you claim, approval comprehension/decision where applicable, assistance, and workaround. An unobserved modality is a limitation, not a pass.
     validations:
       required: true
   - type: textarea

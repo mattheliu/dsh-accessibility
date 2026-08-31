@@ -76,6 +76,9 @@ describe('community validation intake', () => {
       expect(form).toMatch(/core Web|核心 Web/)
       expect(form).toMatch(/live response|实时回答/)
       expect(form).toMatch(/reading\/diagnostic|阅读／诊断/)
+      expect(form).toMatch(/person directly operated|真人直接操作/)
+      expect(form).toMatch(/not an automated|不是自动化/)
+      expect(form).toMatch(/every AT modality|每种已声明辅助技术模态/)
     },
   )
 })
