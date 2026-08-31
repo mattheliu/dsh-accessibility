@@ -5,6 +5,7 @@
 - Add a versioned six-package authoring publication-readiness graph and fail-closed reporter that distinguishes clean, independently installable npm sources from accessibility conformance or human evidence.
 - Replace publishable authoring manifests' source-local dependency protocols with exact prerelease versions, retain local development overrides outside the packed manifests, and add a disposable six-tarball installation/import gate.
 - Make replay and live authoring-agent evidence reject dirty DSH, composition, or lab sources and retain all three exact revisions.
+- Install the authoring-agent product composition and its complete internal graph from freshly packed tarballs so registry-ready manifests stay compatible with the real DSH plugin path before publication.
 
 - Add an experimental, user-loaded Accessible View through DSH's official `conversation.view` slot and structured session projection.
 - Preserve source-order conversation records and semantic Markdown/code, including an in-progress assistant record, without scraping or rewriting host DOM.

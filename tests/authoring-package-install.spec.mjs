@@ -3,6 +3,7 @@ import {
   buildAuthoringPackageInstallReport,
   evaluateAuthoringPackageDependencyGraph
 } from '../scripts/authoring-package-readiness-lib.mjs'
+import { pnpmTarballOverrides } from '../scripts/authoring-package-install-lib.mjs'
 
 const spec = {
   name: '@oh-my-dsh/dsh-a11y-composition',
@@ -41,5 +42,15 @@ describe('authoring package isolated install evidence', () => {
     expect(report.lab).toEqual(lab)
     expect(report.limitations.join(' ')).toMatch(/not publication to or availability from npm/iu)
     expect(report.limitations.join(' ')).toMatch(/not WCAG conformance/iu)
+  })
+
+  it('writes pnpm 11 tarball overrides outside publishable manifests', () => {
+    const yaml = pnpmTarballOverrides([{
+      name: spec.name,
+      tarballPath: "/tmp/author's package.tgz",
+    }])
+    expect(yaml).toContain('overrides:')
+    expect(yaml).toContain("'@oh-my-dsh/dsh-a11y-composition'")
+    expect(yaml).toContain("'file:/tmp/author''s package.tgz'")
   })
 })

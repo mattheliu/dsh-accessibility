@@ -10,7 +10,7 @@ This disposable lab verifies one bounded DSH authoring task: inspect a rendered 
 
 A passing replay run proves all of the following for the exact revisions in its output:
 
-- the real DSH `0.1.2-alpha.2` product entry and plugin manager load `@oh-my-dsh/dsh-a11y-local-preview@0.1.0-alpha.0`;
+- the real DSH `0.1.2-alpha.2` product entry and plugin manager load a freshly packed `@oh-my-dsh/dsh-a11y-local-preview@0.1.0-alpha.0` tarball whose complete six-package internal graph also resolves from fresh tarballs;
 - a real literal-loopback HTTP page is audited in a fresh real Chromium context;
 - the real DSH agent loop executes exactly `a11y_check → read → edit → a11y_check`;
 - every durable tool call has one matching successful result, both audits remain scoped to `main` and the approved opaque handle, and filesystem access remains limited to `index.html`;
@@ -46,7 +46,7 @@ From this repository, with the three checkouts as siblings:
 pnpm run lab:authoring -- ../deepseek-harness-alpha2 ../dsh-a11y-local-preview replay
 ```
 
-Replay mode is keyless. The runner builds DSH host libraries and the composition, creates a disposable page and DSH home, installs the composition through the real `dsh plugin` command, runs the task, validates the durable session, emits one JSON evidence object, and cleans up.
+Replay mode is keyless. The runner builds DSH host libraries and the composition, creates a disposable page and DSH home, freshly packs the exact six-package authoring graph, installs it through the real `dsh plugin` command with profile-local tarball overrides, runs the task, validates the durable session, emits one JSON evidence object, and cleans up.
 
 Before creating any disposable state, the runner requires clean DSH, composition, and accessibility-lab Git worktrees and records all three full revisions. Tracked, staged, or untracked changes make both replay and live modes fail closed.
 

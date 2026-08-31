@@ -10,7 +10,7 @@
 
 Replay 运行通过后，可针对输出中的精确修订证明：
 
-- 真实 DSH `0.1.2-alpha.2` 产品入口和插件管理器能够加载 `@oh-my-dsh/dsh-a11y-local-preview@0.1.0-alpha.0`；
+- 真实 DSH `0.1.2-alpha.2` 产品入口和插件管理器能够加载 freshly packed 的 `@oh-my-dsh/dsh-a11y-local-preview@0.1.0-alpha.0` tarball，完整六包内部依赖图也全部从新打出的 tarball 解析；
 - 真实字面量 loopback HTTP 页面在全新真实 Chromium context 中接受审计；
 - 真实 DSH agent loop 精确执行 `a11y_check → read → edit → a11y_check`；
 - 每个持久化工具调用都只有一个匹配的成功结果，两次审计都限制在 `main` 与已批准不透明句柄，文件系统访问仅限 `index.html`；
@@ -46,7 +46,7 @@ Runner 始终删除临时工作区与 DSH home，也不会使用测试者日常�
 pnpm run lab:authoring -- ../deepseek-harness-alpha2 ../dsh-a11y-local-preview replay
 ```
 
-Replay 模式无需密钥。Runner 会构建 DSH host 库与产品组合，创建一次性页面和 DSH home，通过真实 `dsh plugin` 命令安装组合，执行任务，校验持久化 session，输出一个 JSON 证据对象，然后清理全部临时状态。
+Replay 模式无需密钥。Runner 会构建 DSH host 库与产品组合，创建一次性页面和 DSH home，重新打包精确六包创作依赖图，通过带 profile-local tarball override 的真实 `dsh plugin` 命令安装组合，执行任务，校验持久化 session，输出一个 JSON 证据对象，然后清理全部临时状态。
 
 创建任何一次性状态前，Runner 要求 DSH、产品组合和无障碍实验室三个 Git 工作树都保持干净，并记录三者完整 revision。只要存在 tracked、staged 或 untracked 改动，replay 和 live 模式都会 fail closed。
 

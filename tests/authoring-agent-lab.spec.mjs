@@ -72,6 +72,7 @@ describe('authoring agent lab evidence', () => {
         version: '0.1.0-alpha.0',
         revision: 'c'.repeat(40),
         protocol: 'dsh-a11y-local-preview/0.1.0-draft',
+        installation: { kind: 'fresh-local-tarball', integrity: 'sha512-YWJjZA==', dependencyPackageCount: 6 },
       },
       task: {
         id: 'repair-image-alt-and-button-name', outcome: 'completed', fileChanged: true,
@@ -90,6 +91,8 @@ describe('authoring agent lab evidence', () => {
     expect(launcher).toContain("exactGitRevision(localPreviewRoot, 'DSH accessibility authoring composition source')")
     expect(launcher).toContain("exactGitRevision(labRoot, 'DSH accessibility authoring agent lab source')")
     expect(launcher).toContain('revision: labRevision')
+    expect(launcher).toContain('packAuthoringPackages(')
+    expect(launcher).toContain("kind: 'fresh-local-tarball'")
   })
 
   it.each([

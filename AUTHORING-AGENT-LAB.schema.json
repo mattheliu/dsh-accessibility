@@ -60,12 +60,22 @@
     "composition": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["package", "version", "revision", "protocol"],
+      "required": ["package", "version", "revision", "protocol", "installation"],
       "properties": {
         "package": { "const": "@oh-my-dsh/dsh-a11y-local-preview" },
         "version": { "const": "0.1.0-alpha.0" },
         "revision": { "type": "string", "pattern": "^[0-9a-f]{40}$" },
-        "protocol": { "const": "dsh-a11y-local-preview/0.1.0-draft" }
+        "protocol": { "const": "dsh-a11y-local-preview/0.1.0-draft" },
+        "installation": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["kind", "integrity", "dependencyPackageCount"],
+          "properties": {
+            "kind": { "const": "fresh-local-tarball" },
+            "integrity": { "type": "string", "pattern": "^sha512-[A-Za-z0-9+/]+={0,2}$" },
+            "dependencyPackageCount": { "const": 6 }
+          }
+        }
       }
     },
     "task": {

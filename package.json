@@ -94,6 +94,7 @@
     "scripts/authoring-at-lab.template.ts",
     "scripts/authoring-at-replay.jsonl",
     "scripts/authoring-package-readiness-lib.mjs",
+    "scripts/authoring-package-install-lib.mjs",
     "scripts/report-authoring-package-readiness.mjs",
     "scripts/run-authoring-package-install.mjs",
     "scripts/evidence-catalog-lib.mjs",

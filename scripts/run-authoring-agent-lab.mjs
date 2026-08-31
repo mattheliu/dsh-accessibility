@@ -2,7 +2,7 @@
 import { spawn } from 'node:child_process'
 import { createServer } from 'node:http'
 import { createRequire } from 'node:module'
-import { mkdtemp, mkdir, readFile, readdir, rm, writeFile } from 'node:fs/promises'
+import { appendFile, mkdtemp, mkdir, readFile, readdir, rm, writeFile } from 'node:fs/promises'
 import { arch, platform, release, tmpdir } from 'node:os'
 import { dirname, join, resolve } from 'node:path'
 import { fileURLToPath, pathToFileURL } from 'node:url'
@@ -13,6 +13,7 @@ import {
   validateAuthoringToolTrace,
 } from './authoring-agent-lab-lib.mjs'
 import { exactGitRevision } from './lab-source-state.mjs'
+import { packAuthoringPackages, pnpmTarballOverrides } from './authoring-package-install-lib.mjs'
 
 const argumentsValue = process.argv.slice(2)
 const launcherArguments = argumentsValue[0] === '--' ? argumentsValue.slice(1) : argumentsValue
@@ -195,8 +196,10 @@ try {
   await run('pnpm', ['run', 'build:lib:host'], { cwd: dshRoot, env: nonModelEnvironment })
   await run('pnpm', ['run', 'build'], { cwd: localPreviewRoot, env: nonModelEnvironment })
   temporaryRoot = await mkdtemp(join(tmpdir(), 'dsh-a11y-authoring-agent-'))
+  const authoringTarballRoot = join(temporaryRoot, 'authoring-tarballs')
   const workspace = join(temporaryRoot, 'workspace')
   const dshHome = join(temporaryRoot, 'dsh-home')
+  await mkdir(authoringTarballRoot)
   await mkdir(workspace)
   const htmlPath = join(workspace, 'index.html')
   await writeFile(htmlPath, initialHtml)
@@ -250,7 +253,23 @@ try {
       : {}),
   }
   const bin = join(dshRoot, 'apps/cli/lib/bin.js')
-  await run(process.execPath, [bin, 'plugin', '--profile', 'headless', 'add', `file:${localPreviewRoot}`], {
+  const authoringPolicy = JSON.parse(await readFile(join(labRoot, 'AUTHORING-PACKAGES.json'), 'utf8'))
+  const packedAuthoringPackages = await packAuthoringPackages(
+    authoringPolicy,
+    resolve(localPreviewRoot, '..'),
+    authoringTarballRoot,
+  )
+  const compositionTarball = packedAuthoringPackages.find(item => item.name === localPreviewManifest.name)
+  if (compositionTarball === undefined) throw new Error('authoring package graph did not produce the local-preview tarball')
+  await run(process.execPath, [bin, 'plugin', '--profile', 'headless', 'install', '--lockfile-only', '--ignore-scripts'], {
+    cwd: dshRoot,
+    env: commonEnvironment,
+  })
+  await appendFile(
+    join(dshHome, 'profiles', 'headless', 'pnpm-workspace.yaml'),
+    `\n${pnpmTarballOverrides(packedAuthoringPackages)}`,
+  )
+  await run(process.execPath, [bin, 'plugin', '--profile', 'headless', 'add', compositionTarball.tarballPath], {
     cwd: dshRoot,
     env: commonEnvironment,
   })
@@ -338,6 +357,11 @@ ${replayPatch}`)
       version: String(localPreviewManifest.version),
       revision: compositionRevision,
       protocol: 'dsh-a11y-local-preview/0.1.0-draft',
+      installation: {
+        kind: 'fresh-local-tarball',
+        integrity: compositionTarball.integrity,
+        dependencyPackageCount: packedAuthoringPackages.length,
+      },
     },
     task: {
       id: 'repair-image-alt-and-button-name',
