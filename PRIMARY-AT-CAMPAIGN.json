@@ -57,7 +57,7 @@
     {
       "id": "default-branch-intake",
       "status": "missing",
-      "detail": "The default branch does not yet contain the AT and disabled-developer Issue forms or this campaign guide."
+      "detail": "The default branch has an older AT form, but it lacks the current protocol-bound AT form, disabled-developer form, campaign guide, and core lab guide."
     },
     {
       "id": "discussion-current",

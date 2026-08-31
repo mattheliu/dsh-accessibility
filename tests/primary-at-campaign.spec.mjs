@@ -50,6 +50,15 @@ describe('primary human assistive-technology campaign', () => {
     expect(ajv.errorsText(validate.errors)).toMatch(/availabilityGates.*status|ready/)
   })
 
+  it('describes the default-branch intake gap without claiming the older AT form is absent', () => {
+    const gate = manifest.availabilityGates.find(row => row.id === 'default-branch-intake')
+    expect(gate).toMatchObject({ status: 'missing' })
+    expect(gate.detail).toMatch(/older AT form/)
+    expect(gate.detail).toMatch(/disabled-developer form/)
+    expect(source('PRIMARY-AT-CAMPAIGN.md')).toMatch(/existing older AT form/)
+    expect(source('PRIMARY-AT-CAMPAIGN.zh.md')).toMatch(/现有旧 AT 表单/)
+  })
+
   it.each(['PRIMARY-AT-CAMPAIGN.md', 'PRIMARY-AT-CAMPAIGN.zh.md'])(
     '%s preserves exact setup, non-evidence boundaries, and the closed intake state',
     (file) => {

@@ -8,7 +8,7 @@
 
 ## 为什么尚未开放招募
 
-公开核心分支与实验室分支尚未包含上述两个固定 revision；默认分支也没有本指南、辅助技术结果表单和残障开发者结果表单。[Discussion 16](https://github.com/omdsh-dev/dsh-accessibility/discussions/16)、[NVDA Issue 1](https://github.com/omdsh-dev/dsh-accessibility/issues/1) 与 [VoiceOver Issue 2](https://github.com/omdsh-dev/dsh-accessibility/issues/2) 仍指向已经被替代的 `0.1.1-rc.2` 候选。现在邀请测试者会让他们拿到过时说明或无法使用的提交入口。
+公开核心分支与实验室分支尚未包含上述两个固定 revision；默认分支缺少本指南、核心实验室指南和残障开发者结果表单，现有旧 AT 表单也早于版本化协议、真人直接操作及逐模态观察门禁。[Discussion 16](https://github.com/omdsh-dev/dsh-accessibility/discussions/16)、[NVDA Issue 1](https://github.com/omdsh-dev/dsh-accessibility/issues/1) 与 [VoiceOver Issue 2](https://github.com/omdsh-dev/dsh-accessibility/issues/2) 仍指向已经被替代的 `0.1.1-rc.2` 候选。现在邀请测试者会让他们拿到过时说明或无法使用的提交入口。
 
 只有机器清单中每个 `availabilityGates` 项都变成 `ready`，活动才能改为 `open`。活动开放只是协调状态，不是真人无障碍证据。
 

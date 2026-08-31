@@ -8,7 +8,7 @@ This first campaign targets exact DSH `0.1.2-alpha.2` revision `5803bfcfdd502ada
 
 ## Why recruitment is not open yet
 
-The public core branch and lab branch do not yet contain the two pinned revisions. The default branch does not contain this guide or the AT and disabled-developer Issue forms. [Discussion 16](https://github.com/omdsh-dev/dsh-accessibility/discussions/16), [NVDA Issue 1](https://github.com/omdsh-dev/dsh-accessibility/issues/1), and [VoiceOver Issue 2](https://github.com/omdsh-dev/dsh-accessibility/issues/2) still name the superseded `0.1.1-rc.2` candidate. Inviting people now would give them stale instructions or a missing intake route.
+The public core branch and lab branch do not yet contain the two pinned revisions. The default branch lacks this guide, the core lab guide, and the disabled-developer form; its existing older AT form predates the versioned protocols and direct-human/modality gates. [Discussion 16](https://github.com/omdsh-dev/dsh-accessibility/discussions/16), [NVDA Issue 1](https://github.com/omdsh-dev/dsh-accessibility/issues/1), and [VoiceOver Issue 2](https://github.com/omdsh-dev/dsh-accessibility/issues/2) still name the superseded `0.1.1-rc.2` candidate. Inviting people now would give them stale instructions or a missing intake route.
 
 The campaign may change to `open` only after every `availabilityGates` row in the manifest is `ready`. Opening the campaign is coordination state, not accessibility evidence.
 
