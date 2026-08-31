@@ -2,9 +2,9 @@
 
 [简体中文](RFC-A11Y-AUTHORING.zh.md) | English
 
-Status: draft. Protocols: `dsh-a11y-testkit/0.1.0-draft` and `dsh-a11y-authoring/0.1.0-draft`.
+Status: draft. Protocols: `dsh-a11y-testkit/0.1.0-draft`, `dsh-a11y-loopback-provider/0.1.0-draft`, and `dsh-a11y-authoring/0.1.0-draft`.
 
-Implementation status: three private local prototypes now implement the deterministic testkit, a caller-owned-page provider, and the read-only DSH adapter. Their no-navigation chain is assembled against real Chromium and the published `0.1.2-alpha.2` DSH `ToolRuntime`; production composition, remote publication, real assistive-technology evidence, and disabled-author task evidence remain open release gates.
+Implementation status: four private local packages now implement the deterministic testkit, a caller-owned-page provider, a separately versioned literal-loopback provider, and the read-only DSH adapter. Both provider chains are assembled against real Chromium and the published `0.1.2-alpha.2` DSH `ToolRuntime`; production composition, remote publication, real assistive-technology evidence, and disabled-author task evidence remain open release gates.
 
 ## Problem
 
@@ -26,13 +26,14 @@ The first release must:
 
 It does not certify a page, site, application, organization, or release; replace manual keyboard, screen-reader, low-vision, cognitive, speech, switch, or disabled-user evaluation; judge whether alternative text is contextually appropriate; or silently repair source code.
 
-## Four release and trust boundaries
+## Five release and trust boundaries
 
 | Boundary | Responsibility | Authority | Distribution |
 | --- | --- | --- | --- |
 | Deterministic engine | Normalize provider results into a stable report and enforce evidence wording | Pure data transformation; no filesystem, browser, network, clipboard, or process access | Small library owned by the testkit |
 | `dsh-a11y-testkit` | Receive a caller-owned browser page, run pinned deterministic providers, and emit the versioned report | Development/CI process; no DSH model tools | Separate development dependency |
 | Caller-owned-page provider | Map an exact pre-registered opaque handle to only the testkit's injection/evaluation page surface; bound waiting, cancellation, revocation, and concurrency | No discovery, creation, navigation, URL read, authentication, screenshot, HTML serialization, download, close, filesystem, or process authority | Separate opt-in provider package |
+| Literal-loopback provider | Map an opaque host registration to one literal-loopback URL, own a fresh browser context, constrain network/browser actions, run the testkit, and close every owned context | Chromium process plus bounded GET/HEAD/OPTIONS access to one host-approved literal-loopback origin; no model-supplied URL, DNS name, authentication, cross-origin request, WebSocket forwarding, persistent profile, download, screenshot, or HTML serialization | Separate opt-in provider package and versioned policy |
 | `a11y_check` adapter | Expose a bounded read-only scan to a DSH agent and render actionable findings | Existing DSH tool policy plus explicit browser/network approval; no write method | Separate opt-in DSH plugin |
 
 The runtime companion remains responsible for DSH's own diagnostics and accessible UI. It must not gain general browser automation, workspace scanning, or model-visible tools merely because it hosts the program documentation.
@@ -70,17 +71,27 @@ A later CLI may navigate only to loopback HTTP(S) by default. Remote origins, cu
 
 The initial private provider accepts a page created and owned by a trusted host and retains a new wrapper containing only `addScriptTag` and `evaluate`. The host registers one exact opaque handle and an explicitly model-visible subject label. The provider does not enumerate targets to the model, inspect extra page methods, read a URL, or close the page. It permits one audit per handle at a time, rejects unknown and duplicate handles without revealing the registry, bounds model-visible waiting, and propagates caller cancellation and registration revocation.
 
-Because this provider deliberately cannot close a caller-owned page, a timed-out or cancelled underlying evaluation may continue until the page or operation settles. The handle remains busy for that actual lifetime, and the host retains responsibility for stronger cancellation and page cleanup. A future provider that creates pages or navigates loopback origins is a separate authority expansion and requires its own threat model and lifecycle evidence.
+Because this provider deliberately cannot close a caller-owned page, a timed-out or cancelled underlying evaluation may continue until the page or operation settles. The handle remains busy for that actual lifetime, and the host retains responsibility for stronger cancellation and page cleanup. The separately implemented literal-loopback provider is an independent authority expansion with its own policy and lifecycle evidence.
+
+## Literal-loopback provider boundary
+
+`dsh-a11y-loopback-provider/0.1.0-draft` maps an opaque handle registered by the trusted host to an HTTP(S) URL whose host is exactly the literal `127.0.0.1` or `[::1]`. It rejects `localhost`, DNS names, credentials, file and data URLs, shorthand and alternative loopback addresses, and remote hosts before launching a browser. The URL and query never enter the tool schema, model call, report subject, or privacy-safe provider error.
+
+Each run launches or reuses only the provider's headless Chromium process, then creates a fresh non-persistent context with downloads disabled and service workers blocked. Context-wide HTTP routing permits only GET, HEAD, and OPTIONS on the registration's exact origin; redirects and subresources to another scheme, host, or port are aborted. WebSockets are closed without connecting. Authorization, Cookie, proxy-authorization, and API-key headers are removed or emptied before allowed requests continue. Pop-ups are closed, dialogs dismissed, and downloads cancelled. Browser-controlled referrers can return only to the already approved origin because cross-origin requests are blocked.
+
+Caller cancellation, registration revocation, deadline expiry, and provider disposal close the owned context and return fixed errors that do not retain raw Playwright messages or registered URLs. One target cannot be audited concurrently, and the provider has a bounded total concurrency. A blocked-action count and the exact provider policy version are appended to report limitations.
+
+This is containment, not proof of harmlessness. A hostile local page can consume resources, exploit a browser vulnerability, send data to another endpoint on its approved origin, or trigger server-side effects through GET. Runs therefore require a disposable unprivileged server and test data. Authentication, cross-origin APIs, unsafe methods, WebSocket forwarding, remote browser endpoints, persisted profiles, arbitrary launch arguments, and browser-engine expansion remain separate authority changes and cannot be added under this protocol version.
 
 ## Model-visible `a11y_check` boundary
 
 The initial private opt-in tool implementation has one responsibility: request a scan and return the bounded report plus repair guidance. It does not edit files. Source changes continue through DSH's existing read/edit tools, sandbox policy, observed-version checks, diff presentation, and user approvals. The local caller-owned-page provider now exercises this boundary in an assembled test, but it is not yet a production DSH composition.
 
-The minimum call identifies an exact caller-owned opaque page handle and an optional subtree selector. The model never supplies a URL. A future separately approved provider may map a host-created handle to an approved loopback page. The adapter must:
+The minimum call identifies an exact caller-owned opaque page handle and an optional subtree selector. The model never supplies a URL. The separately mounted provider may map that host-created handle to either a caller-owned page or a policy-approved literal-loopback page. The adapter must:
 
 1. resolve the target through an injected browser-audit service rather than importing a concrete browser or filesystem backend;
 2. fail closed if no compatible isolated provider is mounted;
-3. reject URLs and filesystem paths at the tool boundary; any future provider mapping must separately reject credentials, arbitrary request headers, cookies, file and `data:` URLs, and non-loopback navigation unless an explicit approval path exists;
+3. reject URLs and filesystem paths at the tool boundary; the literal-loopback mapping separately rejects credentials, arbitrary request headers, cookies, file and `data:` URLs, DNS names, cross-origin requests, unsafe methods, and non-loopback navigation;
 4. propagate cancellation and enforce configured time, page, finding, node, and byte caps;
 5. return provider failures as tool errors without converting them into a clean report;
 6. label every automated outcome and limitation in model-visible text; and
@@ -92,7 +103,7 @@ Repair help names the affected requirement, location, why it matters, what evide
 
 Rendered pages and selectors may contain confidential product data. Reports therefore use a caller-supplied non-sensitive subject label, exclude DOM snippets by default, and stay local unless the caller deliberately stores them. Public evidence must be redacted under [RESEARCH.md](RESEARCH.md).
 
-The browser treats the page as hostile. The owning runner must isolate its profile, disable downloads and unintended external navigation, contain pop-ups, close the context after the run, and apply network policy before page content executes. The authoring adapter must not inherit the user's normal browser profile or ambient authentication. A page can still reveal data through resources it is allowed to request, so loopback-only navigation is not equivalent to content isolation.
+The browser treats the page as hostile. The owning runner must isolate its profile, disable downloads and unintended external navigation, contain pop-ups, close the context after the run, and apply network policy before page content executes. The authoring adapter must not inherit the user's normal browser profile or ambient authentication. The initial loopback provider implements these controls for one literal origin and includes blocked-action evidence, but a page can still reveal data to allowed same-origin endpoints, so loopback-only navigation is not equivalent to content isolation.
 
 Selectors can expose names, IDs, test data, or application structure. They are necessary for programmatic association and local repair, but public exporters must provide a review/redaction step or replace them with stable local finding IDs.
 
@@ -108,7 +119,7 @@ Stable authoring support still requires disabled developers to use the complete 
 
 1. Publish the pure report contract and the first page-audit testkit as an experimental development package.
 2. Migrate the companion's assembled-browser assertions to consume the testkit without changing their evidence scope.
-3. Add a loopback-only CLI after navigation and cleanup policy tests exist.
-4. Review the implemented private caller-owned-page provider and assembled `a11y_check` chain, then integrate it through an injected audit service rather than a direct Playwright dependency in the product composition.
+3. Review the implemented literal-loopback provider policy and lifecycle evidence; add a loopback-only CLI only after defining who owns server startup, readiness, shutdown, logs, and retained output.
+4. Review both implemented private provider chains, then integrate them through an injected audit service rather than a direct Playwright dependency in the product composition.
 5. Validate report reading and repair with VoiceOver and NVDA, then with disabled developers completing representative authoring tasks.
 6. Expand beyond rendered Web pages only through separately versioned rules, evidence, and permission reviews.

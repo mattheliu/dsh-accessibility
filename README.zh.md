@@ -66,7 +66,7 @@ MVP 仍以阅读为主。发送、停止、批准、编辑排队任务或使用�
 
 ## 无障碍创作候选
 
-Draft [创作／testkit RFC](RFC-A11Y-AUTHORING.zh.md) 把纯版本化证据引擎、仅用于开发的浏览器 testkit、调用方自有页面提供层，以及选择性启用、模型可见的 `a11y_check` 适配器分成独立边界。独立本地原型现已覆盖完整的无导航链路：锁定版本的 axe-core 审计宿主自有页面，提供层只把预先注册的不透明句柄映射到受限页面表面，DSH 适配器剥离未获准字段，并且不暴露写入、修复、评分或认证操作。真实 Chromium 与已发布 DSH `ToolRuntime` 测试已经组装这三个包。规程、产品接入和人工证据门禁评审期间，它们继续保持 private、尚未发布；自动报告干净永远不能表述成 WCAG 符合。
+Draft [创作／testkit RFC](RFC-A11Y-AUTHORING.zh.md) 把纯版本化证据引擎、仅用于开发的浏览器 testkit、两个独立评审的页面提供层，以及选择性启用、模型可见的 `a11y_check` 适配器分成独立边界。四个独立本地包现已同时覆盖调用方自有的无导航链路与 `dsh-a11y-loopback-provider/0.1.0-draft`：后者每次创建全新非持久 Chromium context，只接受宿主为字面量 loopback URL 注册的不透明句柄，并阻断跨 origin 请求、不安全 HTTP 方法、WebSocket、下载、service worker 和鉴权数据。真实 Chromium 与已发布 DSH `ToolRuntime` 测试已经组装两条链路。产品接入与人工证据门禁评审期间，它们继续保持 private、尚未发布；自动报告干净永远不能表述成 WCAG 符合。
 
 ## 检查
 
