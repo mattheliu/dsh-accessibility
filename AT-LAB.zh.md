@@ -8,6 +8,8 @@
 
 跟踪：[VoiceOver #2](https://github.com/omdsh-dev/dsh-accessibility/issues/2)、[NVDA #1](https://github.com/omdsh-dev/dsh-accessibility/issues/1)及 [Accessible View #10](https://github.com/omdsh-dev/dsh-accessibility/issues/10)
 
+本规程验证 `0.1.1-rc.2` companion 与 Accessible View。当前 `0.1.2-alpha.2` 核心候选请使用独立的 [DSH 核心 AT 实验室](AT-CORE-LAB.zh.md)。
+
 ## 目的与证据边界
 
 启动器会创建一次性、无密钥的 DSH Web 环境，通过真实 ModuleLoader 加载精确外部 companion，并写入 DSH 仓库中的合成 seeded-history fixture。这样可以在不接触测试者日常 DSH profile 的前提下，观察真实 VoiceOver、NVDA、Narrator、JAWS、Orca、盲文显示器、放大镜、开关、语音输入及纯键盘行为。
@@ -47,7 +49,7 @@ pnpm run lab:at ../deepseek-harness . safari
 pnpm run lab:at ../deepseek-harness . chrome
 ```
 
-启动器会输出带版本的 JSON readiness 记录，包括精确 Git revision、操作系统、本地 URL 和明确限制；不会创建截图、录音、上传或公开 artifact。完成后返回终端按 Ctrl+C 请求清理，启动器会删除一次性 DSH home、会话存储、工作区和临时插件链接。浏览器中已经失效的本地标签页需手动关闭。
+启动器会输出带版本的 JSON readiness 记录，包括精确 Git revision、操作系统、本地 origin 和明确限制。临时本地登录地址会单独打印：只在本机使用，实验室运行期间不要粘贴进公开结果。启动器不会创建截图、录音、上传或公开 artifact。完成后返回终端按 Ctrl+C 请求清理，启动器会删除一次性 DSH home、会话存储、工作区和临时插件链接。浏览器中已经失效的本地标签页需手动关闭。
 
 仅做自动启动／清理冒烟检查时，可传入毫秒超时：
 
@@ -116,6 +118,7 @@ VoiceOver 结果提交到 Issue #2，NVDA 结果提交到 Issue #1；Accessible 
 ## 隐私与安全
 
 - 不得使用日常 DSH home、真实工作区、API key、提示词、对话、用户名或私人路径。
+- 实验室运行期间不得公开本地登录地址。
 - 未逐帧／逐行复核并取得可识别参与者同意前，不得公开原始语音历史、屏幕／音频录制、日志、截图或盲文输出。
 - 如果浏览器打开非本地 URL、出现意外账号／个人 profile 界面，或合成内容无法与个人数据区分，应立即停止。
 - 启动器异常时仍应清理自身状态；若进程被强制终止，只检查终端打印的操作系统临时目录中专用 lab 前缀，并把该精确目录移到废纸篓，绝不能删除宽泛临时目录或 home。

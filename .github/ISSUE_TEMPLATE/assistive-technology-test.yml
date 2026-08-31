@@ -25,6 +25,7 @@ body:
     attributes:
       label: Exact test matrix row
       placeholder: |
+        Protocol and task numbers:
         DSH tag/build:
         Companion version:
         OS and hardware/VM:
@@ -38,7 +39,7 @@ body:
     id: scenarios
     attributes:
       label: Scenarios and results
-      description: For each scenario, record pass/fail/partial, task completion, focus destination, exact spoken or braille output where relevant, and workaround.
+      description: For each numbered protocol task, record pass/fail/partial, task completion, focus destination, exact spoken or braille output where relevant, and workaround.
     validations:
       required: true
   - type: textarea

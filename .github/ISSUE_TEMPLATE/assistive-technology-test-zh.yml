@@ -25,6 +25,7 @@ body:
     attributes:
       label: 精确测试矩阵行
       placeholder: |
+        规程及任务编号：
         DSH tag/build：
         Companion 版本：
         操作系统及物理设备／虚拟机：
@@ -38,7 +39,7 @@ body:
     id: scenarios
     attributes:
       label: 场景与结果
-      description: 每个场景记录通过／失败／部分通过、任务是否完成、焦点落点、相关时的精确语音或盲文输出，以及变通方式。
+      description: 按规程中的每个编号任务记录通过／失败／部分通过、任务是否完成、焦点落点、相关时的精确语音或盲文输出，以及变通方式。
     validations:
       required: true
   - type: textarea

@@ -8,6 +8,8 @@ Protocol: `dsh-at-lab/1.0.0-draft`
 
 Tracking: [VoiceOver #2](https://github.com/omdsh-dev/dsh-accessibility/issues/2), [NVDA #1](https://github.com/omdsh-dev/dsh-accessibility/issues/1), and [Accessible View #10](https://github.com/omdsh-dev/dsh-accessibility/issues/10)
 
+This protocol tests the `0.1.1-rc.2` companion and Accessible View. Use the separate [DSH core AT lab](AT-CORE-LAB.md) for the current `0.1.2-alpha.2` core candidate.
+
 ## Purpose and evidence boundary
 
 The launcher creates a temporary, keyless DSH Web world with the exact external companion and DSH's committed synthetic seeded-history fixture. It makes real VoiceOver, NVDA, Narrator, JAWS, Orca, braille-display, magnifier, switch, voice-input, and keyboard-only observation easier without exposing a tester's normal DSH profile.
@@ -47,7 +49,7 @@ pnpm run lab:at ../deepseek-harness . safari
 pnpm run lab:at ../deepseek-harness . chrome
 ```
 
-The launcher prints a versioned JSON readiness record with exact Git revisions, OS information, the local URL, and explicit limitations. It creates no screenshot, recording, upload, or public artifact. Return to the terminal and press Ctrl+C to request cleanup and remove the disposable DSH home, session persistence, workspace, and temporary plugin link. Close the now-inactive browser tab manually.
+The launcher prints a versioned JSON readiness record with exact Git revisions, OS information, the local origin, and explicit limitations. It prints the temporary local sign-in URL separately: use it locally, but do not paste it into a public result while the lab is active. It creates no screenshot, recording, upload, or public artifact. Return to the terminal and press Ctrl+C to request cleanup and remove the disposable DSH home, session persistence, workspace, and temporary plugin link. Close the now-inactive browser tab manually.
 
 For an automated startup-and-cleanup smoke check only, pass a timeout in milliseconds:
 
@@ -116,6 +118,7 @@ Submit VoiceOver results to issue #2 and NVDA results to issue #1. Accessible Vi
 ## Privacy and safety
 
 - Do not use a normal DSH home, real workspace, API key, prompt, conversation, username, or private path.
+- Do not publish the local sign-in URL while the lab is active.
 - Do not publish raw speech history, screen/audio recordings, logs, screenshots, or braille output without reviewing every frame/line and obtaining consent from identifiable participants.
 - Stop if the browser opens a non-local URL, an unexpected account/profile surface appears, or synthetic content cannot be distinguished from personal data.
 - A launcher crash should still remove its owned state. If the process is forcibly killed, inspect only the printed lab prefix under the OS temporary directory and move that exact directory to Trash; never remove a broad temporary or home directory.

@@ -10,6 +10,7 @@
 - Seed `dsh-non-at-browser/1.0.0-draft` with reusable browser assertions and exact-revision JSON evidence across Chromium, Firefox, and WebKit for 640/320 CSS px reflow, focus visibility/obscuration, reduced motion, and Chromium forced colors.
 - Prevent Accessible View controls from receiving keyboard focus underneath the sticky DSH composer at narrow reflow widths.
 - Add a versioned hermetic AT lab launcher with a disposable DSH home, synthetic seeded session, exact-revision readiness record, visible system/Safari/Chrome launch modes, bounded smoke mode, and signal-safe cleanup.
+- Add a separate `0.1.2-alpha.2` DSH core AT lab, keep core and companion evidence version-scoped, and open system browsers through the disposable one-use sign-in URL without publishing it in readiness JSON.
 
 ## 0.1.0-beta.6 - 2026-08-29
 

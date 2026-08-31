@@ -18,7 +18,7 @@ Before collecting data, explain who is conducting the study, its purpose and tas
 
 - Use the exact tagged build and record DSH, plugin, OS, browser, AT, language, verbosity, and punctuation settings.
 - Prefer a disposable workspace and synthetic prompts. Do not expose a DSH server publicly or ask a participant to reveal a personal workspace, credential, conversation, or filesystem path.
-- Prefer the [hermetic AT lab](AT-LAB.md) when its candidate matches the research question. Its readiness record is setup metadata, not participant or AT evidence.
+- Prefer the version-matched [core lab](AT-CORE-LAB.md) or [companion lab](AT-LAB.md) when it matches the research question. Its readiness record is setup metadata, not participant or AT evidence.
 - Record task completion, focus destination, role/name/state, exact spoken output when relevant, workaround, and severity. Do not require secret or private content to reproduce a defect.
 
 ## Data minimization and storage

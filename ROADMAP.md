@@ -8,15 +8,15 @@ Updated: 2026-08-30. This roadmap is evidence-driven and may change after upstre
 
 - Runtime companion release candidate: `@oh-my-dsh/dsh-accessibility@0.1.0-beta.6`.
 - Tested DSH baseline: `@deepseek-ai/dsh@0.1.1-rc.2` plus `dsh-v0.1.1-rc.2-a11y.4`.
-- Upstream development line under review: `0.1.2-alpha.1`.
+- Upstream development line under review: `0.1.2-alpha.2`.
 - Deterministic companion audit: 17 structural checks.
 - Accessible View MVP: experimental implementation candidate; automated review in progress, real AT and disabled-developer evidence pending.
-- Hermetic AT lab: synthetic, disposable launcher candidate under review; it reduces setup/privacy risk but produces no AT evidence without human observation.
+- Hermetic AT labs: separate synthetic, disposable launchers cover the `0.1.2-alpha.2` core candidate and the rc.2 companion; they reduce setup/privacy risk but produce no AT evidence without human observation.
 - Listener-verified Windows and Linux screen-reader results remain pending; complete VoiceOver spoken-output records remain pending.
 
 ## Phase 0 — foundation and upstream compatibility (through 2026-09-12)
 
-- Rebase or port the core candidate to the current `0.1.2-alpha.1` line, auditing overlapping upstream changes instead of mechanically replaying the old patch.
+- Rebase or port the core candidate to the current `0.1.2-alpha.2` line, auditing overlapping upstream changes instead of mechanically replaying the old patch.
 - Freeze and document the rc.2 maintenance line; narrow package compatibility to versions actually tested.
 - Align npm installation guidance and distribution tags so unqualified installs cannot silently receive an older beta.
 - Expand the new versioned Chromium/Firefox/WebKit reflow, focus-obscuration, reduced-motion, and forced-color contract from Accessible View to every P0 Web task route; retain real zoom, Windows High Contrast, and low-vision checks as separately owned manual rows.
