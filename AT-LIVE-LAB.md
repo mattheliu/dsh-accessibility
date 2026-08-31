@@ -58,6 +58,8 @@ Historical state must stay silent when the Session first opens or is reopened. T
 
 ## Scenario tasks
 
+Each backticked scenario name is also its stable evidence-catalog task ID. Preserve it verbatim; numbering is only for reading order.
+
 ### 1. `complete`
 
 Submit `taskInput` and do not move focus merely to chase speech. Verify that the response start is announced once and the durable successful end is announced once. Confirm that terminal success is not announced before the final response is available and that reopening the Session does not replay either announcement as new activity.
@@ -88,7 +90,7 @@ Before submitting, set **Access mode** to **Read Only** so the synthetic write c
 ### DSH live AT lab result
 
 - Protocol: dsh-live-at-lab/1.0.0-draft
-- Scenario: complete / stop / fail / question / plan / approval
+- Scenario/task ID: complete / stop / fail / question / plan / approval
 - Date/time and tester time zone:
 - Consent to publish this de-identified result: yes / no
 - Disabled-user evidence: no / yes (only the access need the tester chose to disclose)

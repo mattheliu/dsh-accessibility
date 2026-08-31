@@ -25,8 +25,8 @@ body:
     attributes:
       label: Exact test matrix row
       placeholder: |
-        Protocol and task numbers:
-        Scenario (for example allow-once or reject):
+        Protocol and stable catalog task IDs:
+        Scenario/task ID (for example allow-once or reject):
         DSH version and full revision:
         Companion version and full revision, if used:
         Authoring composition version and full revision, if used:
@@ -42,7 +42,7 @@ body:
     id: scenarios
     attributes:
       label: Scenarios and results
-      description: For each numbered protocol task, record pass/fail/partial, task completion, focus destination, exact spoken or braille output where relevant, approval comprehension/decision where applicable, assistance, and workaround.
+      description: For each stable catalog task ID, record pass/fail/partial, task completion, focus destination, exact spoken or braille output where relevant, approval comprehension/decision where applicable, assistance, and workaround.
     validations:
       required: true
   - type: textarea

@@ -6,7 +6,7 @@ An optional DeepSeek Harness companion for screen-reader guidance, semantic diag
 
 This repository is also the public project hub of the [DSH Accessibility Working Group](https://github.com/omdsh-dev/community/blob/main/working-groups/accessibility.md). Its mission is to enable disabled developers to complete DSH's core tasks independently, effectively, and safely; help every developer produce more accessible digital content with DSH; and validate both goals with versioned standards, real assistive technology, and evidence from disabled users.
 
-Project links: [Accessibility statement](ACCESSIBILITY_STATEMENT.md) · [Roadmap](ROADMAP.md) · [Governance](GOVERNANCE.md) · [Research protocol](RESEARCH.md) · [Human evidence ledger](HUMAN-EVIDENCE.md) · [Accessible View RFC](RFC-ACCESSIBLE-VIEW.md) · [Browser evidence RFC](RFC-BROWSER-EVIDENCE.md) · [Authoring/testkit RFC](RFC-A11Y-AUTHORING.md) · [Authoring agent lab](AUTHORING-AGENT-LAB.md) · [Authoring AT lab](AUTHORING-AT-LAB.md) · [CLI accessibility protocol](CLI-ACCESSIBILITY.md) · [Core AT lab](AT-CORE-LAB.md) · [Live-announcement AT lab](AT-LIVE-LAB.md) · [Companion AT lab](AT-LAB.md) · [Contributing](CONTRIBUTING.md)
+Project links: [Accessibility statement](ACCESSIBILITY_STATEMENT.md) · [Roadmap](ROADMAP.md) · [Governance](GOVERNANCE.md) · [Research protocol](RESEARCH.md) · [Human evidence ledger](HUMAN-EVIDENCE.md) · [Evidence task catalog](EVIDENCE-CATALOG.json) · [Accessible View RFC](RFC-ACCESSIBLE-VIEW.md) · [Browser evidence RFC](RFC-BROWSER-EVIDENCE.md) · [Authoring/testkit RFC](RFC-A11Y-AUTHORING.md) · [Authoring agent lab](AUTHORING-AGENT-LAB.md) · [Authoring AT lab](AUTHORING-AT-LAB.md) · [CLI accessibility protocol](CLI-ACCESSIBILITY.md) · [Core AT lab](AT-CORE-LAB.md) · [Live-announcement AT lab](AT-LIVE-LAB.md) · [Companion AT lab](AT-LAB.md) · [Contributing](CONTRIBUTING.md)
 
 ## Compatibility
 
@@ -60,7 +60,7 @@ A passing result means that the mounted DOM satisfies these deterministic contra
 
 See [ACCESSIBILITY.md](ACCESSIBILITY.md) for the assistive-technology matrix, manual regression protocol, and support boundary.
 
-Consented human results use the versioned [human evidence ledger](HUMAN-EVIDENCE.md). Its validator preserves failed and partial observations while preventing stale, private, operationally assisted, unsafe, or incomplete records from claiming `a11y-at-tested` or `a11y-user-validated`. The ledger currently contains only a non-evidence template.
+Consented human results use the versioned [human evidence ledger](HUMAN-EVIDENCE.md). Stable tasks and authoritative core, safety, and claim classifications come from the [evidence task catalog](EVIDENCE-CATALOG.json), not from the submitter. The validator preserves failed and partial observations while preventing stale, private, operationally assisted, unsafe, ineligible, unknown, or incomplete records from claiming `a11y-at-tested` or `a11y-user-validated`. The ledger currently contains only a non-evidence template.
 
 ## CLI accessibility candidate
 

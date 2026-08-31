@@ -58,6 +58,8 @@ pnpm run lab:at:live ../deepseek-harness complete none 500
 
 ## 场景任务
 
+每个反引号场景名同时也是稳定的证据目录任务 ID。必须原样保留；编号只表示阅读顺序。
+
 ### 1. `complete`
 
 提交 `taskInput`，不要为了追逐声音而移动焦点。验证回答开始只播报一次，持久成功终态只播报一次；完成播报不能早于最终回答可用，重新打开 Session 也不能把两条历史状态当作新活动重播。
@@ -88,7 +90,7 @@ pnpm run lab:at:live ../deepseek-harness complete none 500
 ### DSH 实时 AT 实验室结果
 
 - 规程：dsh-live-at-lab/1.0.0-draft
-- 场景：complete / stop / fail / question / plan / approval
+- 场景／任务 ID：complete / stop / fail / question / plan / approval
 - 日期／时间及测试者时区：
 - 同意公开此去标识化结果：是／否
 - 残障用户证据：否／是（只记录测试者愿意披露的使用需求）

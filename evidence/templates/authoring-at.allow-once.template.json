@@ -1,6 +1,10 @@
 {
   "$schema": "https://raw.githubusercontent.com/omdsh-dev/dsh-accessibility/main/HUMAN-EVIDENCE.schema.json",
   "protocol": "dsh-a11y-human-evidence/0.1.0-draft",
+  "catalog": {
+    "protocol": "dsh-a11y-evidence-catalog/0.1.0-draft",
+    "catalogId": "dsh-accessibility-core-tasks-2026-08-31"
+  },
   "recordType": "template",
   "recordId": "template-authoring-at-allow-once",
   "recordedOn": "2000-01-01",
@@ -71,7 +75,6 @@
   "tasks": [
     {
       "id": "allow-once",
-      "representativeCoreTask": false,
       "outcome": "partial",
       "independent": false,
       "effective": false,

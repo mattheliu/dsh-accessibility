@@ -24,7 +24,7 @@ Before collecting data, explain who is conducting the study, its purpose and tas
 ## Data minimization and storage
 
 - Public issues contain only de-identified results and the minimum technical context needed to reproduce a problem.
-- Public structured summaries use `dsh-a11y-human-evidence/0.1.0-draft` under [HUMAN-EVIDENCE.md](HUMAN-EVIDENCE.md). Record tester category, not identity, diagnosis, or disability details. Consent records, contact details, and withdrawal handling remain private and are never copied into the ledger.
+- Public structured summaries use `dsh-a11y-human-evidence/0.1.0-draft` under [HUMAN-EVIDENCE.md](HUMAN-EVIDENCE.md) and only stable task IDs registered in [EVIDENCE-CATALOG.json](EVIDENCE-CATALOG.json). Record tester category, not identity, diagnosis, or disability details. Consent records, contact details, and withdrawal handling remain private and are never copied into the ledger.
 - Raw audio/video, contact details, consent records, disability information, and unredacted notes must never be committed to a public repository or attached to public CI artifacts.
 - If raw data must be retained, store it in a purpose-specific private repository or approved encrypted research store with named access, a deletion date, and an access log. The default is to delete raw session material after synthesis; any longer retention needs an explicit reason and consent.
 - Diagnostic and report features default to excluding prompts, model output, credentials, usernames, absolute paths, and environment identifiers.

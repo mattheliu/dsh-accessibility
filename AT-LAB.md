@@ -63,18 +63,18 @@ That smoke result proves only that the lab booted and cleaned up; it is not AT e
 
 Record the macOS/Windows/Linux build, browser version, AT name/version, language, speech voice, verbosity, punctuation, companion revision, and exact DSH revision before the task.
 
-Use only the synthetic session. Then:
+Use only the synthetic session. The backticked names below are stable catalog task IDs; retain them verbatim in evidence records. Then:
 
-1. Find DSH's application title and major landmarks without a pointer.
-2. Locate and open the synthetic conversation from the session tree.
-3. Move to the Accessible view tab and activate it.
-4. Confirm that conversation content is absent until Load reading view is activated and the privacy notice is understandable.
-5. Load the view; record the announced title, focus target, record count/status, and whether source order is understandable.
-6. Navigate headings, records, code, links, and tool disclosures in browse/reading mode and with ordinary keyboard focus where appropriate.
-7. Expand and collapse tool output; confirm name, expanded state, content boundary, and focus stability.
-8. Copy a visible message; record the announcement and verify that hidden context, reasoning, tool material, paths, and source metadata are not copied.
-9. Clear the view; verify that sensitive content unmounts and focus returns to Load reading view.
-10. Return to Chat and complete the ordinary keyboard route without pointer recovery.
+1. `discover-structure` — Find DSH's application title and major landmarks without a pointer.
+2. `open-synthetic-session` — Locate and open the synthetic conversation from the session tree.
+3. `activate-accessible-view` — Move to the Accessible view tab and activate it.
+4. `verify-unloaded-privacy` — Confirm that conversation content is absent until Load reading view is activated and the privacy notice is understandable.
+5. `load-reading-view` — Load the view; record the announced title, focus target, record count/status, and whether source order is understandable.
+6. `read-semantic-content` — Navigate headings, records, code, links, and tool disclosures in browse/reading mode and with ordinary keyboard focus where appropriate.
+7. `operate-tool-disclosure` — Expand and collapse tool output; confirm name, expanded state, content boundary, and focus stability.
+8. `copy-visible-message` — Copy a visible message; record the announcement and verify that hidden context, reasoning, tool material, paths, and source metadata are not copied.
+9. `clear-reading-view` — Clear the view; verify that sensitive content unmounts and focus returns to Load reading view.
+10. `return-to-chat` — Return to Chat and complete the ordinary keyboard route without pointer recovery.
 
 For VoiceOver, use the rotor, VO+Left/Right, VO+Space, and Tab/Shift+Tab according to the control. For NVDA, test both browse and focus modes and record mode switches. Do not normalize a surprising utterance: record it exactly enough to reproduce while omitting synthetic content that is not needed for the defect.
 
@@ -96,16 +96,16 @@ For VoiceOver, use the rotor, VO+Left/Right, VO+Space, and Tab/Shift+Tab accordi
 
 | Task | Actual speech/braille and focus/cursor result | Completed independently? | Workaround | Pass/fail | Severity |
 | --- | --- | --- | --- | --- | --- |
-| 1 | | | | | |
-| 2 | | | | | |
-| 3 | | | | | |
-| 4 | | | | | |
-| 5 | | | | | |
-| 6 | | | | | |
-| 7 | | | | | |
-| 8 | | | | | |
-| 9 | | | | | |
-| 10 | | | | | |
+| `discover-structure` | | | | | |
+| `open-synthetic-session` | | | | | |
+| `activate-accessible-view` | | | | | |
+| `verify-unloaded-privacy` | | | | | |
+| `load-reading-view` | | | | | |
+| `read-semantic-content` | | | | | |
+| `operate-tool-disclosure` | | | | | |
+| `copy-visible-message` | | | | | |
+| `clear-reading-view` | | | | | |
+| `return-to-chat` | | | | | |
 
 - Unexpected announcements, repetitions, silence, or cursor traps:
 - Recovery path:

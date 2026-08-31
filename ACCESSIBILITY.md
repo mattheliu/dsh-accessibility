@@ -26,7 +26,7 @@ The DSH `0.1.2-alpha.2` development line also contains a one-shot CLI accessibil
 | Windows 11 | Edge / Chrome | JAWS | Automated Windows gate passed; physical screen-reader regression pending |
 | Windows 11 | Edge | Narrator | Recommended compatibility signal; not a replacement for NVDA or JAWS |
 
-This matrix is a planning and limitation summary, not a support claim by itself. A row may support `a11y-at-tested` or `a11y-user-validated` only when its current, exact-version human result appears in the validated [human evidence ledger](HUMAN-EVIDENCE.md). The ledger currently contains only a non-evidence template, so every listener-verified and disabled-user row remains pending.
+This matrix is a planning and limitation summary, not a support claim by itself. A row may support `a11y-at-tested` or `a11y-user-validated` only when its current, exact-version human result appears in the validated [human evidence ledger](HUMAN-EVIDENCE.md) and uses an eligible task from the authoritative [evidence catalog](EVIDENCE-CATALOG.json). The ledger currently contains only a non-evidence template, so every listener-verified and disabled-user row remains pending.
 
 ## Recorded macOS evidence
 
@@ -70,7 +70,7 @@ For the complete audit/read/approve-or-reject/edit/re-audit flow, use the [autho
 - Accessible View registration, unloaded-selector, focus lifecycle, delayed-sensitive-content, clipboard-projection, pagination, source-order, and idle/loaded axe-core tests.
 - Versioned `dsh-non-at-browser/1.0.0-draft` assembled evidence for Accessible View in Chromium, Firefox, and WebKit: 640/320 CSS px page reflow, sampled focus visibility/obscuration, reduced motion, and Chromium forced-color participation. Scope and limitations are defined in [RFC-BROWSER-EVIDENCE.md](RFC-BROWSER-EVIDENCE.md).
 - Versioned `dsh-cli-accessibility/1.0.0-draft` product-entry process conformance for discoverability, fail-closed arguments, low-noise text, one-line JSON, terminal controls, exit status, and success/failure projection. This is explicitly non-AT evidence.
-- `dsh-a11y-human-evidence/0.1.0-draft` schema and repository validator for exact scope, consent flags, privacy, assistance, task safety/effectiveness, public review, and evidence freshness. This gate can reject an unsupported claim; it cannot manufacture human evidence.
+- `dsh-a11y-human-evidence/0.1.0-draft` schema and repository validator plus the pinned `dsh-a11y-evidence-catalog/0.1.0-draft` for exact scope, known stable tasks, authoritative core/safety/claim classification, consent flags, privacy, assistance, task safety/effectiveness, public review, and evidence freshness. This gate can reject an unsupported claim; it cannot manufacture human evidence.
 - Cross-platform Node, type, unit, build, and package-content checks in GitHub Actions.
 - The patched core retains its component, GUI, production-build, and browser-replay suites.
 

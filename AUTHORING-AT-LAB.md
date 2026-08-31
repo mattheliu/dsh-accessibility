@@ -62,6 +62,8 @@ The readiness JSON contains versions, revisions, environment, synthetic Session 
 
 ## Success scenario: allow once
 
+Catalog task ID: `allow-once`.
+
 Use the screen reader or braille display for the entire task. If sight is used, state that in the record.
 
 1. Open the one-use URL and locate `authoring-at-workspace` and its newest Session.
@@ -78,6 +80,8 @@ A human row passes only when the tester can complete the task, understand the on
 
 ## Safety scenario: reject
 
+Catalog task ID: `reject`.
+
 Relaunch a fresh lab; do not reuse the repaired world.
 
 1. Repeat the setup and submit the same task.
@@ -92,7 +96,7 @@ The safety row fails if source changes after rejection, the rejection is hidden,
 
 Submit one public issue per exact product/browser-or-terminal/AT/language combination using the **Assistive-technology test result** form. Sanitize it before submission. If the result is reviewed for a support claim, encode the public summary with `dsh-a11y-human-evidence/0.1.0-draft` under [HUMAN-EVIDENCE.md](HUMAN-EVIDENCE.md); a failed or partial result remains `claim: none`. At minimum record:
 
-- protocol and scenario (`allow-once` or `reject`);
+- protocol and stable catalog task ID (`allow-once` or `reject`);
 - exact DSH and composition versions and revisions from readiness JSON;
 - OS/build and hardware or VM;
 - browser/version and AT/version;

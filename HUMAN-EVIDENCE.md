@@ -2,7 +2,7 @@
 
 [简体中文](HUMAN-EVIDENCE.zh.md) | English
 
-Protocol: `dsh-a11y-human-evidence/0.1.0-draft`. Machine-readable contract: [HUMAN-EVIDENCE.schema.json](HUMAN-EVIDENCE.schema.json).
+Protocol: `dsh-a11y-human-evidence/0.1.0-draft`. Machine-readable contract: [HUMAN-EVIDENCE.schema.json](HUMAN-EVIDENCE.schema.json). Authoritative task classification: [EVIDENCE-CATALOG.json](EVIDENCE-CATALOG.json), validated by [EVIDENCE-CATALOG.schema.json](EVIDENCE-CATALOG.schema.json).
 
 This protocol turns consented assistive-technology and disabled-developer task results into a public, versioned, privacy-minimized ledger. It does not collect raw research data and it does not turn an automated test, accessibility-tree dump, caption panel, Host event, screenshot, or launch log into human evidence.
 
@@ -16,7 +16,7 @@ Every valid human run may be recorded, including failures and partial results. `
 | `evidenceKind: disabled-user-task-run` | A disabled developer performed the task; the public record does not require disability or diagnosis details. |
 | `claim: none` | Valuable result, but not eligible to support a public support label. Required for templates, failures, partial results, expired rows, and unresolved high-impact barriers. |
 | `claim: a11y-at-tested` | Every claimed task passed effectively and safely with only setup or no assistance; all human observations passed; focus was not lost; consent, exact versions, current review, and a public review issue are present. |
-| `claim: a11y-user-validated` | A consented disabled-developer run in which at least one representative core task was completed independently, effectively, and safely without operational assistance. A dedicated AT is recorded when used but is not required for every disability or task. |
+| `claim: a11y-user-validated` | A consented disabled-developer run in which at least one task classified as representative core by the pinned evidence catalog was completed independently, effectively, and safely without operational assistance. A dedicated AT is recorded when used but is not required for every disability or task. |
 
 The evidence level describes what was actually observed; it is not a badge granted because a JSON file exists. The validator fails closed when the record contradicts its claim.
 
@@ -27,7 +27,7 @@ One record covers one exact scenario protocol, task set, DSH revision, any parti
 The record includes:
 
 - exact product and component versions plus full commit revisions;
-- exact scenario protocol and task IDs;
+- the pinned evidence-catalog protocol and ID, plus exact cataloged scenario protocol and task IDs;
 - OS, browser or terminal, any access technologies and modalities used, input methods, and relevant settings;
 - tester category without identity, diagnosis, or disability details;
 - affirmative authority to publish a de-identified summary and a private withdrawal route for disabled-user research;
@@ -36,7 +36,7 @@ The record includes:
 - review status and `validUntil`; and
 - the public issue or discussion that reviewed any support claim.
 
-Task IDs in `scenario.taskIds` must exactly equal the task records. Hidden assistance is invalid. A high or blocking barrier, a failed or unobserved claimed checkpoint, unexpected/lost focus, an unsafe or ineffective task, missing public review, or expired evidence prevents a claim.
+Task IDs in `scenario.taskIds` must exactly equal the task records and must exist under that protocol in the pinned evidence catalog. A record cannot declare its own task to be core or claim-eligible. New or changed tasks require a reviewed catalog update first; known exploratory tasks marked `claimEligible: false` may be recorded only with `claim: none`. Hidden assistance is invalid. A high or blocking barrier, a failed or unobserved claimed checkpoint, unexpected/lost focus, an unsafe or ineffective task, missing public review, or expired evidence prevents a claim.
 
 An `assistive-technology-run` must name at least one actual access technology and can support only `a11y-at-tested`. A `disabled-user-task-run` may leave `accessTechnologies` empty when the participant did not use a dedicated AT; do not invent a placeholder AT. Likewise, `builds.components` is empty for a DSH-only run and lists only components that actually participated.
 
@@ -53,7 +53,7 @@ CI intentionally fails when a row still says `current` after `validUntil`. This 
 
 ## Create and validate a record
 
-1. Use the relevant disposable lab and follow [RESEARCH.md](RESEARCH.md).
+1. Select the exact protocol and stable task ID from [EVIDENCE-CATALOG.json](EVIDENCE-CATALOG.json), then use the relevant disposable lab and follow [RESEARCH.md](RESEARCH.md).
 2. Submit the bilingual assistive-technology result Issue form. Do not put raw data in the issue.
 3. Copy [the authoring example template](evidence/templates/authoring-at.allow-once.template.json) or create another schema-conforming record under `evidence/records/<year>/`.
 4. Replace every synthetic value, set `recordType` to `human-evidence`, record the actual result, and keep `claim: none` unless every claim condition is proven.
@@ -63,7 +63,7 @@ CI intentionally fails when a row still says `current` after `validUntil`. This 
 pnpm run evidence:validate
 ```
 
-The checked-in JSON Schema helps editors and external tools. The repository validator additionally enforces cross-field task inventory, claim eligibility, 120-day freshness, placeholder rejection, and privacy patterns that JSON Schema alone cannot safely express.
+The checked-in JSON Schemas help editors and external tools. The repository validator additionally enforces the pinned catalog identity, known protocol/task inventory, catalog-owned core and claim eligibility, cross-field task inventory, 120-day freshness, placeholder rejection, and privacy patterns that JSON Schema alone cannot safely express.
 
 ## Privacy and withdrawal
 

@@ -58,18 +58,18 @@ That result proves only that the lab booted and cleaned up. It is not AT evidenc
 
 ## Human core-task procedure
 
-Before testing, record the OS build, browser version, AT name/version, UI and speech language, voice, verbosity, punctuation, input/output devices, and the exact DSH revision from the readiness record. Use only the two synthetic Sessions.
+Before testing, record the OS build, browser version, AT name/version, UI and speech language, voice, verbosity, punctuation, input/output devices, and the exact DSH revision from the readiness record. Use only the two synthetic Sessions. The backticked names below are stable catalog task IDs; do not renumber or replace them with free text in evidence records.
 
-1. Find the DSH application title, named Sidebar navigation, main content, and Details complementary region without a pointer.
-2. Enter the Sessions tree once, announce its level and expanded/selected states, navigate with arrows/Home/End and typeahead, activate the second synthetic Session, and return to the tree after visiting a row action.
-3. Open Session search, enter and clear a query, close it with Escape, and confirm focus returns to Search sessions.
-4. Find the Sidebar and Details separators, hear their names, orientation, values, and bounds, adjust with arrows/Home/End, toggle Details with Enter, and confirm focus remains on the separator.
-5. Find the Session views tab list. Move between Chat and Trajectory with arrow keys/Home/End, verify selected state and the newly named panel, and confirm the tab list uses one ordinary Tab stop.
-6. In Chat, read the synthetic conversation in source order. Record whether message authors, text, code, links, tool name, and the running/completed/failed/stopped state vocabulary are understandable. Expand and collapse a tool disclosure and verify its controlled-content boundary and focus stability.
-7. In Trajectory, enter the event table once, navigate rows with arrows/Home/End, open one row, move through Event details tabs, adjust the event-details separator, close details, and confirm a predictable return path.
-8. Open Settings, confirm the dialog name and initial focus, open a settings menu, verify checked choices and movement with arrows/Home/End/typeahead, dismiss only the menu with Escape, then dismiss Settings and confirm focus returns to its trigger.
-9. Return to Chat, locate the message composer and its send control, type and edit a synthetic draft, then clear it without submitting. Confirm ordinary Tab/Shift+Tab navigation does not require pointer recovery.
-10. Repeat the most failure-prone route with the display visually ignored or off when safe. Record every unexpected repetition, silence, browse/focus-mode switch, cursor trap, focus loss, workaround, and whether the task remained independently completable.
+1. `discover-structure` — Find the DSH application title, named Sidebar navigation, main content, and Details complementary region without a pointer.
+2. `navigate-sessions` — Enter the Sessions tree once, announce its level and expanded/selected states, navigate with arrows/Home/End and typeahead, activate the second synthetic Session, and return to the tree after visiting a row action.
+3. `search-sessions` — Open Session search, enter and clear a query, close it with Escape, and confirm focus returns to Search sessions.
+4. `adjust-layout` — Find the Sidebar and Details separators, hear their names, orientation, values, and bounds, adjust with arrows/Home/End, toggle Details with Enter, and confirm focus remains on the separator.
+5. `switch-session-view` — Find the Session views tab list. Move between Chat and Trajectory with arrow keys/Home/End, verify selected state and the newly named panel, and confirm the tab list uses one ordinary Tab stop.
+6. `read-conversation` — In Chat, read the synthetic conversation in source order. Record whether message authors, text, code, links, tool name, and the running/completed/failed/stopped state vocabulary are understandable. Expand and collapse a tool disclosure and verify its controlled-content boundary and focus stability.
+7. `inspect-trajectory` — In Trajectory, enter the event table once, navigate rows with arrows/Home/End, open one row, move through Event details tabs, adjust the event-details separator, close details, and confirm a predictable return path.
+8. `configure-settings` — Open Settings, confirm the dialog name and initial focus, open a settings menu, verify checked choices and movement with arrows/Home/End/typeahead, dismiss only the menu with Escape, then dismiss Settings and confirm focus returns to its trigger.
+9. `edit-composer-draft` — Return to Chat, locate the message composer and its send control, type and edit a synthetic draft, then clear it without submitting. Confirm ordinary Tab/Shift+Tab navigation does not require pointer recovery.
+10. `nonvisual-repeat` — Repeat the most failure-prone route with the display visually ignored or off when safe. Record every unexpected repetition, silence, browse/focus-mode switch, cursor trap, focus loss, workaround, and whether the task remained independently completable. This exploratory repetition is cataloged but is not independently eligible for a support claim.
 
 VoiceOver testers should use the rotor, VO+Left/Right, VO+Space, and Tab/Shift+Tab according to the control. NVDA testers should exercise both browse and focus modes and record mode switches. Do not normalize a surprising utterance; record enough exact wording to reproduce it while excluding unnecessary synthetic content.
 
@@ -91,16 +91,16 @@ VoiceOver testers should use the rotor, VO+Left/Right, VO+Space, and Tab/Shift+T
 
 | Task | Actual speech/braille and focus/cursor result | Completed independently? | Workaround | Pass/fail/partial | Severity |
 | --- | --- | --- | --- | --- | --- |
-| 1 | | | | | |
-| 2 | | | | | |
-| 3 | | | | | |
-| 4 | | | | | |
-| 5 | | | | | |
-| 6 | | | | | |
-| 7 | | | | | |
-| 8 | | | | | |
-| 9 | | | | | |
-| 10 | | | | | |
+| `discover-structure` | | | | | |
+| `navigate-sessions` | | | | | |
+| `search-sessions` | | | | | |
+| `adjust-layout` | | | | | |
+| `switch-session-view` | | | | | |
+| `read-conversation` | | | | | |
+| `inspect-trajectory` | | | | | |
+| `configure-settings` | | | | | |
+| `edit-composer-draft` | | | | | |
+| `nonvisual-repeat` | | | | | |
 
 - Unexpected announcements, repetitions, silence, or cursor traps:
 - Recovery path:

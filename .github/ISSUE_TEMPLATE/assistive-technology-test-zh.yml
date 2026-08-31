@@ -25,8 +25,8 @@ body:
     attributes:
       label: 精确测试矩阵行
       placeholder: |
-        规程及任务编号：
-        场景（例如 allow-once 或 reject）：
+        规程及稳定目录任务 ID：
+        场景／任务 ID（例如 allow-once 或 reject）：
         DSH 版本及完整 revision：
         Companion 版本及完整 revision（如使用）：
         创作组合版本及完整 revision（如使用）：
@@ -42,7 +42,7 @@ body:
     id: scenarios
     attributes:
       label: 场景与结果
-      description: 按规程中的每个编号任务记录通过／失败／部分通过、任务是否完成、焦点落点、相关时的精确语音或盲文输出、审批理解／决策、协助情况，以及变通方式。
+      description: 按每个稳定目录任务 ID 记录通过／失败／部分通过、任务是否完成、焦点落点、相关时的精确语音或盲文输出、审批理解／决策、协助情况，以及变通方式。
     validations:
       required: true
   - type: textarea

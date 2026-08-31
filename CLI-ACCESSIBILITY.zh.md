@@ -51,10 +51,10 @@ pnpm run lab:cli -- ../deepseek-harness-alpha2 automated
 pnpm run lab:cli -- ../deepseek-harness-alpha2 manual
 ```
 
-启动器构建同一个本地 DSH revision，创建一次性 DSH home，并启动本地合成模型服务；不使用真实 API key 或个人工作区。两个命令通过当前终端直接输入输出：
+启动器构建同一个本地 DSH revision，创建一次性 DSH home，并启动本地合成模型服务；不使用真实 API key 或个人工作区。两个命令通过当前终端直接输入输出；反引号名称是稳定的证据目录任务 ID：
 
-1. 完成响应——预期一行开始、`Accessible CLI response complete.` 和一行完成；
-2. 鉴权失败——预期一行开始与一行失败，随后退出状态为 `1`。
+1. `completed-response`——预期一行开始、`Accessible CLI response complete.` 和一行完成；
+2. `authentication-failure`——预期一行开始与一行失败，随后退出状态为 `1`。
 
 使用待测辅助技术操作终端。确认 token 碎片不会淹没语音队列、光标重绘不会重复内容、输出顺序可理解、答案与终态可区分、复查命令能重新阅读结果、中断状态可发现，并且用户无需明眼人协助即可判断任务是否成功。
 
@@ -67,7 +67,7 @@ pnpm run lab:cli -- ../deepseek-harness-alpha2 manual
 - 规程 ID、DSH 版本和 Git revision；
 - 操作系统、终端及版本、shell，以及使用 PTY 还是重定向流；
 - 辅助技术及版本、语音语言、详细度、标点设置；如适用还需记录盲文显示器和表；
-- 场景、预期结果、按顺序记录的实际语音或盲文、光标或复查模式行为、任务完成情况与通过／失败；
+- 稳定目录任务 ID、预期结果、按顺序记录的实际语音或盲文、光标或复查模式行为、任务完成情况与通过／失败；
 - workaround、缺陷严重程度及观察者；
 - 测试者是辅助技术专家，还是独立完成任务的残障开发者。
 

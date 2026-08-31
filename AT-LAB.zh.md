@@ -63,18 +63,18 @@ pnpm run lab:at ../deepseek-harness . none 1000
 
 任务开始前记录 macOS／Windows／Linux build、浏览器版本、AT 名称／版本、语言、语音、详细度、标点、companion revision 和精确 DSH revision。
 
-只使用合成会话，然后依次：
+只使用合成会话。下列反引号名称是稳定的目录任务 ID，证据记录必须原样保留。然后依次：
 
-1. 不用指针找到 DSH 应用标题和主要地标。
-2. 在会话树中定位并打开合成会话。
-3. 移动到 Accessible view 标签页并激活。
-4. 确认激活 Load reading view 前没有对话正文，隐私提示可以理解。
-5. 加载阅读视图；记录标题朗读、焦点目标、记录数量／状态及来源顺序是否容易理解。
-6. 在浏览／阅读模式中浏览标题、记录、代码、链接、工具展开项；需要网页键盘焦点的控件再使用普通 Tab。
-7. 展开／收起工具输出，核对名称、展开状态、内容边界和焦点稳定性。
-8. 复制一条可见消息；记录播报，并确认隐藏上下文、推理、工具材料、路径和来源元数据没有被复制。
-9. 清除阅读视图；确认敏感正文已卸载，焦点返回 Load reading view。
-10. 返回 Chat，仅用键盘走完普通路径，不依赖指针恢复。
+1. `discover-structure`——不用指针找到 DSH 应用标题和主要地标。
+2. `open-synthetic-session`——在会话树中定位并打开合成会话。
+3. `activate-accessible-view`——移动到 Accessible view 标签页并激活。
+4. `verify-unloaded-privacy`——确认激活 Load reading view 前没有对话正文，隐私提示可以理解。
+5. `load-reading-view`——加载阅读视图；记录标题朗读、焦点目标、记录数量／状态及来源顺序是否容易理解。
+6. `read-semantic-content`——在浏览／阅读模式中浏览标题、记录、代码、链接、工具展开项；需要网页键盘焦点的控件再使用普通 Tab。
+7. `operate-tool-disclosure`——展开／收起工具输出，核对名称、展开状态、内容边界和焦点稳定性。
+8. `copy-visible-message`——复制一条可见消息；记录播报，并确认隐藏上下文、推理、工具材料、路径和来源元数据没有被复制。
+9. `clear-reading-view`——清除阅读视图；确认敏感正文已卸载，焦点返回 Load reading view。
+10. `return-to-chat`——返回 Chat，仅用键盘走完普通路径，不依赖指针恢复。
 
 VoiceOver 使用转子、VO+左／右、VO+空格，以及控件需要时的 Tab／Shift+Tab。NVDA 需分别测试浏览模式和焦点模式并记录切换。不要把异常朗读“修正成预期措辞”；在不泄露无关内容的前提下，按可复现程度记录原始结果。
 
@@ -96,16 +96,16 @@ VoiceOver 使用转子、VO+左／右、VO+空格，以及控件需要时的 Tab
 
 | 任务 | 实际语音／盲文及焦点／光标结果 | 是否独立完成 | 变通方式 | 通过／失败 | 严重度 |
 | --- | --- | --- | --- | --- | --- |
-| 1 | | | | | |
-| 2 | | | | | |
-| 3 | | | | | |
-| 4 | | | | | |
-| 5 | | | | | |
-| 6 | | | | | |
-| 7 | | | | | |
-| 8 | | | | | |
-| 9 | | | | | |
-| 10 | | | | | |
+| `discover-structure` | | | | | |
+| `open-synthetic-session` | | | | | |
+| `activate-accessible-view` | | | | | |
+| `verify-unloaded-privacy` | | | | | |
+| `load-reading-view` | | | | | |
+| `read-semantic-content` | | | | | |
+| `operate-tool-disclosure` | | | | | |
+| `copy-visible-message` | | | | | |
+| `clear-reading-view` | | | | | |
+| `return-to-chat` | | | | | |
 
 - 意外播报、重复、静默或光标陷阱：
 - 恢复路径：

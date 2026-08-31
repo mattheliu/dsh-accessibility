@@ -62,6 +62,8 @@ readiness JSON 包含版本、revision、环境、合成 Session ID、精确任�
 
 ## 成功场景：仅允许一次
 
+目录任务 ID：`allow-once`。
+
 整个任务都使用读屏或盲文显示器。若看过屏幕，必须在记录中说明。
 
 1. 打开一次性 URL，找到 `authoring-at-workspace` 及其最新 Session。
@@ -78,6 +80,8 @@ readiness JSON 包含版本、revision、环境、合成 Session ID、精确任�
 
 ## 安全场景：拒绝
 
+目录任务 ID：`reject`。
+
 重新启动一个全新实验室，不要复用已修复的世界。
 
 1. 重复设置并提交同一任务。
@@ -92,7 +96,7 @@ readiness JSON 包含版本、revision、环境、合成 Session ID、精确任�
 
 每个精确“产品／浏览器或终端／辅助技术／语言”组合都应使用 **辅助技术测试结果** Issue 表单单独提交一条公开记录，并先脱敏。若结果经过支持声明评审，应按照 [HUMAN-EVIDENCE.zh.md](HUMAN-EVIDENCE.zh.md) 用 `dsh-a11y-human-evidence/0.1.0-draft` 编码公开摘要；失败或部分结果仍为 `claim: none`。至少记录：
 
-- 规程和场景（`allow-once` 或 `reject`）；
+- 规程和稳定目录任务 ID（`allow-once` 或 `reject`）；
 - readiness JSON 中的精确 DSH 与组合版本、revision；
 - 操作系统／build、硬件或虚拟机；
 - 浏览器／版本和辅助技术／版本；

@@ -1,4 +1,10 @@
 /** Validation rules for consented, de-identified human accessibility evidence. */
+import {
+  DEFAULT_EVIDENCE_CATALOG,
+  DEFAULT_EVIDENCE_CATALOG_INDEX,
+  EVIDENCE_CATALOG_PROTOCOL,
+} from './evidence-catalog-lib.mjs'
+
 export const HUMAN_EVIDENCE_PROTOCOL = 'dsh-a11y-human-evidence/0.1.0-draft'
 
 const RECORD_TYPES = new Set(['template', 'human-evidence'])
@@ -155,13 +161,12 @@ function validateBarrier(value, path, issues) {
 function validateTask(value, path, issues) {
   const row = exactKeys(
     value, path,
-    ['id', 'representativeCoreTask', 'outcome', 'independent', 'effective', 'safe', 'assistance', 'observations', 'focus', 'barriers', 'limitations'],
-    ['id', 'representativeCoreTask', 'outcome', 'independent', 'effective', 'safe', 'assistance', 'observations', 'focus', 'barriers', 'limitations'],
+    ['id', 'outcome', 'independent', 'effective', 'safe', 'assistance', 'observations', 'focus', 'barriers', 'limitations'],
+    ['id', 'outcome', 'independent', 'effective', 'safe', 'assistance', 'observations', 'focus', 'barriers', 'limitations'],
     issues,
   )
   if (row === undefined) return undefined
   string(row.id, `${path}.id`, issues, { pattern: /^[a-z0-9][a-z0-9._-]{1,79}$/u, max: 80 })
-  boolean(row.representativeCoreTask, `${path}.representativeCoreTask`, issues)
   enumeration(row.outcome, `${path}.outcome`, TASK_OUTCOMES, issues)
   boolean(row.independent, `${path}.independent`, issues)
   boolean(row.effective, `${path}.effective`, issues)
@@ -245,13 +250,20 @@ export function validateHumanEvidenceRecord(input, options = {}) {
   const record = exactKeys(
     input,
     '$',
-    ['protocol', 'recordType', 'recordId', 'recordedOn', 'evidenceKind', 'claim', 'scenario', 'builds', 'environment', 'tester', 'consent', 'tasks', 'summary', 'review', 'publication'],
-    ['$schema', 'protocol', 'recordType', 'recordId', 'recordedOn', 'evidenceKind', 'claim', 'scenario', 'builds', 'environment', 'tester', 'consent', 'tasks', 'summary', 'review', 'publication'],
+    ['protocol', 'catalog', 'recordType', 'recordId', 'recordedOn', 'evidenceKind', 'claim', 'scenario', 'builds', 'environment', 'tester', 'consent', 'tasks', 'summary', 'review', 'publication'],
+    ['$schema', 'protocol', 'catalog', 'recordType', 'recordId', 'recordedOn', 'evidenceKind', 'claim', 'scenario', 'builds', 'environment', 'tester', 'consent', 'tasks', 'summary', 'review', 'publication'],
     issues,
   )
   if (record === undefined) return { valid: false, issues }
   if (record.$schema !== undefined) string(record.$schema, '$.$schema', issues, { max: 200 })
   if (record.protocol !== HUMAN_EVIDENCE_PROTOCOL) issues.push(`$.protocol: expected ${HUMAN_EVIDENCE_PROTOCOL}`)
+  const catalogReference = exactKeys(record.catalog, '$.catalog', ['protocol', 'catalogId'], ['protocol', 'catalogId'], issues)
+  if (catalogReference !== undefined) {
+    if (catalogReference.protocol !== EVIDENCE_CATALOG_PROTOCOL) issues.push(`$.catalog.protocol: expected ${EVIDENCE_CATALOG_PROTOCOL}`)
+    if (catalogReference.catalogId !== DEFAULT_EVIDENCE_CATALOG.catalogId) {
+      issues.push(`$.catalog.catalogId: expected ${DEFAULT_EVIDENCE_CATALOG.catalogId}`)
+    }
+  }
   const recordType = enumeration(record.recordType, '$.recordType', RECORD_TYPES, issues)
   string(record.recordId, '$.recordId', issues, { pattern: /^[a-z0-9][a-z0-9._-]{7,99}$/u, max: 100 })
   const recordedOn = parseDateOnly(record.recordedOn, '$.recordedOn', issues)
@@ -259,12 +271,16 @@ export function validateHumanEvidenceRecord(input, options = {}) {
   const claim = enumeration(record.claim, '$.claim', CLAIMS, issues)
 
   const scenario = exactKeys(record.scenario, '$.scenario', ['protocol', 'interface', 'locale', 'taskIds'], ['protocol', 'interface', 'locale', 'taskIds', 'description'], issues)
+  let catalogScenario
   if (scenario !== undefined) {
     string(scenario.protocol, '$.scenario.protocol', issues, { pattern: /^[a-z0-9][a-z0-9.-]*\/\d+\.\d+\.\d+(?:-[a-z0-9.-]+)?$/u, max: 120 })
     enumeration(scenario.interface, '$.scenario.interface', INTERFACES, issues)
     string(scenario.locale, '$.scenario.locale', issues, { pattern: /^[A-Za-z]{2,3}(?:-[A-Za-z0-9]{2,8})*$/u, max: 35 })
     stringArray(scenario.taskIds, '$.scenario.taskIds', issues, { min: 1, max: 30, itemMax: 80 })
     if (scenario.description !== undefined) string(scenario.description, '$.scenario.description', issues, { max: 500 })
+    catalogScenario = DEFAULT_EVIDENCE_CATALOG_INDEX.get(scenario.protocol)
+    if (catalogScenario === undefined) issues.push('$.scenario.protocol: protocol is not registered in the evidence catalog')
+    else if (scenario.interface !== catalogScenario.interface) issues.push(`$.scenario.interface: catalog requires ${catalogScenario.interface}`)
   }
 
   const builds = exactKeys(record.builds, '$.builds', ['dsh', 'components'], ['dsh', 'components'], issues)
@@ -354,6 +370,11 @@ export function validateHumanEvidenceRecord(input, options = {}) {
     const actual = [...taskIds].sort()
     if (JSON.stringify(expected) !== JSON.stringify(actual)) issues.push('$.scenario.taskIds: must exactly match $.tasks ids')
   }
+  tasks.forEach((task, index) => {
+    if (typeof task.id === 'string' && catalogScenario !== undefined && !catalogScenario.tasksById.has(task.id)) {
+      issues.push(`$.tasks[${String(index)}].id: task ${task.id} is not registered for ${catalogScenario.protocol}`)
+    }
+  })
 
   const summary = exactKeys(
     record.summary,
@@ -451,6 +472,9 @@ export function validateHumanEvidenceRecord(input, options = {}) {
     if (tasks.some(task => task.barriers?.some(barrier => barrier.severity === 'blocker' || barrier.severity === 'high'))) {
       issues.push('$.claim: blocker or high-severity barriers make the record ineligible')
     }
+    if (catalogScenario === undefined || tasks.some(task => catalogScenario.tasksById.get(task.id)?.claimEligible !== true)) {
+      issues.push('$.claim: every claimed task must be claim eligible in the versioned evidence catalog')
+    }
     if (claim === 'a11y-at-tested' && evidenceKind !== 'assistive-technology-run') {
       issues.push('$.claim: a11y-at-tested requires an assistive-technology-run')
     }
@@ -458,8 +482,8 @@ export function validateHumanEvidenceRecord(input, options = {}) {
       if (evidenceKind !== 'disabled-user-task-run') issues.push('$.claim: a11y-user-validated requires disabled-user-task-run')
       if (tester?.category !== 'disabled-developer') issues.push('$.claim: a11y-user-validated requires a disabled-developer tester category')
       if (consent?.withdrawalRouteAvailable !== true) issues.push('$.claim: a11y-user-validated requires a private withdrawal route')
-      const coreTasks = tasks.filter(task => task.representativeCoreTask === true)
-      const hasIndependentCoreTask = coreTasks.some(task => task.independent === true && task.effective === true && task.safe === true
+      const hasIndependentCoreTask = tasks.some(task => catalogScenario?.tasksById.get(task.id)?.representativeCoreTask === true
+        && task.independent === true && task.effective === true && task.safe === true
         && ['none', 'setup-only'].includes(task.assistance?.level))
       if (!hasIndependentCoreTask) {
         issues.push('$.claim: at least one representative core task must be independent, effective, safe, and use no operational assistance')

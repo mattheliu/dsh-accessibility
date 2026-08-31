@@ -25,10 +25,10 @@ This statement covers the `@oh-my-dsh/dsh-accessibility` companion and the organ
 - The tested core candidate is based on DSH `0.1.1-rc.2`; the upstream `0.1.2-alpha.2` development line still requires a complete compatibility audit.
 - Forced-colors, 200%/400% reflow, braille display, speech recognition, switch access, and broader cognitive and low-vision scenarios are not yet complete.
 - The authoring/testkit packages and complete approval/repair lab remain development candidates; live-model, real-AT, disabled-author, review, and publication evidence are still pending.
-- The versioned human-evidence ledger currently contains only a non-evidence template. It does not yet support an `a11y-at-tested` or `a11y-user-validated` claim.
+- The versioned human-evidence ledger currently contains only a non-evidence template. Its task catalog prevents submitters from self-classifying arbitrary work as core or claim-eligible, but it does not yet support an `a11y-at-tested` or `a11y-user-validated` claim.
 - Passing automated checks is not a statement that every disabled person can use every workflow.
 
-The exact support matrix and manual scenarios are maintained in [ACCESSIBILITY.md](ACCESSIBILITY.md). Consented public human results use [HUMAN-EVIDENCE.md](HUMAN-EVIDENCE.md). The forward plan and release gates are in [ROADMAP.md](ROADMAP.md).
+The exact support matrix and manual scenarios are maintained in [ACCESSIBILITY.md](ACCESSIBILITY.md). Consented public human results use [HUMAN-EVIDENCE.md](HUMAN-EVIDENCE.md) and its authoritative [evidence task catalog](EVIDENCE-CATALOG.json). The forward plan and release gates are in [ROADMAP.md](ROADMAP.md).
 
 ## Feedback
 

@@ -34,7 +34,7 @@ Public evidence levels are:
 
 Evidence expires when an affected DSH minor line, browser/AT behavior, or relevant UI implementation changes. Stable releases require a current compatibility ledger, known limitations, repeatable test artifacts, and the release criteria in [ROADMAP.md](ROADMAP.md).
 
-Public human results use `dsh-a11y-human-evidence/0.1.0-draft` under [HUMAN-EVIDENCE.md](HUMAN-EVIDENCE.md). Failed and partial results remain publishable with `claim: none`; a support claim additionally requires exact revisions, consent, a public review, current validity, effective and safe task completion, no hidden operational assistance, and the level-specific human evidence. A JSON file or validator pass never creates evidence that a person did not actually produce.
+Public human results use `dsh-a11y-human-evidence/0.1.0-draft` under [HUMAN-EVIDENCE.md](HUMAN-EVIDENCE.md). The separately reviewed [evidence catalog](EVIDENCE-CATALOG.json) is authoritative for protocol/task identity, representative-core status, safety criticality, and claim eligibility; a result author cannot self-classify those properties. Failed and partial results remain publishable with `claim: none`; a support claim additionally requires exact revisions, consent, a public review, current validity, effective and safe task completion, no hidden operational assistance, and the level-specific human evidence. A JSON file or validator pass never creates evidence that a person did not actually produce.
 
 ## Access and review
 

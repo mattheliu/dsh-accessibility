@@ -1,7 +1,17 @@
 /** Validate committed public human-evidence records and non-evidence templates. */
 import { lstat, readFile, readdir } from 'node:fs/promises'
 import { relative, resolve } from 'node:path'
+import {
+  DEFAULT_EVIDENCE_CATALOG,
+  validateEvidenceCatalog,
+} from './evidence-catalog-lib.mjs'
 import { validateHumanEvidenceRecord } from './human-evidence-lib.mjs'
+
+const catalogValidation = validateEvidenceCatalog(DEFAULT_EVIDENCE_CATALOG)
+if (!catalogValidation.valid) {
+  throw new Error(`evidence catalog validation failed:\n${catalogValidation.issues.map(issue => `  - ${issue}`).join('\n')}`)
+}
+process.stdout.write(`EVIDENCE-CATALOG.json: valid ${DEFAULT_EVIDENCE_CATALOG.protocol} (${String(DEFAULT_EVIDENCE_CATALOG.scenarios.length)} protocols)\n`)
 
 const rawArguments = process.argv.slice(2)
 const argumentsValue = rawArguments[0] === '--' ? rawArguments.slice(1) : rawArguments

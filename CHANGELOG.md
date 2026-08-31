@@ -21,6 +21,7 @@
 - Add the versioned bilingual `dsh-a11y-authoring-agent-lab/0.1.0-draft`, JSON Schema, keyless replay fixture, and disposable runner that uses the real DSH product/plugin/agent/filesystem loop to enforce an exact `a11y_check → read → edit → a11y_check` repair while keeping replay, live-model, AT, and disabled-author evidence distinct.
 - Add the bilingual `dsh-a11y-authoring-at-lab/0.1.0-draft` with a disposable real DSH Web authoring task, real read-only-to-workspace-write approval, automated allow-once and rejection-without-mutation safety gates, system-browser launch modes, consented human AT evidence instructions, and strict non-AT labels for readiness, Host, and Chromium output.
 - Add `dsh-a11y-human-evidence/0.1.0-draft`: a bilingual public evidence protocol, JSON Schema, explicitly non-evidence template, privacy/freshness/claim validator, tests, and CI gate that retain failed or partial human results without promoting automated output or unsupported claims.
+- Add the versioned `dsh-a11y-evidence-catalog/0.1.0-draft` with 30 stable tasks across five human-test protocols, authoritative core/safety/claim classifications, strict schema checks, and fail-closed linkage from every human evidence record.
 - Make package builds remove stale generated declarations before compiling so removed experimental APIs cannot survive in an npm artifact.
 
 ## 0.1.0-beta.6 - 2026-08-29

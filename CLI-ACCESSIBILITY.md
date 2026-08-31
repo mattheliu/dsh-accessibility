@@ -51,10 +51,10 @@ Run:
 pnpm run lab:cli -- ../deepseek-harness-alpha2 manual
 ```
 
-The launcher builds the same local DSH revision, creates a disposable DSH home, and starts local synthetic model servers. It uses no real API key or personal workspace. Two commands run with inherited terminal I/O:
+The launcher builds the same local DSH revision, creates a disposable DSH home, and starts local synthetic model servers. It uses no real API key or personal workspace. Two commands run with inherited terminal I/O. The backticked names are stable evidence-catalog task IDs:
 
-1. completed response — expect one start line, `Accessible CLI response complete.`, and one completed line;
-2. authentication failure — expect one start line and one failure line, then exit status `1`.
+1. `completed-response` — expect one start line, `Accessible CLI response complete.`, and one completed line;
+2. `authentication-failure` — expect one start line and one failure line, then exit status `1`.
 
 Operate the terminal with the assistive technology under test. Confirm that token fragments do not flood the speech queue, cursor redraw does not repeat content, output order is understandable, the answer and terminal state are distinguishable, review commands can revisit the result, interruption remains discoverable, and the user can determine whether the task succeeded without sighted assistance.
 
@@ -67,7 +67,7 @@ Create one de-identified record per environment and scenario with:
 - protocol ID, DSH version and Git revision;
 - operating system, terminal and version, shell, and whether a PTY or redirected stream was used;
 - assistive technology and version, speech language, verbosity, punctuation, braille display and table when applicable;
-- scenario, expected result, actual speech or braille in order, cursor or review-mode behavior, task completion, and pass/fail;
+- stable catalog task ID, expected result, actual speech or braille in order, cursor or review-mode behavior, task completion, and pass/fail;
 - workarounds, defects with severity, and observer;
 - whether the tester was an assistive-technology specialist or a disabled developer completing the task independently.
 

@@ -34,7 +34,7 @@
 
 当相关 DSH minor 版本、浏览器／辅助技术行为或对应 UI 实现发生变化时，证据失效。稳定版必须具备当前兼容台账、已知限制、可重复测试产物，并满足 [ROADMAP.zh.md](ROADMAP.zh.md) 中的发布标准。
 
-公开真人结果按 [HUMAN-EVIDENCE.zh.md](HUMAN-EVIDENCE.zh.md) 使用 `dsh-a11y-human-evidence/0.1.0-draft`。失败和部分结果仍可用 `claim: none` 公开；支持声明还必须具备精确 revision、同意、公开评审、当前有效期、有效且安全的任务完成、无隐藏操作协助，以及对应等级的真人证据。存在 JSON 文件或 validator 通过，绝不能凭空制造真人没有实际产生的证据。
+公开真人结果按 [HUMAN-EVIDENCE.zh.md](HUMAN-EVIDENCE.zh.md) 使用 `dsh-a11y-human-evidence/0.1.0-draft`。单独评审的[证据目录](EVIDENCE-CATALOG.json)是规程／任务身份、代表性核心、安全关键和声明资格的唯一权威来源，结果作者不能自行归类。失败和部分结果仍可用 `claim: none` 公开；支持声明还必须具备精确 revision、同意、公开评审、当前有效期、有效且安全的任务完成、无隐藏操作协助，以及对应等级的真人证据。存在 JSON 文件或 validator 通过，绝不能凭空制造真人没有实际产生的证据。
 
 ## 权限与复审
 

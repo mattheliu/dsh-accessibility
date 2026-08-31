@@ -7,6 +7,10 @@ import {
   HUMAN_EVIDENCE_PROTOCOL,
   validateHumanEvidenceRecord,
 } from '../scripts/human-evidence-lib.mjs'
+import {
+  DEFAULT_EVIDENCE_CATALOG,
+  EVIDENCE_CATALOG_PROTOCOL,
+} from '../scripts/evidence-catalog-lib.mjs'
 
 const templatePath = new URL('../evidence/templates/authoring-at.allow-once.template.json', import.meta.url)
 const template = JSON.parse(readFileSync(templatePath, 'utf8'))
@@ -44,7 +48,6 @@ function atRecord() {
   }
   record.tasks[0] = {
     id: 'allow-once',
-    representativeCoreTask: false,
     outcome: 'pass',
     independent: true,
     effective: true,
@@ -82,7 +85,6 @@ function userValidatedRecord() {
   record.claim = 'a11y-user-validated'
   record.tester.category = 'disabled-developer'
   record.tester.experience = 'Regular DSH-style agent workflow experience; no disability details collected.'
-  record.tasks[0].representativeCoreTask = true
   record.summary.independentCoreTaskCompletion = true
   record.summary.claimScope = 'One disabled developer independently completed the exact authoring task in the recorded environment.'
   return record
@@ -130,6 +132,14 @@ describe('versioned human accessibility evidence', () => {
     ['duplicate access technology', (record) => {
       record.environment.accessTechnologies.push(structuredClone(record.environment.accessTechnologies[0]))
     }, /duplicate access-technology names/],
+    ['unknown catalog id', (record) => { record.catalog.catalogId = 'invented-catalog-2026-09-01' }, /expected dsh-accessibility-core-tasks/],
+    ['unregistered protocol', (record) => { record.scenario.protocol = 'invented-at-lab/1.0.0-draft' }, /not registered in the evidence catalog/],
+    ['unregistered task', (record) => { record.scenario.taskIds = ['invented-task']; record.tasks[0].id = 'invented-task' }, /task invented-task is not registered/],
+    ['catalog task that cannot support a claim', (record) => {
+      record.scenario.protocol = 'dsh-core-at-lab/1.0.0-draft'
+      record.scenario.taskIds = ['nonvisual-repeat']
+      record.tasks[0].id = 'nonvisual-repeat'
+    }, /claim eligible in the versioned evidence catalog/],
     ['AT claim without an AT run', (record) => {
       record.evidenceKind = 'disabled-user-task-run'
       record.tester.category = 'disabled-developer'
@@ -178,7 +188,7 @@ describe('versioned human accessibility evidence', () => {
     expect(result.issues.join('\n')).toMatch(/independent, effective, safe/)
   })
 
-  it('requires at least one, rather than every, representative core task to be independently completed', () => {
+  it('requires at least one, rather than every, catalog-defined core task to be independently completed', () => {
     const record = userValidatedRecord()
     const secondTask = structuredClone(record.tasks[0])
     secondTask.id = 'reject'
@@ -192,6 +202,8 @@ describe('versioned human accessibility evidence', () => {
   it('supports core-only builds and disabled-developer evidence without requiring a dedicated AT', () => {
     const coreOnly = atRecord()
     coreOnly.scenario.protocol = 'dsh-core-at-lab/1.0.0-draft'
+    coreOnly.scenario.taskIds = ['read-conversation']
+    coreOnly.tasks[0].id = 'read-conversation'
     coreOnly.builds.components = []
     expect(validateHumanEvidenceRecord(coreOnly, { now })).toMatchObject({ valid: true, claim: 'a11y-at-tested' })
 
@@ -202,9 +214,22 @@ describe('versioned human accessibility evidence', () => {
     expect(validateHumanEvidenceRecord(disabledUser, { now })).toMatchObject({ valid: true, claim: 'a11y-user-validated' })
   })
 
+  it('retains a known exploratory non-claim task without promoting it to support evidence', () => {
+    const record = atRecord()
+    record.claim = 'none'
+    record.scenario.protocol = 'dsh-core-at-lab/1.0.0-draft'
+    record.scenario.taskIds = ['nonvisual-repeat']
+    record.tasks[0].id = 'nonvisual-repeat'
+    record.summary.claimScope = 'No support claim; exploratory nonvisual repetition only.'
+    delete record.publication.publicIssue
+    expect(validateHumanEvidenceRecord(record, { now })).toMatchObject({ valid: true, claim: 'none' })
+  })
+
   it('ships a schema with the same protocol and fail-closed claim conditionals', () => {
     const schema = JSON.parse(readFileSync(new URL('../HUMAN-EVIDENCE.schema.json', import.meta.url), 'utf8'))
     expect(schema.properties.protocol.const).toBe(HUMAN_EVIDENCE_PROTOCOL)
+    expect(schema.properties.catalog.properties.protocol.const).toBe(EVIDENCE_CATALOG_PROTOCOL)
+    expect(schema.properties.catalog.properties.catalogId.const).toBe(DEFAULT_EVIDENCE_CATALOG.catalogId)
     expect(schema.properties.claim.enum).toEqual(['none', 'a11y-at-tested', 'a11y-user-validated'])
     expect(JSON.stringify(schema.allOf)).toContain('a11y-user-validated')
     expect(JSON.stringify(schema.allOf)).toContain('disabled-developer')
@@ -234,6 +259,7 @@ describe('versioned human accessibility evidence', () => {
       encoding: 'utf8',
     })
     expect(result.status).toBe(0)
+    expect(result.stdout).toContain('valid dsh-a11y-evidence-catalog/0.1.0-draft (5 protocols)')
     expect(result.stdout).toContain('valid non-evidence template')
   })
 })

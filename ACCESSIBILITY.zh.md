@@ -26,7 +26,7 @@ DSH `0.1.2-alpha.2` 开发线还包含一次性 CLI 无障碍候选。其低噪�
 | Windows 11 | Edge／Chrome | JAWS | Windows 自动门禁通过；物理读屏回归待补 |
 | Windows 11 | Edge | Narrator | 建议作为兼容信号，不能替代 NVDA 或 JAWS |
 
-此矩阵只是计划与限制摘要，本身不构成支持声明。只有当前有效、精确版本的真人结果进入并通过[真人证据账本](HUMAN-EVIDENCE.zh.md)校验后，对应行才可能支持 `a11y-at-tested` 或 `a11y-user-validated`。当前账本只有非证据模板，因此所有人工听读和残障用户行仍为待补。
+此矩阵只是计划与限制摘要，本身不构成支持声明。只有当前有效、精确版本的真人结果进入并通过[真人证据账本](HUMAN-EVIDENCE.zh.md)校验，并使用权威[证据目录](EVIDENCE-CATALOG.json)中的合格任务后，对应行才可能支持 `a11y-at-tested` 或 `a11y-user-validated`。当前账本只有非证据模板，因此所有人工听读和残障用户行仍为待补。
 
 ## 已记录的 macOS 证据
 
@@ -70,7 +70,7 @@ DSH `0.1.2-alpha.2` 开发线还包含一次性 CLI 无障碍候选。其低噪�
 - Accessible View 注册、未加载选择器、焦点生命周期、敏感内容延迟挂载、剪贴板 projection、分页、来源顺序及空闲／加载 axe-core 测试。
 - Accessible View 的版本化 `dsh-non-at-browser/1.0.0-draft` 组装证据：在 Chromium、Firefox、WebKit 中检查 640／320 CSS px 页面重排、焦点可见／遮挡采样、减少动态效果及 Chromium 强制颜色参与情况。范围与限制见 [RFC-BROWSER-EVIDENCE.zh.md](RFC-BROWSER-EVIDENCE.zh.md)。
 - 版本化 `dsh-cli-accessibility/1.0.0-draft` 产品入口进程符合性：覆盖可发现性、参数闭合失败、低噪声文本、单行 JSON、终端控制字符、退出状态与成功／失败投影；该结果明确不属于 AT 证据。
-- `dsh-a11y-human-evidence/0.1.0-draft` Schema 与仓库 validator：检查精确范围、同意标记、隐私、协助情况、任务安全性／有效性、公开评审和证据新鲜度。此门禁可以拒绝无依据声明，不能制造真人证据。
+- `dsh-a11y-human-evidence/0.1.0-draft` Schema 与仓库 validator，加上固定的 `dsh-a11y-evidence-catalog/0.1.0-draft`：检查精确范围、已登记稳定任务、权威核心／安全／声明资格分类、同意标记、隐私、协助情况、任务安全性／有效性、公开评审和证据新鲜度。此门禁可以拒绝无依据声明，不能制造真人证据。
 - GitHub Actions 中的跨平台 Node、类型、单元、构建和包内容检查。
 - 补丁核心保留组件、GUI、生产构建及浏览器回放套件。
 

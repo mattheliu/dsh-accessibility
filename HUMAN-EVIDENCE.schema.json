@@ -7,6 +7,7 @@
   "additionalProperties": false,
   "required": [
     "protocol",
+    "catalog",
     "recordType",
     "recordId",
     "recordedOn",
@@ -25,6 +26,15 @@
   "properties": {
     "$schema": { "type": "string", "maxLength": 200 },
     "protocol": { "const": "dsh-a11y-human-evidence/0.1.0-draft" },
+    "catalog": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["protocol", "catalogId"],
+      "properties": {
+        "protocol": { "const": "dsh-a11y-evidence-catalog/0.1.0-draft" },
+        "catalogId": { "const": "dsh-accessibility-core-tasks-2026-08-31" }
+      }
+    },
     "recordType": { "enum": ["template", "human-evidence"] },
     "recordId": { "type": "string", "pattern": "^[a-z0-9][a-z0-9._-]{7,99}$" },
     "recordedOn": { "type": "string", "format": "date" },
@@ -139,22 +149,7 @@
           "tester": { "type": "object", "properties": { "category": { "const": "disabled-developer" } } },
           "consent": { "type": "object", "properties": { "withdrawalRouteAvailable": { "const": true } } },
           "summary": { "type": "object", "properties": { "independentCoreTaskCompletion": { "const": true } } },
-          "tasks": {
-            "type": "array",
-            "contains": {
-              "type": "object",
-              "properties": {
-                "representativeCoreTask": { "const": true },
-                "outcome": { "const": "pass" },
-                "independent": { "const": true },
-                "effective": { "const": true },
-                "safe": { "const": true },
-                "assistance": { "type": "object", "properties": { "level": { "enum": ["none", "setup-only"] } } }
-              },
-              "required": ["representativeCoreTask", "outcome", "independent", "effective", "safe", "assistance"]
-            },
-            "minContains": 1
-          }
+          "tasks": { "type": "array", "minItems": 1 }
         }
       }
     }
@@ -308,10 +303,9 @@
     "task": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["id", "representativeCoreTask", "outcome", "independent", "effective", "safe", "assistance", "observations", "focus", "barriers", "limitations"],
+      "required": ["id", "outcome", "independent", "effective", "safe", "assistance", "observations", "focus", "barriers", "limitations"],
       "properties": {
         "id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9._-]{1,79}$" },
-        "representativeCoreTask": { "type": "boolean" },
         "outcome": { "enum": ["pass", "fail", "partial", "not-run"] },
         "independent": { "type": "boolean" },
         "effective": { "type": "boolean" },

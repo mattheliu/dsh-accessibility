@@ -58,18 +58,18 @@ pnpm run lab:at:core ../deepseek-harness none 1000
 
 ## 人工核心任务规程
 
-测试前记录操作系统 build、浏览器版本、辅助技术名称和版本、UI 与语音语言、声音、详细度、标点、输入输出设备，以及就绪记录中的精确 DSH revision。只使用两个合成 Session。
+测试前记录操作系统 build、浏览器版本、辅助技术名称和版本、UI 与语音语言、声音、详细度、标点、输入输出设备，以及就绪记录中的精确 DSH revision。只使用两个合成 Session。下列反引号名称是稳定的目录任务 ID；在证据记录中不得重新编号或改成自由文本。
 
-1. 不使用指针，找到 DSH 应用标题、具名 Sidebar navigation、main 内容和 Details complementary 区域。
-2. 只用一个顺序 Tab 入口进入 Sessions 树，听取层级、展开和选中状态；使用方向键、Home／End 和前缀输入导航，激活第二个合成 Session，并在访问行操作后返回树行。
-3. 打开 Session 搜索，输入并清除查询，用 Escape 关闭，并确认焦点返回“搜索会话”。
-4. 找到 Sidebar 与 Details 分隔条，听取名称、方向、值和边界；使用方向键、Home／End 调整，用 Enter 切换 Details，并确认焦点保留在分隔条上。
-5. 找到 Session 视图标签列表。使用方向键和 Home／End 在 Chat 与 Trajectory 之间移动，核对选中状态和新命名的 panel，并确认标签列表只占一个普通 Tab stop。
-6. 在 Chat 中按来源顺序阅读合成对话。记录消息作者、文本、代码、链接、工具名称，以及运行中／已完成／失败／已停止状态是否易于理解。展开和折叠工具详情，核对受控内容边界与焦点稳定性。
-7. 在 Trajectory 中只用一个顺序入口进入事件表格，使用方向键和 Home／End 导航行；打开一行，在“事件详情”标签页之间移动，调整事件详情分隔条，关闭详情并确认返回路径可预测。
-8. 打开 Settings，确认对话框名称和初始焦点；打开一个设置菜单，核对已勾选选项和方向键、Home／End、前缀输入操作；先用 Escape 只关闭菜单，再关闭 Settings，并确认焦点返回触发按钮。
-9. 返回 Chat，找到消息输入框和发送控件；输入、编辑并清空合成草稿，不要提交。确认普通 Tab／Shift+Tab 导航不需要用指针救场。
-10. 在安全的前提下忽略或关闭视觉显示，重复最容易失败的路径。记录每次意外重复、静默、浏览／焦点模式切换、光标陷阱、焦点丢失、变通方式，以及任务是否仍能独立完成。
+1. `discover-structure`——不使用指针，找到 DSH 应用标题、具名 Sidebar navigation、main 内容和 Details complementary 区域。
+2. `navigate-sessions`——只用一个顺序 Tab 入口进入 Sessions 树，听取层级、展开和选中状态；使用方向键、Home／End 和前缀输入导航，激活第二个合成 Session，并在访问行操作后返回树行。
+3. `search-sessions`——打开 Session 搜索，输入并清除查询，用 Escape 关闭，并确认焦点返回“搜索会话”。
+4. `adjust-layout`——找到 Sidebar 与 Details 分隔条，听取名称、方向、值和边界；使用方向键、Home／End 调整，用 Enter 切换 Details，并确认焦点保留在分隔条上。
+5. `switch-session-view`——找到 Session 视图标签列表。使用方向键和 Home／End 在 Chat 与 Trajectory 之间移动，核对选中状态和新命名的 panel，并确认标签列表只占一个普通 Tab stop。
+6. `read-conversation`——在 Chat 中按来源顺序阅读合成对话。记录消息作者、文本、代码、链接、工具名称，以及运行中／已完成／失败／已停止状态是否易于理解。展开和折叠工具详情，核对受控内容边界与焦点稳定性。
+7. `inspect-trajectory`——在 Trajectory 中只用一个顺序入口进入事件表格，使用方向键和 Home／End 导航行；打开一行，在“事件详情”标签页之间移动，调整事件详情分隔条，关闭详情并确认返回路径可预测。
+8. `configure-settings`——打开 Settings，确认对话框名称和初始焦点；打开一个设置菜单，核对已勾选选项和方向键、Home／End、前缀输入操作；先用 Escape 只关闭菜单，再关闭 Settings，并确认焦点返回触发按钮。
+9. `edit-composer-draft`——返回 Chat，找到消息输入框和发送控件；输入、编辑并清空合成草稿，不要提交。确认普通 Tab／Shift+Tab 导航不需要用指针救场。
+10. `nonvisual-repeat`——在安全的前提下忽略或关闭视觉显示，重复最容易失败的路径。记录每次意外重复、静默、浏览／焦点模式切换、光标陷阱、焦点丢失、变通方式，以及任务是否仍能独立完成。这项探索性复测已进入目录，但不能单独支撑支持声明。
 
 VoiceOver 测试者应根据控件使用转子、VO+左／右、VO+空格及 Tab／Shift+Tab。NVDA 测试者应同时验证浏览模式和焦点模式，并记录模式切换。不要把意外朗读改写成“正常说法”；在不附带无关合成内容的前提下，保留足够精确的原话以便复现。
 
@@ -91,16 +91,16 @@ VoiceOver 测试者应根据控件使用转子、VO+左／右、VO+空格及 Tab
 
 | 任务 | 实际语音／盲文及焦点／光标结果 | 是否独立完成 | 变通方式 | 通过／失败／部分通过 | 严重程度 |
 | --- | --- | --- | --- | --- | --- |
-| 1 | | | | | |
-| 2 | | | | | |
-| 3 | | | | | |
-| 4 | | | | | |
-| 5 | | | | | |
-| 6 | | | | | |
-| 7 | | | | | |
-| 8 | | | | | |
-| 9 | | | | | |
-| 10 | | | | | |
+| `discover-structure` | | | | | |
+| `navigate-sessions` | | | | | |
+| `search-sessions` | | | | | |
+| `adjust-layout` | | | | | |
+| `switch-session-view` | | | | | |
+| `read-conversation` | | | | | |
+| `inspect-trajectory` | | | | | |
+| `configure-settings` | | | | | |
+| `edit-composer-draft` | | | | | |
+| `nonvisual-repeat` | | | | | |
 
 - 意外播报、重复、静默或光标陷阱：
 - 恢复路径：
