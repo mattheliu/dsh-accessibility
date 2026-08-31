@@ -44,12 +44,15 @@ pnpm run lab:at ../deepseek-harness . none
 # Open the system default browser (all platforms).
 pnpm run lab:at ../deepseek-harness . system
 
-# Open the real installed Safari or Google Chrome on macOS.
+# Open Safari on macOS. Use a dedicated clean browser profile.
 pnpm run lab:at ../deepseek-harness . safari
+
+# Open Chrome on macOS with a fresh temporary profile, blocked background
+# networking, and non-loopback host resolution disabled.
 pnpm run lab:at ../deepseek-harness . chrome
 ```
 
-The launcher prints a versioned JSON readiness record with exact Git revisions, OS information, the local origin, and explicit limitations. It prints the temporary local sign-in URL separately: use it locally, but do not paste it into a public result while the lab is active. It creates no screenshot, recording, upload, or public artifact. Return to the terminal and press Ctrl+C to request cleanup and remove the disposable DSH home, session persistence, workspace, and temporary plugin link. Close the now-inactive browser tab manually.
+The launcher prints a versioned JSON readiness record with exact Git revisions, OS information, browser-context isolation, the local origin, and explicit limitations. It prints the temporary local sign-in URL separately: use it locally, but do not paste it into a public result while the lab is active. It creates no screenshot, recording, upload, or public artifact. `chrome` is the safest local default because it never opens the tester's ordinary Chrome profile. `system` and `safari` may reuse an existing browser context and require a dedicated clean profile. Return to the terminal and press Ctrl+C to request cleanup. The launcher closes isolated Chrome and removes its temporary profile, disposable DSH home, session persistence, workspace, and temporary plugin link. Close an inactive `system` or `safari` tab manually.
 
 For an automated startup-and-cleanup smoke check only, pass a timeout in milliseconds:
 
@@ -118,6 +121,7 @@ Submit VoiceOver results to issue #2 and NVDA results to issue #1. Accessible Vi
 ## Privacy and safety
 
 - Do not use a normal DSH home, real workspace, API key, prompt, conversation, username, or private path.
+- Prefer `chrome` for its disposable browser profile. Use `system` or `safari` only with a dedicated clean profile, and stop before testing if personal tabs, history, bookmarks, accounts, extensions, or autofill surfaces appear.
 - Do not publish the local sign-in URL while the lab is active.
 - Do not publish raw speech history, screen/audio recordings, logs, screenshots, or braille output without reviewing every frame/line and obtaining consent from identifiable participants.
 - Stop if the browser opens a non-local URL, an unexpected account/profile surface appears, or synthetic content cannot be distinguished from personal data.

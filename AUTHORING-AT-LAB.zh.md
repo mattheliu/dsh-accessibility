@@ -56,9 +56,9 @@ macOS 上的 VoiceOver + Chrome：
 pnpm run lab:at:authoring -- ../deepseek-harness-alpha2 ../dsh-a11y-local-preview chrome 0
 ```
 
-Windows 上的 NVDA／JAWS／Narrator 或 Linux 上的 Orca 请使用 `none 0`，将另行打印的一次性登录 URL 复制到被测浏览器，不得公开该 URL。默认浏览器就是被测浏览器时也可使用 `system 0`。
+Chrome 模式会创建全新临时 profile、禁用后台联网、阻断非 loopback 主机解析，在退出时关闭隔离浏览器并删除 profile。Safari 可能复用既有浏览器上下文，因此只能使用专门的干净 profile；出现个人界面就立即停止。Windows 上的 NVDA／JAWS／Narrator 或 Linux 上的 Orca 请使用 `none 0`，将另行打印的一次性登录 URL 复制到专门的干净浏览器 profile，不得公开该 URL。默认浏览器就是被测浏览器且已经使用专门干净 profile 时，也可使用 `system 0`。
 
-readiness JSON 包含版本、revision、环境、合成 Session ID、精确任务文本、持久化策略与限制；它故意不含一次性登录 URL 和预览 origin。
+readiness JSON 包含版本、revision、环境、浏览器上下文隔离、合成 Session ID、精确任务文本、持久化策略与限制；它故意不含一次性登录 URL 和预览 origin。
 
 ## 成功场景：仅允许一次
 
@@ -115,7 +115,7 @@ readiness JSON 包含版本、revision、环境、合成 Session ID、精确任�
 
 页面只含合成内容，并绑定到字面量临时 `127.0.0.1` origin。提供方阻断 DNS 主机名、远程 origin、query／fragment 秘密载体、环境凭据、不安全方法、WebSocket、下载、service worker 和跨 origin 跳转。DSH 状态、workspace、profile 链接、session 持久化、预览 server 和产品登录 token 均为临时内容，退出时删除；SIGINT／SIGTERM 也执行清理。
 
-测试者仍控制机器和浏览器。不得分享一次性 URL、通过隧道暴露 loopback 端口、向一次性 profile 安装无关插件或换成真实源码。若清理失败，将终端错误作为私有诊断保留；只有核验明确的临时目录路径后才手动删除。
+测试者仍控制机器和浏览器。优先使用隔离 `chrome`；`system` 或 `safari` 只能配合专门的干净 profile，若出现个人标签页、历史记录、书签、账户、扩展或自动填充界面，应在测试前立即停止。不得分享一次性 URL、通过隧道暴露 loopback 端口、向一次性 profile 安装无关插件或换成真实源码。若清理失败，将终端错误作为私有诊断保留；只把经过核验、名称明确的临时目录移到废纸篓，绝不能删除宽泛临时路径。
 
 ## 已知限制和下一层证据
 

@@ -10,7 +10,7 @@ Tracking: [alpha.2 core migration #22](https://github.com/omdsh-dev/dsh-accessib
 
 ## Purpose and evidence boundary
 
-This lab gives a human tester six deterministic, keyless DSH `0.1.2-alpha.2` replay scenarios: completed response, stopped response, failed response, question, plan review, and tool approval. Each run creates one disposable Workspace and blank Session, prints the exact synthetic input, and opens no personal profile or workspace.
+This lab gives a human tester six deterministic, keyless DSH `0.1.2-alpha.2` replay scenarios: completed response, stopped response, failed response, question, plan review, and tool approval. Each run creates one disposable DSH home, Workspace, and blank Session and prints the exact synthetic input. Chrome mode also creates a disposable browser profile; system and Safari modes do not guarantee browser-profile isolation.
 
 The lab exists to observe real speech or braille and focus behavior from DSH's polite live region. A Host `turn/end` line proves only the durable product boundary; it does not prove that a screen reader announced it, announced it once, used understandable wording, or left the tester able to continue. Lab readiness, DOM text, an accessibility-tree dump, and visible captions are not AT passes. Disabled-user evidence additionally requires informed consent and a de-identified task record.
 
@@ -27,11 +27,11 @@ pnpm run lab:at:live ../deepseek-harness plan system
 pnpm run lab:at:live ../deepseek-harness approval system
 ```
 
-Use `safari` or `chrome` instead of `system` on macOS, or `none` to print the one-use local sign-in URL without opening a browser. Do not publish that URL. The readiness JSON records the exact DSH revision, scenario, operating system, synthetic Session id, and `taskInput`.
+Use `chrome` instead of `system` on macOS for a fresh temporary browser profile with background networking disabled and non-loopback host resolution blocked. `safari` may be used only with a dedicated clean profile. `system` may reuse the current default-browser context. Use `none` to print the one-use local sign-in URL without opening a browser. Do not publish that URL. The readiness JSON records browser-context isolation, the exact DSH revision, scenario, operating system, synthetic Session id, and `taskInput`.
 
 Copy `taskInput` exactly. If the Session is not already selected, open the only Session under `live-at-workspace`. Do not submit another prompt: replay fixtures are intentionally finite and a second call must fail rather than reaching a network model.
 
-Return to the terminal and press Ctrl+C after the scenario. The launcher removes its DSH home, persistence, Workspace, replay override, and temporary state. It creates no upload, recording, or public artifact.
+Return to the terminal and press Ctrl+C after the scenario. The launcher closes isolated Chrome and removes its browser profile, DSH home, persistence, Workspace, replay override, and temporary state. It creates no upload, recording, or public artifact. Close an inactive `system` or `safari` tab manually.
 
 A bounded command is startup/cleanup smoke only:
 
@@ -122,6 +122,7 @@ Submit one Issue per exact OS/browser/AT/language/scenario combination using the
 ## Privacy and safety
 
 - Use only `taskInput` and the disposable `live-at-workspace`; never paste a real prompt, credential, path, or conversation.
+- Prefer `chrome` for its disposable browser profile. Use `system` or `safari` only with a dedicated clean profile, and stop before testing if personal tabs, history, bookmarks, accounts, extensions, or autofill surfaces appear.
 - Do not publish the one-use sign-in URL, raw speech history, or unsanitized Host output.
 - Do not record or publish identifiable audio, video, screenshots, logs, or braille output without separate consent and frame/line review.
 - Stop if a non-local URL, personal profile, unexpected network model, or non-synthetic content appears.

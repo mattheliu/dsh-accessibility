@@ -44,12 +44,15 @@ pnpm run lab:at ../deepseek-harness . none
 # 打开系统默认浏览器（所有平台）。
 pnpm run lab:at ../deepseek-harness . system
 
-# 在 macOS 打开真实安装的 Safari 或 Google Chrome。
+# 在 macOS 打开 Safari；必须使用专门的干净浏览器 profile。
 pnpm run lab:at ../deepseek-harness . safari
+
+# 在 macOS 用全新临时 profile 打开 Chrome，同时阻断后台联网与
+# 非 loopback 主机解析。
 pnpm run lab:at ../deepseek-harness . chrome
 ```
 
-启动器会输出带版本的 JSON readiness 记录，包括精确 Git revision、操作系统、本地 origin 和明确限制。临时本地登录地址会单独打印：只在本机使用，实验室运行期间不要粘贴进公开结果。启动器不会创建截图、录音、上传或公开 artifact。完成后返回终端按 Ctrl+C 请求清理，启动器会删除一次性 DSH home、会话存储、工作区和临时插件链接。浏览器中已经失效的本地标签页需手动关闭。
+启动器会输出带版本的 JSON readiness 记录，包括精确 Git revision、操作系统、浏览器上下文隔离、本地 origin 和明确限制。临时本地登录地址会单独打印：只在本机使用，实验室运行期间不要粘贴进公开结果。启动器不会创建截图、录音、上传或公开 artifact。`chrome` 不会打开测试者日常 Chrome profile，因此是本机最安全的默认方式；`system` 与 `safari` 可能复用既有浏览器上下文，只能配合专门的干净 profile 使用。完成后返回终端按 Ctrl+C 请求清理。启动器会关闭隔离 Chrome，并删除其临时 profile、一次性 DSH home、会话存储、工作区和临时插件链接。`system` 或 `safari` 留下的失效标签页需手动关闭。
 
 仅做自动启动／清理冒烟检查时，可传入毫秒超时：
 
@@ -118,6 +121,7 @@ VoiceOver 结果提交到 Issue #2，NVDA 结果提交到 Issue #1；Accessible 
 ## 隐私与安全
 
 - 不得使用日常 DSH home、真实工作区、API key、提示词、对话、用户名或私人路径。
+- 优先使用带一次性浏览器 profile 的 `chrome`。只有准备了专门的干净 profile 才能使用 `system` 或 `safari`；若出现个人标签页、历史记录、书签、账户、扩展或自动填充界面，应在测试前立即停止。
 - 实验室运行期间不得公开本地登录地址。
 - 未逐帧／逐行复核并取得可识别参与者同意前，不得公开原始语音历史、屏幕／音频录制、日志、截图或盲文输出。
 - 如果浏览器打开非本地 URL、出现意外账号／个人 profile 界面，或合成内容无法与个人数据区分，应立即停止。

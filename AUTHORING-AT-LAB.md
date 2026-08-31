@@ -56,9 +56,9 @@ VoiceOver with Chrome on macOS:
 pnpm run lab:at:authoring -- ../deepseek-harness-alpha2 ../dsh-a11y-local-preview chrome 0
 ```
 
-For NVDA/JAWS/Narrator on Windows or Orca on Linux, use `none 0`, copy the separately printed one-use sign-in URL into the browser under test, and do not publish that URL. `system 0` may be used when the default browser is the intended browser.
+Chrome mode creates a fresh temporary profile, disables background networking, blocks non-loopback host resolution, closes the isolated browser on exit, and removes the profile. Safari can reuse its existing browser context, so use it only with a dedicated clean profile and stop immediately if personal UI appears. For NVDA/JAWS/Narrator on Windows or Orca on Linux, use `none 0`, copy the separately printed one-use sign-in URL into a dedicated clean browser profile, and do not publish that URL. `system 0` may be used when the default browser is the intended browser and already has a dedicated clean profile.
 
-The readiness JSON contains versions, revisions, environment, synthetic Session ID, exact task text, persistence policy, and limitations. It intentionally excludes the one-use sign-in URL and preview origin.
+The readiness JSON contains versions, revisions, environment, browser-context isolation, synthetic Session ID, exact task text, persistence policy, and limitations. It intentionally excludes the one-use sign-in URL and preview origin.
 
 ## Success scenario: allow once
 
@@ -115,7 +115,7 @@ Do not attach raw participant recordings, credentials, private prompts, normal D
 
 The page contains synthetic content and binds to a literal ephemeral `127.0.0.1` origin. The provider blocks DNS names, remote origins, query/fragment secret carriers, ambient credentials, unsafe methods, WebSockets, downloads, service workers, and cross-origin navigation. DSH state, workspace, profile links, session persistence, preview server, and product sign-in token are temporary and removed on exit, including SIGINT/SIGTERM cleanup.
 
-The tester still controls the machine and browser. Do not share the one-use URL, expose the loopback port through tunnelling, install unrelated plugins into the disposable profile, or substitute real source code. If cleanup fails, preserve the terminal error as a private diagnostic and remove the specifically named temporary directory only after verifying its path.
+The tester still controls the machine and browser. Prefer isolated `chrome`; use `system` or `safari` only with a dedicated clean profile and stop before testing if personal tabs, history, bookmarks, accounts, extensions, or autofill surfaces appear. Do not share the one-use URL, expose the loopback port through tunnelling, install unrelated plugins into the disposable profile, or substitute real source code. If cleanup fails, preserve the terminal error as a private diagnostic and move the specifically named, verified temporary directory to Trash rather than deleting a broad temporary path.
 
 ## Known limitations and next evidence
 

@@ -1,5 +1,5 @@
 /** Disposable replay world for human observation of DSH live announcements. */
-import { spawn } from 'node:child_process'
+import { spawn, type ChildProcess } from 'node:child_process'
 import { mkdir, mkdtemp, readFile, rm, writeFile } from 'node:fs/promises'
 import { arch, platform, release, tmpdir } from 'node:os'
 import { join } from 'node:path'
@@ -41,15 +41,42 @@ if (recordedPrompts.length !== 1 || recordedPrompts[0] === undefined) {
 }
 const taskInput = selectedScenario === 'plan' ? `/plan ${recordedPrompts[0]}` : recordedPrompts[0]
 
-function openBrowser(url: string): Promise<void> {
-  if (browser === 'none') return Promise.resolve()
+interface LaunchedBrowser {
+  readonly process?: ChildProcess
+  readonly context: 'none' | 'existing-browser-context' | 'temporary-isolated-chrome-profile'
+}
+
+function openBrowser(url: string, temporaryRoot: string): Promise<LaunchedBrowser> {
+  if (browser === 'none') return Promise.resolve({ context: 'none' })
   const os = platform()
+  if (browser === 'chrome') {
+    if (os !== 'darwin') throw new Error('chrome selection is supported only on macOS; use system or none')
+    const process = spawn('/Applications/Google Chrome.app/Contents/MacOS/Google Chrome', [
+      `--user-data-dir=${join(temporaryRoot, 'chrome-profile')}`,
+      '--no-first-run',
+      '--no-default-browser-check',
+      '--disable-background-networking',
+      '--disable-component-update',
+      '--disable-default-apps',
+      '--disable-sync',
+      '--metrics-recording-only',
+      '--host-resolver-rules=MAP * 0.0.0.0, EXCLUDE 127.0.0.1, EXCLUDE localhost',
+      url,
+    ], { stdio: 'ignore' })
+    return new Promise((resolveOpen, reject) => {
+      process.once('error', reject)
+      process.once('spawn', () => resolveOpen({
+        process,
+        context: 'temporary-isolated-chrome-profile',
+      }))
+    })
+  }
   let command: string
   let args: string[]
-  if (browser === 'safari' || browser === 'chrome') {
-    if (os !== 'darwin') throw new Error(`${browser} selection is supported only on macOS; use system or none`)
+  if (browser === 'safari') {
+    if (os !== 'darwin') throw new Error('safari selection is supported only on macOS; use system or none')
     command = 'open'
-    args = ['-a', browser === 'safari' ? 'Safari' : 'Google Chrome', url]
+    args = ['-a', 'Safari', url]
   } else if (os === 'darwin') {
     command = 'open'
     args = [url]
@@ -66,14 +93,41 @@ function openBrowser(url: string): Promise<void> {
     opener.once('exit', (code, signal) => {
       if (signal !== null) reject(new Error(`browser opener ended with signal ${signal}`))
       else if (code !== 0) reject(new Error(`browser opener exited ${String(code)}`))
-      else resolveOpen()
+      else resolveOpen({ context: 'existing-browser-context' })
     })
+  })
+}
+
+async function closeBrowser(launched: LaunchedBrowser | undefined): Promise<void> {
+  const process = launched?.process
+  if (process === undefined || process.exitCode !== null || process.signalCode !== null) return
+  await new Promise<void>((resolveClose, rejectClose) => {
+    let settled = false
+    const finish = (): void => {
+      if (settled) return
+      settled = true
+      clearTimeout(force)
+      clearTimeout(abandon)
+      resolveClose()
+    }
+    const force = setTimeout(() => {
+      if (process.exitCode === null && process.signalCode === null) process.kill('SIGKILL')
+    }, 2_000)
+    const abandon = setTimeout(() => {
+      if (settled) return
+      settled = true
+      clearTimeout(force)
+      rejectClose(new Error('isolated Chrome did not exit within 5000 ms'))
+    }, 5_000)
+    process.once('exit', finish)
+    if (!process.kill('SIGTERM')) finish()
   })
 }
 
 it('boots a disposable replay world for human live-announcement observation', async () => {
   let temporaryRoot: string | undefined
   let scaffold: WebScaffold | undefined
+  let launchedBrowser: LaunchedBrowser | undefined
   let removeEventObserver: (() => void) | undefined
   let stopLab!: () => void
   let stopped = false
@@ -139,6 +193,7 @@ it('boots a disposable replay world for human live-announcement observation', as
         reason: event.data.reason.kind,
       })}\n`)
     })
+    launchedBrowser = await openBrowser(scaffold.authenticatedUrl, temporaryRoot)
 
     process.stdout.write(`${JSON.stringify({
       protocol,
@@ -150,6 +205,7 @@ it('boots a disposable replay world for human live-announcement observation', as
       },
       environment: { os: platform(), osRelease: release(), architecture: arch() },
       requestedBrowser: browser,
+      browserContext: launchedBrowser.context,
       localOrigin: scaffold.baseUrl,
       syntheticSessionId: String(createdSession.sessionId),
       taskInput,
@@ -159,6 +215,9 @@ it('boots a disposable replay world for human live-announcement observation', as
         'actual speech or braille, focus behavior, and task completion require a human record',
         'this replay scenario validates only the selected state transition',
         ...(timeoutMs > 0 ? ['bounded smoke mode does not mount the human-driven replay script'] : []),
+        ...(browser === 'system' || browser === 'safari'
+          ? ['system and Safari modes may reuse an existing browser context; stop if personal UI appears']
+          : []),
       ],
     }, null, 2)}\n`)
     process.stdout.write([
@@ -181,7 +240,6 @@ it('boots a disposable replay world for human live-announcement observation', as
         : `Smoke mode will stop and remove disposable state after ${String(timeoutMs)} ms.`,
       '',
     ].join('\n'))
-    await openBrowser(scaffold.authenticatedUrl)
 
     if (timeoutMs > 0) {
       await Promise.race([
@@ -196,6 +254,7 @@ it('boots a disposable replay world for human live-announcement observation', as
     process.off('SIGTERM', stop)
     removeEventObserver?.()
     const failures: unknown[] = []
+    await closeBrowser(launchedBrowser).catch(error => failures.push(error))
     await scaffold?.close().catch(error => failures.push(error))
     if (temporaryRoot !== undefined) {
       await rm(temporaryRoot, { recursive: true, force: true }).catch(error => failures.push(error))

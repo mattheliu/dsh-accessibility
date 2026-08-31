@@ -10,7 +10,7 @@
 
 ## 目的与证据边界
 
-本实验室为人工测试者提供六个确定、无密钥的 DSH `0.1.2-alpha.2` replay 场景：回答完成、回答停止、回答失败、问题、计划评审和工具审批。每次运行都会创建一次性 Workspace 与空白 Session，打印精确合成输入，不打开任何个人 profile 或工作区。
+本实验室为人工测试者提供六个确定、无密钥的 DSH `0.1.2-alpha.2` replay 场景：回答完成、回答停止、回答失败、问题、计划评审和工具审批。每次运行都会创建一次性 DSH home、Workspace 与空白 Session，并打印精确合成输入。Chrome 模式还会创建一次性浏览器 profile；system 与 Safari 模式不保证浏览器 profile 隔离。
 
 实验室用于观察 DSH polite live region 在真实语音或盲文中的表现，以及播报前后的焦点行为。Host `turn/end` 行只能证明产品持久终态，不能证明读屏已经播报、只播报一次、措辞可理解或测试者仍能继续任务。实验室就绪、DOM 文本、无障碍树转储和可见字幕都不算 AT 通过。残障用户证据还需要知情同意和去标识化任务记录。
 
@@ -27,11 +27,11 @@ pnpm run lab:at:live ../deepseek-harness plan system
 pnpm run lab:at:live ../deepseek-harness approval system
 ```
 
-macOS 可用 `safari` 或 `chrome` 代替 `system`；使用 `none` 时只打印一次性本地登录地址，不打开浏览器。不得公开该地址。就绪 JSON 会记录精确 DSH revision、场景、操作系统、合成 Session id 和 `taskInput`。
+macOS 上应优先用 `chrome` 代替 `system`：它会创建全新临时浏览器 profile、禁用后台联网并阻断非 loopback 主机解析。`safari` 只能配合专门的干净 profile；`system` 可能复用当前默认浏览器上下文。使用 `none` 时只打印一次性本地登录地址，不打开浏览器。不得公开该地址。就绪 JSON 会记录浏览器上下文隔离、精确 DSH revision、场景、操作系统、合成 Session id 和 `taskInput`。
 
 必须原样复制 `taskInput`。如果 Session 没有自动选中，打开 `live-at-workspace` 下唯一的 Session。不要提交第二条提示词：replay fixture 有意保持有限，第二次调用必须失败，绝不能转向网络模型。
 
-完成场景后回到终端按 Ctrl+C。启动器会移除 DSH home、持久化、Workspace、replay override 与临时状态；不会创建上传、录音或公开 artifact。
+完成场景后回到终端按 Ctrl+C。启动器会关闭隔离 Chrome，并移除其浏览器 profile、DSH home、持久化、Workspace、replay override 与临时状态；不会创建上传、录音或公开 artifact。`system` 或 `safari` 留下的失效标签页需手动关闭。
 
 带时限命令仅用于启动／清理冒烟：
 
@@ -122,6 +122,7 @@ pnpm run lab:at:live ../deepseek-harness complete none 500
 ## 隐私与安全
 
 - 只使用 `taskInput` 和一次性 `live-at-workspace`；绝不粘贴真实提示词、凭据、路径或对话。
+- 优先使用带一次性浏览器 profile 的 `chrome`。只有准备了专门的干净 profile 才能使用 `system` 或 `safari`；若出现个人标签页、历史记录、书签、账户、扩展或自动填充界面，应在测试前立即停止。
 - 不得公开一次性登录地址、原始语音历史或未经脱敏的 Host 输出。
 - 未单独取得同意并逐帧／逐行检查时，不得录制或公开可识别音频、视频、截图、日志或盲文输出。
 - 如果出现非本地 URL、个人 profile、意外网络模型或非合成内容，应立即停止。

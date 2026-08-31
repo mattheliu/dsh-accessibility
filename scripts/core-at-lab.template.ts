@@ -83,7 +83,7 @@ function openBrowser(url: string, temporaryRoot: string): Promise<LaunchedBrowse
 async function closeBrowser(launched: LaunchedBrowser | undefined): Promise<void> {
   const process = launched?.process
   if (process === undefined || process.exitCode !== null || process.signalCode !== null) return
-  await new Promise<void>((resolveClose) => {
+  await new Promise<void>((resolveClose, rejectClose) => {
     let settled = false
     const finish = (): void => {
       if (settled) return
@@ -95,7 +95,12 @@ async function closeBrowser(launched: LaunchedBrowser | undefined): Promise<void
     const force = setTimeout(() => {
       if (process.exitCode === null && process.signalCode === null) process.kill('SIGKILL')
     }, 2_000)
-    const abandon = setTimeout(finish, 5_000)
+    const abandon = setTimeout(() => {
+      if (settled) return
+      settled = true
+      clearTimeout(force)
+      rejectClose(new Error('isolated Chrome did not exit within 5000 ms'))
+    }, 5_000)
     process.once('exit', finish)
     if (!process.kill('SIGTERM')) finish()
   })
