@@ -1,0 +1,121 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/omdsh-dev/dsh-accessibility/main/EVIDENCE-COVERAGE-POLICY.schema.json",
+  "title": "DSH human accessibility evidence coverage policy",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["$schema", "protocol", "policyId", "catalog", "description", "profiles"],
+  "properties": {
+    "$schema": { "type": "string", "maxLength": 200 },
+    "protocol": { "const": "dsh-a11y-evidence-coverage-policy/0.1.0-draft" },
+    "policyId": { "type": "string", "pattern": "^[a-z0-9][a-z0-9._-]{7,99}$" },
+    "catalog": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["protocol", "catalogId"],
+      "properties": {
+        "protocol": { "const": "dsh-a11y-evidence-catalog/0.1.0-draft" },
+        "catalogId": { "const": "dsh-accessibility-core-tasks-2026-08-31" }
+      }
+    },
+    "description": { "type": "string", "minLength": 1, "maxLength": 500 },
+    "profiles": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 20,
+      "items": { "$ref": "#/$defs/profile" }
+    }
+  },
+  "$defs": {
+    "identifier": { "type": "string", "pattern": "^[a-z0-9][a-z0-9._-]{1,79}$" },
+    "nameList": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 10,
+      "uniqueItems": true,
+      "items": { "type": "string", "minLength": 1, "maxLength": 80 }
+    },
+    "environment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["surfaceKind"],
+      "properties": {
+        "osNames": { "$ref": "#/$defs/nameList" },
+        "surfaceKind": { "enum": ["browser", "terminal"] },
+        "surfaceNames": { "$ref": "#/$defs/nameList" },
+        "accessTechnologyNames": { "$ref": "#/$defs/nameList" },
+        "requiredModalities": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 7,
+          "uniqueItems": true,
+          "items": { "enum": ["speech", "braille", "keyboard", "switch", "voice", "magnification", "other"] }
+        },
+        "locales": { "$ref": "#/$defs/nameList" }
+      }
+    },
+    "requirement": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "claim", "scenarioProtocol", "taskSelector", "aggregation", "environment"],
+      "properties": {
+        "id": { "$ref": "#/$defs/identifier" },
+        "claim": { "enum": ["a11y-at-tested", "a11y-user-validated"] },
+        "scenarioProtocol": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9.-]*/[0-9]+\\.[0-9]+\\.[0-9]+(-[a-z0-9.-]+)?$",
+          "maxLength": 120
+        },
+        "taskSelector": { "enum": ["claim-eligible", "representative-core", "safety-critical"] },
+        "aggregation": { "enum": ["single-record", "same-environment-cohort"] },
+        "environment": { "$ref": "#/$defs/environment" }
+      },
+      "allOf": [
+        {
+          "if": { "type": "object", "properties": { "claim": { "const": "a11y-at-tested" } }, "required": ["claim"] },
+          "then": {
+            "type": "object",
+            "properties": {
+              "environment": {
+                "type": "object",
+                "properties": {
+                  "accessTechnologyNames": true,
+                  "requiredModalities": true
+                },
+                "anyOf": [
+                  {
+                    "properties": { "accessTechnologyNames": true },
+                    "required": ["accessTechnologyNames"]
+                  },
+                  {
+                    "properties": { "requiredModalities": true },
+                    "required": ["requiredModalities"]
+                  }
+                ]
+              }
+            }
+          }
+        },
+        {
+          "if": { "type": "object", "properties": { "claim": { "const": "a11y-user-validated" } }, "required": ["claim"] },
+          "then": { "type": "object", "properties": { "aggregation": { "const": "single-record" } } }
+        }
+      ]
+    },
+    "profile": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "title", "requirements"],
+      "properties": {
+        "id": { "$ref": "#/$defs/identifier" },
+        "title": { "type": "string", "minLength": 1, "maxLength": 160 },
+        "requirements": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 30,
+          "items": { "$ref": "#/$defs/requirement" }
+        }
+      }
+    }
+  }
+}

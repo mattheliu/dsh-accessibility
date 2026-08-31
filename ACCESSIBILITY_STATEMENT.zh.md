@@ -25,10 +25,10 @@ DSH 无障碍工作组的目标是让残障开发者能够独立、有效、安�
 - 已测试核心候选基于 DSH `0.1.1-rc.2`；上游 `0.1.2-alpha.2` 开发线仍需完成完整兼容审计。
 - 强制颜色、200%/400% 重排、盲文显示器、语音识别、开关控制，以及更广泛的认知和低视力场景尚未完成。
 - 创作／testkit 包及完整审批／修复实验室仍是开发候选；live-model、真实 AT、残障作者、评审和发布证据均待补。
-- 版本化真人证据账本当前只有非证据模板。其任务目录可阻止提交者把任意工作自行归类为核心或可声明任务，但仍尚不能支持 `a11y-at-tested` 或 `a11y-user-validated` 声明。
+- 版本化真人证据账本当前只有非证据模板。其任务目录可阻止提交者把任意工作自行归类为核心或可声明任务，覆盖策略可阻止不兼容精确环境相互拼接，但仍尚不能支持 `a11y-at-tested` 或 `a11y-user-validated` 声明。二十六项聚合要求全部缺失。
 - 自动检查通过不代表所有残障人士都能使用每一个工作流。
 
-精确支持矩阵和人工场景维护在 [ACCESSIBILITY.zh.md](ACCESSIBILITY.zh.md)，经过同意的公开真人结果使用 [HUMAN-EVIDENCE.zh.md](HUMAN-EVIDENCE.zh.md) 及其权威[证据任务目录](EVIDENCE-CATALOG.json)，后续路线和发布门禁见 [ROADMAP.zh.md](ROADMAP.zh.md)。
+精确支持矩阵和人工场景维护在 [ACCESSIBILITY.zh.md](ACCESSIBILITY.zh.md)，经过同意的公开真人结果使用 [HUMAN-EVIDENCE.zh.md](HUMAN-EVIDENCE.zh.md)、其权威[证据任务目录](EVIDENCE-CATALOG.json)及[聚合覆盖策略](EVIDENCE-COVERAGE.zh.md)，后续路线和发布门禁见 [ROADMAP.zh.md](ROADMAP.zh.md)。
 
 ## 反馈
 

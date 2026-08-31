@@ -260,6 +260,7 @@ describe('versioned human accessibility evidence', () => {
     })
     expect(result.status).toBe(0)
     expect(result.stdout).toContain('valid dsh-a11y-evidence-catalog/0.1.0-draft (5 protocols)')
+    expect(result.stdout).toContain('valid dsh-a11y-evidence-coverage-policy/0.1.0-draft (26 requirements)')
     expect(result.stdout).toContain('valid non-evidence template')
   })
 })

@@ -5,6 +5,10 @@ import {
   DEFAULT_EVIDENCE_CATALOG,
   validateEvidenceCatalog,
 } from './evidence-catalog-lib.mjs'
+import {
+  DEFAULT_EVIDENCE_COVERAGE_POLICY,
+  validateEvidenceCoveragePolicy,
+} from './evidence-coverage-lib.mjs'
 import { validateHumanEvidenceRecord } from './human-evidence-lib.mjs'
 
 const catalogValidation = validateEvidenceCatalog(DEFAULT_EVIDENCE_CATALOG)
@@ -12,6 +16,14 @@ if (!catalogValidation.valid) {
   throw new Error(`evidence catalog validation failed:\n${catalogValidation.issues.map(issue => `  - ${issue}`).join('\n')}`)
 }
 process.stdout.write(`EVIDENCE-CATALOG.json: valid ${DEFAULT_EVIDENCE_CATALOG.protocol} (${String(DEFAULT_EVIDENCE_CATALOG.scenarios.length)} protocols)\n`)
+
+const policyValidation = validateEvidenceCoveragePolicy(DEFAULT_EVIDENCE_COVERAGE_POLICY)
+if (!policyValidation.valid) {
+  throw new Error(`evidence coverage policy validation failed:\n${policyValidation.issues.map(issue => `  - ${issue}`).join('\n')}`)
+}
+const requirementCount = DEFAULT_EVIDENCE_COVERAGE_POLICY.profiles
+  .reduce((count, profile) => count + profile.requirements.length, 0)
+process.stdout.write(`EVIDENCE-COVERAGE-POLICY.json: valid ${DEFAULT_EVIDENCE_COVERAGE_POLICY.protocol} (${String(requirementCount)} requirements)\n`)
 
 const rawArguments = process.argv.slice(2)
 const argumentsValue = rawArguments[0] === '--' ? rawArguments.slice(1) : rawArguments

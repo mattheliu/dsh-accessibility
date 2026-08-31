@@ -42,6 +42,11 @@
     "HUMAN-EVIDENCE.schema.json",
     "EVIDENCE-CATALOG.json",
     "EVIDENCE-CATALOG.schema.json",
+    "EVIDENCE-COVERAGE.md",
+    "EVIDENCE-COVERAGE.zh.md",
+    "EVIDENCE-COVERAGE-POLICY.json",
+    "EVIDENCE-COVERAGE-POLICY.schema.json",
+    "EVIDENCE-COVERAGE-REPORT.schema.json",
     "evidence",
     "RFC-ACCESSIBLE-VIEW.md",
     "RFC-ACCESSIBLE-VIEW.zh.md",
@@ -80,7 +85,9 @@
     "scripts/authoring-at-lab.template.ts",
     "scripts/authoring-at-replay.jsonl",
     "scripts/evidence-catalog-lib.mjs",
+    "scripts/evidence-coverage-lib.mjs",
     "scripts/human-evidence-lib.mjs",
+    "scripts/report-human-evidence-coverage.mjs",
     "scripts/validate-human-evidence.mjs",
     "SECURITY.md",
     "LICENSE"
@@ -140,7 +147,9 @@
     "lab:cli": "node scripts/run-cli-conformance.mjs",
     "lab:authoring": "node scripts/run-authoring-agent-lab.mjs",
     "lab:at:authoring": "node scripts/run-authoring-at-lab.mjs",
-    "evidence:validate": "node scripts/validate-human-evidence.mjs evidence"
+    "evidence:validate": "node scripts/validate-human-evidence.mjs evidence",
+    "evidence:coverage": "node scripts/report-human-evidence-coverage.mjs evidence",
+    "evidence:coverage:require": "node scripts/report-human-evidence-coverage.mjs --require-baseline evidence"
   },
   "peerDependencies": {
     "@deepseek-ai/cordis": ">=4.0.1 <5",

@@ -6,7 +6,7 @@
 
 本仓库也是 [DSH 无障碍工作组](https://github.com/omdsh-dev/community/blob/main/working-groups/accessibility.zh-CN.md)的公开项目中心。项目使命是：让残障开发者能够独立、有效、安全地完成 DSH 的核心任务；让 DSH 帮助所有开发者产出更无障碍的数字内容；并用版本化标准、真实辅助技术和残障用户证据持续验证。
 
-项目入口：[无障碍声明](ACCESSIBILITY_STATEMENT.zh.md) · [路线图](ROADMAP.zh.md) · [治理](GOVERNANCE.zh.md) · [研究规程](RESEARCH.zh.md) · [真人证据账本](HUMAN-EVIDENCE.zh.md) · [证据任务目录](EVIDENCE-CATALOG.json) · [Accessible View RFC](RFC-ACCESSIBLE-VIEW.zh.md) · [浏览器证据 RFC](RFC-BROWSER-EVIDENCE.zh.md) · [创作／testkit RFC](RFC-A11Y-AUTHORING.zh.md) · [创作 agent 实验室](AUTHORING-AGENT-LAB.zh.md) · [创作辅助技术实验室](AUTHORING-AT-LAB.zh.md) · [CLI 无障碍规程](CLI-ACCESSIBILITY.zh.md) · [核心 AT 实验室](AT-CORE-LAB.zh.md) · [实时播报 AT 实验室](AT-LIVE-LAB.zh.md) · [Companion AT 实验室](AT-LAB.zh.md) · [贡献指南](CONTRIBUTING.zh.md)
+项目入口：[无障碍声明](ACCESSIBILITY_STATEMENT.zh.md) · [路线图](ROADMAP.zh.md) · [治理](GOVERNANCE.zh.md) · [研究规程](RESEARCH.zh.md) · [真人证据账本](HUMAN-EVIDENCE.zh.md) · [证据任务目录](EVIDENCE-CATALOG.json) · [聚合覆盖策略](EVIDENCE-COVERAGE.zh.md) · [Accessible View RFC](RFC-ACCESSIBLE-VIEW.zh.md) · [浏览器证据 RFC](RFC-BROWSER-EVIDENCE.zh.md) · [创作／testkit RFC](RFC-A11Y-AUTHORING.zh.md) · [创作 agent 实验室](AUTHORING-AGENT-LAB.zh.md) · [创作辅助技术实验室](AUTHORING-AT-LAB.zh.md) · [CLI 无障碍规程](CLI-ACCESSIBILITY.zh.md) · [核心 AT 实验室](AT-CORE-LAB.zh.md) · [实时播报 AT 实验室](AT-LIVE-LAB.zh.md) · [Companion AT 实验室](AT-LAB.zh.md) · [贡献指南](CONTRIBUTING.zh.md)
 
 ## 兼容性
 
@@ -60,7 +60,7 @@ MVP 仍以阅读为主。发送、停止、批准、编辑排队任务或使用�
 
 辅助技术矩阵、人工回归规程和支持边界见 [ACCESSIBILITY.zh.md](ACCESSIBILITY.zh.md)。
 
-经过同意的真人结果使用版本化[真人证据账本](HUMAN-EVIDENCE.zh.md)。稳定任务以及核心、安全关键和声明资格只能来自[证据任务目录](EVIDENCE-CATALOG.json)，不能由提交者自行决定。validator 会保留失败和部分观察，同时禁止过期、私密、存在未记录协助、不安全、无资格、未知或证据不完整的记录声明 `a11y-at-tested` 或 `a11y-user-validated`。当前账本只有非证据模板。
+经过同意的真人结果使用版本化[真人证据账本](HUMAN-EVIDENCE.zh.md)。稳定任务以及核心、安全关键和声明资格只能来自[证据任务目录](EVIDENCE-CATALOG.json)，不能由提交者自行决定。validator 会保留失败和部分观察，同时禁止过期、私密、存在未记录协助、不安全、无资格、未知或证据不完整的记录声明 `a11y-at-tested` 或 `a11y-user-validated`。另有[聚合覆盖策略](EVIDENCE-COVERAGE.zh.md)阻止不兼容精确环境相互拼接，并报告主要与扩展辅助技术、CLI、companion、创作及残障开发者验证的全部缺口。当前账本只有非证据模板，因此二十六项聚合要求全部缺失。
 
 ## CLI 无障碍候选
 

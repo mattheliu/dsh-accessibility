@@ -22,6 +22,7 @@
 - Add the bilingual `dsh-a11y-authoring-at-lab/0.1.0-draft` with a disposable real DSH Web authoring task, real read-only-to-workspace-write approval, automated allow-once and rejection-without-mutation safety gates, system-browser launch modes, consented human AT evidence instructions, and strict non-AT labels for readiness, Host, and Chromium output.
 - Add `dsh-a11y-human-evidence/0.1.0-draft`: a bilingual public evidence protocol, JSON Schema, explicitly non-evidence template, privacy/freshness/claim validator, tests, and CI gate that retain failed or partial human results without promoting automated output or unsupported claims.
 - Add the versioned `dsh-a11y-evidence-catalog/0.1.0-draft` with 30 stable tasks across five human-test protocols, authoritative core/safety/claim classifications, strict schema checks, and fail-closed linkage from every human evidence record.
+- Add `dsh-a11y-evidence-coverage-policy/0.1.0-draft` and a versioned aggregate report for six profiles and twenty-six cataloged human-evidence requirements spanning primary and extended screen readers, braille, voice and switch input, magnification, CLI, companion, authoring, and disabled-developer validation; exact AT environments may not be mixed, disabled-developer task sets stay within one record, missing coverage remains explicit, and the result never represents release readiness.
 - Make package builds remove stale generated declarations before compiling so removed experimental APIs cannot survive in an npm artifact.
 
 ## 0.1.0-beta.6 - 2026-08-29

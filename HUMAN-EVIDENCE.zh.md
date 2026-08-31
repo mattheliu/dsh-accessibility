@@ -61,9 +61,10 @@
 
 ```sh
 pnpm run evidence:validate
+pnpm run evidence:coverage
 ```
 
-仓库内 JSON Schema 供编辑器和外部工具使用。仓库 validator 还会检查固定目录身份、已登记规程／任务、由目录决定的核心与声明资格、跨字段任务清单、120 天新鲜度、占位符拒绝与隐私模式。
+仓库内 JSON Schema 供编辑器和外部工具使用。仓库 validator 还会检查固定目录身份、已登记规程／任务、由目录决定的核心与声明资格、跨字段任务清单、120 天新鲜度、占位符拒绝与隐私模式。随后，[聚合覆盖策略](EVIDENCE-COVERAGE.zh.md)会报告仍缺失的精确环境 cohort 和残障开发者代表性任务集合；它不会升级单条记录，也不能替代发布评审。
 
 ## 隐私与撤回
 
@@ -75,4 +76,4 @@ validator 会在所有 key 与字符串中搜索常见凭据和私有数据模�
 
 ## 当前账本状态
 
-仓库目前只有一个非证据模板。没有任何文件会自动成为 `a11y-at-tested` 或 `a11y-user-validated` 声明。支持状态仍以 [ACCESSIBILITY.zh.md](ACCESSIBILITY.zh.md) 的收窄矩阵为准；在经过同意的真人记录通过本规程与评审之前，对应矩阵行继续保持 pending。
+仓库目前只有一个非证据模板。没有任何文件会自动成为 `a11y-at-tested` 或 `a11y-user-validated` 声明。因此聚合覆盖报告显示真人记录为零、二十六项要求缺失。支持状态仍以 [ACCESSIBILITY.zh.md](ACCESSIBILITY.zh.md) 的收窄矩阵为准；在经过同意的真人记录通过本规程与评审之前，对应矩阵行继续保持 pending。

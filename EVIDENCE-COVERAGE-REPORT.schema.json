@@ -1,0 +1,137 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/omdsh-dev/dsh-accessibility/main/EVIDENCE-COVERAGE-REPORT.schema.json",
+  "title": "DSH human accessibility evidence coverage report",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["protocol", "generatedOn", "verdictScope", "policy", "catalog", "inventory", "baselineSatisfied", "profiles"],
+  "properties": {
+    "protocol": { "const": "dsh-a11y-evidence-coverage-report/0.1.0-draft" },
+    "generatedOn": { "type": "string", "format": "date" },
+    "verdictScope": { "const": "coverage-policy-only-not-release-readiness" },
+    "policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["protocol", "policyId"],
+      "properties": {
+        "protocol": { "const": "dsh-a11y-evidence-coverage-policy/0.1.0-draft" },
+        "policyId": { "type": "string" }
+      }
+    },
+    "catalog": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["protocol", "catalogId"],
+      "properties": {
+        "protocol": { "const": "dsh-a11y-evidence-catalog/0.1.0-draft" },
+        "catalogId": { "type": "string" }
+      }
+    },
+    "inventory": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["templates", "humanEvidence", "claimNone", "atTested", "userValidated"],
+      "properties": {
+        "templates": { "type": "integer", "minimum": 0 },
+        "humanEvidence": { "type": "integer", "minimum": 0 },
+        "claimNone": { "type": "integer", "minimum": 0 },
+        "atTested": { "type": "integer", "minimum": 0 },
+        "userValidated": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "baselineSatisfied": { "type": "boolean" },
+    "profiles": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/profile" }
+    }
+  },
+  "$defs": {
+    "requirement": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "status", "claim", "scenarioProtocol", "taskSelector", "aggregation", "requiredTaskIds", "coveredTaskIds", "missingTaskIds", "matchedRecordIds", "cohort"],
+      "properties": {
+        "id": { "type": "string" },
+        "status": { "enum": ["satisfied", "missing"] },
+        "claim": { "enum": ["a11y-at-tested", "a11y-user-validated"] },
+        "scenarioProtocol": { "type": "string" },
+        "taskSelector": { "enum": ["claim-eligible", "representative-core", "safety-critical"] },
+        "aggregation": { "enum": ["single-record", "same-environment-cohort"] },
+        "requiredTaskIds": { "type": "array", "uniqueItems": true, "items": { "type": "string" } },
+        "coveredTaskIds": { "type": "array", "uniqueItems": true, "items": { "type": "string" } },
+        "missingTaskIds": { "type": "array", "uniqueItems": true, "items": { "type": "string" } },
+        "matchedRecordIds": { "type": "array", "uniqueItems": true, "items": { "type": "string" } },
+        "cohort": {
+          "anyOf": [
+            { "type": "null" },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["dsh", "components", "os", "surface", "accessTechnologies", "locale"],
+              "properties": {
+                "dsh": { "$ref": "#/$defs/build" },
+                "components": { "type": "array", "items": { "$ref": "#/$defs/build" } },
+                "os": { "$ref": "#/$defs/versionedName" },
+                "surface": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": ["kind", "name", "version"],
+                  "properties": {
+                    "kind": { "enum": ["browser", "terminal"] },
+                    "name": { "type": "string" },
+                    "version": { "type": "string" },
+                    "shell": { "type": "string" }
+                  }
+                },
+                "accessTechnologies": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": ["name", "version", "modalities"],
+                    "properties": {
+                      "name": { "type": "string" },
+                      "version": { "type": "string" },
+                      "modalities": { "type": "array", "items": { "type": "string" } }
+                    }
+                  }
+                },
+                "locale": { "type": "string" }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "profile": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "title", "status", "requirements"],
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "status": { "enum": ["satisfied", "missing"] },
+        "requirements": { "type": "array", "items": { "$ref": "#/$defs/requirement" } }
+      }
+    },
+    "versionedName": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "version"],
+      "properties": {
+        "name": { "type": "string" },
+        "version": { "type": "string" }
+      }
+    },
+    "build": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "version", "revision"],
+      "properties": {
+        "name": { "type": "string" },
+        "version": { "type": "string" },
+        "revision": { "type": "string" }
+      }
+    }
+  }
+}

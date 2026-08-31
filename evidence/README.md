@@ -1,6 +1,6 @@
 # Public evidence ledger
 
-This directory contains only consented, de-identified JSON records governed by [the human evidence protocol](../HUMAN-EVIDENCE.md). Protocols, stable task IDs, representative-core classification, safety-critical classification, and claim eligibility come only from the versioned [evidence catalog](../EVIDENCE-CATALOG.json).
+This directory contains only consented, de-identified JSON records governed by [the human evidence protocol](../HUMAN-EVIDENCE.md). Protocols, stable task IDs, representative-core classification, safety-critical classification, and claim eligibility come only from the versioned [evidence catalog](../EVIDENCE-CATALOG.json). The [aggregate coverage policy](../EVIDENCE-COVERAGE.md) evaluates compatible exact-environment cohorts without changing any record's claim.
 
 - `templates/` contains non-evidence starting points. A template must use `recordType: template`, `claim: none`, and `review.status: template`.
 - `records/<year>/` is reserved for reviewed human records. Use `<recordId>.json`; one file covers one exact environment and task set.

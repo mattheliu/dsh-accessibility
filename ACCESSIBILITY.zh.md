@@ -25,8 +25,11 @@ DSH `0.1.2-alpha.2` 开发线还包含一次性 CLI 无障碍候选。其低噪�
 | Windows 11 | Chrome／Firefox | NVDA | Windows 自动门禁通过；物理读屏回归待补 |
 | Windows 11 | Edge／Chrome | JAWS | Windows 自动门禁通过；物理读屏回归待补 |
 | Windows 11 | Edge | Narrator | 建议作为兼容信号，不能替代 NVDA 或 JAWS |
+| Linux | Firefox | Orca | 物理读屏回归待补 |
+| 支持的桌面平台 | 浏览器／终端 | 写明名称的读屏软件与可刷新盲文显示器组合 | 核心 Web 与 CLI 真人盲文记录待补 |
+| 支持的桌面平台 | 浏览器 | 写明名称的语音输入、开关输入或放大技术 | 核心 Web 真人任务记录待补 |
 
-此矩阵只是计划与限制摘要，本身不构成支持声明。只有当前有效、精确版本的真人结果进入并通过[真人证据账本](HUMAN-EVIDENCE.zh.md)校验，并使用权威[证据目录](EVIDENCE-CATALOG.json)中的合格任务后，对应行才可能支持 `a11y-at-tested` 或 `a11y-user-validated`。当前账本只有非证据模板，因此所有人工听读和残障用户行仍为待补。
+此矩阵只是计划与限制摘要，本身不构成支持声明。只有当前有效、精确版本的真人结果进入并通过[真人证据账本](HUMAN-EVIDENCE.zh.md)校验，并使用权威[证据目录](EVIDENCE-CATALOG.json)中的合格任务后，对应行才可能支持 `a11y-at-tested` 或 `a11y-user-validated`。[聚合覆盖策略](EVIDENCE-COVERAGE.zh.md)还会阻止不兼容矩阵行相互拼接。当前账本只有非证据模板，因此所有人工听读、残障用户行及二十六项聚合要求仍为待补。
 
 ## 已记录的 macOS 证据
 
@@ -71,6 +74,7 @@ DSH `0.1.2-alpha.2` 开发线还包含一次性 CLI 无障碍候选。其低噪�
 - Accessible View 的版本化 `dsh-non-at-browser/1.0.0-draft` 组装证据：在 Chromium、Firefox、WebKit 中检查 640／320 CSS px 页面重排、焦点可见／遮挡采样、减少动态效果及 Chromium 强制颜色参与情况。范围与限制见 [RFC-BROWSER-EVIDENCE.zh.md](RFC-BROWSER-EVIDENCE.zh.md)。
 - 版本化 `dsh-cli-accessibility/1.0.0-draft` 产品入口进程符合性：覆盖可发现性、参数闭合失败、低噪声文本、单行 JSON、终端控制字符、退出状态与成功／失败投影；该结果明确不属于 AT 证据。
 - `dsh-a11y-human-evidence/0.1.0-draft` Schema 与仓库 validator，加上固定的 `dsh-a11y-evidence-catalog/0.1.0-draft`：检查精确范围、已登记稳定任务、权威核心／安全／声明资格分类、同意标记、隐私、协助情况、任务安全性／有效性、公开评审和证据新鲜度。此门禁可以拒绝无依据声明，不能制造真人证据。
+- `dsh-a11y-evidence-coverage-policy/0.1.0-draft` 及其版本化报告：只聚合兼容的精确环境 AT 记录，要求残障开发者任务集合保留在单条记录中，并暴露每个缺失基线行，绝不把覆盖率提升成发布就绪。
 - GitHub Actions 中的跨平台 Node、类型、单元、构建和包内容检查。
 - 补丁核心保留组件、GUI、生产构建及浏览器回放套件。
 

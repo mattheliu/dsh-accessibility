@@ -15,6 +15,7 @@ Describe the behavior, the product boundary that owns it, and any compatibility 
 - [ ] Names, roles, states, relationships, and announcements are covered for changed UI.
 - [ ] English and Simplified Chinese product/support documentation remain aligned.
 - [ ] The public human-evidence ledger validates when evidence files change.
+- [ ] Aggregate evidence coverage was reviewed when records, catalog tasks, or coverage policy changed; incompatible environments were not combined.
 - [ ] Support claims identify exact DSH and component revisions, OS, browser or terminal, AT when used, language, configuration, task, and validity period.
 - [ ] Automated evidence is not described as manual screen-reader or disabled-user validation.
 

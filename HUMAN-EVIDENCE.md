@@ -61,9 +61,10 @@ CI intentionally fails when a row still says `current` after `validUntil`. This 
 
 ```sh
 pnpm run evidence:validate
+pnpm run evidence:coverage
 ```
 
-The checked-in JSON Schemas help editors and external tools. The repository validator additionally enforces the pinned catalog identity, known protocol/task inventory, catalog-owned core and claim eligibility, cross-field task inventory, 120-day freshness, placeholder rejection, and privacy patterns that JSON Schema alone cannot safely express.
+The checked-in JSON Schemas help editors and external tools. The repository validator additionally enforces the pinned catalog identity, known protocol/task inventory, catalog-owned core and claim eligibility, cross-field task inventory, 120-day freshness, placeholder rejection, and privacy patterns that JSON Schema alone cannot safely express. The [aggregate coverage policy](EVIDENCE-COVERAGE.md) then reports which exact-environment cohorts and representative disabled-developer task sets remain missing; it never upgrades an individual record or replaces release review.
 
 ## Privacy and withdrawal
 
@@ -75,4 +76,4 @@ Raw audio/video, consent records, contact details, withdrawal routes, disability
 
 ## Current ledger status
 
-The repository currently contains only a non-evidence template. No file is automatically an `a11y-at-tested` or `a11y-user-validated` claim. Support status remains the scoped matrix in [ACCESSIBILITY.md](ACCESSIBILITY.md), and rows remain pending until consented human records pass this protocol and review.
+The repository currently contains only a non-evidence template. No file is automatically an `a11y-at-tested` or `a11y-user-validated` claim. The aggregate coverage report therefore shows zero human records and twenty-six missing requirements. Support status remains the scoped matrix in [ACCESSIBILITY.md](ACCESSIBILITY.md), and rows remain pending until consented human records pass this protocol and review.

@@ -15,13 +15,14 @@
 ```sh
 pnpm install
 pnpm run evidence:validate
+pnpm run evidence:coverage
 pnpm run typecheck
 pnpm test
 pnpm run build
 npm pack --dry-run
 ```
 
-行为变更必须包含确定性测试。支持声明变化必须同步更新中英文无障碍文档，并注明精确浏览器、辅助技术版本、语言、场景、实际朗读和焦点结果。作为声明依据的真人证据还必须新增或更新受 [HUMAN-EVIDENCE.zh.md](HUMAN-EVIDENCE.zh.md) 约束的记录，并使用 [EVIDENCE-CATALOG.json](EVIDENCE-CATALOG.json) 中的规程／任务 ID 和分类。记录新任务前必须先评审新增或修改目录，结果作者不能自行把任务归类为代表性核心或可声明。失败和部分结果以 `claim: none` 保留，原始数据绝不能进入该公开记录。自动检查不能算作人工读屏认证。
+行为变更必须包含确定性测试。支持声明变化必须同步更新中英文无障碍文档，并注明精确浏览器、辅助技术版本、语言、场景、实际朗读和焦点结果。作为声明依据的真人证据还必须新增或更新受 [HUMAN-EVIDENCE.zh.md](HUMAN-EVIDENCE.zh.md) 约束的记录，使用 [EVIDENCE-CATALOG.json](EVIDENCE-CATALOG.json) 中的规程／任务 ID 和分类，并复查对[聚合覆盖](EVIDENCE-COVERAGE.zh.md)的影响。记录新任务或改变项目要求前必须先评审新增／修改目录与覆盖策略，结果作者不能自行把任务归类为代表性核心或可声明。失败和部分结果以 `claim: none` 保留，原始数据绝不能进入该公开记录。自动检查不能算作人工读屏认证。
 
 真实 AT 观察应使用[核心实验室](AT-CORE-LAB.zh.md)验证静态核心任务，使用[实时播报实验室](AT-LIVE-LAB.zh.md)验证回答／工具／请求状态，针对 Accessible View 使用 [companion 实验室](AT-LAB.zh.md)，针对审批和修复使用[创作 AT 实验室](AUTHORING-AT-LAB.zh.md)，针对一次性终端候选使用 [CLI 实验室](CLI-ACCESSIBILITY.zh.md#人工终端与读屏实验室)。这些实验室都使用合成内容，并提供可复制、包含同意边界的结果记录。实验室成功启动本身不算 AT 结果。
 
