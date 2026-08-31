@@ -3,7 +3,7 @@ import {
   buildAuthoringPackageInstallReport,
   evaluateAuthoringPackageDependencyGraph
 } from '../scripts/authoring-package-readiness-lib.mjs'
-import { pnpmTarballOverrides } from '../scripts/authoring-package-install-lib.mjs'
+import { parseNpmPackOutput, pnpmTarballOverrides } from '../scripts/authoring-package-install-lib.mjs'
 
 const spec = {
   name: '@oh-my-dsh/dsh-a11y-composition',
@@ -52,5 +52,15 @@ describe('authoring package isolated install evidence', () => {
     expect(yaml).toContain('overrides:')
     expect(yaml).toContain("'@oh-my-dsh/dsh-a11y-composition'")
     expect(yaml).toContain("'file:/tmp/author''s package.tgz'")
+  })
+
+  it('accepts an informational policy line before npm pack JSON but rejects ambiguous results', () => {
+    const result = parseNpmPackOutput([
+      '✓ Lockfile passes supply-chain policies',
+      JSON.stringify([{ name: spec.name, version: spec.version, filename: 'package.tgz' }], null, 2),
+    ].join('\n'))
+    expect(result).toMatchObject({ name: spec.name, version: spec.version, filename: 'package.tgz' })
+    expect(() => parseNpmPackOutput('not json')).toThrow('valid JSON result')
+    expect(() => parseNpmPackOutput('[]')).toThrow('exactly one package result')
   })
 })

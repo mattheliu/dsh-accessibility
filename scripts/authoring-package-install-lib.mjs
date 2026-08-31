@@ -7,6 +7,23 @@ import { exactGitRevision } from './lab-source-state.mjs'
 
 const execFile = promisify(execFileCallback)
 
+/** Parse npm's JSON result while tolerating bounded informational lines before it. */
+export function parseNpmPackOutput(stdout) {
+  const normalized = String(stdout).trim()
+  const jsonStart = normalized.lastIndexOf('\n[') + 1
+  const candidate = normalized.slice(jsonStart)
+  let value
+  try {
+    value = JSON.parse(candidate)
+  } catch {
+    throw new Error('npm pack did not produce a valid JSON result')
+  }
+  if (!Array.isArray(value) || value.length !== 1) {
+    throw new Error('npm pack did not produce exactly one package result')
+  }
+  return value[0]
+}
+
 export async function packAuthoringPackages(policy, workspaceRoot, tarballRoot) {
   const packed = []
   for (const spec of policy.packages) {
@@ -22,7 +39,7 @@ export async function packAuthoringPackages(policy, workspaceRoot, tarballRoot) 
       ['pack', '--json', '--pack-destination', tarballRoot],
       { cwd: sourceRoot, encoding: 'utf8', maxBuffer: 4 * 1024 * 1024 }
     )
-    const result = JSON.parse(stdout)[0]
+    const result = parseNpmPackOutput(stdout)
     if (result?.name !== spec.name || result?.version !== spec.version || typeof result?.filename !== 'string') {
       throw new Error(`${spec.name} produced an unexpected npm pack result`)
     }

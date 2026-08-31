@@ -12,6 +12,7 @@
 - Prepare all six authoring manifests for public scoped alpha packages with independent `omdsh-dev` repository metadata while keeping remote creation and npm publication as explicit remaining gates.
 - Upgrade package readiness to `0.1.2-draft`, require every origin and metadata URL to match the exact policy repository, record the required public visibility and `main` branch, and force prereleases onto the `alpha` dist-tag instead of npm `latest`.
 - Add a versioned read-only alpha release preflight that derives dependency-first publication layers, verifies public GitHub state and exact remote revisions, detects npm version conflicts and publisher authentication, and packs every clean source without creating, pushing, tagging, or publishing.
+- Keep disposable package gates deterministic when npm emits a supply-chain policy notice before its JSON pack result.
 
 - Add an experimental, user-loaded Accessible View through DSH's official `conversation.view` slot and structured session projection.
 - Preserve source-order conversation records and semantic Markdown/code, including an in-progress assistant record, without scraping or rewriting host DOM.
