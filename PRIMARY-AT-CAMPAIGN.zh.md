@@ -12,6 +12,8 @@
 
 只有机器清单中每个 `availabilityGates` 项都变成 `ready`，活动才能改为 `open`。活动开放只是协调状态，不是真人无障碍证据。
 
+维护者的公开顺序，以及默认分支 PR、Discussion 16 与 Issue 1／2 的受测试替换正文，见[首轮 AT 公开交接包](outreach/primary-at/README.md)。
+
 ## 活动开放后的精确配置
 
 ```sh

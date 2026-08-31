@@ -12,6 +12,8 @@ The public core branch and lab branch do not yet contain the two pinned revision
 
 The campaign may change to `open` only after every `availabilityGates` row in the manifest is `ready`. Opening the campaign is coordination state, not accessibility evidence.
 
+Maintainer publication order and tested replacement bodies for the default-branch PR, Discussion 16, and Issues 1/2 are in the [primary AT outreach handoff](outreach/primary-at/README.md).
+
 ## Exact setup after the campaign opens
 
 ```sh
