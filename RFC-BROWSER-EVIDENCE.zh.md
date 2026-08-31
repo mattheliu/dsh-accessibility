@@ -6,7 +6,7 @@
 
 协议：`dsh-non-at-browser/1.0.0-draft`
 
-首个目标：DSH `0.1.1-rc.2` 加 `dsh-v0.1.1-rc.2-a11y.4` 上的 Accessible View
+使用方：DSH `0.1.1-rc.2` 加 `dsh-v0.1.1-rc.2-a11y.4` 上的 Accessible View；DSH `0.1.2-alpha.2` 上的核心 P0 Web 路由
 
 跟踪：[Issue #9](https://github.com/omdsh-dev/dsh-accessibility/issues/9)
 
@@ -14,7 +14,7 @@
 
 DSH 无障碍发布不能只依赖 DOM 名称与角色。开发期组装运行器因此通过 DSH 真实 ModuleLoader 加载外部 companion，并以显式版本化协议记录重排、焦点可见／遮挡、减少动态效果和强制颜色参与情况。
 
-首个使用方只覆盖 Accessible View，并提供可复用助手。它**不等于**整个 DSH 门禁完成：应用壳、Chat 核心任务流、设置、批准／提问、菜单／对话框、无障碍创作输出和错误恢复都要使用同一契约后，Issue #9 才能关闭。
+Accessible View 建立了可复用契约。核心使用方现在以十四项断言覆盖具名应用壳、静态 P0 任务路由、菜单、Settings、合成器编辑和 Full access 风险准入；归档报告把全部九项可用于声明的 `dsh-core-at-lab/1.0.0-draft` P0 任务 ID 映射到稳定检查。这仍然**不等于**整个 DSH 门禁完成：实时回答／工具／请求状态、错误恢复、无障碍创作输出、真实缩放与高对比度、发行阻塞、辅助技术输出及残障用户独立完成仍是分别验证的证据。
 
 ## 标准映射
 
@@ -40,14 +40,16 @@ DSH 无障碍发布不能只依赖 DOM 名称与角色。开发期组装运行�
 
 测试使用一次性 DSH home 和 DSH 合成 seeded-history fixture，不接触环境中的 DSH profile、凭据、工作区、提示词或会话。通过时不生成截图或上传 artifact。运行器只接受 `chromium`、`firefox`、`webkit`；CI 安装并执行三者。因为各引擎契约并不等价，强制颜色仿真暂时只在 Chromium 执行。
 
+核心仓库以 `pnpm run test:web:accessibility` 提供允许脏工作树的诊断，以 `pnpm run test:web:accessibility:evidence` 生成发行证据。后者会拒绝脏 checkout，重新构建精确 commit，运行三个引擎，并输出由 [`CORE-BROWSER-EVIDENCE.schema.json`](CORE-BROWSER-EVIDENCE.schema.json) 校验的报告。必需断言缺失、重复、被跳过、失败或与引擎能力不一致都会 fail-closed；浏览器子集只能是 `partial`，绝不能是 `pass`。
+
 ## 证据记录
 
-每个浏览器输出一份 JSON 对象，包含：
+Accessible View 运行器为每个浏览器输出一份 JSON 对象；核心运行器在同一规程边界下聚合一份带逐引擎检查清单的报告。记录包含：
 
 - 协议和证据类型；
 - 精确标准标识；
 - DSH 版本和 Git revision；
-- companion 版本和 Git revision；
+- 使用方身份，以及适用时的 companion 版本和 Git revision；
 - OS、OS release、架构、浏览器引擎及版本；
 - 640／320 CSS px 溢出测量；
 - 每个控件的焦点状态、可见采样、视口交集、轮廓和阴影；
@@ -55,7 +57,7 @@ DSH 无障碍发布不能只依赖 DOM 名称与角色。开发期组装运行�
 - 支持时的强制颜色媒体状态、退出强制颜色数量和控件计算样本；
 - 防止把记录误解成辅助技术或残障用户证据的固定限制。
 
-只有测试进程以零退出，并且承载 CI 的 commit 与记录 revision 相符时，记录才有效。脏工作树日志只能用于开发诊断，不能作为发布证据。
+只有每个必需测试进程以零退出、Schema 与语义清单校验通过，并且受测 commit 与记录 revision 相符时，记录才有效。脏工作树日志只能用于开发诊断，不能作为发布证据。第一份经过评审的核心记录归档于 [`automated-evidence/core-browser/2026-08-31-dsh-0.1.2-alpha.2-33eb2d9e1e.json`](automated-evidence/core-browser/2026-08-31-dsh-0.1.2-alpha.2-33eb2d9e1e.json)。
 
 ## 误报与例外策略
 
@@ -79,4 +81,4 @@ DSH 无障碍发布不能只依赖 DOM 名称与角色。开发期组装运行�
 
 ## 发布门禁
 
-Accessible View 首个使用方只有在精确 commit 的三个引擎任务全部通过后，才可标记 `evidence:automated`。在所有已发布 P0 Web 任务路由都使用本契约、人工检查行具备当前负责人／结果且失败会阻断相应发布前，Issue #9 保持开放。本 RFC 从不授权“完全无障碍”、认证、AT 已测试或用户已验证措辞。
+Accessible View 与核心使用方只有在精确 commit 的三个引擎任务全部通过后，才可标记 `evidence:automated`。归档核心记录已经满足静态 P0 路由扩展里程碑；但在实时与创作路由按适用范围使用本契约、人工检查行具备当前负责人／结果且失败会阻断相应发布前，Issue #9 保持开放。本 RFC 从不授权“完全无障碍”、认证、AT 已测试或用户已验证措辞。

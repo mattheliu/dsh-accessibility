@@ -6,7 +6,7 @@ Status: draft for public review
 
 Protocol: `dsh-non-at-browser/1.0.0-draft`
 
-Initial target: Accessible View on DSH `0.1.1-rc.2` plus `dsh-v0.1.1-rc.2-a11y.4`
+Consumers: Accessible View on DSH `0.1.1-rc.2` plus `dsh-v0.1.1-rc.2-a11y.4`; core P0 Web routes on DSH `0.1.2-alpha.2`
 
 Tracking: [#9](https://github.com/omdsh-dev/dsh-accessibility/issues/9)
 
@@ -14,7 +14,7 @@ Tracking: [#9](https://github.com/omdsh-dev/dsh-accessibility/issues/9)
 
 DSH accessibility releases need deterministic browser evidence beyond DOM names and roles. The development-only assembled runner therefore loads the real external companion through DSH's ModuleLoader and records reflow, focus visibility/obscuration, reduced-motion, and forced-color participation under an explicit versioned protocol.
 
-This first consumer covers Accessible View. It seeds a reusable helper but does **not** complete the whole-DSH gate: the application shell, Chat core task flows, Settings, approvals/questions, menus/dialogs, authoring output, and error recovery still need to consume the same contract before issue #9 can close.
+Accessible View seeded the reusable contract. The core consumer now covers fourteen assertions across the named shell, static P0 task routes, menus, Settings, composer editing, and Full access risk admission. Its archived report maps all nine claim-eligible `dsh-core-at-lab/1.0.0-draft` P0 task IDs to stable checks. This still does **not** complete the whole-DSH gate: live response/tool/request transitions, error recovery, authoring output, real zoom and High Contrast, release blocking, assistive-technology output, and disabled-user completion remain separate evidence.
 
 ## Standards map
 
@@ -40,14 +40,16 @@ Normative and explanatory references:
 
 The test uses a temporary DSH home and DSH's synthetic seeded-history fixture. It does not use the ambient DSH profile, credentials, workspace, prompts, or sessions. Passing runs create no screenshot or uploaded artifact. The runner accepts only `chromium`, `firefox`, and `webkit`; CI installs and executes all three. Forced-color emulation is currently Chromium-only because the cross-engine contract is not equivalent.
 
+The core repository owns `pnpm run test:web:accessibility` for dirty-checkout diagnostics and `pnpm run test:web:accessibility:evidence` for release evidence. The latter rejects a dirty checkout, rebuilds the exact commit, runs all three engines, and emits one report validated by [`CORE-BROWSER-EVIDENCE.schema.json`](CORE-BROWSER-EVIDENCE.schema.json). Missing, duplicated, skipped, failed, or capability-inconsistent required assertions fail closed; a browser subset is `partial`, never `pass`.
+
 ## Evidence record
 
-Every browser emits one JSON object containing:
+The Accessible View runner emits one JSON object per browser. The core runner aggregates the same protocol boundary into one report with a per-engine check list. Records contain:
 
 - protocol and evidence kind;
 - exact standard identifiers;
 - DSH version and Git revision;
-- companion version and Git revision;
+- the consumer identity and, where applicable, companion version and Git revision;
 - OS, OS release, architecture, browser engine, and engine version;
 - 640/320 CSS px overflow measurements;
 - per-control focus state, sampled visibility, viewport intersection, outline, and shadow;
@@ -55,7 +57,7 @@ Every browser emits one JSON object containing:
 - forced-color media state, opt-out count, and computed control samples when supported;
 - fixed limitations that prevent the record from being misread as AT or disabled-user evidence.
 
-A record is valid only when the test process exits zero and the containing CI commit matches the recorded revision. Logs from a dirty checkout are development diagnostics, not release evidence.
+A record is valid only when every required test process exits zero, its schema and semantic inventory validate, and the tested commit matches the recorded revision. Logs from a dirty checkout are development diagnostics, not release evidence. The first reviewed core record is archived at [`automated-evidence/core-browser/2026-08-31-dsh-0.1.2-alpha.2-33eb2d9e1e.json`](automated-evidence/core-browser/2026-08-31-dsh-0.1.2-alpha.2-33eb2d9e1e.json).
 
 ## False-positive and exception policy
 
@@ -79,4 +81,4 @@ Before treating a DSH core route as covered, manually verify at minimum:
 
 ## Release gate
 
-The initial Accessible View consumer may carry `evidence:automated` after all three engine jobs pass on an exact commit. Issue #9 stays open until every published P0 Web task route consumes the contract, manual-only rows have current owners/results, and failures block the relevant release. This RFC never authorizes “fully accessible,” certification, AT-tested, or user-validated language.
+Accessible View and the core consumer may carry `evidence:automated` only after all three engine jobs pass on an exact commit. The archived core record satisfies the static P0 route expansion milestone, but issue #9 stays open until live and authoring routes consume the contract where applicable, manual-only rows have current owners/results, and failures block the relevant release. This RFC never authorizes “fully accessible,” certification, AT-tested, or user-validated language.

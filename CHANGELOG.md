@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Extend `dsh-non-at-browser/1.0.0-draft` to the core DSH static P0 Web routes, add a fail-closed public schema, and archive an exact clean-revision three-engine report covering fourteen checks and nine cataloged tasks without promoting it to AT or disabled-user evidence.
 - Add a versioned six-package authoring publication-readiness graph and fail-closed reporter that distinguishes clean, independently installable npm sources from accessibility conformance or human evidence.
 - Replace publishable authoring manifests' source-local dependency protocols with exact prerelease versions, retain local development overrides outside the packed manifests, and add a disposable six-tarball installation/import gate.
 - Make replay and live authoring-agent evidence reject dirty DSH, composition, or lab sources and retain all three exact revisions.

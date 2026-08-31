@@ -50,7 +50,7 @@ dsh --profile web
 
 MVP 仍以阅读为主。发送、停止、批准、编辑排队任务或使用专用工具控件时需返回 Chat。数据流、威胁评审、精确限制及 VoiceOver／NVDA 验证方式见 [RFC-ACCESSIBLE-VIEW.zh.md](RFC-ACCESSIBLE-VIEW.zh.md)。
 
-开发期组装门禁还会在 Chromium、Firefox 和 WebKit 中以 640／320 CSS px 运行候选，采样焦点控件是否被遮挡、审计减少动态效果，并检查 Chromium 强制颜色参与情况。这些是版本化确定性结果，不是真实缩放、Windows 高对比度、辅助技术或残障用户证据。详见 [RFC-BROWSER-EVIDENCE.zh.md](RFC-BROWSER-EVIDENCE.zh.md)。
+开发期组装门禁还会在 Chromium、Firefox 和 WebKit 中以 640／320 CSS px 运行候选，采样焦点控件是否被遮挡、审计减少动态效果，并检查 Chromium 强制颜色参与情况。核心 `0.1.2-alpha.2` 使用方现已把十四项必需检查和九项已登记 P0 Web 任务固定到干净精确 revision `33eb2d9e1ed6bc44712941f4bf40d4eda154ab9e`；经过 Schema 校验的三引擎报告归档在 [`automated-evidence/`](automated-evidence/README.zh.md)。这些是版本化确定性结果，不是真实缩放、Windows 高对比度、辅助技术或残障用户证据。详见 [RFC-BROWSER-EVIDENCE.zh.md](RFC-BROWSER-EVIDENCE.zh.md)。
 
 ## 自检范围
 
