@@ -247,3 +247,21 @@ export function runAccessibilityAudit(root: ParentNode = document): Accessibilit
     check('separators', unusableSeparators),
   ]
 }
+
+/**
+ * Run the same engine against a detached, synthetic one-defect document. This
+ * gives human evaluators a stable guidance exercise without modifying or
+ * reading the current page and can never become a report export source.
+ */
+export function runSyntheticAccessibilityExample(): AccessibilityCheck[] {
+  const example = document.implementation.createHTMLDocument('Synthetic accessibility example')
+  const navigation = example.createElement('nav')
+  navigation.setAttribute('aria-label', 'Synthetic primary navigation')
+  const main = example.createElement('main')
+  const heading = example.createElement('h1')
+  heading.textContent = 'Synthetic application'
+  const unnamedButton = example.createElement('button')
+  main.append(heading, unnamedButton)
+  example.body.append(navigation, main)
+  return runAccessibilityAudit(example)
+}

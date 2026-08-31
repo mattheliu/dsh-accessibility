@@ -8,7 +8,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        欢迎部分结果。每个产品／浏览器或终端／辅助技术／语言组合单独提交一个 Issue。请使用匹配的版本化规程；一次性 CLI 使用 dsh-cli-accessibility/1.0.0-draft，创作允许／拒绝任务使用 dsh-a11y-authoring-at-lab/0.1.0-draft。Issue 只是源材料；公开支持声明还必须具备按 dsh-a11y-human-evidence/0.1.0-draft 评审的记录。不要附加参与者原始录音、一次性登录 URL、未经检查的 session log 或个人数据。
+        欢迎部分结果。每个产品／浏览器或终端／辅助技术／语言组合单独提交一个 Issue。请使用匹配的版本化规程：companion 阅读／诊断任务使用 dsh-at-lab/1.0.0-draft，一次性 CLI 使用 dsh-cli-accessibility/1.0.0-draft，创作允许／拒绝任务使用 dsh-a11y-authoring-at-lab/0.1.0-draft。Issue 只是源材料；公开支持声明还必须具备按 dsh-a11y-human-evidence/0.1.0-draft 评审的记录。不要附加参与者原始录音、一次性登录 URL、未经检查的 session log 或个人数据。
   - type: checkboxes
     id: authority
     attributes:

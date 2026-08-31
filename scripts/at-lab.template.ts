@@ -179,7 +179,7 @@ it('boots a disposable synthetic world for human AT observation', async () => {
       '',
       'AT lab ready.',
       `Local sign-in URL (do not publish while the lab is active): ${localSignInUrl}`,
-      'Select the synthetic session, activate Accessible view, then Load reading view.',
+      'Select the synthetic session and complete Accessible view, then open Settings > Accessibility for the diagnostic tasks.',
       'Follow AT-LAB.md or AT-LAB.zh.md and record actual speech, focus, outcome, and workaround.',
       timeoutMs === 0
         ? 'Return to this terminal and press Ctrl+C when finished; the disposable DSH state will be removed.'

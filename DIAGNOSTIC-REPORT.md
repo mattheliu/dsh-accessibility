@@ -8,11 +8,13 @@ This protocol lets a developer explicitly copy a small, reviewable record of the
 
 ## User and privacy boundary
 
-Nothing is copied, downloaded, persisted, or transmitted automatically. The report is created only after the developer runs the page diagnostic and activates **Copy redacted JSON report**. Clipboard failure is reported without falling back to another storage or network channel.
+Nothing is copied, downloaded, persisted, or transmitted automatically. After running the current-page diagnostic, the developer must activate **Prepare and review redacted JSON** to create an in-memory preview, read the exact JSON, and then activate a separate **Copy redacted JSON report** action. Preparing or reviewing never writes the clipboard. Clipboard failure is reported without falling back to another storage or network channel.
 
 The exporter projects the internal result through an exact allowlist. It includes only the protocol, generation time, fixed scope and no-claim marker, summary counts, the seventeen stable check IDs with outcomes and affected counts, an explicit omission list, and fixed limitations. It excludes the page URL and title, DOM or HTML, selectors, IDs and classes, element or accessible names, conversation content, browser identity, screenshots, credentials, and raw errors. Unknown source properties are discarded. The user should still inspect the JSON before sharing because counts and timing can provide limited contextual information.
 
 The separate focus inspector is deliberately outside this contract. Its ephemeral accessible-name snapshot can contain page content and must never be merged into the redacted report under `1.0.0-draft`.
+
+The separate synthetic guidance exercise runs the same check engine against a detached, fixed one-defect document. It neither reads nor modifies the current page and is deliberately ineligible as the source of a report preview. Its result teaches the interface and supports repeatable human evaluation; it is not human evidence by itself.
 
 ## Interpretation
 

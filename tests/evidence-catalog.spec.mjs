@@ -18,18 +18,20 @@ const protocolDocuments = new Map([
 ])
 
 describe('versioned accessibility evidence catalog', () => {
-  it('defines five versioned protocols and thirty stable task ids', () => {
+  it('defines five versioned protocols and thirty-three stable task ids', () => {
     const result = validateEvidenceCatalog(DEFAULT_EVIDENCE_CATALOG)
     expect(result).toEqual({ valid: true, issues: [] })
     expect(DEFAULT_EVIDENCE_CATALOG.protocol).toBe(EVIDENCE_CATALOG_PROTOCOL)
     expect(DEFAULT_EVIDENCE_CATALOG.scenarios).toHaveLength(5)
-    expect(DEFAULT_EVIDENCE_CATALOG.scenarios.reduce((count, scenario) => count + scenario.tasks.length, 0)).toBe(30)
+    expect(DEFAULT_EVIDENCE_CATALOG.scenarios.reduce((count, scenario) => count + scenario.tasks.length, 0)).toBe(33)
 
     const index = createEvidenceCatalogIndex()
     expect(index.get('dsh-a11y-authoring-at-lab/0.1.0-draft').tasksById.get('allow-once'))
       .toMatchObject({ representativeCoreTask: true, safetyCritical: true, claimEligible: true })
     expect(index.get('dsh-core-at-lab/1.0.0-draft').tasksById.get('nonvisual-repeat'))
       .toMatchObject({ representativeCoreTask: false, safetyCritical: false, claimEligible: false })
+    expect(index.get('dsh-at-lab/1.0.0-draft').tasksById.get('copy-redacted-diagnostic'))
+      .toMatchObject({ representativeCoreTask: true, safetyCritical: true, claimEligible: true })
   })
 
   it('contains product task definitions but no participant evidence fields', () => {

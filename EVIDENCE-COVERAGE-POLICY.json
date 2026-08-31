@@ -4,7 +4,7 @@
   "policyId": "dsh-accessibility-platform-baseline-2026-08-31",
   "catalog": {
     "protocol": "dsh-a11y-evidence-catalog/0.1.0-draft",
-    "catalogId": "dsh-accessibility-core-tasks-2026-08-31"
+    "catalogId": "dsh-accessibility-core-tasks-2026-08-31-r2"
   },
   "description": "A draft human-evidence baseline for the currently cataloged DSH tasks. It measures exact-environment coverage and is not by itself a release or conformance decision.",
   "profiles": [

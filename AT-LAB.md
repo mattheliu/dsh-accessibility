@@ -8,7 +8,7 @@ Protocol: `dsh-at-lab/1.0.0-draft`
 
 Tracking: [VoiceOver #2](https://github.com/omdsh-dev/dsh-accessibility/issues/2), [NVDA #1](https://github.com/omdsh-dev/dsh-accessibility/issues/1), and [Accessible View #10](https://github.com/omdsh-dev/dsh-accessibility/issues/10)
 
-This protocol tests the `0.1.1-rc.2` companion and Accessible View. Use the separate [DSH core AT lab](AT-CORE-LAB.md) for the current `0.1.2-alpha.2` core candidate.
+This protocol tests the `0.1.1-rc.2` companion, Accessible View, and the diagnostic feedback loop. Use the separate [DSH core AT lab](AT-CORE-LAB.md) for the current `0.1.2-alpha.2` core candidate.
 
 ## Purpose and evidence boundary
 
@@ -78,6 +78,9 @@ Use only the synthetic session. The backticked names below are stable catalog ta
 8. `copy-visible-message` — Copy a visible message; record the announcement and verify that hidden context, reasoning, tool material, paths, and source metadata are not copied.
 9. `clear-reading-view` — Clear the view; verify that sensitive content unmounts and focus returns to Load reading view.
 10. `return-to-chat` — Return to Chat and complete the ordinary keyboard route without pointer recovery.
+11. `use-diagnostic-guidance` — Open Settings → Accessibility, run the detached synthetic diagnostic practice, understand that exactly one of seventeen checks needs attention, expand the control-name guidance, and identify the missing-name repair without relying on color or visual location. Confirm that the practice neither changes nor scans the current page.
+12. `inspect-focused-control` — Start focus tracking, move to the Accessibility navigation control outside the inspector panel, return to the inspector, and understand its element, approximate name and source, role, Tab position, and current state. Confirm the snapshot is retained when focus returns, is not continuously announced while browsing, and stops changing after Stop tracking focus.
+13. `copy-redacted-diagnostic` — Run the current-page diagnostic, activate Prepare and review redacted JSON, read enough of the exact preview to identify `protocol`, `claim: none`, check IDs/counts, exclusions, and limitations, then activate the separate Copy action. Confirm the copy announcement is understandable and the preview contains no page URL/title, DOM/selector, element or focus name, conversation content, or browser identity. Do not paste it into a public destination during the task.
 
 For VoiceOver, use the rotor, VO+Left/Right, VO+Space, and Tab/Shift+Tab according to the control. For NVDA, test both browse and focus modes and record mode switches. Do not normalize a surprising utterance: record it exactly enough to reproduce while omitting synthetic content that is not needed for the defect.
 
@@ -109,6 +112,9 @@ For VoiceOver, use the rotor, VO+Left/Right, VO+Space, and Tab/Shift+Tab accordi
 | `copy-visible-message` | | | | | |
 | `clear-reading-view` | | | | | |
 | `return-to-chat` | | | | | |
+| `use-diagnostic-guidance` | | | | | |
+| `inspect-focused-control` | | | | | |
+| `copy-redacted-diagnostic` | | | | | |
 
 - Unexpected announcements, repetitions, silence, or cursor traps:
 - Recovery path:

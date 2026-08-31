@@ -22,7 +22,7 @@ Use one exact candidate and one protocol per run:
 
 - [Core Web AT lab](AT-CORE-LAB.md) for navigation, sessions, layout, conversation, trajectory, settings, and composer tasks.
 - [Live-announcement AT lab](AT-LIVE-LAB.md) for completed, stopped, failed, question, plan, and approval transitions.
-- [Accessible View AT lab](AT-LAB.md) for the external companion reading view.
+- [Companion AT lab](AT-LAB.md) for Accessible View plus the synthetic diagnostic-guidance, focus-inspection, and redacted-report tasks.
 - [CLI accessibility protocol](CLI-ACCESSIBILITY.md) for completed and authentication-failure terminal tasks.
 - [Accessible authoring AT lab](AUTHORING-AT-LAB.md) for allow-once and rejection safety tasks.
 

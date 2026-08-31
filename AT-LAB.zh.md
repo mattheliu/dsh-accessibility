@@ -8,7 +8,7 @@
 
 跟踪：[VoiceOver #2](https://github.com/omdsh-dev/dsh-accessibility/issues/2)、[NVDA #1](https://github.com/omdsh-dev/dsh-accessibility/issues/1)及 [Accessible View #10](https://github.com/omdsh-dev/dsh-accessibility/issues/10)
 
-本规程验证 `0.1.1-rc.2` companion 与 Accessible View。当前 `0.1.2-alpha.2` 核心候选请使用独立的 [DSH 核心 AT 实验室](AT-CORE-LAB.zh.md)。
+本规程验证 `0.1.1-rc.2` companion、Accessible View 与诊断反馈闭环。当前 `0.1.2-alpha.2` 核心候选请使用独立的 [DSH 核心 AT 实验室](AT-CORE-LAB.zh.md)。
 
 ## 目的与证据边界
 
@@ -78,6 +78,9 @@ pnpm run lab:at ../deepseek-harness . none 1000
 8. `copy-visible-message`——复制一条可见消息；记录播报，并确认隐藏上下文、推理、工具材料、路径和来源元数据没有被复制。
 9. `clear-reading-view`——清除阅读视图；确认敏感正文已卸载，焦点返回 Load reading view。
 10. `return-to-chat`——返回 Chat，仅用键盘走完普通路径，不依赖指针恢复。
+11. `use-diagnostic-guidance`——打开“设置 → 无障碍”，运行脱离页面的合成诊断练习，理解十七项中恰有一项需要处理；展开控件名称建议，并且不依赖颜色或视觉位置识别出“缺少名称”的修复方向。确认练习既不修改也不扫描当前页面。
+12. `inspect-focused-control`——开启焦点跟踪，移动到检查器面板之外的“无障碍”导航控件，再返回检查器；理解其元素、近似名称及来源、角色、Tab 位置和当前状态。确认返回后快照仍保留、浏览时不会持续播报，并且激活“停止跟踪焦点”后不再变化。
+13. `copy-redacted-diagnostic`——运行当前页面诊断，激活“准备并检查脱敏 JSON”，阅读精确预览中足以识别 `protocol`、`claim: none`、检查 ID／数量、排除项和限制的部分，再另行激活复制。确认复制播报可理解，并且预览不含页面 URL／标题、DOM／selector、元素或焦点名称、会话内容或浏览器标识。任务过程中不要把内容粘贴到公开位置。
 
 VoiceOver 使用转子、VO+左／右、VO+空格，以及控件需要时的 Tab／Shift+Tab。NVDA 需分别测试浏览模式和焦点模式并记录切换。不要把异常朗读“修正成预期措辞”；在不泄露无关内容的前提下，按可复现程度记录原始结果。
 
@@ -109,6 +112,9 @@ VoiceOver 使用转子、VO+左／右、VO+空格，以及控件需要时的 Tab
 | `copy-visible-message` | | | | | |
 | `clear-reading-view` | | | | | |
 | `return-to-chat` | | | | | |
+| `use-diagnostic-guidance` | | | | | |
+| `inspect-focused-control` | | | | | |
+| `copy-redacted-diagnostic` | | | | | |
 
 - 意外播报、重复、静默或光标陷阱：
 - 恢复路径：

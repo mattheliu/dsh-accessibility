@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import type { CSSProperties } from 'react'
 import type { PropsLocale, PropsRuntime } from '@deepseek-ai/dsh-client-ui-slots'
 import type {} from '@deepseek-ai/dsh-client-ui-settings/client'
-import { runAccessibilityAudit } from './audit.ts'
+import { runAccessibilityAudit, runSyntheticAccessibilityExample } from './audit.ts'
 import type { AccessibilityCheck } from './audit.ts'
 import { redactedDiagnosticReportText } from './diagnostic-report.ts'
 import { inspectFocusedElement, type FocusInspection } from './focus-inspector.ts'
@@ -31,11 +31,14 @@ function checkHelpKey(id: AccessibilityCheck['id']): AccessibilityKey {
 /** Settings page contributed through DSH's canonical additive section slot. */
 export function AccessibilitySection({ t }: AccessibilitySectionProps) {
   const [checks, setChecks] = useState<AccessibilityCheck[] | null>(null)
+  const [exampleChecks, setExampleChecks] = useState<AccessibilityCheck[] | null>(null)
+  const [reportPreview, setReportPreview] = useState<string | null>(null)
   const [copyState, setCopyState] = useState<CopyState>('idle')
   const [trackingFocus, setTrackingFocus] = useState(false)
   const [inspection, setInspection] = useState<FocusInspection | null>(null)
   const inspectorRef = useRef<HTMLElement>(null)
   const failed = checks?.filter(check => !check.passed).length ?? 0
+  const exampleFailed = exampleChecks?.filter(check => !check.passed).length ?? 0
   const summary = checks === null
     ? t('audit.idle')
     : failed === 0
@@ -54,11 +57,11 @@ export function AccessibilitySection({ t }: AccessibilitySectionProps) {
   }, [trackingFocus])
 
   async function copyReport(): Promise<void> {
-    if (checks === null) return
+    if (reportPreview === null) return
     try {
       const clipboard = globalThis.navigator?.clipboard
       if (clipboard === undefined) throw new Error('clipboard unavailable')
-      await clipboard.writeText(redactedDiagnosticReportText(checks))
+      await clipboard.writeText(reportPreview)
       setCopyState('success')
     } catch {
       setCopyState('failure')
@@ -78,6 +81,7 @@ export function AccessibilitySection({ t }: AccessibilitySectionProps) {
         <p>{t('audit.description')}</p>
         <button type="button" style={buttonStyle} onClick={() => {
           setChecks(runAccessibilityAudit())
+          setReportPreview(null)
           setCopyState('idle')
         }}>
           {t('audit.run')}
@@ -103,9 +107,23 @@ export function AccessibilitySection({ t }: AccessibilitySectionProps) {
           <div aria-labelledby="dsh-accessibility-export-title">
             <h4 id="dsh-accessibility-export-title">{t('audit.export.title')}</h4>
             <p>{t('audit.export.description')}</p>
-            <button type="button" style={buttonStyle} onClick={() => { void copyReport() }}>
-              {t('audit.export.copy')}
+            <button type="button" style={buttonStyle} onClick={() => {
+              setReportPreview(redactedDiagnosticReportText(checks))
+              setCopyState('idle')
+            }}>
+              {t('audit.export.prepare')}
             </button>
+            {reportPreview !== null && (
+              <div>
+                <h5 id="dsh-accessibility-export-preview-title">{t('audit.export.preview')}</h5>
+                <pre role="region" tabIndex={0} aria-labelledby="dsh-accessibility-export-preview-title">
+                  {reportPreview}
+                </pre>
+                <button type="button" style={buttonStyle} onClick={() => { void copyReport() }}>
+                  {t('audit.export.copy')}
+                </button>
+              </div>
+            )}
             <p role="status" aria-live="polite">
               {copyState === 'success'
                 ? t('audit.export.success')
@@ -115,6 +133,37 @@ export function AccessibilitySection({ t }: AccessibilitySectionProps) {
             </p>
           </div>
         )}
+        <div aria-labelledby="dsh-accessibility-example-title">
+          <h4 id="dsh-accessibility-example-title">{t('audit.example.title')}</h4>
+          <p>{t('audit.example.description')}</p>
+          <button
+            type="button"
+            style={buttonStyle}
+            onClick={() => { setExampleChecks(runSyntheticAccessibilityExample()) }}
+          >
+            {t('audit.example.run')}
+          </button>
+          {exampleChecks !== null && (
+            <div>
+              <p role="status" aria-live="polite">
+                {t('audit.summary.fail', { failed: exampleFailed, count: exampleChecks.length })}
+              </p>
+              <ul>
+                {exampleChecks.filter(check => !check.passed).map(check => (
+                  <li key={check.id}>
+                    <strong>{t(`check.${check.id}`)}</strong>: {t('audit.fail')}
+                    {` — ${t('check.affected', { count: check.affected })}`}
+                    <details>
+                      <summary>{t('audit.help.show')}</summary>
+                      <p>{t(checkHelpKey(check.id))}</p>
+                    </details>
+                  </li>
+                ))}
+              </ul>
+              <p>{t('audit.example.boundary')}</p>
+            </div>
+          )}
+        </div>
       </section>
 
       <section ref={inspectorRef} style={cardStyle} aria-labelledby="dsh-accessibility-inspector-title">

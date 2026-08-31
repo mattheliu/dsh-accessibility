@@ -22,7 +22,7 @@ DSH 需要两类不同的真人结果：真实辅助技术的互操作观察，�
 
 - [核心 Web AT 实验室](AT-CORE-LAB.zh.md)：导航、Session、布局、对话、trajectory、设置和 composer 任务。
 - [实时播报 AT 实验室](AT-LIVE-LAB.zh.md)：完成、停止、失败、问题、计划和审批状态转换。
-- [Accessible View AT 实验室](AT-LAB.zh.md)：外置 companion 阅读视图。
+- [Companion AT 实验室](AT-LAB.zh.md)：Accessible View，以及合成诊断建议、焦点检查和脱敏报告任务。
 - [CLI 无障碍规程](CLI-ACCESSIBILITY.zh.md)：终端完成与鉴权失败任务。
 - [无障碍创作 AT 实验室](AUTHORING-AT-LAB.zh.md)：仅允许一次与拒绝安全任务。
 

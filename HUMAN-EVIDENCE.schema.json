@@ -32,7 +32,7 @@
       "required": ["protocol", "catalogId"],
       "properties": {
         "protocol": { "const": "dsh-a11y-evidence-catalog/0.1.0-draft" },
-        "catalogId": { "const": "dsh-accessibility-core-tasks-2026-08-31" }
+        "catalogId": { "const": "dsh-accessibility-core-tasks-2026-08-31-r2" }
       }
     },
     "recordType": { "enum": ["template", "human-evidence"] },

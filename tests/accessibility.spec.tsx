@@ -64,6 +64,19 @@ describe('rendered accessibility settings section', () => {
     expect(view.queryByText('Second external control', { selector: 'dd' })).toBeNull()
   })
 
+  it('offers a deterministic guidance exercise without enabling current-page export', async () => {
+    const view = render(
+      <main><h1>Private current page</h1><AccessibilitySection t={translate as never} /></main>,
+    )
+    fireEvent.click(view.getByRole('button', { name: 'audit.example.run' }))
+    expect(await view.findByText('audit.summary.fail 1 17')).toBeTruthy()
+    expect(view.getByText('check.controls')).toBeTruthy()
+    expect(view.getByText('audit.example.boundary')).toBeTruthy()
+    expect(view.queryByRole('button', { name: 'audit.export.copy' })).toBeNull()
+    fireEvent.click(view.getByText('audit.help.show'))
+    expect(view.getByText('check.help.controls')).toBeTruthy()
+  })
+
   it('copies only the allowlisted redacted report after an explicit action', async () => {
     const writeText = vi.fn().mockResolvedValue(undefined)
     Object.defineProperty(navigator, 'clipboard', {
@@ -82,6 +95,10 @@ describe('rendered accessibility settings section', () => {
     )
 
     fireEvent.click(view.getByRole('button', { name: 'audit.run' }))
+    expect(writeText).not.toHaveBeenCalled()
+    expect(view.queryByRole('button', { name: 'audit.export.copy' })).toBeNull()
+    fireEvent.click(view.getByRole('button', { name: 'audit.export.prepare' }))
+    expect(view.getByText('audit.export.preview')).toBeTruthy()
     expect(writeText).not.toHaveBeenCalled()
     fireEvent.click(await view.findByRole('button', { name: 'audit.export.copy' }))
     await waitFor(() => { expect(writeText).toHaveBeenCalledTimes(1) })

@@ -20,6 +20,7 @@ export {
   hasAccessibleName,
   hasAuthorName,
   runAccessibilityAudit,
+  runSyntheticAccessibilityExample,
 } from './audit.ts'
 export type { AccessibilityCheck, AccessibilityCheckId } from './audit.ts'
 export {

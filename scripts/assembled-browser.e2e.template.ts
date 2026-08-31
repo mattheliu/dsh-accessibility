@@ -188,21 +188,8 @@ describe('external dsh-accessibility Accessible View', () => {
     await heading.waitFor({ state: 'visible', timeout: 15_000 })
     const section = heading.locator('..').locator('..')
 
-    await dialog.evaluate((root) => {
-      const named = document.createElement('button')
-      named.type = 'button'
-      named.dataset.assembledPrivateFocus = 'true'
-      named.setAttribute('aria-label', 'Synthetic private customer control')
-      named.setAttribute('aria-expanded', 'true')
-      root.append(named)
-      const unnamed = document.createElement('button')
-      unnamed.type = 'button'
-      unnamed.dataset.assembledUnnamed = 'true'
-      root.append(unnamed)
-    })
-
     try {
-      await section.getByRole('button', { name: 'Check current page' }).click()
+      await section.getByRole('button', { name: 'Run synthetic diagnostic practice' }).click()
       await section.getByText('1 of 17 checks need attention.', { exact: true })
         .waitFor({ state: 'visible' })
       const controlResult = section.getByText('Interactive control names', { exact: true }).locator('..')
@@ -210,13 +197,16 @@ describe('external dsh-accessibility Accessible View', () => {
       await section.getByText(/Inspect control names in the browser accessibility tree/u)
         .waitFor({ state: 'visible' })
 
+      await section.getByRole('button', { name: 'Check current page' }).click()
+      await section.getByText('All 17 checks passed.', { exact: true }).waitFor({ state: 'visible' })
       await section.getByRole('button', { name: 'Start tracking focus' }).click()
-      await dialog.locator('[data-assembled-private-focus="true"]').focus()
+      await dialog.getByRole('button', { name: 'Accessibility', exact: true }).focus()
       await section.getByRole('button', { name: 'Stop tracking focus' }).focus()
-      await section.getByText('Synthetic private customer control', { exact: true })
-        .waitFor({ state: 'visible' })
-      await section.getByText('aria-expanded=true', { exact: true }).waitFor({ state: 'visible' })
+      await section.getByText('Accessibility', { exact: true }).waitFor({ state: 'visible' })
+      await section.getByText('aria-current=true', { exact: true }).waitFor({ state: 'visible' })
 
+      await section.getByRole('button', { name: 'Prepare and review redacted JSON' }).click()
+      await section.getByRole('region', { name: 'Redacted JSON to be copied' }).waitFor({ state: 'visible' })
       await section.getByRole('button', { name: 'Copy redacted JSON report' }).click()
       await section.getByText('The redacted diagnostic report was copied to the system clipboard.')
         .waitFor({ state: 'visible' })
@@ -229,9 +219,12 @@ describe('external dsh-accessibility Accessible View', () => {
       expect(report.protocol).toBe('dsh-accessibility-diagnostic/1.0.0-draft')
       expect(report.claim).toBe('none')
       expect(report.checks?.find(check => check.id === 'controls')).toEqual({
-        id: 'controls', outcome: 'needs-attention', affected: 1,
+        id: 'controls', outcome: 'passed', affected: 0,
       })
-      expect(reportText).not.toMatch(/Synthetic private|assembled-private|about:blank|customer control/iu)
+      expect(report.checks?.every(check => (
+        Object.keys(check).toSorted().join(',') === 'affected,id,outcome'
+      ))).toBe(true)
+      expect(reportText).not.toMatch(/aria-current|about:blank|HTMLButtonElement/iu)
 
       const result = await heading.evaluate(async (title): Promise<AxeResult> => {
         const root = title.closest('section')
@@ -254,8 +247,6 @@ describe('external dsh-accessibility Accessible View', () => {
         axeViolations: result.violations.length,
       }, null, 2)}\n`)
     } finally {
-      await dialog.locator('[data-assembled-private-focus="true"], [data-assembled-unnamed="true"]')
-        .evaluateAll(elements => { for (const element of elements) element.remove() })
       await page.keyboard.press('Escape')
     }
   }, 120_000)

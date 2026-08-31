@@ -1,7 +1,7 @@
 {
   "$schema": "https://raw.githubusercontent.com/omdsh-dev/dsh-accessibility/main/EVIDENCE-CATALOG.schema.json",
   "protocol": "dsh-a11y-evidence-catalog/0.1.0-draft",
-  "catalogId": "dsh-accessibility-core-tasks-2026-08-31",
+  "catalogId": "dsh-accessibility-core-tasks-2026-08-31-r2",
   "reviewedOn": "2026-08-31",
   "scenarios": [
     {
@@ -226,6 +226,30 @@
           "description": "Return to Chat and complete the ordinary keyboard route without pointer recovery.",
           "representativeCoreTask": true,
           "safetyCritical": false,
+          "claimEligible": true
+        },
+        {
+          "id": "use-diagnostic-guidance",
+          "title": "Use diagnostic repair guidance",
+          "description": "Run the detached one-defect practice, understand the result without visual location, and use its contextual guidance to identify the missing control-name repair.",
+          "representativeCoreTask": true,
+          "safetyCritical": false,
+          "claimEligible": true
+        },
+        {
+          "id": "inspect-focused-control",
+          "title": "Inspect a focused control",
+          "description": "Track one external focus target, return without losing the snapshot, and understand its element, name source, role, Tab position, and exposed state without continuous announcements.",
+          "representativeCoreTask": true,
+          "safetyCritical": false,
+          "claimEligible": true
+        },
+        {
+          "id": "copy-redacted-diagnostic",
+          "title": "Review and copy a redacted diagnostic",
+          "description": "Run the current-page check, review the exact no-claim JSON preview, verify its explicit exclusions, and copy that same preview without page, element, conversation, or browser data.",
+          "representativeCoreTask": true,
+          "safetyCritical": true,
           "claimEligible": true
         }
       ]

@@ -3,7 +3,7 @@
   "protocol": "dsh-a11y-human-evidence/0.1.0-draft",
   "catalog": {
     "protocol": "dsh-a11y-evidence-catalog/0.1.0-draft",
-    "catalogId": "dsh-accessibility-core-tasks-2026-08-31"
+    "catalogId": "dsh-accessibility-core-tasks-2026-08-31-r2"
   },
   "recordType": "template",
   "recordId": "template-authoring-at-allow-once",

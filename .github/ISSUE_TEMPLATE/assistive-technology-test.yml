@@ -8,7 +8,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        Partial results are welcome. Submit one issue per product/browser-or-terminal/AT/language combination. Use the matching versioned protocol, including dsh-cli-accessibility/1.0.0-draft for the one-shot CLI and dsh-a11y-authoring-at-lab/0.1.0-draft for the authoring allow/reject task. An issue is source material; a public support claim additionally requires a reviewed record under dsh-a11y-human-evidence/0.1.0-draft. Do not attach raw participant recordings, one-use sign-in URLs, unreviewed session logs, or personal data.
+        Partial results are welcome. Submit one issue per product/browser-or-terminal/AT/language combination. Use the matching versioned protocol, including dsh-at-lab/1.0.0-draft for companion reading/diagnostic tasks, dsh-cli-accessibility/1.0.0-draft for the one-shot CLI, and dsh-a11y-authoring-at-lab/0.1.0-draft for the authoring allow/reject task. An issue is source material; a public support claim additionally requires a reviewed record under dsh-a11y-human-evidence/0.1.0-draft. Do not attach raw participant recordings, one-use sign-in URLs, unreviewed session logs, or personal data.
   - type: checkboxes
     id: authority
     attributes:

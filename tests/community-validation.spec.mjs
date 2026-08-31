@@ -61,4 +61,13 @@ describe('community validation intake', () => {
     expect(config).toContain('security/advisories/new')
     expect(config).toContain('never post participant contact details publicly')
   })
+
+  it.each(['assistive-technology-test.yml', 'assistive-technology-test-zh.yml'])(
+    '%s routes companion diagnostic tasks to the exact human protocol',
+    (file) => {
+      const form = source(`.github/ISSUE_TEMPLATE/${file}`)
+      expect(form).toContain('dsh-at-lab/1.0.0-draft')
+      expect(form).toMatch(/reading\/diagnostic|阅读／诊断/)
+    },
+  )
 })
