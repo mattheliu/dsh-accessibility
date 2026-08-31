@@ -75,4 +75,4 @@ Live 模式不得使用真实产品数据或日常鉴权预览。任务、工具
 - 精确源码校验刻意严格，可能拒绝语义等价的 live-model 修改；这是符合性 fixture，不是通用修复 benchmark。
 - 本 fixture 的替代文本质量由构造时已知；真实内容仍须作者判断。
 - Chromium 与 axe-core 结果不能证明平台无障碍 API 或读屏语音／盲文表现。
-- local-preview 产品组合及其本地依赖仍是 private、尚未发布；本实验室仅提供预发布证据。
+- local-preview 产品组合及其依赖已经具有公开 alpha 包元数据，但远端仓库和 npm 发布尚未启用；本实验室仅提供预发布证据。

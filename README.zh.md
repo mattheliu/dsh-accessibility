@@ -68,7 +68,7 @@ MVP 仍以阅读为主。发送、停止、批准、编辑排队任务或使用�
 
 ## 无障碍创作候选
 
-Draft [创作／testkit RFC](RFC-A11Y-AUTHORING.zh.md) 把纯版本化证据引擎、仅用于开发的浏览器 testkit、两个独立评审的页面提供层、选择性启用且模型可见的 `a11y_check` 适配器，以及分别授权的产品组合分成独立边界。六个独立本地包现已覆盖两条提供链路。`dsh-a11y-local-preview/0.1.0-draft` 是面向一次性字面量 loopback 预览、默认禁用的可安装 DSH bundle；`dsh-a11y-caller-page/0.1.0-draft` 是不可序列化的可信宿主组合，用于生命周期仍由调用方拥有的精确页面。后者不增加标签发现、导航、URL／认证读取、截图、HTML 序列化或关闭浏览器权限，并在策略上只允许一次性、未认证的合成页面。真实 Chromium、真实 loopback HTTP、已发布 DSH `SystemPrompt`／`ToolRuntime`、生命周期释放、隐私、包内容，以及适用路径的 bundle 安装与配置 dump 测试均已在本地通过。版本化[创作 agent 实验室](AUTHORING-AGENT-LAB.zh.md)证明了一项无密钥真实产品 agent-loop 任务：工具轨迹精确为 `a11y_check → read → edit → a11y_check`，自动 finding 从两项降到零。另行提供的[创作辅助技术实验室](AUTHORING-AT-LAB.zh.md)可通过真实 DSH Web 与审批 UI 操作该流程，并加入“仅允许一次”和“拒绝后源码不变”的自动安全门禁，以及经同意的 VoiceOver／NVDA 真人记录格式；自动浏览器和 Host 结果仍明确不属于辅助技术证据。[包发布就绪策略](AUTHORING-PACKAGE-READINESS.zh.md)现已固定六包依赖图，并在不混淆“可安装”和“符合性”的前提下报告发布阻塞项。六个包继续保持 private、尚未发布；评审、live-model 修复、人工听读辅助技术和残障作者门禁仍待完成，自动报告干净永远不能表述成 WCAG 符合。
+Draft [创作／testkit RFC](RFC-A11Y-AUTHORING.zh.md) 把纯版本化证据引擎、仅用于开发的浏览器 testkit、两个独立评审的页面提供层、选择性启用且模型可见的 `a11y_check` 适配器，以及分别授权的产品组合分成独立边界。六个独立本地包现已覆盖两条提供链路。`dsh-a11y-local-preview/0.1.0-draft` 是面向一次性字面量 loopback 预览、默认禁用的可安装 DSH bundle；`dsh-a11y-caller-page/0.1.0-draft` 是不可序列化的可信宿主组合，用于生命周期仍由调用方拥有的精确页面。后者不增加标签发现、导航、URL／认证读取、截图、HTML 序列化或关闭浏览器权限，并在策略上只允许一次性、未认证的合成页面。真实 Chromium、真实 loopback HTTP、已发布 DSH `SystemPrompt`／`ToolRuntime`、生命周期释放、隐私、包内容，以及适用路径的 bundle 安装与配置 dump 测试均已在本地通过。版本化[创作 agent 实验室](AUTHORING-AGENT-LAB.zh.md)证明了一项无密钥真实产品 agent-loop 任务：工具轨迹精确为 `a11y_check → read → edit → a11y_check`，自动 finding 从两项降到零，并验证持久化不可信数据框定。另行提供的[创作辅助技术实验室](AUTHORING-AT-LAB.zh.md)可通过真实 DSH Web 与审批 UI 操作该流程，并加入“仅允许一次”和“拒绝后源码不变”的自动安全门禁，以及经同意的 VoiceOver／NVDA 真人记录格式；自动浏览器和 Host 结果仍明确不属于辅助技术证据。[包发布就绪策略](AUTHORING-PACKAGE-READINESS.zh.md)现已固定六包依赖图，并在不混淆“可安装”和“符合性”的前提下报告发布阻塞项。六个 manifest 已按公开 scoped alpha 包准备，但远端仓库和 npm 发布尚未启用；评审、live-model 修复、人工听读辅助技术和残障作者门禁仍待完成，自动报告干净永远不能表述成 WCAG 符合。
 
 适配器还会把每个页面／provider 派生的报告字符串明确框定并以 JSON 引用为不可信数据；其中夹带的命令绝不会变成指令，也不能成为扩大工具、文件、网络或批准权限的理由。
 
@@ -84,7 +84,7 @@ pnpm pack --pack-destination ./artifacts
 
 ## 模型体验
 
-本分支的 runtime companion 不会增加模型可见的工具、提示词、消息或 context。另行授权的私有创作包不会被捆绑进 companion。
+本分支的 runtime companion 不会增加模型可见的工具、提示词、消息或 context。另行授权的创作包不会被捆绑进 companion。
 
 ## 安全与隐私
 

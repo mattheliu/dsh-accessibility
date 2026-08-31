@@ -4,7 +4,7 @@
 
 状态：draft。规程：`dsh-a11y-testkit/0.1.0-draft`、`dsh-a11y-loopback-provider/0.1.0-draft`、`dsh-a11y-authoring/0.1.0-draft`、`dsh-a11y-local-preview/0.1.0-draft`、`dsh-a11y-caller-page/0.1.0-draft`、`dsh-a11y-authoring-agent-lab/0.1.1-draft` 与 `dsh-a11y-authoring-at-lab/0.1.0-draft`。
 
-实现状态：六个私有本地包现已实现确定性 testkit、调用方自有页面提供层、另行版本化的字面量 loopback 提供层、只读 DSH 适配器、可安装的字面量 loopback 产品组合，以及面向精确调用方自有页面、不可序列化的可信宿主组合。两条提供链路均已通过真实 Chromium 与已发布 `0.1.2-alpha.2` DSH `ToolRuntime` 组装验证；字面量 loopback 组合还通过了真实 DSH profile 安装与配置 dump，两种组合均通过插件加载、SystemPrompt 目标清单、生命周期、隐私和包产物检查。版本化无密钥实验室让真实 DSH agent loop 执行精确的审计／读取／编辑／复审任务。另一个一次性 Web 实验室现可操作真实审批界面，分别验证“仅允许一次”修复和“拒绝后不修改”，并定义真人辅助技术记录，同时不把自动浏览器输出提升为辅助技术证据。评审与远程发布、鉴权／跨 origin 设计、live-model 修复证据、人工听读辅助技术证据和残障作者任务证据仍是开放发布门禁。
+实现状态：六个独立封装的本地源码现已实现确定性 testkit、调用方自有页面提供层、另行版本化的字面量 loopback 提供层、只读 DSH 适配器、可安装的字面量 loopback 产品组合，以及面向精确调用方自有页面、不可序列化的可信宿主组合。它们的 manifest 已按公开 scoped alpha 包准备，但远端仓库和 npm 发布尚未启用。两条提供链路均已通过真实 Chromium 与已发布 `0.1.2-alpha.2` DSH `ToolRuntime` 组装验证；字面量 loopback 组合还通过了真实 DSH profile 安装与配置 dump，两种组合均通过插件加载、SystemPrompt 目标清单、生命周期、隐私和包产物检查。版本化无密钥实验室让真实 DSH agent loop 执行精确的审计／读取／编辑／复审任务。另一个一次性 Web 实验室现可操作真实审批界面，分别验证“仅允许一次”修复和“拒绝后不修改”，并定义真人辅助技术记录，同时不把自动浏览器输出提升为辅助技术证据。评审与远程发布、鉴权／跨 origin 设计、live-model 修复证据、人工听读辅助技术证据和残障作者任务证据仍是开放发布门禁。
 
 ## 问题
 
@@ -70,13 +70,13 @@ runtime companion 继续负责 DSH 自身诊断和无障碍 UI。它不能因为
 
 ## 调用方自有页面提供层边界
 
-首个私有提供层接收可信宿主创建并拥有的页面，只保留一个新包装对象中的 `addScriptTag` 与 `evaluate`。宿主注册精确不透明句柄和明确允许模型看见的 subject label。提供层不向模型枚举目标、不检查额外页面方法、不读取 URL，也不关闭页面。每个句柄同时只允许一次审计；未知与重复句柄会在不泄露 registry 的情况下失败；模型等待时间有上限，并且传播调用方取消与注册撤销。
+首个提供层接收可信宿主创建并拥有的页面，只保留一个新包装对象中的 `addScriptTag` 与 `evaluate`。宿主注册精确不透明句柄和明确允许模型看见的 subject label。提供层不向模型枚举目标、不检查额外页面方法、不读取 URL，也不关闭页面。每个句柄同时只允许一次审计；未知与重复句柄会在不泄露 registry 的情况下失败；模型等待时间有上限，并且传播调用方取消与注册撤销。
 
 因为该提供层刻意不能关闭调用方页面，底层求值在超时或取消后仍可能继续，直到页面或操作真正结束；句柄在这段真实生命周期内继续保持忙碌。更强取消和页面清理由宿主负责。另行实现的字面量 loopback 提供层属于独立扩权，并拥有自己的策略与生命周期证据。
 
 ## 调用方自有页面宿主组合边界
 
-`dsh-a11y-caller-page/0.1.0-draft` 是私有可信宿主组合，用于无法序列化进 DSH profile 行的页面对象。宿主在同一进程内传入一至八个精确页面。挂载任何内容前，组合会拒绝缺失、重复、类似 URL／路径、畸形或未知字段；随后只挂载调用方自有页面提供层、只读适配器，以及仅含规程与有序句柄的 SystemPrompt 清单。subject label 与页面派生 selector 只出现在有界工具输出中，宿主仍须审查披露范围。
+`dsh-a11y-caller-page/0.1.0-draft` 是仅限可信宿主的组合，用于无法序列化进 DSH profile 行的页面对象。宿主在同一进程内传入一至八个精确页面。挂载任何内容前，组合会拒绝缺失、重复、类似 URL／路径、畸形或未知字段；随后只挂载调用方自有页面提供层、只读适配器，以及仅含规程与有序句柄的 SystemPrompt 清单。subject label 与页面派生 selector 只出现在有界工具输出中，宿主仍须审查披露范围。
 
 本组合绝不创建或关闭浏览器、发现标签页、导航、读取 URL、附加认证、检查 Cookie 或 header、截图、序列化 HTML、下载内容、读取工作区或修改源码。释放组合会撤销全部句柄与模型可见 surface，但刻意让页面继续打开并保持宿主拥有的状态。若不取得本设计排除的权限，本包无法判断鉴权或机密性；因此此 draft 只允许一次性、未认证的合成页面。生产、个人、机密、已认证及跨 origin 状态必须另行评审新规程，不能作为静默配置变化加入。
 
@@ -92,7 +92,7 @@ runtime companion 继续负责 DSH 自身诊断和无障碍 UI。它不能因为
 
 ## 模型可见 `a11y_check` 边界
 
-首个私有、选择性启用的工具实现只有一个职责：请求扫描，返回受限报告与修复指导。它不编辑文件。源码修改继续经过 DSH 现有 read／edit 工具、沙箱策略、已观察版本检查、diff 呈现和用户批准。两种提供层都已在组装测试中验证这个边界；字面量 loopback 路径还具有下述独立产品组合。
+首个选择性启用的工具实现只有一个职责：请求扫描，返回受限报告与修复指导。它不编辑文件。源码修改继续经过 DSH 现有 read／edit 工具、沙箱策略、已观察版本检查、diff 呈现和用户批准。两种提供层都已在组装测试中验证这个边界；字面量 loopback 路径还具有下述独立产品组合。
 
 最小调用只标识调用方拥有的精确不透明页面 handle，以及可选的子树 selector。模型永远不能提交 URL。另行挂载的提供层可以把宿主创建的 handle 映射到调用方自有页面，或符合策略的字面量 loopback 页面。适配器必须：
 
@@ -109,7 +109,7 @@ runtime companion 继续负责 DSH 自身诊断和无障碍 UI。它不能因为
 
 ## 本地预览产品组合边界
 
-`dsh-a11y-local-preview/0.1.0-draft` 是私有、默认禁用的 DSH profile bundle 与 Cordis 插件。可信 profile 可配置一至八个从规范化不透明句柄到字面量 loopback 目标的精确映射。插件会在创建提供层前验证全部映射，拒绝重复句柄与 URL query／fragment，挂载版本化 loopback 提供层，注册只读适配器，并向 SystemPrompt 贡献一个只包含组合规程和句柄列表的运行时 context。目标 URL、路径、subject label、ready selector、Cookie、凭据、header、浏览器错误、截图、HTML 和文件系统路径都不会进入该清单或工具 schema。
+`dsh-a11y-local-preview/0.1.0-draft` 是已准备公开包、默认禁用的 DSH profile bundle 与 Cordis 插件。可信 profile 可配置一至八个从规范化不透明句柄到字面量 loopback 目标的精确映射。插件会在创建提供层前验证全部映射，拒绝重复句柄与 URL query／fragment，挂载版本化 loopback 提供层，注册只读适配器，并向 SystemPrompt 贡献一个只包含组合规程和句柄列表的运行时 context。目标 URL、路径、subject label、ready selector、Cookie、凭据、header、浏览器错误、截图、HTML 和文件系统路径都不会进入该清单或工具 schema。
 
 Bundle 随附行保持 disabled，不带任何活动目标。后置可信 profile patch 必须重述完整配置并启用它。预览服务器的启动、ready、关闭、日志和留存数据由宿主负责，而不是插件。因此安装说明要求使用可丢弃、无特权的服务器与测试数据；它不会把提供层变成服务器启动器，也不会授予鉴权访问。插件释放时会通过同一个 DSH 生命周期撤销目标清单、工具注册、提供层注册、活动浏览器 context 和自有浏览器进程。
 
@@ -136,7 +136,7 @@ Selector 可能暴露名称、ID、测试数据或应用结构。它们对程序
 1. 以实验性开发包发布纯报告契约和首个页面审计 testkit。
 2. 迁移 companion 的组装浏览器断言来使用 testkit，不改变其证据范围。
 3. 评审已实现的字面量 loopback 提供层策略与生命周期证据；只有定义服务器启动、ready、关闭、日志和留存输出的责任后，才增加 loopback-only CLI。
-4. 评审两个已实现的私有产品组合：可安装的字面量 loopback bundle，以及另行授权的调用方自有页面宿主组合。两条路径都必须保留注入的审计 service，不能让模型适配器直接 import Playwright。
+4. 评审两个已实现、分别授权的产品组合：可安装的字面量 loopback bundle，以及调用方自有页面可信宿主组合。两条路径都必须保留注入的审计 service，不能让模型适配器直接 import Playwright。
 5. 在不放宽轨迹、精确修复、清理、隐私和证据等级门禁的前提下，让 live model 执行版本化任务。
 6. 用 VoiceOver 与 NVDA 分别执行 `dsh-a11y-authoring-at-lab/0.1.0-draft` 的允许与拒绝场景，保留精确语音／盲文、焦点、理解、协助、同意与限制，再由残障开发者完成代表性创作任务。
 7. 只有经过单独版本化规则、证据和权限评审后，才扩展到已渲染 Web 页面之外。

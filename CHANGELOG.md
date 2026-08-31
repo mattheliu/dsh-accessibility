@@ -9,6 +9,7 @@
 - Mount the human authoring AT lab from the same disposable six-tarball consumer instead of a source-checkout symlink, while retaining exact source revisions and non-AT readiness labels.
 - Frame every model-visible authoring report string as JSON-quoted untrusted page/provider data and prohibit embedded commands from becoming instructions or authority expansion.
 - Upgrade the authoring-agent evidence protocol to `0.1.1-draft` and fail unless both real persisted audit results retain the security boundary and confine an injection-like subject to one quoted data record.
+- Prepare all six authoring manifests for public scoped alpha packages with independent `omdsh-dev` repository metadata while keeping remote creation and npm publication as explicit remaining gates.
 
 - Add an experimental, user-loaded Accessible View through DSH's official `conversation.view` slot and structured session projection.
 - Preserve source-order conversation records and semantic Markdown/code, including an in-progress assistant record, without scraping or rewriting host DOM.

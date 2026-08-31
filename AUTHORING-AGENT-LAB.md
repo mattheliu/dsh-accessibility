@@ -75,4 +75,4 @@ The next evidence tier must use the complete interactive DSH surface, not this h
 - Exact-source validation is intentionally strict and may reject a semantically equivalent live-model edit; this is a conformance fixture, not a general repair benchmark.
 - Alternative-text quality is known by fixture construction here. Real content still requires author judgment.
 - Chromium and axe-core results do not expose platform accessibility APIs or screen-reader speech/braille.
-- The local-preview composition and its local dependencies remain private and unpublished; this lab is pre-release evidence only.
+- The local-preview composition and its dependencies have public-alpha package metadata but no active remote repositories or npm releases; this lab is pre-release evidence only.
