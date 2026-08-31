@@ -101,8 +101,9 @@ The minimum call identifies an exact caller-owned opaque page handle and an opti
 3. reject URLs and filesystem paths at the tool boundary; the literal-loopback mapping separately rejects credentials, arbitrary request headers, cookies, file and `data:` URLs, DNS names, cross-origin requests, unsafe methods, and non-loopback navigation;
 4. propagate cancellation and enforce configured time, page, finding, node, and byte caps;
 5. return provider failures as tool errors without converting them into a clean report;
-6. label every automated outcome and limitation in model-visible text; and
-7. register no write, fix, certification, score, or “make compliant” operation.
+6. label every automated outcome and limitation in model-visible text;
+7. treat subject labels, rule text, selectors, summaries, links, and limitations as untrusted page/provider data, JSON-quote them in rendered output, and forbid following embedded commands or expanding authority because of them; and
+8. register no write, fix, certification, score, or “make compliant” operation.
 
 Repair help names the affected requirement, location, why it matters, what evidence is still needed, and one or more author choices. It must not generate generic or filename-based alternative text. Any proposed alternative must remain editable and require the author to accept, modify, or reject it before insertion, following ATAG 2.0 B.2.3.2.
 
@@ -116,7 +117,7 @@ Current evidence loads the package through the real Cordis plugin API with publi
 
 ## Privacy and threat model
 
-Rendered pages and selectors may contain confidential product data. Reports therefore use a caller-supplied non-sensitive subject label, exclude DOM snippets by default, and stay local unless the caller deliberately stores them. Public evidence must be redacted under [RESEARCH.md](RESEARCH.md).
+Rendered pages and selectors may contain confidential product data. Reports therefore use a caller-supplied non-sensitive subject label, exclude DOM snippets by default, and stay local unless the caller deliberately stores them. Report strings can also carry prompt-injection-like text: the adapter frames and JSON-quotes them as untrusted data, while its tool contract forbids treating them as instructions or an authority expansion. Public evidence must be redacted under [RESEARCH.md](RESEARCH.md).
 
 The browser treats the page as hostile. The owning runner must isolate its profile, disable downloads and unintended external navigation, contain pop-ups, close the context after the run, and apply network policy before page content executes. The authoring adapter must not inherit the user's normal browser profile or ambient authentication. The initial loopback provider implements these controls for one literal origin and includes blocked-action evidence, but a page can still reveal data to allowed same-origin endpoints, so loopback-only navigation is not equivalent to content isolation.
 

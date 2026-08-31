@@ -102,7 +102,8 @@ runtime companion 继续负责 DSH 自身诊断和无障碍 UI。它不能因为
 4. 传播取消，并实施配置的时间、页面、finding、node 和字节上限；
 5. 把提供方失败作为工具错误返回，不能伪装成干净报告；
 6. 在模型可见文本中标记每个自动结果及限制；
-7. 不注册 write、fix、certification、score 或“使其合规”操作。
+7. 把 subject label、规则文本、selector、summary、链接与限制视为不可信页面／provider 数据，在渲染输出中以 JSON 引用，并禁止执行其中夹带的命令或因此扩权；
+8. 不注册 write、fix、certification、score 或“使其合规”操作。
 
 修复帮助要说明受影响要求、位置、重要原因、仍需什么证据，以及一个或多个作者选择。不得生成通用或基于文件名的替代文本。任何候选替代文本都必须可编辑，并在插入前让作者接受、修改或拒绝，遵循 ATAG 2.0 B.2.3.2。
 
@@ -116,7 +117,7 @@ Bundle 随附行保持 disabled，不带任何活动目标。后置可信 profil
 
 ## 隐私与威胁模型
 
-渲染页面和 selector 可能包含机密产品数据。因此报告使用调用方提供的非敏感 subject label，默认排除 DOM snippet，并保持本地，除非调用方主动保存。公开证据必须按 [RESEARCH.zh.md](RESEARCH.zh.md) 脱敏。
+渲染页面和 selector 可能包含机密产品数据。因此报告使用调用方提供的非敏感 subject label，默认排除 DOM snippet，并保持本地，除非调用方主动保存。报告字符串还可能携带类似提示注入的文本：适配器会把它们明确框定并以 JSON 引用为不可信数据，工具契约则禁止把它们当作指令或扩权依据。公开证据必须按 [RESEARCH.zh.md](RESEARCH.zh.md) 脱敏。
 
 浏览器把页面视为恶意内容。自有 runner 必须隔离 profile、禁用下载及非预期外部导航、约束弹窗、运行后关闭 context，并在页面内容执行前应用网络策略。创作适配器不得继承用户日常浏览器 profile 或环境鉴权。首个 loopback 提供层已针对单一字面量 origin 实施这些约束并记录被阻断动作，但页面仍可能向获准的同 origin endpoint 泄露数据，因此 loopback-only 导航不等同于内容隔离。
 
