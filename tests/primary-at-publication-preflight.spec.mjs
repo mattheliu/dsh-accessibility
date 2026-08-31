@@ -102,7 +102,7 @@ describe('primary AT publication preflight', () => {
 
     const all = createPrimaryAtPublicationPreflight(input({ publicObservation: publicObservation(gateIds) }))
     expect(all.publicObservation).toMatchObject({ readyToOpen: true, missingGates: [] })
-    expect(all.actions.find(item => item.id === 'open-campaign')?.status).toBe('ready')
+    expect(all.actions.find(item => item.id === 'open-campaign')?.status).toBe('complete')
   })
 
   it('validates a real report against the public schema', () => {

@@ -2,7 +2,7 @@
   "$schema": "https://raw.githubusercontent.com/omdsh-dev/dsh-accessibility/main/PRIMARY-AT-CAMPAIGN.schema.json",
   "protocol": "dsh-a11y-primary-at-campaign/0.1.0-draft",
   "campaignId": "dsh-0.1.2-alpha.2-primary-at-2026-08-31",
-  "status": "prepared-not-open",
+  "status": "open",
   "preparedOn": "2026-08-31",
   "candidate": {
     "repository": "https://github.com/omdsh-dev/deepseek-harness",
@@ -54,34 +54,34 @@
   "availabilityGates": [
     {
       "id": "core-revision-public",
-      "status": "missing",
-      "detail": "The public accessibility-core branch does not yet contain candidate revision 5803bfcfdd502adac26ae9b8eec12d6aed263ec6."
+      "status": "ready",
+      "detail": "Exact candidate revision 5803bfcfdd502adac26ae9b8eec12d6aed263ec6 is anonymously readable from the public core repository."
     },
     {
       "id": "lab-revision-public",
-      "status": "missing",
-      "detail": "The public lab branch does not yet contain lab revision 6aed71615edd1db1ec5b12897e1ad40b79294c78."
+      "status": "ready",
+      "detail": "Exact lab revision 6aed71615edd1db1ec5b12897e1ad40b79294c78 is anonymously readable from the public accessibility repository."
     },
     {
       "id": "default-branch-intake",
-      "status": "missing",
-      "detail": "The default branch has an older AT form, but it lacks the current protocol-bound AT form, disabled-developer form, campaign guide, and core lab guide."
+      "status": "ready",
+      "detail": "The public default branch contains the exact manifest, bilingual campaign and lab guides, current bilingual AT and disabled-developer forms, and bound automated browser report."
     },
     {
       "id": "discussion-current",
-      "status": "missing",
-      "detail": "Discussion 16 still names the superseded 0.1.1-rc.2 candidate and must be updated before recruitment."
+      "status": "ready",
+      "detail": "Public Discussion 16 contains the exact candidate revision, lab revision, protocol, intake routes, privacy boundary, and zero-human-record statement."
     },
     {
       "id": "tracking-issues-current",
-      "status": "missing",
-      "detail": "Issues 1 and 2 still name the superseded 0.1.1-rc.2 candidate and must be updated before recruitment."
+      "status": "ready",
+      "detail": "Public Issues 1 and 2 contain the current physical Windows NVDA and physical macOS VoiceOver instructions for the exact campaign."
     }
   ],
   "evidenceBoundary": [
     "This manifest coordinates a future human campaign; it is not assistive-technology or disabled-user evidence.",
     "The isolated Chrome smoke run proves lab readiness and cleanup only; it does not prove spoken, braille, focus, or task behavior.",
-    "The public human-evidence ledger contains zero human records when this campaign is prepared.",
-    "External recruitment must not begin until status is open and every availability gate is ready."
+    "The public human-evidence ledger contains zero human records when this campaign opens.",
+    "Opening coordinates intake only; it creates no assistive-technology, disabled-user, conformance, certification, or whole-product support claim."
   ]
 }

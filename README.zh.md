@@ -62,7 +62,7 @@ MVP 仍以阅读为主。发送、停止、批准、编辑排队任务或使用�
 
 经过同意的真人结果使用版本化[真人证据账本](HUMAN-EVIDENCE.zh.md)。稳定任务以及核心、安全关键和声明资格只能来自[证据任务目录](EVIDENCE-CATALOG.json)，不能由提交者自行决定。validator 会保留失败和部分观察，同时禁止过期、私密、存在未记录协助、不安全、无资格、未知或证据不完整的记录声明 `a11y-at-tested` 或 `a11y-user-validated`。另有[聚合覆盖策略](EVIDENCE-COVERAGE.zh.md)阻止不兼容精确环境相互拼接，并报告主要与扩展辅助技术、CLI、companion、创作及残障开发者验证的全部缺口。当前账本只有非证据模板，因此二十六项聚合要求全部缺失。
 
-首轮[主要辅助技术活动](PRIMARY-AT-CAMPAIGN.zh.md)已固定当前核心与实验室 revision，目标是 VoiceOver／Safari、NVDA／Chrome 和残障开发者核心任务。它仍是 `prepared-not-open`：外部招募前必须先让公开分支、默认分支提交表单、Discussion 16 及 Issue 1／2 与当前候选一致。
+首轮[主要辅助技术活动](PRIMARY-AT-CAMPAIGN.zh.md)现已 `open`，可针对固定核心与实验室 revision 提交 VoiceOver／Safari、NVDA／Chrome 和残障开发者核心任务结果。五项公开可用性门禁已通过匿名复核；在经同意的真人结果提交并评审前，真人证据账本仍正确保持为空。
 
 ## CLI 无障碍候选
 

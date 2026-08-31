@@ -62,7 +62,7 @@ See [ACCESSIBILITY.md](ACCESSIBILITY.md) for the assistive-technology matrix, ma
 
 Consented human results use the versioned [human evidence ledger](HUMAN-EVIDENCE.md). Stable tasks and authoritative core, safety, and claim classifications come from the [evidence task catalog](EVIDENCE-CATALOG.json), not from the submitter. The validator preserves failed and partial observations while preventing stale, private, operationally assisted, unsafe, ineligible, unknown, or incomplete records from claiming `a11y-at-tested` or `a11y-user-validated`. The separate [aggregate coverage policy](EVIDENCE-COVERAGE.md) prevents incompatible exact environments from being combined and reports all missing primary and extended AT, CLI, companion, authoring, and disabled-developer rows. The ledger currently contains only a non-evidence template, so all twenty-six aggregate requirements are missing.
 
-The first [primary AT campaign](PRIMARY-AT-CAMPAIGN.md) pins the current core and lab revisions for VoiceOver/Safari, NVDA/Chrome, and disabled-developer core tasks. It remains `prepared-not-open`: public branches, default-branch intake forms, Discussion 16, and Issues 1/2 must be made current before external recruitment begins.
+The first [primary AT campaign](PRIMARY-AT-CAMPAIGN.md) is `open` for VoiceOver/Safari, NVDA/Chrome, and disabled-developer core-task submissions against pinned core and lab revisions. Its five public-availability gates pass anonymously, while the human-evidence ledger correctly remains empty until consented results are submitted and reviewed.
 
 ## CLI accessibility candidate
 

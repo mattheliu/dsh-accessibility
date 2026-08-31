@@ -12,10 +12,10 @@ function source(file) {
 }
 
 describe('primary human assistive-technology campaign', () => {
-  it('pins the exact lab-ready candidate without opening recruitment', () => {
+  it('opens the exact lab-ready candidate without creating human evidence', () => {
     expect(manifest).toMatchObject({
       protocol: 'dsh-a11y-primary-at-campaign/0.1.0-draft',
-      status: 'prepared-not-open',
+      status: 'open',
       candidate: {
         package: '@deepseek-ai/dsh',
         version: '0.1.2-alpha.2',
@@ -40,7 +40,7 @@ describe('primary human assistive-technology campaign', () => {
       'disabled-developer-core-web',
     ])
     expect(manifest.availabilityGates).toHaveLength(5)
-    expect(manifest.availabilityGates.every(gate => gate.status === 'missing')).toBe(true)
+    expect(manifest.availabilityGates.every(gate => gate.status === 'ready')).toBe(true)
     expect(manifest.evidenceBoundary.join('\n')).toMatch(/zero human records/)
     expect(manifest.evidenceBoundary.join('\n')).toMatch(/not assistive-technology or disabled-user evidence/)
     expect(manifest.automatedEvidence.dshRevision).toBe(manifest.candidate.revision)
@@ -53,28 +53,26 @@ describe('primary human assistive-technology campaign', () => {
     const validate = ajv.compile(schema)
     expect(validate(manifest), ajv.errorsText(validate.errors)).toBe(true)
 
-    const prematurelyOpen = structuredClone(manifest)
-    prematurelyOpen.status = 'open'
-    expect(validate(prematurelyOpen)).toBe(false)
+    const openWithMissingGate = structuredClone(manifest)
+    openWithMissingGate.availabilityGates[0].status = 'missing'
+    expect(validate(openWithMissingGate)).toBe(false)
     expect(ajv.errorsText(validate.errors)).toMatch(/availabilityGates.*status|ready/)
   })
 
-  it('describes the default-branch intake gap without claiming the older AT form is absent', () => {
+  it('records the complete public default-branch intake', () => {
     const gate = manifest.availabilityGates.find(row => row.id === 'default-branch-intake')
-    expect(gate).toMatchObject({ status: 'missing' })
-    expect(gate.detail).toMatch(/older AT form/)
-    expect(gate.detail).toMatch(/disabled-developer form/)
-    expect(source('PRIMARY-AT-CAMPAIGN.md')).toMatch(/existing older AT form/)
-    expect(source('PRIMARY-AT-CAMPAIGN.zh.md')).toMatch(/现有旧 AT 表单/)
+    expect(gate).toMatchObject({ status: 'ready' })
+    expect(gate.detail).toMatch(/bilingual AT and disabled-developer forms/)
+    expect(gate.detail).toMatch(/automated browser report/)
   })
 
   it.each(['PRIMARY-AT-CAMPAIGN.md', 'PRIMARY-AT-CAMPAIGN.zh.md'])(
-    '%s preserves exact setup, non-evidence boundaries, and the closed intake state',
+    '%s preserves exact setup, non-evidence boundaries, and the open intake state',
     (file) => {
       const guide = source(file)
       expect(guide).toContain(manifest.candidate.revision)
       expect(guide).toContain(manifest.lab.revision)
-      expect(guide).toContain('prepared-not-open')
+      expect(guide).toContain('`open`')
       expect(guide).toContain('dsh-core-at-lab/1.0.0-draft')
       expect(guide).toContain('lab:at:core ../deepseek-harness chrome')
       expect(guide).toMatch(/zero human records|零条真人记录/)
