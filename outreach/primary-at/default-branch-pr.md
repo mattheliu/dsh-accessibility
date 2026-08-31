@@ -19,11 +19,12 @@ This PR does not add a human result or accessibility support claim. The primary 
 - Every support-claimed task must be independent/effective/safe; every declared AT modality needs direct per-task human observation; claimed Web tasks need focus evidence.
 - Chrome/Chromium labs use temporary profiles on macOS, Windows, and Linux and remove them before deleting disposable product state.
 - Campaign schema rejects `open` while any public availability gate is missing.
+- Anonymous public-readiness verification checks the exact revisions, current default-branch intake, Discussion 16, and Issues 1/2 without a token; strict mode fails closed and never creates human evidence.
 - Automated browser, Host, accessibility-tree, caption, and AI-operated results cannot become human evidence.
 
 ## Verified locally
 
-- `pnpm test`: 207 tests passed.
+- `pnpm test`: 213 tests passed.
 - `pnpm run typecheck`: passed.
 - `pnpm run evidence:validate`: catalog, coverage policy, and non-evidence template passed.
 - `pnpm run evidence:coverage`: zero human records and all 26 aggregate requirements missing, as expected.

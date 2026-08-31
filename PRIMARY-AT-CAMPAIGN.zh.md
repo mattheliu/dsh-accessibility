@@ -12,6 +12,15 @@
 
 只有机器清单中每个 `availabilityGates` 项都变成 `ready`，活动才能改为 `open`。活动开放只是协调状态，不是真人无障碍证据。
 
+改变状态前，先匿名观察五项门禁：
+
+```sh
+pnpm run campaign:public:verify
+pnpm run campaign:public:require
+```
+
+第一条命令总会输出带版本、隐私最小化的观察报告；严格命令只有在精确 revision、默认分支提交入口、Discussion 16 与 Issue 1／2 均无需凭据即可公开读取且为当前版本时才返回成功。它绝不会修改活动清单，也不会创建真人证据。
+
 维护者的公开顺序，以及默认分支 PR、Discussion 16 与 Issue 1／2 的受测试替换正文，见[首轮 AT 公开交接包](outreach/primary-at/README.md)。
 
 ## 活动开放后的精确配置

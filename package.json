@@ -41,6 +41,7 @@
     "PRIMARY-AT-CAMPAIGN.zh.md",
     "PRIMARY-AT-CAMPAIGN.json",
     "PRIMARY-AT-CAMPAIGN.schema.json",
+    "PRIMARY-AT-PUBLIC-READINESS.schema.json",
     "RESEARCH.md",
     "RESEARCH.zh.md",
     "HUMAN-EVIDENCE.md",
@@ -112,9 +113,11 @@
     "scripts/evidence-coverage-lib.mjs",
     "scripts/human-evidence-lib.mjs",
     "scripts/human-evidence-template-lib.mjs",
+    "scripts/primary-at-public-readiness-lib.mjs",
     "scripts/lab-source-state.mjs",
     "scripts/create-human-evidence-template.mjs",
     "scripts/report-human-evidence-coverage.mjs",
+    "scripts/verify-primary-at-campaign-public.mjs",
     "scripts/validate-human-evidence.mjs",
     "SECURITY.md",
     "LICENSE"
@@ -182,7 +185,9 @@
     "evidence:validate": "node scripts/validate-human-evidence.mjs evidence",
     "evidence:scaffold": "node scripts/create-human-evidence-template.mjs",
     "evidence:coverage": "node scripts/report-human-evidence-coverage.mjs evidence",
-    "evidence:coverage:require": "node scripts/report-human-evidence-coverage.mjs --require-baseline evidence"
+    "evidence:coverage:require": "node scripts/report-human-evidence-coverage.mjs --require-baseline evidence",
+    "campaign:public:verify": "node scripts/verify-primary-at-campaign-public.mjs",
+    "campaign:public:require": "node scripts/verify-primary-at-campaign-public.mjs --require-openable"
   },
   "peerDependencies": {
     "@deepseek-ai/cordis": ">=4.0.1 <5",

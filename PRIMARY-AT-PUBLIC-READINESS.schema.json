@@ -1,0 +1,99 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/omdsh-dev/dsh-accessibility/main/PRIMARY-AT-PUBLIC-READINESS.schema.json",
+  "title": "DSH primary AT campaign anonymous public-readiness report",
+  "description": "A public coordination observation. It is never assistive-technology or disabled-user evidence.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["protocol", "generatedAt", "verdictScope", "campaign", "anonymous", "readyToOpen", "observationComplete", "gates"],
+  "properties": {
+    "protocol": { "const": "dsh-a11y-primary-at-public-readiness/0.1.0-draft" },
+    "generatedAt": { "type": "string", "format": "date-time" },
+    "verdictScope": { "const": "anonymous-public-availability-only-not-human-accessibility-evidence" },
+    "campaign": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["protocol", "campaignId", "declaredStatus"],
+      "properties": {
+        "protocol": { "const": "dsh-a11y-primary-at-campaign/0.1.0-draft" },
+        "campaignId": { "type": "string", "pattern": "^[a-z0-9][a-z0-9._-]{7,99}$" },
+        "declaredStatus": { "enum": ["prepared-not-open", "open", "closed"] }
+      }
+    },
+    "anonymous": { "const": true },
+    "readyToOpen": { "type": "boolean" },
+    "observationComplete": { "type": "boolean" },
+    "gates": {
+      "type": "array",
+      "minItems": 5,
+      "maxItems": 5,
+      "items": { "$ref": "#/$defs/gate" }
+    }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "readyToOpen": { "const": true } }, "required": ["readyToOpen"] },
+      "then": {
+        "type": "object",
+        "properties": {
+          "observationComplete": { "const": true },
+          "gates": {
+            "type": "array",
+            "items": {
+              "allOf": [
+                { "$ref": "#/$defs/gate" },
+                { "type": "object", "properties": { "observedStatus": { "const": "ready" } } }
+              ]
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "observationComplete": { "const": true } }, "required": ["observationComplete"] },
+      "then": {
+        "type": "object",
+        "properties": {
+          "gates": {
+            "type": "array",
+            "items": {
+              "allOf": [
+                { "$ref": "#/$defs/gate" },
+                { "type": "object", "properties": { "observedStatus": { "enum": ["missing", "ready"] } } }
+              ]
+            }
+          }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "gate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "declaredStatus", "observedStatus", "manifestMatchesObservation", "checks"],
+      "properties": {
+        "id": { "enum": ["core-revision-public", "lab-revision-public", "default-branch-intake", "discussion-current", "tracking-issues-current"] },
+        "declaredStatus": { "enum": ["missing", "ready"] },
+        "observedStatus": { "enum": ["missing", "ready", "error"] },
+        "manifestMatchesObservation": { "type": "boolean" },
+        "checks": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/check" }
+        }
+      }
+    },
+    "check": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "url", "status", "detail"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]{2,79}$" },
+        "url": { "type": "string", "format": "uri", "pattern": "^https://" },
+        "status": { "enum": ["pass", "fail", "error"] },
+        "detail": { "type": "string", "minLength": 1, "maxLength": 240 }
+      }
+    }
+  }
+}

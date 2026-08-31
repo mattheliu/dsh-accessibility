@@ -12,6 +12,15 @@ The public core branch and lab branch do not yet contain the two pinned revision
 
 The campaign may change to `open` only after every `availabilityGates` row in the manifest is `ready`. Opening the campaign is coordination state, not accessibility evidence.
 
+Observe the five gates anonymously before changing that state:
+
+```sh
+pnpm run campaign:public:verify
+pnpm run campaign:public:require
+```
+
+The first command always prints a versioned, privacy-minimized observation report. The strict command exits nonzero unless the exact revisions, default-branch intake, Discussion 16, and Issues 1/2 are all publicly readable and current without credentials. It never edits the campaign and never creates human evidence.
+
 Maintainer publication order and tested replacement bodies for the default-branch PR, Discussion 16, and Issues 1/2 are in the [primary AT outreach handoff](outreach/primary-at/README.md).
 
 ## Exact setup after the campaign opens
