@@ -15,7 +15,7 @@ function hasOwn(object, key) {
   return Object.prototype.hasOwnProperty.call(object ?? {}, key)
 }
 
-export function evaluateAuthoringPackageManifest(manifest, spec) {
+export function evaluateAuthoringPackageDependencyGraph(manifest, spec) {
   const blockers = []
   if (manifest === null || typeof manifest !== 'object' || Array.isArray(manifest)) {
     return ['manifest.invalid-or-missing']
@@ -23,26 +23,6 @@ export function evaluateAuthoringPackageManifest(manifest, spec) {
 
   if (manifest.name !== spec.name) blockers.push(`manifest.name-must-be-${spec.name}`)
   if (manifest.version !== spec.version) blockers.push(`manifest.version-must-be-${spec.version}`)
-  if (manifest.private !== false) blockers.push('publication.private-must-be-false')
-  if (manifest.license !== 'MIT') blockers.push('metadata.license-must-be-MIT')
-  if (manifest.type !== 'module') blockers.push('metadata.type-must-be-module')
-  if (typeof manifest.repository?.url !== 'string' || manifest.repository.url.length === 0) {
-    blockers.push('metadata.repository-missing')
-  }
-  if (typeof manifest.homepage !== 'string' || manifest.homepage.length === 0) blockers.push('metadata.homepage-missing')
-  if (typeof manifest.bugs?.url !== 'string' || manifest.bugs.url.length === 0) blockers.push('metadata.bugs-missing')
-  if (manifest.publishConfig?.access !== 'public') blockers.push('publication.publishConfig-access-must-be-public')
-
-  const files = new Set(Array.isArray(manifest.files) ? manifest.files : [])
-  for (const file of requiredFiles) {
-    if (!files.has(file)) blockers.push(`package-files.missing-${file}`)
-  }
-  for (const script of requiredScripts) {
-    if (typeof manifest.scripts?.[script] !== 'string' || manifest.scripts[script].length === 0) {
-      blockers.push(`scripts.missing-${script}`)
-    }
-  }
-
   const internalDependencies = spec.internalDependencies ?? {}
   for (const [name, version] of Object.entries(internalDependencies)) {
     const declared = manifest.dependencies?.[name]
@@ -66,11 +46,60 @@ export function evaluateAuthoringPackageManifest(manifest, spec) {
     }
   }
 
+  return [...new Set(blockers)].sort()
+}
+
+export function evaluateAuthoringPackageManifest(manifest, spec) {
+  const blockers = evaluateAuthoringPackageDependencyGraph(manifest, spec)
+  if (blockers.includes('manifest.invalid-or-missing')) return blockers
+
+  if (manifest.private !== false) blockers.push('publication.private-must-be-false')
+  if (manifest.license !== 'MIT') blockers.push('metadata.license-must-be-MIT')
+  if (manifest.type !== 'module') blockers.push('metadata.type-must-be-module')
+  if (typeof manifest.repository?.url !== 'string' || manifest.repository.url.length === 0) {
+    blockers.push('metadata.repository-missing')
+  }
+  if (typeof manifest.homepage !== 'string' || manifest.homepage.length === 0) blockers.push('metadata.homepage-missing')
+  if (typeof manifest.bugs?.url !== 'string' || manifest.bugs.url.length === 0) blockers.push('metadata.bugs-missing')
+  if (manifest.publishConfig?.access !== 'public') blockers.push('publication.publishConfig-access-must-be-public')
+
+  const files = new Set(Array.isArray(manifest.files) ? manifest.files : [])
+  for (const file of requiredFiles) {
+    if (!files.has(file)) blockers.push(`package-files.missing-${file}`)
+  }
+  for (const script of requiredScripts) {
+    if (typeof manifest.scripts?.[script] !== 'string' || manifest.scripts[script].length === 0) {
+      blockers.push(`scripts.missing-${script}`)
+    }
+  }
+
   if (!hasOwn(manifest, 'engines')) blockers.push('metadata.engines-missing')
   if (typeof manifest.packageManager !== 'string' || manifest.packageManager.length === 0) {
     blockers.push('metadata.packageManager-missing')
   }
   return [...new Set(blockers)].sort()
+}
+
+export function buildAuthoringPackageInstallReport(packages, generatedAt = new Date().toISOString()) {
+  return {
+    protocol: 'dsh-a11y-authoring-isolated-install/0.1.0-draft',
+    generatedAt,
+    evidence: 'automated-isolated-tarball-install-not-at-evidence',
+    result: 'pass',
+    packages,
+    consumer: {
+      topLevelCompositions: [
+        '@oh-my-dsh/dsh-a11y-local-preview',
+        '@oh-my-dsh/dsh-a11y-caller-page'
+      ],
+      importedPackageCount: packages.length,
+      internalResolution: 'exact-version package manifests overridden only by freshly packed tarballs in the disposable consumer'
+    },
+    limitations: [
+      'This proves isolated package assembly and module loading, not publication to or availability from npm.',
+      'This automated install is not WCAG conformance, assistive-technology evidence, or disabled-user validation.'
+    ]
+  }
 }
 
 async function gitValue(root, args) {
