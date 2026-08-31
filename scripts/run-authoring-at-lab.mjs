@@ -1,8 +1,10 @@
 /** Launch the disposable DSH authoring task for human AT or product-only verification. */
-import { readFile, rm, writeFile } from 'node:fs/promises'
+import { mkdir, mkdtemp, readFile, rm, writeFile } from 'node:fs/promises'
 import { spawn } from 'node:child_process'
 import { join, resolve } from 'node:path'
+import { tmpdir } from 'node:os'
 import { exactGitRevision } from './lab-source-state.mjs'
+import { installAuthoringPackageConsumer, packAuthoringPackages } from './authoring-package-install-lib.mjs'
 
 const rawArguments = process.argv.slice(2)
 const args = rawArguments[0] === '--' ? rawArguments.slice(1) : rawArguments
@@ -67,7 +69,21 @@ process.on('SIGTERM', onTerminate)
 
 let exitCode = 1
 let wroteTarget = false
+let packageTemporaryRoot
 try {
+  packageTemporaryRoot = await mkdtemp(join(tmpdir(), 'dsh-a11y-authoring-at-packages-'))
+  const tarballRoot = join(packageTemporaryRoot, 'tarballs')
+  const installRoot = join(packageTemporaryRoot, 'consumer')
+  await mkdir(tarballRoot)
+  const authoringPolicy = JSON.parse(await readFile(join(packageRoot, 'AUTHORING-PACKAGES.json'), 'utf8'))
+  const packedAuthoringPackages = await packAuthoringPackages(
+    authoringPolicy,
+    resolve(localPreviewRoot, '..'),
+    tarballRoot,
+  )
+  await installAuthoringPackageConsumer(packedAuthoringPackages, installRoot)
+  const compositionTarball = packedAuthoringPackages.find(item => item.name === localPreviewManifest.name)
+  if (compositionTarball === undefined) throw new Error('authoring AT lab did not pack the local-preview composition')
   await writeFile(target, template, { flag: 'wx' })
   wroteTarget = true
   const childEnvironment = { ...process.env }
@@ -83,7 +99,9 @@ try {
         DSH_SNAPSHOT: 'replay',
         DSH_ACCESSIBILITY_DSH_VERSION: dshManifest.version,
         DSH_ACCESSIBILITY_DSH_REVISION: dshRevision,
-        DSH_ACCESSIBILITY_LOCAL_PREVIEW_ROOT: localPreviewRoot,
+        DSH_ACCESSIBILITY_AUTHORING_INSTALL_ROOT: installRoot,
+        DSH_ACCESSIBILITY_AUTHORING_COMPOSITION_INTEGRITY: compositionTarball.integrity,
+        DSH_ACCESSIBILITY_AUTHORING_PACKAGE_COUNT: String(packedAuthoringPackages.length),
         DSH_ACCESSIBILITY_LOCAL_PREVIEW_VERSION: localPreviewManifest.version,
         DSH_ACCESSIBILITY_LOCAL_PREVIEW_REVISION: localPreviewRevision,
         DSH_ACCESSIBILITY_LAB_VERSION: String(labManifest.version),
@@ -105,6 +123,7 @@ try {
   process.off('SIGINT', onInterrupt)
   process.off('SIGTERM', onTerminate)
   if (wroteTarget) await rm(target, { force: true })
+  if (packageTemporaryRoot !== undefined) await rm(packageTemporaryRoot, { force: true, recursive: true })
 }
 
 if (exitCode !== 0) process.exitCode = exitCode

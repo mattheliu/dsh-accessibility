@@ -21,11 +21,17 @@ const timeoutMs = Number(process.env.DSH_ACCESSIBILITY_AUTHORING_AT_TIMEOUT_MS ?
 if (!Number.isSafeInteger(timeoutMs) || timeoutMs < 0 || timeoutMs > 86_400_000) {
   throw new Error(`invalid DSH_ACCESSIBILITY_AUTHORING_AT_TIMEOUT_MS: ${String(timeoutMs)}`)
 }
-const localPreviewRoot = process.env.DSH_ACCESSIBILITY_LOCAL_PREVIEW_ROOT
+const authoringInstallRoot = process.env.DSH_ACCESSIBILITY_AUTHORING_INSTALL_ROOT
+const compositionIntegrity = process.env.DSH_ACCESSIBILITY_AUTHORING_COMPOSITION_INTEGRITY
+const authoringPackageCount = Number(process.env.DSH_ACCESSIBILITY_AUTHORING_PACKAGE_COUNT)
 const replayFixture = process.env.DSH_ACCESSIBILITY_AUTHORING_AT_FIXTURE
-if (localPreviewRoot === undefined || replayFixture === undefined) {
-  throw new Error('authoring AT lab launcher did not provide its local-preview root and replay fixture')
+if (authoringInstallRoot === undefined || compositionIntegrity === undefined || replayFixture === undefined
+  || authoringPackageCount !== 6) {
+  throw new Error('authoring AT lab launcher did not provide its exact installed package graph and replay fixture')
 }
+const installedLocalPreviewRoot = join(
+  authoringInstallRoot, 'node_modules', '@oh-my-dsh', 'dsh-a11y-local-preview',
+)
 
 const initialHtml = `<!doctype html>
 <html lang="en">
@@ -261,17 +267,16 @@ it('boots a disposable authoring flow for human assistive-technology testing', a
     const overlayPath = join(temporaryRoot, 'authoring-at.overlay.yml')
     const workspacePath = join(temporaryRoot, 'authoring-at-workspace')
     const htmlPath = join(workspacePath, 'index.html')
-    // A selected profile layer carries its dependency closure, while the
-    // layer itself is normally installed in this profile directory by DSH's
-    // plugin command. This disposable lab provides that one installation link
-    // directly and lets extraInstallAnchors resolve the package's dependencies.
+    // The launcher installs freshly packed tarballs into a disposable consumer.
+    // This lab links the installed composition into its disposable profile and
+    // lets the consumer anchor resolve the exact installed dependency graph.
     const profilePackageLink = join(
       harnessHome, 'profiles', 'scaffold', 'node_modules', '@oh-my-dsh', 'dsh-a11y-local-preview',
     )
     await mkdir(workspacePath, { recursive: true })
     await writeFile(htmlPath, initialHtml)
     await mkdir(dirname(profilePackageLink), { recursive: true })
-    await symlink(localPreviewRoot, profilePackageLink, 'dir')
+    await symlink(installedLocalPreviewRoot, profilePackageLink, 'dir')
 
     previewServer = createServer(async (request, response) => {
       try {
@@ -313,7 +318,7 @@ it('boots a disposable authoring flow for human assistive-technology testing', a
     scaffold = await launchWebScaffold({
       harnessHome,
       extraOverlayPath: overlayPath,
-      extraInstallAnchors: [join(localPreviewRoot, 'package.json')],
+      extraInstallAnchors: [join(authoringInstallRoot, 'package.json')],
       ...(interactive ? { replayFixture, compareReplaySession: false, paceMs: 120 } : {}),
     })
     const createdWorkspace = await scaffold.ctx.workspaceController.create({ path: workspacePath })
@@ -364,6 +369,11 @@ it('boots a disposable authoring flow for human assistive-technology testing', a
         package: '@oh-my-dsh/dsh-a11y-local-preview',
         version: process.env.DSH_ACCESSIBILITY_LOCAL_PREVIEW_VERSION ?? 'unavailable',
         revision: process.env.DSH_ACCESSIBILITY_LOCAL_PREVIEW_REVISION ?? 'unavailable',
+        installation: {
+          kind: 'fresh-local-tarball-consumer',
+          integrity: compositionIntegrity,
+          dependencyPackageCount: authoringPackageCount,
+        },
       },
       environment: { os: platform(), osRelease: release(), architecture: arch() },
       requestedBrowser: browserMode,

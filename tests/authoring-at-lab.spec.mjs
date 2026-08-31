@@ -45,6 +45,8 @@ describe('authoring assistive-technology lab', () => {
     expect(template).toContain('actual speech or braille')
     expect(template).toContain("browserMode === 'verify-reject' ? 'reject' : 'allow'")
     expect(template).toContain("sourceUnchanged: decision === 'reject'")
+    expect(template).toContain("kind: 'fresh-local-tarball-consumer'")
+    expect(template).toContain('installedLocalPreviewRoot')
     expect(template).not.toContain('evidence: \'at-pass\'')
   })
 
@@ -59,6 +61,9 @@ describe('authoring assistive-technology lab', () => {
 
     const launcher = readFileSync(launcherPath, 'utf8')
     expect(launcher).toContain('delete childEnvironment.DEEPSEEK_API_KEY')
+    expect(launcher).toContain('packAuthoringPackages(')
+    expect(launcher).toContain('installAuthoringPackageConsumer(')
+    expect(launcher).not.toContain('DSH_ACCESSIBILITY_LOCAL_PREVIEW_ROOT:')
     expect(launcher).toContain("await writeFile(target, template, { flag: 'wx' })")
     expect(launcher).toContain('if (wroteTarget) await rm(target, { force: true })')
   })

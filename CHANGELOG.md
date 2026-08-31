@@ -6,6 +6,7 @@
 - Replace publishable authoring manifests' source-local dependency protocols with exact prerelease versions, retain local development overrides outside the packed manifests, and add a disposable six-tarball installation/import gate.
 - Make replay and live authoring-agent evidence reject dirty DSH, composition, or lab sources and retain all three exact revisions.
 - Install the authoring-agent product composition and its complete internal graph from freshly packed tarballs so registry-ready manifests stay compatible with the real DSH plugin path before publication.
+- Mount the human authoring AT lab from the same disposable six-tarball consumer instead of a source-checkout symlink, while retaining exact source revisions and non-AT readiness labels.
 
 - Add an experimental, user-loaded Accessible View through DSH's official `conversation.view` slot and structured session projection.
 - Preserve source-order conversation records and semantic Markdown/code, including an in-progress assistant record, without scraping or rewriting host DOM.

@@ -30,7 +30,7 @@ Readiness JSON, Host terminal output, captions, DOM text, screenshots, and autom
 
 The launcher deletes `DEEPSEEK_API_KEY` before starting its child. The scenario is fixed replay and requires no model credential.
 
-Before it creates state, the launcher also requires clean Git state for the DSH, local-preview, and accessibility-lab checkouts. Readiness reports all three full revisions separately, so an uncommitted implementation cannot inherit the claim scope of its checkout's `HEAD`.
+Before it creates state, the launcher also requires clean Git state for the DSH, local-preview, accessibility-lab, and every internal authoring-package checkout. It freshly packs the exact six-package graph, installs the tarballs into a disposable consumer, and mounts that installed composition in the Web lab. Readiness reports the three evidence-bearing full revisions separately plus the composition tarball integrity and six-package installation count, so an uncommitted implementation cannot inherit the claim scope of its checkout's `HEAD`.
 
 ## Automated product checks
 
@@ -60,7 +60,7 @@ pnpm run lab:at:authoring -- ../deepseek-harness-alpha2 ../dsh-a11y-local-previe
 
 Chrome mode creates a fresh temporary profile, disables background networking, blocks non-loopback host resolution, closes the isolated browser on exit, and removes the profile. Safari can reuse its existing browser context, so use it only with a dedicated clean profile and stop immediately if personal UI appears. For NVDA/JAWS/Narrator on Windows or Orca on Linux, use `none 0`, copy the separately printed one-use sign-in URL into a dedicated clean browser profile, and do not publish that URL. `system 0` may be used when the default browser is the intended browser and already has a dedicated clean profile.
 
-The readiness JSON contains DSH, lab, and composition versions and revisions, environment, browser-context isolation, synthetic Session ID, exact task text, persistence policy, and limitations. It intentionally excludes the one-use sign-in URL and preview origin.
+The readiness JSON contains DSH, lab, and composition versions and revisions, exact tarball installation metadata, environment, browser-context isolation, synthetic Session ID, exact task text, persistence policy, and limitations. It intentionally excludes the one-use sign-in URL, preview origin, and temporary install path.
 
 ## Success scenario: allow once
 

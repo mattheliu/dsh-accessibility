@@ -1,5 +1,5 @@
 import { execFile as execFileCallback } from 'node:child_process'
-import { readFile } from 'node:fs/promises'
+import { mkdir, readFile, writeFile } from 'node:fs/promises'
 import { basename, resolve } from 'node:path'
 import { promisify } from 'node:util'
 import { evaluateAuthoringPackageDependencyGraph } from './authoring-package-readiness-lib.mjs'
@@ -48,4 +48,30 @@ export function pnpmTarballOverrides(packed) {
     ...packed.map(item => `  ${yamlQuote(item.name)}: ${yamlQuote(`file:${item.tarballPath}`)}`),
     ''
   ].join('\n')
+}
+
+export async function installAuthoringPackageConsumer(packed, consumerRoot) {
+  await mkdir(consumerRoot)
+  const manifest = {
+    name: 'dsh-a11y-authoring-isolated-install-consumer',
+    version: '0.0.0',
+    private: true,
+    type: 'module',
+    packageManager: 'pnpm@11.7.0',
+    dependencies: {
+      '@deepseek-ai/cordis': '4.0.2',
+      '@deepseek-ai/dsh-system-prompt': '0.1.2-alpha.2',
+      '@deepseek-ai/dsh-tools': '0.1.2-alpha.2',
+      playwright: '1.61.1',
+      ...Object.fromEntries(packed.map(item => [item.name, item.version]))
+    }
+  }
+  await writeFile(resolve(consumerRoot, 'package.json'), `${JSON.stringify(manifest, null, 2)}\n`, { flag: 'wx' })
+  await writeFile(resolve(consumerRoot, 'pnpm-workspace.yaml'), pnpmTarballOverrides(packed), { flag: 'wx' })
+  await execFile(
+    'pnpm',
+    ['install', '--ignore-scripts', '--prefer-offline'],
+    { cwd: consumerRoot, encoding: 'utf8', maxBuffer: 8 * 1024 * 1024 }
+  )
+  return manifest
 }

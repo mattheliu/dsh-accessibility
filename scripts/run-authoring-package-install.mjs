@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import { execFile as execFileCallback } from 'node:child_process'
-import { mkdir, mkdtemp, readFile, rm, writeFile } from 'node:fs/promises'
+import { mkdir, mkdtemp, readFile, rm } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { dirname, join, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
@@ -8,7 +8,7 @@ import { promisify } from 'node:util'
 import {
   buildAuthoringPackageInstallReport
 } from './authoring-package-readiness-lib.mjs'
-import { packAuthoringPackages, pnpmTarballOverrides } from './authoring-package-install-lib.mjs'
+import { installAuthoringPackageConsumer, packAuthoringPackages } from './authoring-package-install-lib.mjs'
 import { exactGitRevision } from './lab-source-state.mjs'
 
 const execFile = promisify(execFileCallback)
@@ -27,30 +27,8 @@ try {
   const tarballRoot = join(temporaryRoot, 'tarballs')
   const consumerRoot = join(temporaryRoot, 'consumer')
   await mkdir(tarballRoot)
-  await mkdir(consumerRoot)
   const packed = await packAuthoringPackages(policy, workspaceRoot, tarballRoot)
-
-  const consumerManifest = {
-    name: 'dsh-a11y-authoring-isolated-install-consumer',
-    version: '0.0.0',
-    private: true,
-    type: 'module',
-    packageManager: 'pnpm@11.7.0',
-    dependencies: {
-      '@deepseek-ai/cordis': '4.0.2',
-      '@deepseek-ai/dsh-system-prompt': '0.1.2-alpha.2',
-      '@deepseek-ai/dsh-tools': '0.1.2-alpha.2',
-      playwright: '1.61.1',
-      ...Object.fromEntries(packed.map(item => [item.name, item.version]))
-    }
-  }
-  await writeFile(resolve(consumerRoot, 'package.json'), `${JSON.stringify(consumerManifest, null, 2)}\n`, { flag: 'wx' })
-  await writeFile(resolve(consumerRoot, 'pnpm-workspace.yaml'), pnpmTarballOverrides(packed), { flag: 'wx' })
-  await execFile(
-    'pnpm',
-    ['install', '--ignore-scripts', '--prefer-offline'],
-    { cwd: consumerRoot, encoding: 'utf8', maxBuffer: 8 * 1024 * 1024 }
-  )
+  await installAuthoringPackageConsumer(packed, consumerRoot)
 
   const importScript = `
 const packages = ${JSON.stringify(packed.map(item => item.name))}

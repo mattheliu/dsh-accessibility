@@ -30,7 +30,7 @@ readiness JSON、Host 终端输出、字幕、DOM 文本、截图和自动 Chrom
 
 launcher 会在启动子进程前移除 `DEEPSEEK_API_KEY`。本场景使用固定 replay，不需要模型密钥。
 
-创建状态之前，launcher 还会要求 DSH、local-preview 与无障碍实验室 checkout 的 Git 状态全部干净。readiness 会分别报告三者的完整 revision，因此未提交实现不能沿用其 checkout `HEAD` 的声明范围。
+创建状态之前，launcher 还会要求 DSH、local-preview、无障碍实验室及每个内部创作包 checkout 的 Git 状态全部干净。它会重新打包精确六包依赖图，把 tarball 安装到一次性消费项目，再把这份已安装组合挂载进 Web 实验室。readiness 会分别报告三个证据承载源码的完整 revision，并报告组合 tarball integrity 与六包安装数量，因此未提交实现不能沿用其 checkout `HEAD` 的声明范围。
 
 ## 自动产品检查
 
@@ -60,7 +60,7 @@ pnpm run lab:at:authoring -- ../deepseek-harness-alpha2 ../dsh-a11y-local-previe
 
 Chrome 模式会创建全新临时 profile、禁用后台联网、阻断非 loopback 主机解析，在退出时关闭隔离浏览器并删除 profile。Safari 可能复用既有浏览器上下文，因此只能使用专门的干净 profile；出现个人界面就立即停止。Windows 上的 NVDA／JAWS／Narrator 或 Linux 上的 Orca 请使用 `none 0`，将另行打印的一次性登录 URL 复制到专门的干净浏览器 profile，不得公开该 URL。默认浏览器就是被测浏览器且已经使用专门干净 profile 时，也可使用 `system 0`。
 
-readiness JSON 包含 DSH、实验室与组合的版本和 revision、环境、浏览器上下文隔离、合成 Session ID、精确任务文本、持久化策略与限制；它故意不含一次性登录 URL 和预览 origin。
+readiness JSON 包含 DSH、实验室与组合的版本和 revision、精确 tarball 安装元数据、环境、浏览器上下文隔离、合成 Session ID、精确任务文本、持久化策略与限制；它故意不含一次性登录 URL、预览 origin 和临时安装路径。
 
 ## 成功场景：仅允许一次
 
