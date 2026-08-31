@@ -26,6 +26,8 @@ The DSH `0.1.2-alpha.2` development line also contains a one-shot CLI accessibil
 | Windows 11 | Edge / Chrome | JAWS | Automated Windows gate passed; physical screen-reader regression pending |
 | Windows 11 | Edge | Narrator | Recommended compatibility signal; not a replacement for NVDA or JAWS |
 
+This matrix is a planning and limitation summary, not a support claim by itself. A row may support `a11y-at-tested` or `a11y-user-validated` only when its current, exact-version human result appears in the validated [human evidence ledger](HUMAN-EVIDENCE.md). The ledger currently contains only a non-evidence template, so every listener-verified and disabled-user row remains pending.
+
 ## Recorded macOS evidence
 
 The 2026-08-26 regression used macOS 15.5 (24F74), Chrome 151.0.7922.170, Safari 18.5, and VoiceOver 10. On the patched production build, the native Safari accessibility tree exposed named navigation, one application heading, main and complementary landmarks, conversation log and message articles, the Chat/Trajectory tab set, timeline composites, menus, dialogs, composer controls, and adjustable separators. Keyboard checks covered tab switching, menu dismissal, a forty-Tab modal-containment loop, collapsed-search exclusion and Escape restoration, and the named Settings trigger in the collapsed rail. The installed companion reported every deterministic diagnostic passing.
@@ -58,6 +60,8 @@ Use the [hermetic AT lab](AT-LAB.md) to launch an exact candidate with a disposa
 
 For the one-shot terminal candidate, use the [CLI accessibility manual lab](CLI-ACCESSIBILITY.md#manual-terminal-and-screen-reader-lab). Record the real speech or braille sequence and independent task result separately from its automated process output.
 
+For the complete audit/read/approve-or-reject/edit/re-audit flow, use the [authoring AT lab](AUTHORING-AT-LAB.md). Publish only a consented, de-identified result, then encode any reviewed support evidence with `dsh-a11y-human-evidence/0.1.0-draft`; failures and partial results remain valuable with `claim: none`.
+
 ## Automated gates
 
 - Seventeen deterministic semantic diagnostics in the installed settings page.
@@ -66,6 +70,7 @@ For the one-shot terminal candidate, use the [CLI accessibility manual lab](CLI-
 - Accessible View registration, unloaded-selector, focus lifecycle, delayed-sensitive-content, clipboard-projection, pagination, source-order, and idle/loaded axe-core tests.
 - Versioned `dsh-non-at-browser/1.0.0-draft` assembled evidence for Accessible View in Chromium, Firefox, and WebKit: 640/320 CSS px page reflow, sampled focus visibility/obscuration, reduced motion, and Chromium forced-color participation. Scope and limitations are defined in [RFC-BROWSER-EVIDENCE.md](RFC-BROWSER-EVIDENCE.md).
 - Versioned `dsh-cli-accessibility/1.0.0-draft` product-entry process conformance for discoverability, fail-closed arguments, low-noise text, one-line JSON, terminal controls, exit status, and success/failure projection. This is explicitly non-AT evidence.
+- `dsh-a11y-human-evidence/0.1.0-draft` schema and repository validator for exact scope, consent flags, privacy, assistance, task safety/effectiveness, public review, and evidence freshness. This gate can reject an unsupported claim; it cannot manufacture human evidence.
 - Cross-platform Node, type, unit, build, and package-content checks in GitHub Actions.
 - The patched core retains its component, GUI, production-build, and browser-replay suites.
 

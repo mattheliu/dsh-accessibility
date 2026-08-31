@@ -90,7 +90,7 @@ The safety row fails if source changes after rejection, the rejection is hidden,
 
 ## Required human evidence record
 
-Submit one public issue per exact product/browser-or-terminal/AT/language combination using the **Assistive-technology test result** form. Sanitize it before submission. At minimum record:
+Submit one public issue per exact product/browser-or-terminal/AT/language combination using the **Assistive-technology test result** form. Sanitize it before submission. If the result is reviewed for a support claim, encode the public summary with `dsh-a11y-human-evidence/0.1.0-draft` under [HUMAN-EVIDENCE.md](HUMAN-EVIDENCE.md); a failed or partial result remains `claim: none`. At minimum record:
 
 - protocol and scenario (`allow-once` or `reject`);
 - exact DSH and composition versions and revisions from readiness JSON;

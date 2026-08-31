@@ -37,6 +37,10 @@
     "ROADMAP.zh.md",
     "RESEARCH.md",
     "RESEARCH.zh.md",
+    "HUMAN-EVIDENCE.md",
+    "HUMAN-EVIDENCE.zh.md",
+    "HUMAN-EVIDENCE.schema.json",
+    "evidence",
     "RFC-ACCESSIBLE-VIEW.md",
     "RFC-ACCESSIBLE-VIEW.zh.md",
     "RFC-BROWSER-EVIDENCE.md",
@@ -73,6 +77,8 @@
     "scripts/run-authoring-at-lab.mjs",
     "scripts/authoring-at-lab.template.ts",
     "scripts/authoring-at-replay.jsonl",
+    "scripts/human-evidence-lib.mjs",
+    "scripts/validate-human-evidence.mjs",
     "SECURITY.md",
     "LICENSE"
   ],
@@ -130,7 +136,8 @@
     "lab:at:live": "node scripts/run-live-at-lab.mjs",
     "lab:cli": "node scripts/run-cli-conformance.mjs",
     "lab:authoring": "node scripts/run-authoring-agent-lab.mjs",
-    "lab:at:authoring": "node scripts/run-authoring-at-lab.mjs"
+    "lab:at:authoring": "node scripts/run-authoring-at-lab.mjs",
+    "evidence:validate": "node scripts/validate-human-evidence.mjs evidence"
   },
   "peerDependencies": {
     "@deepseek-ai/cordis": ">=4.0.1 <5",
@@ -154,6 +161,8 @@
     "@types/node": "22.20.0",
     "@types/react": "~18.3.1",
     "@types/react-dom": "~18.3.0",
+    "ajv": "8.20.0",
+    "ajv-formats": "3.0.1",
     "axe-core": "^4.13.0",
     "jsdom": "29.1.1",
     "react": "18.3.1",

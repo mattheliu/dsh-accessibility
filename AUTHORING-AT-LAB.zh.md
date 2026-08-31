@@ -90,7 +90,7 @@ readiness JSON 包含版本、revision、环境、合成 Session ID、精确任�
 
 ## 真人证据记录必填项
 
-每个精确“产品／浏览器或终端／辅助技术／语言”组合都应使用 **辅助技术测试结果** Issue 表单单独提交一条公开记录，并先脱敏。至少记录：
+每个精确“产品／浏览器或终端／辅助技术／语言”组合都应使用 **辅助技术测试结果** Issue 表单单独提交一条公开记录，并先脱敏。若结果经过支持声明评审，应按照 [HUMAN-EVIDENCE.zh.md](HUMAN-EVIDENCE.zh.md) 用 `dsh-a11y-human-evidence/0.1.0-draft` 编码公开摘要；失败或部分结果仍为 `claim: none`。至少记录：
 
 - 规程和场景（`allow-once` 或 `reject`）；
 - readiness JSON 中的精确 DSH 与组合版本、revision；

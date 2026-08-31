@@ -2,7 +2,7 @@
 
 [简体中文](ACCESSIBILITY_STATEMENT.zh.md) | English
 
-Last reviewed: 2026-08-29.
+Last reviewed: 2026-08-31.
 
 The DSH Accessibility Working Group wants disabled developers to complete DSH's core tasks independently, effectively, and safely, and wants DSH to help every developer produce more accessible digital content.
 
@@ -22,11 +22,13 @@ This statement covers the `@oh-my-dsh/dsh-accessibility` companion and the organ
 - Listener-verified complete spoken-output records are still pending for VoiceOver.
 - Physical Windows NVDA, JAWS, and Narrator results and Linux Orca results are still pending.
 - The current companion cannot repair missing core focus, keyboard, or announcement behavior and does not directly observe the operating system accessibility API or exact screen-reader speech.
-- The tested core candidate is based on DSH `0.1.1-rc.2`; upstream `0.1.2-alpha.1` requires a fresh compatibility audit.
+- The tested core candidate is based on DSH `0.1.1-rc.2`; the upstream `0.1.2-alpha.2` development line still requires a complete compatibility audit.
 - Forced-colors, 200%/400% reflow, braille display, speech recognition, switch access, and broader cognitive and low-vision scenarios are not yet complete.
+- The authoring/testkit packages and complete approval/repair lab remain development candidates; live-model, real-AT, disabled-author, review, and publication evidence are still pending.
+- The versioned human-evidence ledger currently contains only a non-evidence template. It does not yet support an `a11y-at-tested` or `a11y-user-validated` claim.
 - Passing automated checks is not a statement that every disabled person can use every workflow.
 
-The exact support matrix and manual scenarios are maintained in [ACCESSIBILITY.md](ACCESSIBILITY.md). The forward plan and release gates are in [ROADMAP.md](ROADMAP.md).
+The exact support matrix and manual scenarios are maintained in [ACCESSIBILITY.md](ACCESSIBILITY.md). Consented public human results use [HUMAN-EVIDENCE.md](HUMAN-EVIDENCE.md). The forward plan and release gates are in [ROADMAP.md](ROADMAP.md).
 
 ## Feedback
 

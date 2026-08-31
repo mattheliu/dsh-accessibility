@@ -1,0 +1,122 @@
+{
+  "$schema": "https://raw.githubusercontent.com/omdsh-dev/dsh-accessibility/main/HUMAN-EVIDENCE.schema.json",
+  "protocol": "dsh-a11y-human-evidence/0.1.0-draft",
+  "recordType": "template",
+  "recordId": "template-authoring-at-allow-once",
+  "recordedOn": "2000-01-01",
+  "evidenceKind": "assistive-technology-run",
+  "claim": "none",
+  "scenario": {
+    "protocol": "dsh-a11y-authoring-at-lab/0.1.0-draft",
+    "interface": "web",
+    "locale": "en-US",
+    "taskIds": [
+      "allow-once"
+    ],
+    "description": "Replace every synthetic value with the exact tested environment before changing recordType to human-evidence."
+  },
+  "builds": {
+    "dsh": {
+      "name": "@deepseek-ai/dsh",
+      "version": "0.1.2-alpha.2",
+      "revision": "0000000000000000000000000000000000000000"
+    },
+    "components": [
+      {
+        "name": "@oh-my-dsh/dsh-a11y-local-preview",
+        "version": "0.1.0-alpha.0",
+        "revision": "1111111111111111111111111111111111111111"
+      }
+    ]
+  },
+  "environment": {
+    "os": {
+      "name": "Synthetic operating system",
+      "version": "0.0"
+    },
+    "browserOrTerminal": {
+      "kind": "browser",
+      "name": "Synthetic browser",
+      "version": "0.0"
+    },
+    "accessTechnologies": [
+      {
+        "name": "Synthetic screen reader",
+        "version": "0.0",
+        "modalities": [
+          "speech"
+        ]
+      }
+    ],
+    "inputMethods": [
+      "keyboard"
+    ],
+    "settings": [
+      "Replace with exact speech language, verbosity, punctuation, and browse or focus mode."
+    ]
+  },
+  "tester": {
+    "category": "community-tester",
+    "screenVisuallyInspected": false,
+    "unrecordedAssistance": false,
+    "experience": "Synthetic template value; do not include identity or disability details."
+  },
+  "consent": {
+    "authority": "self",
+    "affirmative": false,
+    "publicDeidentifiedSummary": false,
+    "rawDataPublished": false,
+    "withdrawalRouteAvailable": false
+  },
+  "tasks": [
+    {
+      "id": "allow-once",
+      "representativeCoreTask": false,
+      "outcome": "partial",
+      "independent": false,
+      "effective": false,
+      "safe": false,
+      "assistance": {
+        "level": "setup-only",
+        "notes": [
+          "Replace with every form of assistance actually provided."
+        ]
+      },
+      "observations": [
+        {
+          "checkpoint": "approval-request",
+          "modality": "speech",
+          "outcome": "not-observed",
+          "observed": "Replace with a concise, actually observed utterance or braille result; never copy a raw transcript."
+        }
+      ],
+      "focus": [
+        {
+          "transition": "approval opens",
+          "destination": "Replace with the actually observed focus destination.",
+          "outcome": "not-applicable"
+        }
+      ],
+      "barriers": [],
+      "limitations": [
+        "This file is a non-evidence template and carries no support claim."
+      ]
+    }
+  ],
+  "summary": {
+    "overall": "partial",
+    "independentCoreTaskCompletion": false,
+    "blockers": [],
+    "limitations": [
+      "Synthetic template only; no person or assistive technology was tested."
+    ],
+    "claimScope": "No claim. Replace with one exact product, platform, browser or terminal, access-technology, locale, and scenario scope."
+  },
+  "review": {
+    "status": "template",
+    "validUntil": "2000-04-29"
+  },
+  "publication": {
+    "sanitizedArtifacts": []
+  }
+}

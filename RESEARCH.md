@@ -18,12 +18,13 @@ Before collecting data, explain who is conducting the study, its purpose and tas
 
 - Use the exact tagged build and record DSH, plugin, OS, browser, AT, language, verbosity, and punctuation settings.
 - Prefer a disposable workspace and synthetic prompts. Do not expose a DSH server publicly or ask a participant to reveal a personal workspace, credential, conversation, or filesystem path.
-- Prefer the version-matched [core lab](AT-CORE-LAB.md), [live-announcement lab](AT-LIVE-LAB.md), or [companion lab](AT-LAB.md) when it matches the research question. Its readiness record and Host terminal lines are setup/product metadata, not participant or AT evidence.
+- Prefer the version-matched [core lab](AT-CORE-LAB.md), [live-announcement lab](AT-LIVE-LAB.md), [companion lab](AT-LAB.md), or [authoring AT lab](AUTHORING-AT-LAB.md) when it matches the research question. Its readiness record and Host terminal lines are setup/product metadata, not participant or AT evidence.
 - Record task completion, focus destination, role/name/state, exact spoken output when relevant, workaround, and severity. Do not require secret or private content to reproduce a defect.
 
 ## Data minimization and storage
 
 - Public issues contain only de-identified results and the minimum technical context needed to reproduce a problem.
+- Public structured summaries use `dsh-a11y-human-evidence/0.1.0-draft` under [HUMAN-EVIDENCE.md](HUMAN-EVIDENCE.md). Record tester category, not identity, diagnosis, or disability details. Consent records, contact details, and withdrawal handling remain private and are never copied into the ledger.
 - Raw audio/video, contact details, consent records, disability information, and unredacted notes must never be committed to a public repository or attached to public CI artifacts.
 - If raw data must be retained, store it in a purpose-specific private repository or approved encrypted research store with named access, a deletion date, and an access log. The default is to delete raw session material after synthesis; any longer retention needs an explicit reason and consent.
 - Diagnostic and report features default to excluding prompts, model output, credentials, usernames, absolute paths, and environment identifiers.

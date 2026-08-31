@@ -2,7 +2,7 @@
 
 简体中文 | [English](ACCESSIBILITY_STATEMENT.md)
 
-最后复审：2026-08-29。
+最后复审：2026-08-31。
 
 DSH 无障碍工作组的目标是让残障开发者能够独立、有效、安全地完成 DSH 的核心任务，并让 DSH 帮助所有开发者产出更无障碍的数字内容。
 
@@ -22,11 +22,13 @@ DSH 无障碍工作组的目标是让残障开发者能够独立、有效、安�
 - VoiceOver 经人工听读的完整实际朗读记录仍待补。
 - Windows 实机 NVDA、JAWS、Narrator，以及 Linux Orca 结果仍待补。
 - 当前 companion 不能修复缺失的核心焦点、键盘或播报行为，也不能直接观察操作系统无障碍 API 或精确读屏语音。
-- 已测试核心候选基于 DSH `0.1.1-rc.2`；上游 `0.1.2-alpha.1` 需要重新兼容审计。
+- 已测试核心候选基于 DSH `0.1.1-rc.2`；上游 `0.1.2-alpha.2` 开发线仍需完成完整兼容审计。
 - 强制颜色、200%/400% 重排、盲文显示器、语音识别、开关控制，以及更广泛的认知和低视力场景尚未完成。
+- 创作／testkit 包及完整审批／修复实验室仍是开发候选；live-model、真实 AT、残障作者、评审和发布证据均待补。
+- 版本化真人证据账本当前只有非证据模板，尚不能支持 `a11y-at-tested` 或 `a11y-user-validated` 声明。
 - 自动检查通过不代表所有残障人士都能使用每一个工作流。
 
-精确支持矩阵和人工场景维护在 [ACCESSIBILITY.zh.md](ACCESSIBILITY.zh.md)，后续路线和发布门禁见 [ROADMAP.zh.md](ROADMAP.zh.md)。
+精确支持矩阵和人工场景维护在 [ACCESSIBILITY.zh.md](ACCESSIBILITY.zh.md)，经过同意的公开真人结果使用 [HUMAN-EVIDENCE.zh.md](HUMAN-EVIDENCE.zh.md)，后续路线和发布门禁见 [ROADMAP.zh.md](ROADMAP.zh.md)。
 
 ## 反馈
 

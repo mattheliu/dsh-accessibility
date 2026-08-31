@@ -1,0 +1,372 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/omdsh-dev/dsh-accessibility/main/HUMAN-EVIDENCE.schema.json",
+  "title": "DSH public human accessibility evidence",
+  "description": "A consented, de-identified, exactly scoped assistive-technology or disabled-developer task record. Validation never upgrades automated output into human evidence.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "protocol",
+    "recordType",
+    "recordId",
+    "recordedOn",
+    "evidenceKind",
+    "claim",
+    "scenario",
+    "builds",
+    "environment",
+    "tester",
+    "consent",
+    "tasks",
+    "summary",
+    "review",
+    "publication"
+  ],
+  "properties": {
+    "$schema": { "type": "string", "maxLength": 200 },
+    "protocol": { "const": "dsh-a11y-human-evidence/0.1.0-draft" },
+    "recordType": { "enum": ["template", "human-evidence"] },
+    "recordId": { "type": "string", "pattern": "^[a-z0-9][a-z0-9._-]{7,99}$" },
+    "recordedOn": { "type": "string", "format": "date" },
+    "evidenceKind": { "enum": ["assistive-technology-run", "disabled-user-task-run"] },
+    "claim": { "enum": ["none", "a11y-at-tested", "a11y-user-validated"] },
+    "scenario": { "$ref": "#/$defs/scenario" },
+    "builds": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["dsh", "components"],
+      "properties": {
+        "dsh": {
+          "allOf": [
+            { "$ref": "#/$defs/build" },
+            { "type": "object", "properties": { "name": { "const": "@deepseek-ai/dsh" } } }
+          ]
+        },
+        "components": {
+          "type": "array",
+          "maxItems": 20,
+          "items": { "$ref": "#/$defs/build" }
+        }
+      }
+    },
+    "environment": { "$ref": "#/$defs/environment" },
+    "tester": { "$ref": "#/$defs/tester" },
+    "consent": { "$ref": "#/$defs/consent" },
+    "tasks": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 30,
+      "items": { "$ref": "#/$defs/task" }
+    },
+    "summary": { "$ref": "#/$defs/summary" },
+    "review": { "$ref": "#/$defs/review" },
+    "publication": { "$ref": "#/$defs/publication" }
+  },
+  "allOf": [
+    {
+      "if": { "type": "object", "properties": { "scenario": { "type": "object", "properties": { "interface": { "const": "web" } }, "required": ["interface"] } }, "required": ["scenario"] },
+      "then": { "type": "object", "properties": { "environment": { "type": "object", "properties": { "browserOrTerminal": { "type": "object", "properties": { "kind": { "const": "browser" } } } } } } }
+    },
+    {
+      "if": { "type": "object", "properties": { "scenario": { "type": "object", "properties": { "interface": { "const": "cli" } }, "required": ["interface"] } }, "required": ["scenario"] },
+      "then": { "type": "object", "properties": { "environment": { "type": "object", "properties": { "browserOrTerminal": { "type": "object", "properties": { "kind": { "const": "terminal" } } } } } } }
+    },
+    {
+      "if": { "type": "object", "properties": { "evidenceKind": { "const": "assistive-technology-run" } }, "required": ["evidenceKind"] },
+      "then": { "type": "object", "properties": { "environment": { "type": "object", "properties": { "accessTechnologies": { "type": "array", "minItems": 1 } } } } }
+    },
+    {
+      "if": { "type": "object", "properties": { "recordType": { "const": "human-evidence" }, "evidenceKind": { "const": "disabled-user-task-run" } }, "required": ["recordType", "evidenceKind"] },
+      "then": { "type": "object", "properties": { "tester": { "type": "object", "properties": { "category": { "const": "disabled-developer" } } }, "consent": { "type": "object", "properties": { "withdrawalRouteAvailable": { "const": true } } } } }
+    },
+    {
+      "if": { "type": "object", "properties": { "recordType": { "const": "template" } }, "required": ["recordType"] },
+      "then": { "type": "object", "properties": { "claim": { "const": "none" }, "review": { "type": "object", "properties": { "status": { "const": "template" } }, "required": ["status"] } } }
+    },
+    {
+      "if": { "type": "object", "properties": { "recordType": { "const": "human-evidence" } }, "required": ["recordType"] },
+      "then": {
+        "type": "object",
+        "properties": {
+          "consent": { "type": "object", "properties": { "affirmative": { "const": true }, "publicDeidentifiedSummary": { "const": true }, "rawDataPublished": { "const": false } } },
+          "tester": { "type": "object", "properties": { "unrecordedAssistance": { "const": false } } },
+          "review": { "type": "object", "properties": { "status": { "not": { "const": "template" } } } }
+        }
+      }
+    },
+    {
+      "if": { "type": "object", "properties": { "claim": { "not": { "const": "none" } } }, "required": ["claim"] },
+      "then": {
+        "type": "object",
+        "properties": {
+          "recordType": { "const": "human-evidence" },
+          "review": { "type": "object", "properties": { "status": { "const": "current" } } },
+          "summary": { "type": "object", "properties": { "overall": { "const": "pass" }, "blockers": { "type": "array", "maxItems": 0 } } },
+          "publication": { "type": "object", "properties": { "publicIssue": true, "sanitizedArtifacts": true }, "required": ["publicIssue", "sanitizedArtifacts"] },
+          "tasks": {
+            "type": "array",
+            "items": {
+              "allOf": [
+                { "$ref": "#/$defs/task" },
+                {
+                  "type": "object",
+                  "properties": {
+                    "outcome": { "const": "pass" },
+                    "effective": { "const": true },
+                    "safe": { "const": true },
+                    "assistance": { "type": "object", "properties": { "level": { "enum": ["none", "setup-only"] } } },
+                    "observations": { "type": "array", "items": { "type": "object", "properties": { "outcome": { "const": "pass" } } } },
+                    "focus": { "type": "array", "items": { "type": "object", "properties": { "outcome": { "enum": ["expected", "not-applicable"] } } } },
+                    "barriers": { "type": "array", "items": { "type": "object", "properties": { "severity": { "enum": ["medium", "low"] } } } }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": { "type": "object", "properties": { "claim": { "const": "a11y-at-tested" } }, "required": ["claim"] },
+      "then": { "type": "object", "properties": { "evidenceKind": { "const": "assistive-technology-run" } } }
+    },
+    {
+      "if": { "type": "object", "properties": { "claim": { "const": "a11y-user-validated" } }, "required": ["claim"] },
+      "then": {
+        "type": "object",
+        "properties": {
+          "evidenceKind": { "const": "disabled-user-task-run" },
+          "tester": { "type": "object", "properties": { "category": { "const": "disabled-developer" } } },
+          "consent": { "type": "object", "properties": { "withdrawalRouteAvailable": { "const": true } } },
+          "summary": { "type": "object", "properties": { "independentCoreTaskCompletion": { "const": true } } },
+          "tasks": {
+            "type": "array",
+            "contains": {
+              "type": "object",
+              "properties": {
+                "representativeCoreTask": { "const": true },
+                "outcome": { "const": "pass" },
+                "independent": { "const": true },
+                "effective": { "const": true },
+                "safe": { "const": true },
+                "assistance": { "type": "object", "properties": { "level": { "enum": ["none", "setup-only"] } } }
+              },
+              "required": ["representativeCoreTask", "outcome", "independent", "effective", "safe", "assistance"]
+            },
+            "minContains": 1
+          }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "shortText": { "type": "string", "minLength": 1, "maxLength": 500 },
+    "exactEnvironmentVersion": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 80,
+      "not": { "type": "string", "pattern": "^(latest|Latest|current|Current|default|Default|main|master|unknown|Unknown|unavailable|Unavailable|n/a|N/A)$" }
+    },
+    "stringList": {
+      "type": "array",
+      "maxItems": 20,
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/shortText" }
+    },
+    "build": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "version", "revision"],
+      "properties": {
+        "name": { "type": "string", "minLength": 1, "maxLength": 120 },
+        "version": { "type": "string", "pattern": "^v?[0-9]+\\.[0-9]+\\.[0-9]+(-[0-9A-Za-z.-]+)?(\\+[0-9A-Za-z.-]+)?$", "maxLength": 80 },
+        "revision": { "type": "string", "pattern": "^([0-9a-f]{40}|[0-9a-f]{64})$" }
+      }
+    },
+    "scenario": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["protocol", "interface", "locale", "taskIds"],
+      "properties": {
+        "protocol": { "type": "string", "pattern": "^[a-z0-9][a-z0-9.-]*/[0-9]+\\.[0-9]+\\.[0-9]+(-[a-z0-9.-]+)?$", "maxLength": 120 },
+        "interface": { "enum": ["web", "cli"] },
+        "locale": { "type": "string", "pattern": "^[A-Za-z]{2,3}(-[A-Za-z0-9]{2,8})*$", "maxLength": 35 },
+        "taskIds": { "type": "array", "minItems": 1, "maxItems": 30, "uniqueItems": true, "items": { "type": "string", "pattern": "^[a-z0-9][a-z0-9._-]{1,79}$" } },
+        "description": { "$ref": "#/$defs/shortText" }
+      }
+    },
+    "environment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["os", "browserOrTerminal", "accessTechnologies", "inputMethods", "settings"],
+      "properties": {
+        "os": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["name", "version"],
+          "properties": { "name": { "$ref": "#/$defs/shortText" }, "version": { "$ref": "#/$defs/exactEnvironmentVersion" } }
+        },
+        "browserOrTerminal": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["kind", "name", "version"],
+          "properties": {
+            "kind": { "enum": ["browser", "terminal"] },
+            "name": { "$ref": "#/$defs/shortText" },
+            "version": { "$ref": "#/$defs/exactEnvironmentVersion" },
+            "shell": { "$ref": "#/$defs/exactEnvironmentVersion" }
+          },
+          "allOf": [
+            {
+              "if": { "type": "object", "properties": { "kind": { "const": "terminal" } }, "required": ["kind"] },
+              "then": { "type": "object", "properties": { "shell": true }, "required": ["shell"] }
+            },
+            {
+              "if": { "type": "object", "properties": { "kind": { "const": "browser" } }, "required": ["kind"] },
+              "then": { "not": { "type": "object", "properties": { "shell": true }, "required": ["shell"] } }
+            }
+          ]
+        },
+        "accessTechnologies": {
+          "type": "array",
+          "maxItems": 10,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["name", "version", "modalities"],
+            "properties": {
+              "name": { "$ref": "#/$defs/shortText" },
+              "version": { "$ref": "#/$defs/exactEnvironmentVersion" },
+              "modalities": {
+                "type": "array",
+                "minItems": 1,
+                "maxItems": 7,
+                "uniqueItems": true,
+                "items": { "enum": ["speech", "braille", "keyboard", "switch", "voice", "magnification", "other"] }
+              }
+            }
+          }
+        },
+        "inputMethods": { "type": "array", "minItems": 1, "maxItems": 10, "uniqueItems": true, "items": { "$ref": "#/$defs/shortText" } },
+        "settings": { "type": "array", "minItems": 1, "maxItems": 20, "uniqueItems": true, "items": { "$ref": "#/$defs/shortText" } }
+      }
+    },
+    "tester": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["category", "screenVisuallyInspected", "unrecordedAssistance"],
+      "properties": {
+        "category": { "enum": ["community-tester", "at-specialist", "disabled-developer"] },
+        "screenVisuallyInspected": { "type": "boolean" },
+        "unrecordedAssistance": { "type": "boolean" },
+        "experience": { "$ref": "#/$defs/shortText" }
+      }
+    },
+    "consent": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["authority", "affirmative", "publicDeidentifiedSummary", "rawDataPublished", "withdrawalRouteAvailable"],
+      "properties": {
+        "authority": { "enum": ["self", "explicit-permission"] },
+        "affirmative": { "type": "boolean" },
+        "publicDeidentifiedSummary": { "type": "boolean" },
+        "rawDataPublished": { "type": "boolean" },
+        "withdrawalRouteAvailable": { "type": "boolean" }
+      }
+    },
+    "observation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["checkpoint", "modality", "outcome", "observed"],
+      "properties": {
+        "checkpoint": { "type": "string", "minLength": 1, "maxLength": 100 },
+        "modality": { "enum": ["speech", "braille", "keyboard", "switch", "voice", "magnification", "other"] },
+        "outcome": { "enum": ["pass", "fail", "partial", "not-observed"] },
+        "observed": { "$ref": "#/$defs/shortText" }
+      }
+    },
+    "focus": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["transition", "destination", "outcome"],
+      "properties": {
+        "transition": { "type": "string", "minLength": 1, "maxLength": 160 },
+        "destination": { "type": "string", "minLength": 1, "maxLength": 160 },
+        "outcome": { "enum": ["expected", "unexpected", "lost", "not-applicable"] }
+      }
+    },
+    "barrier": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["severity", "summary"],
+      "properties": {
+        "severity": { "enum": ["blocker", "high", "medium", "low"] },
+        "summary": { "$ref": "#/$defs/shortText" },
+        "workaround": { "$ref": "#/$defs/shortText" }
+      }
+    },
+    "task": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "representativeCoreTask", "outcome", "independent", "effective", "safe", "assistance", "observations", "focus", "barriers", "limitations"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9._-]{1,79}$" },
+        "representativeCoreTask": { "type": "boolean" },
+        "outcome": { "enum": ["pass", "fail", "partial", "not-run"] },
+        "independent": { "type": "boolean" },
+        "effective": { "type": "boolean" },
+        "safe": { "type": "boolean" },
+        "assistance": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["level", "notes"],
+          "properties": {
+            "level": { "enum": ["none", "setup-only", "verbal", "sighted-operation", "other"] },
+            "notes": { "type": "array", "maxItems": 10, "uniqueItems": true, "items": { "$ref": "#/$defs/shortText" } }
+          },
+          "allOf": [
+            {
+              "if": { "type": "object", "properties": { "level": { "not": { "const": "none" } } }, "required": ["level"] },
+              "then": { "type": "object", "properties": { "notes": { "type": "array", "minItems": 1 } } }
+            }
+          ]
+        },
+        "observations": { "type": "array", "minItems": 1, "maxItems": 30, "items": { "$ref": "#/$defs/observation" } },
+        "focus": { "type": "array", "maxItems": 30, "items": { "$ref": "#/$defs/focus" } },
+        "barriers": { "type": "array", "maxItems": 30, "items": { "$ref": "#/$defs/barrier" } },
+        "limitations": { "type": "array", "minItems": 1, "maxItems": 20, "items": { "$ref": "#/$defs/shortText" } }
+      }
+    },
+    "summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["overall", "independentCoreTaskCompletion", "blockers", "limitations", "claimScope"],
+      "properties": {
+        "overall": { "enum": ["pass", "fail", "partial"] },
+        "independentCoreTaskCompletion": { "type": "boolean" },
+        "blockers": { "$ref": "#/$defs/stringList" },
+        "limitations": { "type": "array", "minItems": 1, "maxItems": 20, "items": { "$ref": "#/$defs/shortText" } },
+        "claimScope": { "$ref": "#/$defs/shortText" }
+      }
+    },
+    "review": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "validUntil"],
+      "properties": {
+        "status": { "enum": ["template", "current", "expired", "superseded", "withdrawn"] },
+        "validUntil": { "type": "string", "format": "date" },
+        "invalidatedBy": { "$ref": "#/$defs/shortText" }
+      }
+    },
+    "publication": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["sanitizedArtifacts"],
+      "properties": {
+        "publicIssue": { "type": "string", "pattern": "^https://github\\.com/[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+/(issues|discussions)/[0-9]+$", "maxLength": 300 },
+        "sanitizedArtifacts": { "type": "array", "maxItems": 10, "uniqueItems": true, "items": { "type": "string", "pattern": "^https://", "maxLength": 300 } }
+      }
+    }
+  }
+}
