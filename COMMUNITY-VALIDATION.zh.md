@@ -30,7 +30,7 @@ DSH 需要两类不同的真人结果：真实辅助技术的互操作观察，�
 
 ## 安全配置
 
-1. 使用启动器打印的精确构建与完整 revision，不测试 `latest` 或未记录的工作树。
+1. 使用启动器打印的精确构建与完整 revision。真人证据启动器会在任一参与 checkout 存在 tracked、staged 或 untracked 改动时 fail-closed；不得绕过该门禁，也不得测试 `latest` 或未记录的工作树。
 2. 只使用匹配实验室提供的一次性 DSH home、合成内容、loopback origin 和临时工作区。
 3. macOS 优先使用实验室的 `chrome` 模式：它会创建并删除隔离 profile，并阻断非 loopback 名称解析。Safari 或 `system` 必须使用专门的干净浏览器 profile。若出现个人标签页、历史、书签、账户、扩展、自动填充、提示词、对话、凭据或路径，应在测试前立即停止。
 4. 绝不公开一次性登录 URL，不通过隧道暴露 loopback server，也不替换成真实工作区。

@@ -35,6 +35,8 @@ pnpm install --frozen-lockfile
 pnpm run build
 ```
 
+只要 DSH 或 companion checkout 存在 tracked、staged 或 untracked 改动，启动器就会拒绝运行。因此就绪记录中的 revision 能标识本次执行所用的全部产品与实验室源码，不会把脏工作树静默归到 `HEAD`。
+
 在 companion checkout 中选择一种启动方式：
 
 ```sh

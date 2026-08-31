@@ -1,7 +1,8 @@
 /** Launch a disposable, synthetic DSH world for human assistive-technology testing. */
 import { readFile, rm, writeFile } from 'node:fs/promises'
-import { spawn, spawnSync } from 'node:child_process'
+import { spawn } from 'node:child_process'
 import { join, resolve } from 'node:path'
+import { exactGitRevision } from './lab-source-state.mjs'
 
 const [dshArgument, pluginArgument = '.', browserArgument = 'none', timeoutArgument = '0'] = process.argv.slice(2)
 if (dshArgument === undefined) {
@@ -32,11 +33,8 @@ if (pluginManifest.name !== '@oh-my-dsh/dsh-accessibility') {
   throw new Error('AT lab received the wrong companion package')
 }
 await readFile(join(pluginRoot, 'lib/client.js'), 'utf8')
-
-function gitRevision(root) {
-  const result = spawnSync('git', ['rev-parse', 'HEAD'], { cwd: root, encoding: 'utf8' })
-  return result.status === 0 ? String(result.stdout).trim() : 'unavailable'
-}
+const dshRevision = exactGitRevision(dshRoot, 'DSH checkout')
+const pluginRevision = exactGitRevision(pluginRoot, 'Accessibility companion checkout')
 
 const template = await readFile(join(pluginRoot, 'scripts/at-lab.template.ts'), 'utf8')
 const relativeTarget = 'apps/web/tests/dsh-accessibility.at-lab.e2e.ts'
@@ -67,8 +65,8 @@ try {
         ...process.env,
         DSH_SNAPSHOT: 'replay',
         DSH_ACCESSIBILITY_PLUGIN_ROOT: pluginRoot,
-        DSH_ACCESSIBILITY_DSH_REVISION: gitRevision(dshRoot),
-        DSH_ACCESSIBILITY_PLUGIN_REVISION: gitRevision(pluginRoot),
+        DSH_ACCESSIBILITY_DSH_REVISION: dshRevision,
+        DSH_ACCESSIBILITY_PLUGIN_REVISION: pluginRevision,
         DSH_ACCESSIBILITY_AT_LAB_BROWSER: browserArgument,
         DSH_ACCESSIBILITY_AT_LAB_TIMEOUT_MS: String(timeoutMs),
       },

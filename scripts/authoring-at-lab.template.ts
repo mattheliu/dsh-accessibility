@@ -355,6 +355,11 @@ it('boots a disposable authoring flow for human assistive-technology testing', a
         version: process.env.DSH_ACCESSIBILITY_DSH_VERSION ?? 'unavailable',
         revision: process.env.DSH_ACCESSIBILITY_DSH_REVISION ?? 'unavailable',
       },
+      lab: {
+        package: '@oh-my-dsh/dsh-accessibility',
+        version: process.env.DSH_ACCESSIBILITY_LAB_VERSION ?? 'unavailable',
+        revision: process.env.DSH_ACCESSIBILITY_LAB_REVISION ?? 'unavailable',
+      },
       composition: {
         package: '@oh-my-dsh/dsh-a11y-local-preview',
         version: process.env.DSH_ACCESSIBILITY_LOCAL_PREVIEW_VERSION ?? 'unavailable',

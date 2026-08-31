@@ -30,6 +30,8 @@ git checkout feat/hermetic-at-lab
 pnpm install --frozen-lockfile
 ```
 
+只有 DSH checkout 和本无障碍实验室 checkout 都是 Git 仓库，且 tracked、staged 与 untracked 状态全部干净时，启动器才会创建实验状态。就绪记录会标明两个 checkout 的完整 commit 和包版本；分支名或遗漏本地改动的 commit 绝不能作为证据来源。
+
 从 companion checkout 启动：
 
 ```sh
@@ -48,7 +50,7 @@ pnpm run lab:at:core ../deepseek-harness safari
 pnpm run lab:at:core ../deepseek-harness chrome
 ```
 
-启动器会打印版本化 JSON 就绪记录，其中包含精确 DSH revision、操作系统信息和浏览器上下文隔离状态。临时一次性登录地址会单独打印：只在本机使用，不要粘贴进公开结果。启动器不会创建截图、录屏、上传或公开 artifact。`chrome` 模式不会打开测试者日常使用的 Chrome profile，因此是本机测试中最安全的默认选项；`system` 与 `safari` 可能复用既有浏览器上下文，只能配合专门的干净 profile 使用。
+启动器会打印版本化 JSON 就绪记录，其中包含精确 DSH 与实验室 revision、操作系统信息和浏览器上下文隔离状态。临时一次性登录地址会单独打印：只在本机使用，不要粘贴进公开结果。启动器不会创建截图、录屏、上传或公开 artifact。`chrome` 模式不会打开测试者日常使用的 Chrome profile，因此是本机测试中最安全的默认选项；`system` 与 `safari` 可能复用既有浏览器上下文，只能配合专门的干净 profile 使用。
 
 测试结束后回到终端按 Ctrl+C 请求清理。启动器随后关闭隔离的 Chrome 进程，并移除其临时 profile、一次性 DSH home、Session 持久化和工作区；`system` 或 `safari` 模式留下的失效标签页仍需手动关闭。如果进程被强制终止，只可能在操作系统临时目录留下启动器打印过的 `dsh-core-at-lab-...` 目录；先检查，再把这个精确目录移到废纸篓，绝不能删除宽泛的临时路径。
 
@@ -91,6 +93,7 @@ VoiceOver 测试者应根据控件使用转子、VO+左／右、VO+空格及 Tab
 - 辅助技术及精确版本：
 - UI／语音语言、声音、详细度、标点：
 - DSH revision：
+- 无障碍实验室版本与 revision：
 - 输入／输出设备：
 
 | 任务 | 实际语音／盲文及焦点／光标结果 | 是否独立完成 | 变通方式 | 通过／失败／部分通过 | 严重程度 |

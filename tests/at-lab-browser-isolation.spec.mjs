@@ -7,6 +7,13 @@ const templates = [
   'live-at-lab.template.ts',
   'authoring-at-lab.template.ts',
 ]
+const evidenceRunners = [
+  'run-at-lab.mjs',
+  'run-core-at-lab.mjs',
+  'run-live-at-lab.mjs',
+  'run-authoring-at-lab.mjs',
+  'run-cli-conformance.mjs',
+]
 
 describe('human AT lab browser isolation', () => {
   it.each(templates)('%s launches Chrome with a disposable local-only profile', (template) => {
@@ -35,5 +42,23 @@ describe('human AT lab browser isolation', () => {
     expect(source).toContain("process.kill('SIGTERM')")
     expect(source).toContain("process.kill('SIGKILL')")
     expect(source).toContain("rejectClose(new Error('isolated Chrome did not exit within 5000 ms'))")
+  })
+
+  it.each(evidenceRunners)('%s rejects source that has no exact clean commit', (runner) => {
+    const source = readFileSync(new URL(`../scripts/${runner}`, import.meta.url), 'utf8')
+    expect(source).toContain("from './lab-source-state.mjs'")
+    expect(source).toContain('exactGitRevision(')
+  })
+
+  it.each([
+    'core-at-lab.template.ts',
+    'live-at-lab.template.ts',
+    'authoring-at-lab.template.ts',
+    'cli-conformance.template.ts',
+  ])('%s reports the exact lab implementation revision separately', (template) => {
+    const source = readFileSync(new URL(`../scripts/${template}`, import.meta.url), 'utf8')
+    expect(source).toContain("package: '@oh-my-dsh/dsh-accessibility'")
+    expect(source).toContain('DSH_ACCESSIBILITY_LAB_VERSION')
+    expect(source).toContain('DSH_ACCESSIBILITY_LAB_REVISION')
   })
 })

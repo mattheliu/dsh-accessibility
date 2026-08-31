@@ -1,7 +1,8 @@
 /** Launch a disposable DSH replay scenario for human live-announcement testing. */
 import { readFile, rm, writeFile } from 'node:fs/promises'
-import { spawn, spawnSync } from 'node:child_process'
+import { spawn } from 'node:child_process'
 import { join, resolve } from 'node:path'
+import { exactGitRevision } from './lab-source-state.mjs'
 
 const [dshArgument, scenarioArgument = 'complete', browserArgument = 'none', timeoutArgument = '0']
   = process.argv.slice(2)
@@ -28,14 +29,15 @@ if (!Number.isSafeInteger(timeoutMs) || timeoutMs < 0 || timeoutMs > 86_400_000)
 const invocationCwd = process.cwd()
 const dshRoot = resolve(invocationCwd, dshArgument)
 const dshManifest = JSON.parse(await readFile(join(dshRoot, 'package.json'), 'utf8'))
+const labManifest = JSON.parse(await readFile(join(invocationCwd, 'package.json'), 'utf8'))
 if (dshManifest.version !== '0.1.2-alpha.2') {
   throw new Error(`Live AT lab requires DSH 0.1.2-alpha.2, received ${String(dshManifest.version)}`)
 }
-
-function gitRevision(root) {
-  const result = spawnSync('git', ['rev-parse', 'HEAD'], { cwd: root, encoding: 'utf8' })
-  return result.status === 0 ? String(result.stdout).trim() : 'unavailable'
+if (labManifest.name !== '@oh-my-dsh/dsh-accessibility') {
+  throw new Error('Live AT lab must run from the @oh-my-dsh/dsh-accessibility checkout')
 }
+const dshRevision = exactGitRevision(dshRoot, 'DSH checkout')
+const labRevision = exactGitRevision(invocationCwd, 'Accessibility lab checkout')
 
 const template = await readFile(join(invocationCwd, 'scripts/live-at-lab.template.ts'), 'utf8')
 const relativeTarget = 'apps/web/tests/dsh-accessibility.live-at-lab.e2e.ts'
@@ -66,7 +68,9 @@ try {
         ...process.env,
         DSH_SNAPSHOT: 'replay',
         DSH_ACCESSIBILITY_DSH_VERSION: String(dshManifest.version),
-        DSH_ACCESSIBILITY_DSH_REVISION: gitRevision(dshRoot),
+        DSH_ACCESSIBILITY_DSH_REVISION: dshRevision,
+        DSH_ACCESSIBILITY_LAB_VERSION: String(labManifest.version),
+        DSH_ACCESSIBILITY_LAB_REVISION: labRevision,
         DSH_ACCESSIBILITY_LIVE_AT_SCENARIO: scenarioArgument,
         DSH_ACCESSIBILITY_AT_LAB_BROWSER: browserArgument,
         DSH_ACCESSIBILITY_AT_LAB_TIMEOUT_MS: String(timeoutMs),

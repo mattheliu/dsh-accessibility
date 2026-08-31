@@ -27,7 +27,7 @@ pnpm run lab:at:live ../deepseek-harness plan system
 pnpm run lab:at:live ../deepseek-harness approval system
 ```
 
-macOS 上应优先用 `chrome` 代替 `system`：它会创建全新临时浏览器 profile、禁用后台联网并阻断非 loopback 主机解析。`safari` 只能配合专门的干净 profile；`system` 可能复用当前默认浏览器上下文。使用 `none` 时只打印一次性本地登录地址，不打开浏览器。不得公开该地址。就绪 JSON 会记录浏览器上下文隔离、精确 DSH revision、场景、操作系统、合成 Session id 和 `taskInput`。
+共享的来源门禁会在创建状态前拒绝脏的 DSH 或无障碍实验室 checkout。macOS 上应优先用 `chrome` 代替 `system`：它会创建全新临时浏览器 profile、禁用后台联网并阻断非 loopback 主机解析。`safari` 只能配合专门的干净 profile；`system` 可能复用当前默认浏览器上下文。使用 `none` 时只打印一次性本地登录地址，不打开浏览器。不得公开该地址。就绪 JSON 会记录浏览器上下文隔离、精确 DSH 与实验室 revision、场景、操作系统、合成 Session id 和 `taskInput`。
 
 必须原样复制 `taskInput`。如果 Session 没有自动选中，打开 `live-at-workspace` 下唯一的 Session。不要提交第二条提示词：replay fixture 有意保持有限，第二次调用必须失败，绝不能转向网络模型。
 
@@ -99,6 +99,7 @@ pnpm run lab:at:live ../deepseek-harness complete none 500
 - 辅助技术及精确版本：
 - UI／语音语言、声音、详细度、标点、浏览／焦点模式：
 - DSH revision：
+- 无障碍实验室版本与 revision：
 - 输入／输出设备：
 
 | 状态跃迁／任务 | 实际语音／盲文 | 焦点／光标结果 | 重复／合并／打断 | 是否独立完成 | 变通方式 | 通过／失败／部分通过 | 严重程度 |

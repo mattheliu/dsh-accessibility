@@ -37,7 +37,7 @@
 pnpm run lab:cli -- ../deepseek-harness-alpha2 automated
 ```
 
-启动器会核对精确 DSH 包版本、构建本地产品、向 DSH checkout 临时注入一个产品入口 E2E 测试、执行后删除。结果记录 DSH Git revision，并检查帮助发现、参数闭合失败、成功的无障碍文本与 JSON，以及失败的无障碍文本与 JSON。
+启动器首先会拒绝 DSH 或无障碍实验室 checkout 中任何 tracked、staged 或 untracked 改动；随后核对精确 DSH 包版本、构建本地产品、向 DSH checkout 临时注入一个产品入口 E2E 测试、执行后删除。结果记录完整 DSH 与实验室 Git revision，并检查帮助发现、参数闭合失败、成功的无障碍文本与 JSON，以及失败的无障碍文本与 JSON。
 
 输出中的 `automated-process-output-not-at-evidence` 记录只证明所检查的 stdout、stderr、退出状态和请求边界；它无法观察语音、盲文、终端光标行为、理解情况或独立完成任务。
 
@@ -64,7 +64,7 @@ pnpm run lab:cli -- ../deepseek-harness-alpha2 manual
 
 每个环境和场景建立一份去标识记录，包含：
 
-- 规程 ID、DSH 版本和 Git revision；
+- 规程 ID、DSH 版本和 Git revision，以及无障碍实验室版本与 revision；
 - 操作系统、终端及版本、shell，以及使用 PTY 还是重定向流；
 - 辅助技术及版本、语音语言、详细度、标点设置；如适用还需记录盲文显示器和表；
 - 稳定目录任务 ID、预期结果、按顺序记录的实际语音或盲文、光标或复查模式行为、任务完成情况与通过／失败；

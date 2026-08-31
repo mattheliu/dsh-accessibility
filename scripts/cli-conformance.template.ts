@@ -150,6 +150,11 @@ it('conforms to the draft versioned CLI accessibility output protocol', async ()
           version: process.env.DSH_ACCESSIBILITY_DSH_VERSION ?? 'unavailable',
           revision: process.env.DSH_ACCESSIBILITY_DSH_REVISION ?? 'unavailable',
         },
+        lab: {
+          package: '@oh-my-dsh/dsh-accessibility',
+          version: process.env.DSH_ACCESSIBILITY_LAB_VERSION ?? 'unavailable',
+          revision: process.env.DSH_ACCESSIBILITY_LAB_REVISION ?? 'unavailable',
+        },
         cases: [
           'help-discovery',
           'invalid-format-fail-closed',

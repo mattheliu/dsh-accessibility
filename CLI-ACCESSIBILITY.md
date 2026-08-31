@@ -37,7 +37,7 @@ From this repository, run:
 pnpm run lab:cli -- ../deepseek-harness-alpha2 automated
 ```
 
-The launcher verifies the exact DSH package version, builds the local product, injects one disposable product-entry E2E test into the DSH checkout, runs it, and removes it. The result records the DSH Git revision and checks help discovery, fail-closed argument handling, successful accessible text and JSON, and failed accessible text and JSON.
+The launcher first refuses tracked, staged, or untracked changes in either the DSH or accessibility-lab checkout. It then verifies the exact DSH package version, builds the local product, injects one disposable product-entry E2E test into the DSH checkout, runs it, and removes it. The result records the full DSH and lab Git revisions and checks help discovery, fail-closed argument handling, successful accessible text and JSON, and failed accessible text and JSON.
 
 The emitted `automated-process-output-not-at-evidence` record proves only the inspected stdout, stderr, exit status, and request boundary. It cannot observe speech, braille, terminal cursor behavior, comprehension, or independent task completion.
 
@@ -64,7 +64,7 @@ Launching the lab or seeing its terminal text is not an AT pass. A human must ob
 
 Create one de-identified record per environment and scenario with:
 
-- protocol ID, DSH version and Git revision;
+- protocol ID, DSH version and Git revision, plus the accessibility-lab version and revision;
 - operating system, terminal and version, shell, and whether a PTY or redirected stream was used;
 - assistive technology and version, speech language, verbosity, punctuation, braille display and table when applicable;
 - stable catalog task ID, expected result, actual speech or braille in order, cursor or review-mode behavior, task completion, and pass/fail;

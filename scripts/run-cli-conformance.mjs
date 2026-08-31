@@ -1,9 +1,10 @@
 /** Build and verify DSH's versioned headless accessibility output. */
-import { spawn, spawnSync } from 'node:child_process'
+import { spawn } from 'node:child_process'
 import { mkdtemp, readFile, rm, writeFile } from 'node:fs/promises'
 import { arch, platform, release, tmpdir } from 'node:os'
 import { join, resolve } from 'node:path'
 import { pathToFileURL } from 'node:url'
+import { exactGitRevision } from './lab-source-state.mjs'
 
 const rawArguments = process.argv.slice(2)
 const launcherArguments = rawArguments[0] === '--' ? rawArguments.slice(1) : rawArguments
@@ -18,19 +19,17 @@ if (modeArgument !== 'automated' && modeArgument !== 'manual') {
 const invocationCwd = process.cwd()
 const dshRoot = resolve(invocationCwd, dshArgument)
 const dshManifest = JSON.parse(await readFile(join(dshRoot, 'package.json'), 'utf8'))
+const labManifest = JSON.parse(await readFile(join(invocationCwd, 'package.json'), 'utf8'))
 if (dshManifest.version !== '0.1.2-alpha.2') {
   throw new Error(
     `CLI accessibility conformance requires DSH 0.1.2-alpha.2, received ${String(dshManifest.version)}`,
   )
 }
-
-function gitRevision(root) {
-  const result = spawnSync('git', ['rev-parse', 'HEAD'], {
-    cwd: root,
-    encoding: 'utf8',
-  })
-  return result.status === 0 ? String(result.stdout).trim() : 'unavailable'
+if (labManifest.name !== '@oh-my-dsh/dsh-accessibility') {
+  throw new Error('CLI accessibility lab must run from the @oh-my-dsh/dsh-accessibility checkout')
 }
+const dshRevision = exactGitRevision(dshRoot, 'DSH checkout')
+const labRevision = exactGitRevision(invocationCwd, 'Accessibility lab checkout')
 
 let child
 let forwardedSignal
@@ -98,6 +97,11 @@ async function runManualLab(revision) {
         protocol: 'dsh-cli-accessibility/1.0.0-draft',
         evidence: 'manual-lab-ready-not-at-evidence',
         dsh: { version: String(dshManifest.version), revision },
+        lab: {
+          package: '@oh-my-dsh/dsh-accessibility',
+          version: String(labManifest.version),
+          revision: labRevision,
+        },
         environment: {
           os: platform(),
           osRelease: release(),
@@ -169,7 +173,7 @@ let target
 try {
   exitCode = await run('pnpm', ['run', 'build:lib:host'])
   if (exitCode === 0 && forwardedSignal === undefined) {
-    const revision = gitRevision(dshRoot)
+    const revision = dshRevision
     if (modeArgument === 'manual') {
       await runManualLab(revision)
     } else {
@@ -188,6 +192,8 @@ try {
             ...process.env,
             DSH_ACCESSIBILITY_DSH_VERSION: String(dshManifest.version),
             DSH_ACCESSIBILITY_DSH_REVISION: revision,
+            DSH_ACCESSIBILITY_LAB_VERSION: String(labManifest.version),
+            DSH_ACCESSIBILITY_LAB_REVISION: labRevision,
           },
         },
       )

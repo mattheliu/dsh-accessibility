@@ -203,6 +203,11 @@ it('boots a disposable replay world for human live-announcement observation', as
         version: process.env.DSH_ACCESSIBILITY_DSH_VERSION ?? 'unavailable',
         revision: process.env.DSH_ACCESSIBILITY_DSH_REVISION ?? 'unavailable',
       },
+      lab: {
+        package: '@oh-my-dsh/dsh-accessibility',
+        version: process.env.DSH_ACCESSIBILITY_LAB_VERSION ?? 'unavailable',
+        revision: process.env.DSH_ACCESSIBILITY_LAB_REVISION ?? 'unavailable',
+      },
       environment: { os: platform(), osRelease: release(), architecture: arch() },
       requestedBrowser: browser,
       browserContext: launchedBrowser.context,

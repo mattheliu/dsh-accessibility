@@ -30,6 +30,8 @@ readiness JSON、Host 终端输出、字幕、DOM 文本、截图和自动 Chrom
 
 launcher 会在启动子进程前移除 `DEEPSEEK_API_KEY`。本场景使用固定 replay，不需要模型密钥。
 
+创建状态之前，launcher 还会要求 DSH、local-preview 与无障碍实验室 checkout 的 Git 状态全部干净。readiness 会分别报告三者的完整 revision，因此未提交实现不能沿用其 checkout `HEAD` 的声明范围。
+
 ## 自动产品检查
 
 当三个 checkout 互为同级目录时，在本仓库运行：
@@ -58,7 +60,7 @@ pnpm run lab:at:authoring -- ../deepseek-harness-alpha2 ../dsh-a11y-local-previe
 
 Chrome 模式会创建全新临时 profile、禁用后台联网、阻断非 loopback 主机解析，在退出时关闭隔离浏览器并删除 profile。Safari 可能复用既有浏览器上下文，因此只能使用专门的干净 profile；出现个人界面就立即停止。Windows 上的 NVDA／JAWS／Narrator 或 Linux 上的 Orca 请使用 `none 0`，将另行打印的一次性登录 URL 复制到专门的干净浏览器 profile，不得公开该 URL。默认浏览器就是被测浏览器且已经使用专门干净 profile 时，也可使用 `system 0`。
 
-readiness JSON 包含版本、revision、环境、浏览器上下文隔离、合成 Session ID、精确任务文本、持久化策略与限制；它故意不含一次性登录 URL 和预览 origin。
+readiness JSON 包含 DSH、实验室与组合的版本和 revision、环境、浏览器上下文隔离、合成 Session ID、精确任务文本、持久化策略与限制；它故意不含一次性登录 URL 和预览 origin。
 
 ## 成功场景：仅允许一次
 
@@ -97,7 +99,7 @@ readiness JSON 包含版本、revision、环境、浏览器上下文隔离、合
 每个精确“产品／浏览器或终端／辅助技术／语言”组合都应使用 **辅助技术测试结果** Issue 表单单独提交一条公开记录，并先脱敏。若结果经过支持声明评审，应按照 [HUMAN-EVIDENCE.zh.md](HUMAN-EVIDENCE.zh.md) 用 `dsh-a11y-human-evidence/0.1.0-draft` 编码公开摘要；失败或部分结果仍为 `claim: none`。至少记录：
 
 - 规程和稳定目录任务 ID（`allow-once` 或 `reject`）；
-- readiness JSON 中的精确 DSH 与组合版本、revision；
+- readiness JSON 中的精确 DSH、无障碍实验室与组合版本、revision；
 - 操作系统／build、硬件或虚拟机；
 - 浏览器／版本和辅助技术／版本；
 - UI 与语音语言、详细度、标点、浏览／焦点模式、盲文或输入设备设置；

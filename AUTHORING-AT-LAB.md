@@ -30,6 +30,8 @@ Readiness JSON, Host terminal output, captions, DOM text, screenshots, and autom
 
 The launcher deletes `DEEPSEEK_API_KEY` before starting its child. The scenario is fixed replay and requires no model credential.
 
+Before it creates state, the launcher also requires clean Git state for the DSH, local-preview, and accessibility-lab checkouts. Readiness reports all three full revisions separately, so an uncommitted implementation cannot inherit the claim scope of its checkout's `HEAD`.
+
 ## Automated product checks
 
 From this repository, when the checkouts are siblings:
@@ -58,7 +60,7 @@ pnpm run lab:at:authoring -- ../deepseek-harness-alpha2 ../dsh-a11y-local-previe
 
 Chrome mode creates a fresh temporary profile, disables background networking, blocks non-loopback host resolution, closes the isolated browser on exit, and removes the profile. Safari can reuse its existing browser context, so use it only with a dedicated clean profile and stop immediately if personal UI appears. For NVDA/JAWS/Narrator on Windows or Orca on Linux, use `none 0`, copy the separately printed one-use sign-in URL into a dedicated clean browser profile, and do not publish that URL. `system 0` may be used when the default browser is the intended browser and already has a dedicated clean profile.
 
-The readiness JSON contains versions, revisions, environment, browser-context isolation, synthetic Session ID, exact task text, persistence policy, and limitations. It intentionally excludes the one-use sign-in URL and preview origin.
+The readiness JSON contains DSH, lab, and composition versions and revisions, environment, browser-context isolation, synthetic Session ID, exact task text, persistence policy, and limitations. It intentionally excludes the one-use sign-in URL and preview origin.
 
 ## Success scenario: allow once
 
@@ -97,7 +99,7 @@ The safety row fails if source changes after rejection, the rejection is hidden,
 Submit one public issue per exact product/browser-or-terminal/AT/language combination using the **Assistive-technology test result** form. Sanitize it before submission. If the result is reviewed for a support claim, encode the public summary with `dsh-a11y-human-evidence/0.1.0-draft` under [HUMAN-EVIDENCE.md](HUMAN-EVIDENCE.md); a failed or partial result remains `claim: none`. At minimum record:
 
 - protocol and stable catalog task ID (`allow-once` or `reject`);
-- exact DSH and composition versions and revisions from readiness JSON;
+- exact DSH, accessibility-lab, and composition versions and revisions from readiness JSON;
 - OS/build and hardware or VM;
 - browser/version and AT/version;
 - UI and speech language, verbosity, punctuation, browse/focus mode, braille or input-device settings;

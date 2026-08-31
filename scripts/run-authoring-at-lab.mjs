@@ -1,7 +1,8 @@
 /** Launch the disposable DSH authoring task for human AT or product-only verification. */
 import { readFile, rm, writeFile } from 'node:fs/promises'
-import { spawn, spawnSync } from 'node:child_process'
+import { spawn } from 'node:child_process'
 import { join, resolve } from 'node:path'
+import { exactGitRevision } from './lab-source-state.mjs'
 
 const rawArguments = process.argv.slice(2)
 const args = rawArguments[0] === '--' ? rawArguments.slice(1) : rawArguments
@@ -28,6 +29,7 @@ const localPreviewRoot = resolve(invocationCwd, localPreviewArgument)
 const packageRoot = resolve(import.meta.dirname, '..')
 const dshManifest = JSON.parse(await readFile(join(dshRoot, 'package.json'), 'utf8'))
 const localPreviewManifest = JSON.parse(await readFile(join(localPreviewRoot, 'package.json'), 'utf8'))
+const labManifest = JSON.parse(await readFile(join(packageRoot, 'package.json'), 'utf8'))
 if (dshManifest.version !== '0.1.2-alpha.2') {
   throw new Error(`authoring AT lab requires DSH 0.1.2-alpha.2, received ${String(dshManifest.version)}`)
 }
@@ -41,11 +43,12 @@ await readFile(join(dshRoot, 'apps/web/dist/index.html'), 'utf8').catch(() => {
 await readFile(join(localPreviewRoot, 'lib/index.js'), 'utf8').catch(() => {
   throw new Error('local-preview build is missing; run `pnpm run build` in its checkout first')
 })
-
-function gitRevision(root) {
-  const result = spawnSync('git', ['rev-parse', 'HEAD'], { cwd: root, encoding: 'utf8' })
-  return result.status === 0 ? String(result.stdout).trim() : 'unavailable'
+if (labManifest.name !== '@oh-my-dsh/dsh-accessibility') {
+  throw new Error('authoring AT lab must run from the @oh-my-dsh/dsh-accessibility checkout')
 }
+const dshRevision = exactGitRevision(dshRoot, 'DSH checkout')
+const localPreviewRevision = exactGitRevision(localPreviewRoot, 'Local preview checkout')
+const labRevision = exactGitRevision(packageRoot, 'Accessibility lab checkout')
 
 const template = await readFile(join(packageRoot, 'scripts/authoring-at-lab.template.ts'), 'utf8')
 const replayFixture = join(packageRoot, 'scripts/authoring-at-replay.jsonl')
@@ -79,10 +82,12 @@ try {
         ...childEnvironment,
         DSH_SNAPSHOT: 'replay',
         DSH_ACCESSIBILITY_DSH_VERSION: dshManifest.version,
-        DSH_ACCESSIBILITY_DSH_REVISION: gitRevision(dshRoot),
+        DSH_ACCESSIBILITY_DSH_REVISION: dshRevision,
         DSH_ACCESSIBILITY_LOCAL_PREVIEW_ROOT: localPreviewRoot,
         DSH_ACCESSIBILITY_LOCAL_PREVIEW_VERSION: localPreviewManifest.version,
-        DSH_ACCESSIBILITY_LOCAL_PREVIEW_REVISION: gitRevision(localPreviewRoot),
+        DSH_ACCESSIBILITY_LOCAL_PREVIEW_REVISION: localPreviewRevision,
+        DSH_ACCESSIBILITY_LAB_VERSION: String(labManifest.version),
+        DSH_ACCESSIBILITY_LAB_REVISION: labRevision,
         DSH_ACCESSIBILITY_AUTHORING_AT_FIXTURE: replayFixture,
         DSH_ACCESSIBILITY_AUTHORING_AT_BROWSER: browserArgument,
         DSH_ACCESSIBILITY_AUTHORING_AT_TIMEOUT_MS: String(timeoutMs),

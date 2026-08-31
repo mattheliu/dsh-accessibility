@@ -30,6 +30,8 @@ git checkout feat/hermetic-at-lab
 pnpm install --frozen-lockfile
 ```
 
+The launcher fails before creating any lab state unless both the DSH checkout and this accessibility-lab checkout are Git repositories with clean tracked, staged, and untracked state. The readiness record identifies the full commit and package version for each checkout; a branch name or a commit that omits local changes is never accepted as evidence provenance.
+
 Launch from the companion checkout:
 
 ```sh
@@ -48,7 +50,7 @@ pnpm run lab:at:core ../deepseek-harness safari
 pnpm run lab:at:core ../deepseek-harness chrome
 ```
 
-The launcher prints a versioned JSON readiness record with the exact DSH revision, operating-system information, and browser-context isolation. It prints the temporary one-use sign-in URL separately: use it locally, but do not paste it into a public result. It creates no screenshot, recording, upload, or public artifact. The `chrome` mode is the safest local default because it never opens the tester's ordinary Chrome profile; `system` and `safari` may reuse an existing browser context and therefore require a dedicated clean profile.
+The launcher prints a versioned JSON readiness record with the exact DSH and lab revisions, operating-system information, and browser-context isolation. It prints the temporary one-use sign-in URL separately: use it locally, but do not paste it into a public result. It creates no screenshot, recording, upload, or public artifact. The `chrome` mode is the safest local default because it never opens the tester's ordinary Chrome profile; `system` and `safari` may reuse an existing browser context and therefore require a dedicated clean profile.
 
 Return to the terminal and press Ctrl+C to request cleanup. The launcher then closes an isolated Chrome process and removes its temporary profile, disposable DSH home, Session persistence, and workspace. Close a now-inactive `system` or `safari` tab manually. A forcibly killed process may leave only its printed `dsh-core-at-lab-...` directory under the operating system's temporary directory; inspect and move that exact directory to Trash rather than deleting a broad temporary path.
 
@@ -91,6 +93,7 @@ VoiceOver testers should use the rotor, VO+Left/Right, VO+Space, and Tab/Shift+T
 - AT and exact version:
 - UI/speech language, voice, verbosity, punctuation:
 - DSH revision:
+- Accessibility lab version and revision:
 - Input/output devices:
 
 | Task | Actual speech/braille and focus/cursor result | Completed independently? | Workaround | Pass/fail/partial | Severity |

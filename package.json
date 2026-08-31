@@ -93,6 +93,7 @@
     "scripts/evidence-coverage-lib.mjs",
     "scripts/human-evidence-lib.mjs",
     "scripts/human-evidence-template-lib.mjs",
+    "scripts/lab-source-state.mjs",
     "scripts/create-human-evidence-template.mjs",
     "scripts/report-human-evidence-coverage.mjs",
     "scripts/validate-human-evidence.mjs",

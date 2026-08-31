@@ -63,10 +63,18 @@ describe('community validation intake', () => {
   })
 
   it.each(['assistive-technology-test.yml', 'assistive-technology-test-zh.yml'])(
-    '%s routes companion diagnostic tasks to the exact human protocol',
+    '%s routes every human AT surface to the exact protocol',
     (file) => {
       const form = source(`.github/ISSUE_TEMPLATE/${file}`)
-      expect(form).toContain('dsh-at-lab/1.0.0-draft')
+      for (const protocol of [
+        'dsh-core-at-lab/1.0.0-draft',
+        'dsh-live-at-lab/1.0.0-draft',
+        'dsh-at-lab/1.0.0-draft',
+        'dsh-cli-accessibility/1.0.0-draft',
+        'dsh-a11y-authoring-at-lab/0.1.0-draft',
+      ]) expect(form).toContain(protocol)
+      expect(form).toMatch(/core Web|核心 Web/)
+      expect(form).toMatch(/live response|实时回答/)
       expect(form).toMatch(/reading\/diagnostic|阅读／诊断/)
     },
   )

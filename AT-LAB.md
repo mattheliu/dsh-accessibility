@@ -35,6 +35,8 @@ pnpm install --frozen-lockfile
 pnpm run build
 ```
 
+The launcher refuses a DSH or companion checkout with tracked, staged, or untracked changes. Its revisions therefore identify all executable product and lab source used for the run instead of silently attributing a dirty tree to `HEAD`.
+
 From the companion checkout, start one of these modes:
 
 ```sh
