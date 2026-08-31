@@ -78,7 +78,7 @@ describe('anonymous primary AT public readiness', () => {
     })
     expect(report.gates).toHaveLength(5)
     expect(report.gates.every(gate => gate.observedStatus === 'ready')).toBe(true)
-    expect(report.gates.every(gate => gate.manifestMatchesObservation === false)).toBe(true)
+    expect(report.gates.every(gate => gate.manifestMatchesObservation === true)).toBe(true)
     const ajv = new Ajv2020({ allErrors: true, strict: true })
     addFormats(ajv)
     const validate = ajv.compile(schema)

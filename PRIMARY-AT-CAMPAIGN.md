@@ -2,28 +2,28 @@
 
 [简体中文](PRIMARY-AT-CAMPAIGN.zh.md) | English
 
-Campaign status: `prepared-not-open`; external testing is not open. Campaign protocol: `dsh-a11y-primary-at-campaign/0.1.0-draft`. Scenario protocol: `dsh-core-at-lab/1.0.0-draft`. Machine-readable state: [PRIMARY-AT-CAMPAIGN.json](PRIMARY-AT-CAMPAIGN.json).
+Campaign status: `open`; real VoiceOver, NVDA, and disabled-developer results may now be submitted. Campaign protocol: `dsh-a11y-primary-at-campaign/0.1.0-draft`. Scenario protocol: `dsh-core-at-lab/1.0.0-draft`. Machine-readable state: [PRIMARY-AT-CAMPAIGN.json](PRIMARY-AT-CAMPAIGN.json).
 
 This first campaign targets exact DSH `0.1.2-alpha.2` revision `5803bfcfdd502adac26ae9b8eec12d6aed263ec6` with exact lab revision `6aed71615edd1db1ec5b12897e1ad40b79294c78`. An isolated-Chrome startup and cleanup smoke run passed for this pair on macOS. A separately regenerated [three-engine browser report](automated-evidence/core-browser/2026-08-31-dsh-0.1.2-alpha.2-5803bfcfdd.json) passes fourteen deterministic checks on the same exact DSH revision and is bound in the machine manifest. These prove only lab and automated-browser readiness; the ledger still contains zero human records.
 
-## Why recruitment is not open yet
+## Public availability and evidence boundary
 
-The public core branch and lab branch do not yet contain the two pinned revisions. The default branch lacks this guide, the core lab guide, and the disabled-developer form; its existing older AT form predates the versioned protocols and direct-human/modality gates. [Discussion 16](https://github.com/omdsh-dev/dsh-accessibility/discussions/16), [NVDA Issue 1](https://github.com/omdsh-dev/dsh-accessibility/issues/1), and [VoiceOver Issue 2](https://github.com/omdsh-dev/dsh-accessibility/issues/2) still name the superseded `0.1.1-rc.2` candidate. Inviting people now would give them stale instructions or a missing intake route.
+The exact core and lab revisions, this default-branch guide, the bilingual intake forms, [Discussion 16](https://github.com/omdsh-dev/dsh-accessibility/discussions/16), [NVDA Issue 1](https://github.com/omdsh-dev/dsh-accessibility/issues/1), and [VoiceOver Issue 2](https://github.com/omdsh-dev/dsh-accessibility/issues/2) were anonymously verified before the campaign opened. All five `availabilityGates` rows in the manifest are `ready`.
 
-The campaign may change to `open` only after every `availabilityGates` row in the manifest is `ready`. Opening the campaign is coordination state, not accessibility evidence.
+Opening the campaign is coordination state, not accessibility evidence. The ledger starts with zero human records; failed and partial submissions are welcome, and no intake Issue becomes a support claim without separate consented, de-identified, validated, and publicly reviewed evidence.
 
-Observe the five gates anonymously before changing that state:
+Recheck the five public gates anonymously at any time:
 
 ```sh
 pnpm run campaign:public:verify
 pnpm run campaign:public:require
 ```
 
-The first command always prints a versioned, privacy-minimized observation report. The strict command exits nonzero unless the exact revisions, default-branch intake, Discussion 16, and Issues 1/2 are all publicly readable and current without credentials. It never edits the campaign and never creates human evidence.
+The first command always prints a versioned, privacy-minimized observation report. The strict command exits nonzero unless the exact revisions, default-branch intake, Discussion 16, and Issues 1/2 are all publicly readable and current without credentials. Neither command edits the campaign or creates human evidence.
 
 Maintainer publication order and tested replacement bodies for the default-branch PR, Discussion 16, and Issues 1/2 are in the [primary AT outreach handoff](outreach/primary-at/README.md).
 
-## Exact setup after the campaign opens
+## Exact setup for this open campaign
 
 ```sh
 git clone https://github.com/omdsh-dev/deepseek-harness.git

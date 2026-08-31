@@ -2,28 +2,28 @@
 
 简体中文 | [English](PRIMARY-AT-CAMPAIGN.md)
 
-活动状态：`prepared-not-open`，尚未向外部测试者开放。活动规程：`dsh-a11y-primary-at-campaign/0.1.0-draft`。场景规程：`dsh-core-at-lab/1.0.0-draft`。机器可读状态：[PRIMARY-AT-CAMPAIGN.json](PRIMARY-AT-CAMPAIGN.json)。
+活动状态：`open`；现在可以提交真实 VoiceOver、NVDA 和残障开发者结果。活动规程：`dsh-a11y-primary-at-campaign/0.1.0-draft`。场景规程：`dsh-core-at-lab/1.0.0-draft`。机器可读状态：[PRIMARY-AT-CAMPAIGN.json](PRIMARY-AT-CAMPAIGN.json)。
 
 首轮活动固定到 DSH `0.1.2-alpha.2` 精确 revision `5803bfcfdd502adac26ae9b8eec12d6aed263ec6` 与实验室精确 revision `6aed71615edd1db1ec5b12897e1ad40b79294c78`。这一组合已在 macOS 通过隔离 Chrome 启动与清理冒烟检查；另行重新生成的[三引擎浏览器报告](automated-evidence/core-browser/2026-08-31-dsh-0.1.2-alpha.2-5803bfcfdd.json)也在同一精确 DSH revision 上通过十四项确定性检查，并已绑定进机器清单。它们只证明实验室和自动浏览器就绪；账本仍有零条真人记录。
 
-## 为什么尚未开放招募
+## 公开可用性与证据边界
 
-公开核心分支与实验室分支尚未包含上述两个固定 revision；默认分支缺少本指南、核心实验室指南和残障开发者结果表单，现有旧 AT 表单也早于版本化协议、真人直接操作及逐模态观察门禁。[Discussion 16](https://github.com/omdsh-dev/dsh-accessibility/discussions/16)、[NVDA Issue 1](https://github.com/omdsh-dev/dsh-accessibility/issues/1) 与 [VoiceOver Issue 2](https://github.com/omdsh-dev/dsh-accessibility/issues/2) 仍指向已经被替代的 `0.1.1-rc.2` 候选。现在邀请测试者会让他们拿到过时说明或无法使用的提交入口。
+活动开放前，已匿名核验精确核心与实验室 revision、本默认分支指南、双语提交表单、[Discussion 16](https://github.com/omdsh-dev/dsh-accessibility/discussions/16)、[NVDA Issue 1](https://github.com/omdsh-dev/dsh-accessibility/issues/1) 和 [VoiceOver Issue 2](https://github.com/omdsh-dev/dsh-accessibility/issues/2)。机器清单的五项 `availabilityGates` 均为 `ready`。
 
-只有机器清单中每个 `availabilityGates` 项都变成 `ready`，活动才能改为 `open`。活动开放只是协调状态，不是真人无障碍证据。
+活动开放只是协调状态，不是真人无障碍证据。账本从零条真人记录开始；欢迎失败和部分结果，任何提交 Issue 都必须另行经过同意、去标识化、验证与公开评审，才能成为支持声明证据。
 
-改变状态前，先匿名观察五项门禁：
+可随时匿名复核五项公开门禁：
 
 ```sh
 pnpm run campaign:public:verify
 pnpm run campaign:public:require
 ```
 
-第一条命令总会输出带版本、隐私最小化的观察报告；严格命令只有在精确 revision、默认分支提交入口、Discussion 16 与 Issue 1／2 均无需凭据即可公开读取且为当前版本时才返回成功。它绝不会修改活动清单，也不会创建真人证据。
+第一条命令总会输出带版本、隐私最小化的观察报告；严格命令只有在精确 revision、默认分支提交入口、Discussion 16 与 Issue 1／2 均无需凭据即可公开读取且为当前版本时才返回成功。两条命令都不会修改活动清单或创建真人证据。
 
 维护者的公开顺序，以及默认分支 PR、Discussion 16 与 Issue 1／2 的受测试替换正文，见[首轮 AT 公开交接包](outreach/primary-at/README.md)。
 
-## 活动开放后的精确配置
+## 本次开放活动的精确配置
 
 ```sh
 git clone https://github.com/omdsh-dev/deepseek-harness.git
