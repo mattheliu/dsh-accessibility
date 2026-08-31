@@ -80,12 +80,13 @@ export function evaluateAuthoringPackageManifest(manifest, spec) {
   return [...new Set(blockers)].sort()
 }
 
-export function buildAuthoringPackageInstallReport(packages, generatedAt = new Date().toISOString()) {
+export function buildAuthoringPackageInstallReport(packages, lab, generatedAt = new Date().toISOString()) {
   return {
     protocol: 'dsh-a11y-authoring-isolated-install/0.1.0-draft',
     generatedAt,
     evidence: 'automated-isolated-tarball-install-not-at-evidence',
     result: 'pass',
+    lab,
     packages,
     consumer: {
       topLevelCompositions: [

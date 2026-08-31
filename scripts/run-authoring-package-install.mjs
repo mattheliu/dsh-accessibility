@@ -18,6 +18,8 @@ const args = process.argv.slice(2)
 if (args.length > 1) throw new Error('usage: node scripts/run-authoring-package-install.mjs [workspace-root]')
 const workspaceRoot = resolve(args[0] ?? resolve(packageRoot, '..'))
 const policy = JSON.parse(await readFile(resolve(packageRoot, 'AUTHORING-PACKAGES.json'), 'utf8'))
+const labManifest = JSON.parse(await readFile(resolve(packageRoot, 'package.json'), 'utf8'))
+const labRevision = await exactGitRevision(packageRoot, '@oh-my-dsh/dsh-accessibility authoring install lab')
 
 let temporaryRoot
 try {
@@ -65,9 +67,8 @@ try {
       '@deepseek-ai/cordis': '4.0.2',
       '@deepseek-ai/dsh-system-prompt': '0.1.2-alpha.2',
       '@deepseek-ai/dsh-tools': '0.1.2-alpha.2',
-      '@oh-my-dsh/dsh-a11y-caller-page': '0.1.0-alpha.0',
-      '@oh-my-dsh/dsh-a11y-local-preview': '0.1.0-alpha.0',
-      playwright: '1.61.1'
+      playwright: '1.61.1',
+      ...Object.fromEntries(packed.map(item => [item.name, item.version]))
     }
   }
   await writeFile(resolve(consumerRoot, 'package.json'), `${JSON.stringify(consumerManifest, null, 2)}\n`, { flag: 'wx' })
@@ -98,7 +99,11 @@ process.stdout.write(JSON.stringify({ imported: packages }))
   if (imported.length !== packed.length) throw new Error('isolated consumer did not import every authoring package')
 
   const reportPackages = packed.map(({ tarballPath, ...item }) => item)
-  process.stdout.write(`${JSON.stringify(buildAuthoringPackageInstallReport(reportPackages), null, 2)}\n`)
+  process.stdout.write(`${JSON.stringify(buildAuthoringPackageInstallReport(reportPackages, {
+    package: labManifest.name,
+    version: labManifest.version,
+    revision: labRevision
+  }), null, 2)}\n`)
 } finally {
   if (temporaryRoot !== undefined) await rm(temporaryRoot, { force: true, recursive: true })
 }

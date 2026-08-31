@@ -34,9 +34,11 @@ describe('authoring package isolated install evidence', () => {
       integrity: 'sha512-example',
       filename: 'example.tgz'
     }]
-    const report = buildAuthoringPackageInstallReport(packages, '2026-08-31T00:00:00.000Z')
+    const lab = { package: '@oh-my-dsh/dsh-accessibility', version: '0.1.0-beta.6', revision: 'b'.repeat(40) }
+    const report = buildAuthoringPackageInstallReport(packages, lab, '2026-08-31T00:00:00.000Z')
     expect(report.result).toBe('pass')
     expect(report.evidence).toBe('automated-isolated-tarball-install-not-at-evidence')
+    expect(report.lab).toEqual(lab)
     expect(report.limitations.join(' ')).toMatch(/not publication to or availability from npm/iu)
     expect(report.limitations.join(' ')).toMatch(/not WCAG conformance/iu)
   })
