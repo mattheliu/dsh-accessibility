@@ -19,7 +19,7 @@
     "limitations"
   ],
   "properties": {
-    "protocol": { "const": "dsh-a11y-authoring-agent-lab/0.1.1-draft" },
+    "protocol": { "const": "dsh-a11y-authoring-agent-lab/0.1.2-draft" },
     "generatedAt": { "type": "string", "format": "date-time" },
     "evidence": {
       "enum": [
@@ -81,7 +81,7 @@
     "task": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["id", "outcome", "fileChanged", "toolSequence", "untrustedReportFraming", "headlessResult"],
+      "required": ["id", "outcome", "fileChanged", "toolSequence", "untrustedReportFraming", "authorReviewPlan", "headlessResult"],
       "properties": {
         "id": { "const": "repair-image-alt-and-button-name" },
         "outcome": { "const": "completed" },
@@ -92,6 +92,15 @@
             "auditResultsValidated": 2,
             "boundaryWarningPresent": true,
             "subjectDataQuoted": true
+          }
+        },
+        "authorReviewPlan": {
+          "const": {
+            "auditResultsValidated": 2,
+            "protocol": "dsh-a11y-author-review-plan/0.1.0-draft",
+            "claim": "none",
+            "status": "unresolved",
+            "unresolvedRows": 11
           }
         },
         "headlessResult": {

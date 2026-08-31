@@ -11,7 +11,7 @@ import {
   AUTHORING_AGENT_LAB_PROTOCOL,
   parseHeadlessResult,
   validateAuthoringToolTrace,
-  validateUntrustedA11yReportFraming,
+  validateModelVisibleA11yReports,
 } from './authoring-agent-lab-lib.mjs'
 import { exactGitRevision } from './lab-source-state.mjs'
 import { packAuthoringPackages, pnpmTarballOverrides } from './authoring-package-install-lib.mjs'
@@ -332,7 +332,10 @@ ${replayPatch}`)
   const headless = parseHeadlessResult(runResult.stdout)
   const events = await sessionEvents(join(dshHome, 'sessions'))
   const toolSequence = validateAuthoringToolTrace(events)
-  const untrustedReportFraming = validateUntrustedA11yReportFraming(events, untrustedSubjectLabel)
+  const { untrustedReportFraming, authorReviewPlan } = validateModelVisibleA11yReports(
+    events,
+    untrustedSubjectLabel,
+  )
   const finalHtml = await readFile(htmlPath, 'utf8')
   if (finalHtml !== expectedHtml) {
     throw new Error('authoring task did not produce the exact bounded repair')
@@ -372,6 +375,7 @@ ${replayPatch}`)
       fileChanged: true,
       toolSequence,
       untrustedReportFraming,
+      authorReviewPlan,
       headlessResult: { schemaVersion: headless.schemaVersion, reason: headless.reason.kind },
     },
     before: {

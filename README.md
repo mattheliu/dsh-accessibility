@@ -74,6 +74,8 @@ The draft [authoring/testkit RFC](RFC-A11Y-AUTHORING.md) separates a pure versio
 
 The adapter additionally frames and JSON-quotes every page/provider-derived report string as untrusted data; embedded commands never become instructions or a reason to expand tools, file access, network access, or approval authority.
 
+Every model-visible result also appends `dsh-a11y-author-review-plan/0.1.0-draft`: eleven stable manual rows spanning contextual alternatives, semantics and reading order, keyboard/focus, asynchronous status and errors, low vision, motion and timing, media, alternative input, language and cognition, and real AT/disabled-author tasks. The adapter can only emit `claim: none`, `status: unresolved`, and unresolved outcomes; direct human evidence must be recorded in a separate reviewed workflow.
+
 ## Checks
 
 ```sh

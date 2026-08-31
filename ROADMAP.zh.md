@@ -16,7 +16,7 @@
 - 核心浏览器证据：干净活动 revision `5803bfcfdd502adac26ae9b8eec12d6aed263ec6` 已取得经过 Schema 校验的 `dsh-core-browser-non-at` 三引擎 `pass`。十四项必需检查覆盖全部九项已登记静态 P0 Web 任务以及菜单和安全路由；这只是自动化非 AT 证据，实时状态、真实缩放／高对比度、辅助技术和残障用户证据行仍待补。
 - 实时播报实验室：六个合成 alpha.2 replay 场景把持久 Host 终态与真实 AT 语音／盲文证据分开记录。
 - CLI 无障碍候选：alpha.2 分支已实现低噪声文本与 `dsh-headless-result/1.0.0` 输出；draft 进程符合性可复现，真实终端／读屏和残障开发者证据仍待补。
-- 无障碍创作基础：中英文 RFC 与六个独立本地包现已覆盖两条提供链路。字面量 loopback 路径具有默认禁用、可安装的 `dsh-a11y-local-preview/0.1.0-draft` DSH 产品组合；调用方自有页面路径具有不可序列化、另行授权的 `dsh-a11y-caller-page/0.1.0-draft` 可信宿主组合，策略上只用于一次性未认证页面。本地已通过适用路径的真实产品 bundle 安装与配置组合、已发布 DSH runtime 加载、Chromium 审计、隐私、生命周期和包内容证据。`dsh-a11y-authoring-agent-lab/0.1.1-draft` replay 门禁证明了一项精确审计／读取／编辑／复审产品循环，并校验两次持久化审计结果中的不可信数据框定。新的 `dsh-a11y-authoring-at-lab/0.1.0-draft` 可通过真实 DSH Web 操作同一有界任务，证明“仅允许一次”后 finding 从两项降至零，也证明拒绝后源码不变，并定义独立的 VoiceOver／NVDA 真人记录。两种自动模式都只是产品证据，不属于辅助技术或残障作者证据。评审／发布、任何鉴权／跨 origin 扩权、live-model 修复、人工听读真实辅助技术和残障作者证据仍待补。
+- 无障碍创作基础：中英文 RFC 与六个独立本地包现已覆盖两条提供链路。字面量 loopback 路径具有默认禁用、可安装的 `dsh-a11y-local-preview/0.1.0-draft` DSH 产品组合；调用方自有页面路径具有不可序列化、另行授权的 `dsh-a11y-caller-page/0.1.0-draft` 可信宿主组合，策略上只用于一次性未认证页面。本地已通过适用路径的真实产品 bundle 安装与配置组合、已发布 DSH runtime 加载、Chromium 审计、隐私、生命周期和包内容证据。`dsh-a11y-authoring-agent-lab/0.1.2-draft` replay 门禁证明了一项精确审计／读取／编辑／复审产品循环，校验两次持久化审计结果中的不可信数据框定，并要求其中十一项人工作者复核计划保持未解决。新的 `dsh-a11y-authoring-at-lab/0.1.0-draft` 可通过真实 DSH Web 操作同一有界任务，证明“仅允许一次”后 finding 从两项降至零，也证明拒绝后源码不变，并定义独立的 VoiceOver／NVDA 真人记录。两种自动模式都只是产品证据，不属于辅助技术或残障作者证据。评审／发布、任何鉴权／跨 origin 扩权、live-model 修复、人工听读真实辅助技术和残障作者证据仍待补。
 - 真人证据账本：`dsh-a11y-human-evidence/0.1.0-draft` 已定义公开 JSON Schema、隐私／时效／声明 validator、非证据模板以及本地／CI 门禁。其固定的 `dsh-a11y-evidence-catalog/0.1.0-draft` revision 在五项规程下登记 33 个稳定任务，并负责核心、安全和声明资格分类。新的 `dsh-a11y-evidence-coverage-policy/0.1.0-draft` 会评估六个 profile、二十六项已登记真人证据要求，且不混合不兼容精确环境或匿名残障开发者记录。矩阵覆盖主要与扩展读屏软件、盲文、语音与开关输入、放大、CLI、companion、创作和残障开发者验证。新增中英双语社区指南和专用残障开发者入口，可接收未使用具名 AT 的贡献者结果，同时要求同意、私密撤回渠道、精确任务、协助等级、有效性和安全性。新增 fail-closed scaffold 命令可从目录派生无声明草稿，且不读取参与者正文、不覆盖文件。系统会保留失败和部分结果，同时对过期、私密、存在操作协助、不安全、无效、未知、无资格或不完整的支持声明 fail-closed。账本尚无真实运行记录，二十六项聚合要求全部缺失，因此当前证明的是治理已就绪，而不是 AT 或残障用户支持。
 - Windows 和 Linux 的人工听读结果仍待补；完整 VoiceOver 实际朗读记录仍待补。
 - 首轮真人活动：`dsh-a11y-primary-at-campaign/0.1.0-draft` 已固定核心 revision `5803bfcfdd502adac26ae9b8eec12d6aed263ec6` 与实验室 revision `6aed71615edd1db1ec5b12897e1ad40b79294c78`，目标为 VoiceOver／Safari、NVDA／Chrome 和残障开发者核心任务。隔离 Chrome 冒烟已通过，但在两个 revision、默认分支提交入口、Discussion 16 与 Issue 1／2 全部公开且更新前，活动保持 `prepared-not-open`。
@@ -44,6 +44,7 @@
 - 尽量复用 W3C ARIA-AT 驱动，验证外部辅助技术自动化；人工任务完成继续作为发布门禁。
 - 在 VoiceOver、NVDA、JAWS、Narrator 与 Orca 终端中验证 DSH CLI 无障碍候选；自动 `dsh-cli-accessibility/1.0.0-draft` 进程结果必须与人工语音／盲文和独立任务证据分开保存。
 - 评审并发布可安装的字面量 loopback `a11y_check` 产品组合，评审已实现且另行授权的调用方自有页面宿主组合，并在既有版本化 replay 基线之上完成 live-model 修复任务；保留取消、清理、适用路径的网络约束、隐私和精确打包证据，同时让两条路径保持只读、保留作者修复选择，并且永不暗示自动认证。
+- 保持版本化十一项作者复核计划对模型可见；自动化一旦删除复核行、弱化直接证据要求，或提升未观察结果，就必须 fail closed；各行只能通过另行评审的真人与辅助技术证据完成。
 
 ## 发布门禁
 

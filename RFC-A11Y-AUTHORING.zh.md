@@ -2,7 +2,7 @@
 
 [English](RFC-A11Y-AUTHORING.md) | 简体中文
 
-状态：draft。规程：`dsh-a11y-testkit/0.1.0-draft`、`dsh-a11y-loopback-provider/0.1.0-draft`、`dsh-a11y-authoring/0.1.0-draft`、`dsh-a11y-local-preview/0.1.0-draft`、`dsh-a11y-caller-page/0.1.0-draft`、`dsh-a11y-authoring-agent-lab/0.1.1-draft` 与 `dsh-a11y-authoring-at-lab/0.1.0-draft`。
+状态：draft。规程：`dsh-a11y-testkit/0.1.0-draft`、`dsh-a11y-author-review-plan/0.1.0-draft`、`dsh-a11y-loopback-provider/0.1.0-draft`、`dsh-a11y-authoring/0.1.0-draft`、`dsh-a11y-local-preview/0.1.0-draft`、`dsh-a11y-caller-page/0.1.0-draft`、`dsh-a11y-authoring-agent-lab/0.1.2-draft` 与 `dsh-a11y-authoring-at-lab/0.1.0-draft`。
 
 实现状态：六个独立封装的本地源码现已实现确定性 testkit、调用方自有页面提供层、另行版本化的字面量 loopback 提供层、只读 DSH 适配器、可安装的字面量 loopback 产品组合，以及面向精确调用方自有页面、不可序列化的可信宿主组合。它们的 manifest 已按公开 scoped alpha 包准备，但远端仓库和 npm 发布尚未启用。两条提供链路均已通过真实 Chromium 与已发布 `0.1.2-alpha.2` DSH `ToolRuntime` 组装验证；字面量 loopback 组合还通过了真实 DSH profile 安装与配置 dump，两种组合均通过插件加载、SystemPrompt 目标清单、生命周期、隐私和包产物检查。版本化无密钥实验室让真实 DSH agent loop 执行精确的审计／读取／编辑／复审任务。另一个一次性 Web 实验室现可操作真实审批界面，分别验证“仅允许一次”修复和“拒绝后不修改”，并定义真人辅助技术记录，同时不把自动浏览器输出提升为辅助技术证据。评审与远程发布、鉴权／跨 origin 设计、live-model 修复证据、人工听读辅助技术证据和残障作者任务证据仍是开放发布门禁。
 
@@ -107,13 +107,15 @@ runtime companion 继续负责 DSH 自身诊断和无障碍 UI。它不能因为
 
 修复帮助要说明受影响要求、位置、重要原因、仍需什么证据，以及一个或多个作者选择。不得生成通用或基于文件名的替代文本。任何候选替代文本都必须可编辑，并在插入前让作者接受、修改或拒绝，遵循 ATAG 2.0 B.2.3.2。
 
+现在每份模型可见结果都会附带 `dsh-a11y-author-review-plan/0.1.0-draft`：十一项最小人工计划，覆盖上下文替代内容、语义结构与阅读顺序、键盘与焦点工作流、异步状态／错误控制、对比度与真实强制颜色、缩放／重排／文字间距、动态／计时／闪烁、媒体替代、指针／语音／开关／触控输入、语言／认知一致性，以及真实 AT／残障作者任务。每条都会说明仍需哪些直接证据，生成时只能是 `outcome: unresolved`；整个计划始终为 `claim: none`。适配器没有把复核行标为通过的操作。另行评审的真人流程以后可以按实际结果记录通过、失败或附理由的不适用，但自动化、模型推断、DOM 输出、截图和字幕都不能满足真人或 AT 行。这只是最低复核辅助，不是完整 WCAG 或 ATAG 符合性方法。
+
 ## 本地预览产品组合边界
 
 `dsh-a11y-local-preview/0.1.0-draft` 是已准备公开包、默认禁用的 DSH profile bundle 与 Cordis 插件。可信 profile 可配置一至八个从规范化不透明句柄到字面量 loopback 目标的精确映射。插件会在创建提供层前验证全部映射，拒绝重复句柄与 URL query／fragment，挂载版本化 loopback 提供层，注册只读适配器，并向 SystemPrompt 贡献一个只包含组合规程和句柄列表的运行时 context。目标 URL、路径、subject label、ready selector、Cookie、凭据、header、浏览器错误、截图、HTML 和文件系统路径都不会进入该清单或工具 schema。
 
 Bundle 随附行保持 disabled，不带任何活动目标。后置可信 profile patch 必须重述完整配置并启用它。预览服务器的启动、ready、关闭、日志和留存数据由宿主负责，而不是插件。因此安装说明要求使用可丢弃、无特权的服务器与测试数据；它不会把提供层变成服务器启动器，也不会授予鉴权访问。插件释放时会通过同一个 DSH 生命周期撤销目标清单、工具注册、提供层注册、活动浏览器 context 和自有浏览器进程。
 
-当前证据通过真实 Cordis 插件 API 与已发布 DSH SystemPrompt／ToolRuntime 包加载本包，在真实 loopback HTTP fixture 和 Chromium 中执行审计，验证类提示注入 label 与私有配置不会进入目标清单，测试挂载前拒绝和释放，解析 bundle 产物，通过 `dsh plugin` 安装本地 checkout，经 `dsh --dump-config` 组合启用 patch，并启动 headless 产品入口。另行提供的[创作 agent 实验室](AUTHORING-AGENT-LAB.zh.md)还使用该已安装组合、真实 DSH 产品入口与文件策略、一次性预览和固定 replay 转录，证明精确的 `a11y_check → read → edit → a11y_check` 产品循环；其 `dsh-a11y-authoring-agent-lab/0.1.1-draft` 记录还会验证两次持久化审计结果都保留不可信数据边界并 JSON 引用类提示注入 subject，仓库内 JSON Schema 仍明确声明它不属于模型或辅助技术证据。[创作辅助技术实验室](AUTHORING-AT-LAB.zh.md)把同一有界目标组合进真实 DSH Web，把常驻策略设为只读，让一次 edit 经过真实审批面板，并分别验证允许与拒绝；其 readiness、Host 和自动 Chromium 记录同样明确不属于辅助技术证据，只有经过同意的真人语音／盲文与焦点记录才能填补该层。这些仍是预发布证据，不是稳定支持或符合性声明。
+当前证据通过真实 Cordis 插件 API 与已发布 DSH SystemPrompt／ToolRuntime 包加载本包，在真实 loopback HTTP fixture 和 Chromium 中执行审计，验证类提示注入 label 与私有配置不会进入目标清单，测试挂载前拒绝和释放，解析 bundle 产物，通过 `dsh plugin` 安装本地 checkout，经 `dsh --dump-config` 组合启用 patch，并启动 headless 产品入口。另行提供的[创作 agent 实验室](AUTHORING-AGENT-LAB.zh.md)还使用该已安装组合、真实 DSH 产品入口与文件策略、一次性预览和固定 replay 转录，证明精确的 `a11y_check → read → edit → a11y_check` 产品循环；其 `dsh-a11y-authoring-agent-lab/0.1.2-draft` 记录会验证两次持久化审计结果都保留不可信数据边界、JSON 引用类提示注入 subject，并让十一项作者复核全部保留未解决状态与直接证据要求，仓库内 JSON Schema 仍明确声明它不属于模型或辅助技术证据。[创作辅助技术实验室](AUTHORING-AT-LAB.zh.md)把同一有界目标组合进真实 DSH Web，把常驻策略设为只读，让一次 edit 经过真实审批面板，并分别验证允许与拒绝；其 readiness、Host 和自动 Chromium 记录同样明确不属于辅助技术证据，只有经过同意的真人语音／盲文与焦点记录才能填补该层。这些仍是预发布证据，不是稳定支持或符合性声明。
 
 ## 隐私与威胁模型
 
