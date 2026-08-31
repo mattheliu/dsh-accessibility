@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Add a versioned six-package authoring publication-readiness graph and fail-closed reporter that distinguishes clean, independently installable npm sources from accessibility conformance or human evidence.
+
 - Add an experimental, user-loaded Accessible View through DSH's official `conversation.view` slot and structured session projection.
 - Preserve source-order conversation records and semantic Markdown/code, including an in-progress assistant record, without scraping or rewriting host DOM.
 - Require separate disclosures for context, reasoning, tool arguments/output, command input, and raw errors; provide explicit per-message copy, pagination feedback, and focus restoration on clear.

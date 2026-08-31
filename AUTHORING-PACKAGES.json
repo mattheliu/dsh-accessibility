@@ -1,0 +1,63 @@
+{
+  "$schema": "./AUTHORING-PACKAGES.schema.json",
+  "protocol": "dsh-a11y-authoring-package-readiness/0.1.0-draft",
+  "packages": [
+    {
+      "directory": "dsh-a11y-testkit",
+      "name": "@oh-my-dsh/dsh-a11y-testkit",
+      "version": "0.1.0-alpha.0",
+      "role": "bounded automated evidence engine",
+      "internalDependencies": {}
+    },
+    {
+      "directory": "dsh-a11y-authoring",
+      "name": "@oh-my-dsh/dsh-a11y-authoring",
+      "version": "0.1.0-alpha.0",
+      "role": "model-visible read-only a11y_check adapter",
+      "internalDependencies": {
+        "@oh-my-dsh/dsh-a11y-testkit": "0.1.0-alpha.0"
+      }
+    },
+    {
+      "directory": "dsh-a11y-page-provider",
+      "name": "@oh-my-dsh/dsh-a11y-page-provider",
+      "version": "0.1.0-alpha.0",
+      "role": "caller-owned page capability provider",
+      "internalDependencies": {
+        "@oh-my-dsh/dsh-a11y-authoring": "0.1.0-alpha.0",
+        "@oh-my-dsh/dsh-a11y-testkit": "0.1.0-alpha.0"
+      }
+    },
+    {
+      "directory": "dsh-a11y-loopback-provider",
+      "name": "@oh-my-dsh/dsh-a11y-loopback-provider",
+      "version": "0.1.0-alpha.0",
+      "role": "isolated literal-loopback page provider",
+      "internalDependencies": {
+        "@oh-my-dsh/dsh-a11y-authoring": "0.1.0-alpha.0",
+        "@oh-my-dsh/dsh-a11y-testkit": "0.1.0-alpha.0"
+      }
+    },
+    {
+      "directory": "dsh-a11y-local-preview",
+      "name": "@oh-my-dsh/dsh-a11y-local-preview",
+      "version": "0.1.0-alpha.0",
+      "role": "installable disposable-loopback DSH composition",
+      "internalDependencies": {
+        "@oh-my-dsh/dsh-a11y-authoring": "0.1.0-alpha.0",
+        "@oh-my-dsh/dsh-a11y-loopback-provider": "0.1.0-alpha.0"
+      }
+    },
+    {
+      "directory": "dsh-a11y-caller-page",
+      "name": "@oh-my-dsh/dsh-a11y-caller-page",
+      "version": "0.1.0-alpha.0",
+      "role": "trusted-host caller-owned-page composition",
+      "internalDependencies": {
+        "@oh-my-dsh/dsh-a11y-authoring": "0.1.0-alpha.0",
+        "@oh-my-dsh/dsh-a11y-page-provider": "0.1.0-alpha.0",
+        "@oh-my-dsh/dsh-a11y-testkit": "0.1.0-alpha.0"
+      }
+    }
+  ]
+}
