@@ -55,7 +55,6 @@ try {
     })
   }
 
-  const overrides = Object.fromEntries(packed.map(item => [item.name, `file:${item.tarballPath}`]))
   const consumerManifest = {
     name: 'dsh-a11y-authoring-isolated-install-consumer',
     version: '0.0.0',
@@ -69,10 +68,16 @@ try {
       '@oh-my-dsh/dsh-a11y-caller-page': '0.1.0-alpha.0',
       '@oh-my-dsh/dsh-a11y-local-preview': '0.1.0-alpha.0',
       playwright: '1.61.1'
-    },
-    pnpm: { overrides }
+    }
   }
   await writeFile(resolve(consumerRoot, 'package.json'), `${JSON.stringify(consumerManifest, null, 2)}\n`, { flag: 'wx' })
+  const yamlQuote = value => `'${value.replaceAll("'", "''")}'`
+  const workspaceConfiguration = [
+    'overrides:',
+    ...packed.map(item => `  ${yamlQuote(item.name)}: ${yamlQuote(`file:${item.tarballPath}`)}`),
+    ''
+  ].join('\n')
+  await writeFile(resolve(consumerRoot, 'pnpm-workspace.yaml'), workspaceConfiguration, { flag: 'wx' })
   await execFile(
     'pnpm',
     ['install', '--ignore-scripts', '--prefer-offline'],
