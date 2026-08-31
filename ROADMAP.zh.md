@@ -14,7 +14,7 @@
 - 隔离式 AT 实验室：分别用合成、一次性启动器覆盖 `0.1.2-alpha.2` 核心候选与 rc.2 companion；它们降低配置与隐私风险，但没有人工观察就不能产生 AT 证据。
 - 实时播报实验室：六个合成 alpha.2 replay 场景把持久 Host 终态与真实 AT 语音／盲文证据分开记录。
 - CLI 无障碍候选：alpha.2 分支已实现低噪声文本与 `dsh-headless-result/1.0.0` 输出；draft 进程符合性可复现，真实终端／读屏和残障开发者证据仍待补。
-- 无障碍创作基础：中英文 RFC 与五个独立本地包现已覆盖两条提供链路，并增加默认禁用、可安装的 `dsh-a11y-local-preview/0.1.0-draft` 字面量 loopback DSH 产品组合。本地已通过真实产品 bundle 安装、配置组合、已发布 DSH runtime 加载、Chromium 审计、隐私、生命周期和包内容证据。`dsh-a11y-authoring-agent-lab/0.1.0-draft` replay 门禁证明了一项精确审计／读取／编辑／复审产品循环；新的 `dsh-a11y-authoring-at-lab/0.1.0-draft` 可通过真实 DSH Web 操作同一有界任务，证明“仅允许一次”后 finding 从两项降至零，也证明拒绝后源码不变，并定义独立的 VoiceOver／NVDA 真人记录。两种自动模式都只是产品证据，不属于辅助技术或残障作者证据。评审／发布、调用方自有页面宿主组合、任何鉴权／跨 origin 扩权、live-model 修复、人工听读真实辅助技术和残障作者证据仍待补。
+- 无障碍创作基础：中英文 RFC 与六个独立本地包现已覆盖两条提供链路。字面量 loopback 路径具有默认禁用、可安装的 `dsh-a11y-local-preview/0.1.0-draft` DSH 产品组合；调用方自有页面路径具有不可序列化、另行授权的 `dsh-a11y-caller-page/0.1.0-draft` 可信宿主组合，策略上只用于一次性未认证页面。本地已通过适用路径的真实产品 bundle 安装与配置组合、已发布 DSH runtime 加载、Chromium 审计、隐私、生命周期和包内容证据。`dsh-a11y-authoring-agent-lab/0.1.0-draft` replay 门禁证明了一项精确审计／读取／编辑／复审产品循环；新的 `dsh-a11y-authoring-at-lab/0.1.0-draft` 可通过真实 DSH Web 操作同一有界任务，证明“仅允许一次”后 finding 从两项降至零，也证明拒绝后源码不变，并定义独立的 VoiceOver／NVDA 真人记录。两种自动模式都只是产品证据，不属于辅助技术或残障作者证据。评审／发布、任何鉴权／跨 origin 扩权、live-model 修复、人工听读真实辅助技术和残障作者证据仍待补。
 - 真人证据账本：`dsh-a11y-human-evidence/0.1.0-draft` 已定义公开 JSON Schema、隐私／时效／声明 validator、非证据模板以及本地／CI 门禁。其固定的 `dsh-a11y-evidence-catalog/0.1.0-draft` 在五项规程下登记 30 个稳定任务，并负责核心、安全和声明资格分类。新的 `dsh-a11y-evidence-coverage-policy/0.1.0-draft` 会评估六个 profile、二十六项已登记真人证据要求，且不混合不兼容精确环境或匿名残障开发者记录。矩阵覆盖主要与扩展读屏软件、盲文、语音与开关输入、放大、CLI、companion、创作和残障开发者验证。新增中英双语社区指南和专用残障开发者入口，可接收未使用具名 AT 的贡献者结果，同时要求同意、私密撤回渠道、精确任务、协助等级、有效性和安全性。新增 fail-closed scaffold 命令可从目录派生无声明草稿，且不读取参与者正文、不覆盖文件。系统会保留失败和部分结果，同时对过期、私密、存在操作协助、不安全、无效、未知、无资格或不完整的支持声明 fail-closed。账本尚无真实运行记录，二十六项聚合要求全部缺失，因此当前证明的是治理已就绪，而不是 AT 或残障用户支持。
 - Windows 和 Linux 的人工听读结果仍待补；完整 VoiceOver 实际朗读记录仍待补。
 
@@ -30,7 +30,7 @@
 
 - 完成 Accessible View MVP 评审：它已通过增量式 `conversation.view` slot 和 DSH 对话 projection 实现；隐私评审、组装浏览器证据、人工听读 VoiceOver／NVDA 和残障开发者任务证据齐备前，不把该项标为完成。
 - 增加上下文无障碍帮助、焦点／名称／角色／状态检查和脱敏报告导出。
-- 评审中英文创作 RFC 与五个可复用独立实现（`dsh-a11y-testkit`、`dsh-a11y-page-provider`、`dsh-a11y-loopback-provider`、`dsh-a11y-authoring`、`dsh-a11y-local-preview`）；只有各自规程、隐私边界、fixture 和包可以接受公开评审后，才创建远程仓库。
+- 评审中英文创作 RFC 与六个可复用独立实现（`dsh-a11y-testkit`、`dsh-a11y-page-provider`、`dsh-a11y-loopback-provider`、`dsh-a11y-authoring`、`dsh-a11y-local-preview`、`dsh-a11y-caller-page`）；只有各自规程、隐私边界、fixture 和包可以接受公开评审后，才创建远程仓库。
 - 使用版本化隔离 AT 实验室（包括创作审批／修复规程）复现精确 VoiceOver／NVDA 和残障开发者任务验证，不暴露测试者日常 DSH 状态。
 - 通过实时播报实验室验证每个回答／工具／请求终态；按精确 AT／浏览器／语言矩阵保留失败、重复、合并和静默结果。
 - 完成一轮人工听读 VoiceOver 和一轮 Windows NVDA 验证，记录精确版本、语言、实际朗读、焦点结果和脱敏证据。
@@ -40,7 +40,7 @@
 - 验证 JAWS、Narrator、Orca、纯键盘、Windows 强制颜色、浏览器缩放／重排，以及至少一个盲文显示器工作流。
 - 尽量复用 W3C ARIA-AT 驱动，验证外部辅助技术自动化；人工任务完成继续作为发布门禁。
 - 在 VoiceOver、NVDA、JAWS、Narrator 与 Orca 终端中验证 DSH CLI 无障碍候选；自动 `dsh-cli-accessibility/1.0.0-draft` 进程结果必须与人工语音／盲文和独立任务证据分开保存。
-- 评审并发布可安装的字面量 loopback `a11y_check` 产品组合，为调用方自有页面提供层定义另行授权的宿主组合，并在既有版本化 replay 基线之上完成 live-model 修复任务；保留取消、清理、网络约束、隐私和精确打包证据，同时让两条路径保持只读、保留作者修复选择，并且永不暗示自动认证。
+- 评审并发布可安装的字面量 loopback `a11y_check` 产品组合，评审已实现且另行授权的调用方自有页面宿主组合，并在既有版本化 replay 基线之上完成 live-model 修复任务；保留取消、清理、适用路径的网络约束、隐私和精确打包证据，同时让两条路径保持只读、保留作者修复选择，并且永不暗示自动认证。
 
 ## 发布门禁
 
