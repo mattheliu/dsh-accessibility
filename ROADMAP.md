@@ -14,6 +14,7 @@ Updated: 2026-08-31. This roadmap is evidence-driven and may change after upstre
 - Hermetic AT labs: separate synthetic, disposable launchers cover the `0.1.2-alpha.2` core candidate and the rc.2 companion; they reduce setup/privacy risk but produce no AT evidence without human observation.
 - Live-announcement lab: six synthetic alpha.2 replay scenarios separate durable Host boundaries from actual AT speech/braille evidence.
 - CLI accessibility candidate: low-noise text and `dsh-headless-result/1.0.0` output are implemented on the alpha.2 branch; draft process conformance is reproducible, while real terminal/screen-reader and disabled-developer evidence remain pending.
+- Accessible authoring foundation: the bilingual authoring/testkit RFC and first standalone local `dsh-a11y-testkit/0.1.0-draft` implementation exist; publication, companion consumption, model-visible adapter work, real AT, and disabled-author evidence remain pending.
 - Listener-verified Windows and Linux screen-reader results remain pending; complete VoiceOver spoken-output records remain pending.
 
 ## Phase 0 — foundation and upstream compatibility (through 2026-09-12)
@@ -28,7 +29,7 @@ Updated: 2026-08-31. This roadmap is evidence-driven and may change after upstre
 
 - Complete review of the Accessible View MVP built through the additive `conversation.view` slot and DSH conversation projection; require privacy review, assembled-browser evidence, listener-verified VoiceOver/NVDA, and disabled-developer task evidence before treating the item as complete.
 - Add contextual accessibility help, focus/name/role/state inspection, and a redacted report exporter.
-- Write the `dsh-a11y-testkit` RFC and create its repository only when the first reusable test code is ready.
+- Review the bilingual `dsh-a11y-testkit` RFC and first reusable standalone implementation; create its remote repository only after the protocol, privacy boundary, fixtures, and package are ready for public review.
 - Use the versioned hermetic AT lab to make exact VoiceOver/NVDA and disabled-developer task runs reproducible without exposing testers' normal DSH state.
 - Run every response/tool/request terminal scenario through the live-announcement lab; retain failed, repeated, coalesced, and silent results by exact AT/browser/language row.
 - Complete one listener-verified VoiceOver round and one Windows NVDA round with exact versions, language, spoken output, focus results, and sanitized evidence.
@@ -38,7 +39,7 @@ Updated: 2026-08-31. This roadmap is evidence-driven and may change after upstre
 - Validate JAWS, Narrator, Orca, keyboard-only, Windows forced colors, browser zoom/reflow, and at least one braille-display workflow.
 - Prototype external AT automation by reusing W3C ARIA-AT drivers where possible; keep manual task completion as a release gate.
 - Validate the DSH CLI accessibility candidate across VoiceOver, NVDA, JAWS, Narrator, and Orca terminals; retain the automated `dsh-cli-accessibility/1.0.0-draft` process result separately from human speech/braille and independent-task evidence.
-- Write the permission and deterministic-engine design for an accessibility authoring tool (`a11y_check`) that helps DSH users produce accessible code without implying automated certification.
+- Implement the opt-in `a11y_check` adapter against the approved deterministic audit service and DSH tool policy; keep it read-only, preserve repair choice, and never imply automated certification.
 
 ## Release gates
 

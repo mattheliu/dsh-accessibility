@@ -10,7 +10,7 @@ describe('browser bundle registration', () => {
     expect(outputOptions?.banner).toContain('id: "@oh-my-dsh/dsh-accessibility"')
   })
 
-  it('ships the versioned CLI accessibility protocol and disposable launchers', () => {
+  it('ships the versioned accessibility protocols and disposable CLI launchers', () => {
     const manifestPath = fileURLToPath(new URL('../package.json', import.meta.url))
     const manifest = JSON.parse(readFileSync(manifestPath, 'utf8')) as {
       files?: string[]
@@ -21,6 +21,8 @@ describe('browser bundle registration', () => {
       expect.arrayContaining([
         'CLI-ACCESSIBILITY.md',
         'CLI-ACCESSIBILITY.zh.md',
+        'RFC-A11Y-AUTHORING.md',
+        'RFC-A11Y-AUTHORING.zh.md',
         'scripts/run-cli-conformance.mjs',
         'scripts/cli-conformance.template.ts',
       ]),

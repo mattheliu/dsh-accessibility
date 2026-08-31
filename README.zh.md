@@ -6,7 +6,7 @@
 
 本仓库也是 [DSH 无障碍工作组](https://github.com/omdsh-dev/community/blob/main/working-groups/accessibility.zh-CN.md)的公开项目中心。项目使命是：让残障开发者能够独立、有效、安全地完成 DSH 的核心任务；让 DSH 帮助所有开发者产出更无障碍的数字内容；并用版本化标准、真实辅助技术和残障用户证据持续验证。
 
-项目入口：[无障碍声明](ACCESSIBILITY_STATEMENT.zh.md) · [路线图](ROADMAP.zh.md) · [治理](GOVERNANCE.zh.md) · [研究与证据规程](RESEARCH.zh.md) · [Accessible View RFC](RFC-ACCESSIBLE-VIEW.zh.md) · [浏览器证据 RFC](RFC-BROWSER-EVIDENCE.zh.md) · [CLI 无障碍规程](CLI-ACCESSIBILITY.zh.md) · [核心 AT 实验室](AT-CORE-LAB.zh.md) · [实时播报 AT 实验室](AT-LIVE-LAB.zh.md) · [Companion AT 实验室](AT-LAB.zh.md) · [贡献指南](CONTRIBUTING.zh.md)
+项目入口：[无障碍声明](ACCESSIBILITY_STATEMENT.zh.md) · [路线图](ROADMAP.zh.md) · [治理](GOVERNANCE.zh.md) · [研究与证据规程](RESEARCH.zh.md) · [Accessible View RFC](RFC-ACCESSIBLE-VIEW.zh.md) · [浏览器证据 RFC](RFC-BROWSER-EVIDENCE.zh.md) · [创作／testkit RFC](RFC-A11Y-AUTHORING.zh.md) · [CLI 无障碍规程](CLI-ACCESSIBILITY.zh.md) · [核心 AT 实验室](AT-CORE-LAB.zh.md) · [实时播报 AT 实验室](AT-LIVE-LAB.zh.md) · [Companion AT 实验室](AT-LAB.zh.md) · [贡献指南](CONTRIBUTING.zh.md)
 
 ## 兼容性
 
@@ -63,6 +63,10 @@ MVP 仍以阅读为主。发送、停止、批准、编辑排队任务或使用�
 ## CLI 无障碍候选
 
 `0.1.2-alpha.2` 开发线增加了显式低噪声 headless 展示与版本化最终 JSON 结果。本仓库负责 draft `dsh-cli-accessibility/1.0.0-draft` 符合性规程，以及一次性自动与人工启动器。自动进程输出不属于读屏证据；人工启动器仍须补充人类实际观察的语音或盲文记录。详见 [CLI-ACCESSIBILITY.zh.md](CLI-ACCESSIBILITY.zh.md)。
+
+## 无障碍创作候选
+
+Draft [创作／testkit RFC](RFC-A11Y-AUTHORING.zh.md) 把纯版本化证据引擎、仅用于开发的浏览器 testkit，以及未来选择性启用、模型可见的 `a11y_check` 适配器分成独立边界。首个独立本地 testkit 已可在调用方拥有的已渲染页面上运行锁定版本 axe-core，并从受限报告中排除序列化 HTML 和页面 URL。规程与 fixture 评审期间它保持 private、尚未发布；自动报告干净永远不能表述成 WCAG 符合。
 
 ## 检查
 
