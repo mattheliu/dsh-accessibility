@@ -12,6 +12,7 @@
     "preparedOn",
     "candidate",
     "lab",
+    "automatedEvidence",
     "catalog",
     "priorityRequirements",
     "availabilityGates",
@@ -25,6 +26,19 @@
     "preparedOn": { "type": "string", "format": "date" },
     "candidate": { "$ref": "#/$defs/source" },
     "lab": { "$ref": "#/$defs/source" },
+    "automatedEvidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["protocol", "evidence", "path", "dshRevision", "result", "claimBoundary"],
+      "properties": {
+        "protocol": { "const": "dsh-non-at-browser/1.0.0-draft" },
+        "evidence": { "const": "dsh-core-browser-non-at" },
+        "path": { "type": "string", "pattern": "^automated-evidence/core-browser/[0-9]{4}-[0-9]{2}-[0-9]{2}-dsh-[0-9A-Za-z.-]+-[0-9a-f]{10}\\.json$" },
+        "dshRevision": { "type": "string", "pattern": "^[0-9a-f]{40}$" },
+        "result": { "const": "pass" },
+        "claimBoundary": { "const": "automated-only-not-at-or-user-evidence" }
+      }
+    },
     "catalog": {
       "type": "object",
       "additionalProperties": false,

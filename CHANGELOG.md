@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Archive the independently regenerated three-engine core-browser report for exact primary-campaign DSH revision `5803bfcfdd`, retaining the earlier `33eb2d9e1e` record instead of letting evidence silently carry across commits.
 - Add an anonymous, versioned primary-campaign public-readiness report that checks exact public revisions, default-branch intake, Discussion 16, and Issues 1/2 without credentials; strict mode fails closed without mutating campaign state or creating human evidence.
 - Add a machine-readable primary human-validation campaign pinned to exact core and lab revisions, keep recruitment closed while public availability is stale, and define first-wave VoiceOver/Safari, NVDA/Chrome, and disabled-developer acceptance rows.
 - Require every support-claimed task to be independent and every declared AT modality to have a direct per-task human observation; require focus evidence for claimed Web tasks while preserving incomplete results with `claim: none`.

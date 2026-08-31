@@ -13,11 +13,14 @@
     "campaign": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["protocol", "campaignId", "declaredStatus"],
+      "required": ["protocol", "campaignId", "declaredStatus", "candidateRevision", "labRevision", "automatedEvidencePath"],
       "properties": {
         "protocol": { "const": "dsh-a11y-primary-at-campaign/0.1.0-draft" },
         "campaignId": { "type": "string", "pattern": "^[a-z0-9][a-z0-9._-]{7,99}$" },
-        "declaredStatus": { "enum": ["prepared-not-open", "open", "closed"] }
+        "declaredStatus": { "enum": ["prepared-not-open", "open", "closed"] },
+        "candidateRevision": { "type": "string", "pattern": "^[0-9a-f]{40}$" },
+        "labRevision": { "type": "string", "pattern": "^[0-9a-f]{40}$" },
+        "automatedEvidencePath": { "type": "string", "pattern": "^automated-evidence/core-browser/[0-9A-Za-z.-]+\\.json$" }
       }
     },
     "anonymous": { "const": true },

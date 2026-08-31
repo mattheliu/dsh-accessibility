@@ -18,6 +18,17 @@ function exactCampaign(campaign) {
   ]) {
     if (typeof value !== 'string' || !/^[0-9a-f]{40}$/u.test(value)) throw new Error(`${path} must be a full lowercase Git revision`)
   }
+  if (campaign.automatedEvidence?.dshRevision !== campaign.candidate.revision) {
+    throw new Error('automatedEvidence.dshRevision must equal candidate.revision')
+  }
+  if (campaign.automatedEvidence?.protocol !== 'dsh-non-at-browser/1.0.0-draft'
+    || campaign.automatedEvidence?.evidence !== 'dsh-core-browser-non-at'
+    || campaign.automatedEvidence?.result !== 'pass'
+    || campaign.automatedEvidence?.claimBoundary !== 'automated-only-not-at-or-user-evidence'
+    || typeof campaign.automatedEvidence?.path !== 'string'
+    || !/^automated-evidence\/core-browser\/[0-9A-Za-z.-]+\.json$/u.test(campaign.automatedEvidence.path)) {
+    throw new Error('campaign automatedEvidence must identify one exact passing non-human core-browser report')
+  }
   const expectedGateIds = [
     'core-revision-public',
     'lab-revision-public',
@@ -88,9 +99,34 @@ async function campaignManifestCheck(fetchImpl, campaign) {
     && publicCampaign.campaignId === campaign.campaignId
     && publicCampaign.candidate?.revision === campaign.candidate.revision
     && publicCampaign.lab?.revision === campaign.lab.revision
+    && publicCampaign.automatedEvidence?.path === campaign.automatedEvidence?.path
+    && publicCampaign.automatedEvidence?.dshRevision === campaign.candidate.revision
   return matches
     ? { id, url, status: 'pass', detail: 'public default-branch manifest pins the exact campaign and revisions' }
     : { id, url, status: 'fail', detail: 'public default-branch manifest is absent, stale, or pins different revisions' }
+}
+
+async function browserEvidenceCheck(fetchImpl, campaign) {
+  const id = 'exact-candidate-browser-evidence'
+  const url = `${RAW_MAIN}/${campaign.automatedEvidence.path}`
+  const result = await request(fetchImpl, url, 'text')
+  if (result.status !== 'pass') return { id, url, status: result.status, detail: result.detail }
+  let report
+  try {
+    report = JSON.parse(result.value)
+  } catch {
+    return { id, url, status: 'error', detail: 'public automated-evidence report is not valid JSON' }
+  }
+  const limitations = Array.isArray(report.limitations) ? report.limitations.join(' ') : ''
+  const matches = report.protocol === campaign.automatedEvidence.protocol
+    && report.evidence === campaign.automatedEvidence.evidence
+    && report.result === 'pass'
+    && report.dsh?.revision === campaign.candidate.revision
+    && report.dsh?.dirty === false
+    && /not assistive-technology or disabled-user evidence/iu.test(limitations)
+  return matches
+    ? { id, url, status: 'pass', detail: 'public report passes on the exact clean candidate and retains its non-human boundary' }
+    : { id, url, status: 'fail', detail: 'public automated-evidence report is absent, stale, dirty, non-passing, or missing its evidence boundary' }
 }
 
 function observedGate(id, declaredStatus, checks) {
@@ -122,6 +158,7 @@ export async function verifyPrimaryAtPublicReadiness(campaign, options = {}) {
 
   const defaultBranchChecks = await Promise.all([
     campaignManifestCheck(fetchImpl, campaign),
+    browserEvidenceCheck(fetchImpl, campaign),
     textCheck(fetchImpl, 'campaign-guide-en', `${RAW_MAIN}/PRIMARY-AT-CAMPAIGN.md`, [
       campaign.candidate.revision,
       campaign.lab.revision,
@@ -196,6 +233,9 @@ export async function verifyPrimaryAtPublicReadiness(campaign, options = {}) {
       protocol: campaign.protocol,
       campaignId: campaign.campaignId,
       declaredStatus: campaign.status,
+      candidateRevision: campaign.candidate.revision,
+      labRevision: campaign.lab.revision,
+      automatedEvidencePath: campaign.automatedEvidence.path,
     },
     anonymous: true,
     readyToOpen,

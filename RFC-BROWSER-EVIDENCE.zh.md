@@ -57,7 +57,7 @@ Accessible View 运行器为每个浏览器输出一份 JSON 对象；核心运�
 - 支持时的强制颜色媒体状态、退出强制颜色数量和控件计算样本；
 - 防止把记录误解成辅助技术或残障用户证据的固定限制。
 
-只有每个必需测试进程以零退出、Schema 与语义清单校验通过，并且受测 commit 与记录 revision 相符时，记录才有效。脏工作树日志只能用于开发诊断，不能作为发布证据。第一份经过评审的核心记录归档于 [`automated-evidence/core-browser/2026-08-31-dsh-0.1.2-alpha.2-33eb2d9e1e.json`](automated-evidence/core-browser/2026-08-31-dsh-0.1.2-alpha.2-33eb2d9e1e.json)。
+只有每个必需测试进程以零退出、Schema 与语义清单校验通过，并且受测 commit 与记录 revision 相符时，记录才有效。脏工作树日志只能用于开发诊断，不能作为发布证据。第一份经过评审的核心记录归档于 [`automated-evidence/core-browser/2026-08-31-dsh-0.1.2-alpha.2-33eb2d9e1e.json`](automated-evidence/core-browser/2026-08-31-dsh-0.1.2-alpha.2-33eb2d9e1e.json)。首轮活动的精确候选已另行重新生成，并归档于 [`automated-evidence/core-browser/2026-08-31-dsh-0.1.2-alpha.2-5803bfcfdd.json`](automated-evidence/core-browser/2026-08-31-dsh-0.1.2-alpha.2-5803bfcfdd.json)；两条记录不得互换使用。
 
 ## 误报与例外策略
 

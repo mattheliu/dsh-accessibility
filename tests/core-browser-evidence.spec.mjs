@@ -3,10 +3,22 @@ import Ajv2020 from 'ajv/dist/2020.js'
 import addFormats from 'ajv-formats'
 import { describe, expect, it } from 'vitest'
 
-const reportUrl = new URL(
-  '../automated-evidence/core-browser/2026-08-31-dsh-0.1.2-alpha.2-33eb2d9e1e.json',
-  import.meta.url,
-)
+const reports = [
+  {
+    file: '2026-08-31-dsh-0.1.2-alpha.2-33eb2d9e1e.json',
+    revision: '33eb2d9e1ed6bc44712941f4bf40d4eda154ab9e',
+  },
+  {
+    file: '2026-08-31-dsh-0.1.2-alpha.2-5803bfcfdd.json',
+    revision: '5803bfcfdd502adac26ae9b8eec12d6aed263ec6',
+  },
+]
+
+function reportUrl(file) {
+  return new URL(`../automated-evidence/core-browser/${file}`, import.meta.url)
+}
+
+const currentReportUrl = reportUrl(reports.at(-1).file)
 
 const expectedTasks = [
   'discover-structure',
@@ -38,10 +50,10 @@ const expectedChecks = [
 ]
 
 describe('archived core browser evidence', () => {
-  it('validates the exact-revision report against its public schema', async () => {
+  it.each(reports)('validates $file and its exact revision against the public schema', async ({ file, revision }) => {
     const [schema, report] = await Promise.all([
       readFile(new URL('../CORE-BROWSER-EVIDENCE.schema.json', import.meta.url), 'utf8').then(JSON.parse),
-      readFile(reportUrl, 'utf8').then(JSON.parse),
+      readFile(reportUrl(file), 'utf8').then(JSON.parse),
     ])
     const ajv = new Ajv2020({ allErrors: true, strict: true })
     addFormats(ajv)
@@ -50,13 +62,14 @@ describe('archived core browser evidence', () => {
     expect(report.dsh).toEqual({
       package: '@deepseek-ai/dsh-root',
       version: '0.1.2-alpha.2',
-      revision: '33eb2d9e1ed6bc44712941f4bf40d4eda154ab9e',
+      revision,
       dirty: false,
     })
+    expect(file).toContain(revision.slice(0, 10))
   })
 
-  it('requires all three engines, every stable check, and the nine catalog tasks for pass', async () => {
-    const report = JSON.parse(await readFile(reportUrl, 'utf8'))
+  it('requires all three engines, every stable check, and the nine catalog tasks on the campaign revision', async () => {
+    const report = JSON.parse(await readFile(currentReportUrl, 'utf8'))
     expect(report.result).toBe('pass')
     expect(report.engines.map(item => item.engine)).toEqual(['chromium', 'firefox', 'webkit'])
     expect(report.scope.coreTasks.map(item => item.id)).toEqual(expectedTasks)
@@ -71,7 +84,7 @@ describe('archived core browser evidence', () => {
   })
 
   it('retains the non-AT and non-user evidence boundaries', async () => {
-    const report = JSON.parse(await readFile(reportUrl, 'utf8'))
+    const report = JSON.parse(await readFile(currentReportUrl, 'utf8'))
     const limitations = report.limitations.join(' ')
     expect(limitations).toMatch(/not assistive-technology/iu)
     expect(limitations).toMatch(/not a real browser-zoom/iu)

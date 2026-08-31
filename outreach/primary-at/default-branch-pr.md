@@ -24,12 +24,13 @@ This PR does not add a human result or accessibility support claim. The primary 
 
 ## Verified locally
 
-- `pnpm test`: 213 tests passed.
+- `pnpm test`: 214 tests passed.
 - `pnpm run typecheck`: passed.
 - `pnpm run evidence:validate`: catalog, coverage policy, and non-evidence template passed.
 - `pnpm run evidence:coverage`: zero human records and all 26 aggregate requirements missing, as expected.
 - `pnpm pack --pack-destination ./artifacts`: campaign manifest, schema, bilingual guides, protocols, labs, and evidence tooling are present.
 - Exact DSH/lab isolated-Chrome smoke: passed startup, temporary-profile use, and cleanup; this is lab readiness only.
+- Exact DSH `5803bfcfdd` browser evidence: independently regenerated, copied byte-for-byte into the archived report, schema-valid, and passing fourteen checks in Chromium, Firefox, and WebKit; this remains non-AT and non-user evidence.
 
 ## After merge
 

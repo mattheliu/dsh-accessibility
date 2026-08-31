@@ -57,7 +57,7 @@ The Accessible View runner emits one JSON object per browser. The core runner ag
 - forced-color media state, opt-out count, and computed control samples when supported;
 - fixed limitations that prevent the record from being misread as AT or disabled-user evidence.
 
-A record is valid only when every required test process exits zero, its schema and semantic inventory validate, and the tested commit matches the recorded revision. Logs from a dirty checkout are development diagnostics, not release evidence. The first reviewed core record is archived at [`automated-evidence/core-browser/2026-08-31-dsh-0.1.2-alpha.2-33eb2d9e1e.json`](automated-evidence/core-browser/2026-08-31-dsh-0.1.2-alpha.2-33eb2d9e1e.json).
+A record is valid only when every required test process exits zero, its schema and semantic inventory validate, and the tested commit matches the recorded revision. Logs from a dirty checkout are development diagnostics, not release evidence. The first reviewed core record is archived at [`automated-evidence/core-browser/2026-08-31-dsh-0.1.2-alpha.2-33eb2d9e1e.json`](automated-evidence/core-browser/2026-08-31-dsh-0.1.2-alpha.2-33eb2d9e1e.json). The exact primary-campaign candidate was regenerated independently and is archived at [`automated-evidence/core-browser/2026-08-31-dsh-0.1.2-alpha.2-5803bfcfdd.json`](automated-evidence/core-browser/2026-08-31-dsh-0.1.2-alpha.2-5803bfcfdd.json); the two records must not be treated as interchangeable.
 
 ## False-positive and exception policy
 

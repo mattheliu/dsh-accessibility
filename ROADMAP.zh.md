@@ -13,7 +13,7 @@
 - 开发者反馈闭环候选：每项失败诊断已有本地化修复建议；脱离页面、固定只有一项缺陷的练习提供稳定真人验证目标；显式启用的短暂焦点跟踪器在不输出 selector 的前提下展示近似名称／角色／状态；`dsh-accessibility-diagnostic/1.0.0-draft` 要求分别检查与复制严格无声明报告。三项新 companion 任务已固定进目录 revision `dsh-accessibility-core-tasks-2026-08-31-r2`。本地自动隐私、Schema、UI 与 axe 证据已通过；真实辅助技术理解情况和残障开发者有效性仍待验证。
 - Accessible View MVP：已有实验性实现候选；自动评审进行中，真实 AT 与残障开发者证据待补。
 - 隔离式 AT 实验室：分别用合成、一次性启动器覆盖 `0.1.2-alpha.2` 核心候选与 rc.2 companion；它们降低配置与隐私风险，但没有人工观察就不能产生 AT 证据。
-- 核心浏览器证据：干净 DSH revision `33eb2d9e1ed6bc44712941f4bf40d4eda154ab9e` 已取得经过 Schema 校验的 `dsh-core-browser-non-at` 三引擎 `pass`。十四项必需检查覆盖全部九项已登记静态 P0 Web 任务以及菜单和安全路由；这只是自动化非 AT 证据，实时状态、真实缩放／高对比度、辅助技术和残障用户证据行仍待补。
+- 核心浏览器证据：干净活动 revision `5803bfcfdd502adac26ae9b8eec12d6aed263ec6` 已取得经过 Schema 校验的 `dsh-core-browser-non-at` 三引擎 `pass`。十四项必需检查覆盖全部九项已登记静态 P0 Web 任务以及菜单和安全路由；这只是自动化非 AT 证据，实时状态、真实缩放／高对比度、辅助技术和残障用户证据行仍待补。
 - 实时播报实验室：六个合成 alpha.2 replay 场景把持久 Host 终态与真实 AT 语音／盲文证据分开记录。
 - CLI 无障碍候选：alpha.2 分支已实现低噪声文本与 `dsh-headless-result/1.0.0` 输出；draft 进程符合性可复现，真实终端／读屏和残障开发者证据仍待补。
 - 无障碍创作基础：中英文 RFC 与六个独立本地包现已覆盖两条提供链路。字面量 loopback 路径具有默认禁用、可安装的 `dsh-a11y-local-preview/0.1.0-draft` DSH 产品组合；调用方自有页面路径具有不可序列化、另行授权的 `dsh-a11y-caller-page/0.1.0-draft` 可信宿主组合，策略上只用于一次性未认证页面。本地已通过适用路径的真实产品 bundle 安装与配置组合、已发布 DSH runtime 加载、Chromium 审计、隐私、生命周期和包内容证据。`dsh-a11y-authoring-agent-lab/0.1.1-draft` replay 门禁证明了一项精确审计／读取／编辑／复审产品循环，并校验两次持久化审计结果中的不可信数据框定。新的 `dsh-a11y-authoring-at-lab/0.1.0-draft` 可通过真实 DSH Web 操作同一有界任务，证明“仅允许一次”后 finding 从两项降至零，也证明拒绝后源码不变，并定义独立的 VoiceOver／NVDA 真人记录。两种自动模式都只是产品证据，不属于辅助技术或残障作者证据。评审／发布、任何鉴权／跨 origin 扩权、live-model 修复、人工听读真实辅助技术和残障作者证据仍待补。

@@ -23,6 +23,15 @@ function successfulPublicFetch(overrides = new Map()) {
       return new Response(`public commit ${sha}`)
     }
     if (url.endsWith('/PRIMARY-AT-CAMPAIGN.json')) return new Response(JSON.stringify(campaign))
+    if (url.endsWith(`/${campaign.automatedEvidence.path}`)) {
+      return new Response(JSON.stringify({
+        protocol: campaign.automatedEvidence.protocol,
+        evidence: campaign.automatedEvidence.evidence,
+        result: 'pass',
+        dsh: { revision: campaign.candidate.revision, dirty: false },
+        limitations: ['headless browser evidence, not assistive-technology or disabled-user evidence'],
+      }))
+    }
     if (url.endsWith('/PRIMARY-AT-CAMPAIGN.md') || url.endsWith('/PRIMARY-AT-CAMPAIGN.zh.md')) {
       return new Response(`${campaign.candidate.revision}\n${campaign.lab.revision}\npnpm run campaign:public:require`)
     }
@@ -61,6 +70,11 @@ describe('anonymous primary AT public readiness', () => {
       readyToOpen: true,
       observationComplete: true,
       verdictScope: 'anonymous-public-availability-only-not-human-accessibility-evidence',
+      campaign: {
+        candidateRevision: campaign.candidate.revision,
+        labRevision: campaign.lab.revision,
+        automatedEvidencePath: campaign.automatedEvidence.path,
+      },
     })
     expect(report.gates).toHaveLength(5)
     expect(report.gates.every(gate => gate.observedStatus === 'ready')).toBe(true)

@@ -4,7 +4,7 @@
 
 Campaign status: `prepared-not-open`; external testing is not open. Campaign protocol: `dsh-a11y-primary-at-campaign/0.1.0-draft`. Scenario protocol: `dsh-core-at-lab/1.0.0-draft`. Machine-readable state: [PRIMARY-AT-CAMPAIGN.json](PRIMARY-AT-CAMPAIGN.json).
 
-This first campaign targets exact DSH `0.1.2-alpha.2` revision `5803bfcfdd502adac26ae9b8eec12d6aed263ec6` with exact lab revision `6aed71615edd1db1ec5b12897e1ad40b79294c78`. An isolated-Chrome startup and cleanup smoke run passed for this pair on macOS. That proves only lab readiness; the ledger still contains zero human records.
+This first campaign targets exact DSH `0.1.2-alpha.2` revision `5803bfcfdd502adac26ae9b8eec12d6aed263ec6` with exact lab revision `6aed71615edd1db1ec5b12897e1ad40b79294c78`. An isolated-Chrome startup and cleanup smoke run passed for this pair on macOS. A separately regenerated [three-engine browser report](automated-evidence/core-browser/2026-08-31-dsh-0.1.2-alpha.2-5803bfcfdd.json) passes fourteen deterministic checks on the same exact DSH revision and is bound in the machine manifest. These prove only lab and automated-browser readiness; the ledger still contains zero human records.
 
 ## Why recruitment is not open yet
 

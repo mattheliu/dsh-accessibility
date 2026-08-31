@@ -84,11 +84,12 @@ describe('primary AT public outreach handoff', () => {
 
   it('gives the default-branch review an evidence-backed, non-claim checklist', () => {
     const pullRequest = outreach('default-branch-pr.md')
-    expect(pullRequest).toContain('213 tests passed')
+    expect(pullRequest).toContain('214 tests passed')
     expect(pullRequest).toContain('all 26 aggregate requirements missing')
     expect(pullRequest).toContain('prepared-not-open')
     expect(pullRequest).toContain('does not add a human result or accessibility support claim')
     expect(pullRequest).toContain('Campaign schema rejects `open`')
     expect(pullRequest).toContain('Anonymous public-readiness verification')
+    expect(pullRequest).toContain('Exact DSH `5803bfcfdd` browser evidence')
   })
 })

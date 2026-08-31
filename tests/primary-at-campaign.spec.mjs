@@ -26,6 +26,13 @@ describe('primary human assistive-technology campaign', () => {
         version: '0.1.0-beta.6',
         revision: '6aed71615edd1db1ec5b12897e1ad40b79294c78',
       },
+      automatedEvidence: {
+        protocol: 'dsh-non-at-browser/1.0.0-draft',
+        evidence: 'dsh-core-browser-non-at',
+        dshRevision: '5803bfcfdd502adac26ae9b8eec12d6aed263ec6',
+        result: 'pass',
+        claimBoundary: 'automated-only-not-at-or-user-evidence',
+      },
     })
     expect(manifest.priorityRequirements.map(row => row.requirementId)).toEqual([
       'voiceover-safari-core-web',
@@ -36,6 +43,8 @@ describe('primary human assistive-technology campaign', () => {
     expect(manifest.availabilityGates.every(gate => gate.status === 'missing')).toBe(true)
     expect(manifest.evidenceBoundary.join('\n')).toMatch(/zero human records/)
     expect(manifest.evidenceBoundary.join('\n')).toMatch(/not assistive-technology or disabled-user evidence/)
+    expect(manifest.automatedEvidence.dshRevision).toBe(manifest.candidate.revision)
+    expect(source(manifest.automatedEvidence.path)).toContain(manifest.candidate.revision)
   })
 
   it('validates the manifest and refuses an open campaign with a missing public gate', () => {

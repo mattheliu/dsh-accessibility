@@ -4,7 +4,7 @@
 
 活动状态：`prepared-not-open`，尚未向外部测试者开放。活动规程：`dsh-a11y-primary-at-campaign/0.1.0-draft`。场景规程：`dsh-core-at-lab/1.0.0-draft`。机器可读状态：[PRIMARY-AT-CAMPAIGN.json](PRIMARY-AT-CAMPAIGN.json)。
 
-首轮活动固定到 DSH `0.1.2-alpha.2` 精确 revision `5803bfcfdd502adac26ae9b8eec12d6aed263ec6` 与实验室精确 revision `6aed71615edd1db1ec5b12897e1ad40b79294c78`。这一组合已在 macOS 通过隔离 Chrome 启动与清理冒烟检查。它只证明实验室就绪；账本仍有零条真人记录。
+首轮活动固定到 DSH `0.1.2-alpha.2` 精确 revision `5803bfcfdd502adac26ae9b8eec12d6aed263ec6` 与实验室精确 revision `6aed71615edd1db1ec5b12897e1ad40b79294c78`。这一组合已在 macOS 通过隔离 Chrome 启动与清理冒烟检查；另行重新生成的[三引擎浏览器报告](automated-evidence/core-browser/2026-08-31-dsh-0.1.2-alpha.2-5803bfcfdd.json)也在同一精确 DSH revision 上通过十四项确定性检查，并已绑定进机器清单。它们只证明实验室和自动浏览器就绪；账本仍有零条真人记录。
 
 ## 为什么尚未开放招募
 

@@ -16,6 +16,14 @@
     "version": "0.1.0-beta.6",
     "revision": "6aed71615edd1db1ec5b12897e1ad40b79294c78"
   },
+  "automatedEvidence": {
+    "protocol": "dsh-non-at-browser/1.0.0-draft",
+    "evidence": "dsh-core-browser-non-at",
+    "path": "automated-evidence/core-browser/2026-08-31-dsh-0.1.2-alpha.2-5803bfcfdd.json",
+    "dshRevision": "5803bfcfdd502adac26ae9b8eec12d6aed263ec6",
+    "result": "pass",
+    "claimBoundary": "automated-only-not-at-or-user-evidence"
+  },
   "catalog": {
     "protocol": "dsh-a11y-evidence-catalog/0.1.0-draft",
     "catalogId": "dsh-accessibility-core-tasks-2026-08-31-r2"
