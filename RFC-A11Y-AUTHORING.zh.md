@@ -2,7 +2,7 @@
 
 [English](RFC-A11Y-AUTHORING.md) | 简体中文
 
-状态：draft。规程：`dsh-a11y-testkit/0.1.0-draft`、`dsh-a11y-loopback-provider/0.1.0-draft`、`dsh-a11y-authoring/0.1.0-draft`、`dsh-a11y-local-preview/0.1.0-draft`、`dsh-a11y-caller-page/0.1.0-draft`、`dsh-a11y-authoring-agent-lab/0.1.0-draft` 与 `dsh-a11y-authoring-at-lab/0.1.0-draft`。
+状态：draft。规程：`dsh-a11y-testkit/0.1.0-draft`、`dsh-a11y-loopback-provider/0.1.0-draft`、`dsh-a11y-authoring/0.1.0-draft`、`dsh-a11y-local-preview/0.1.0-draft`、`dsh-a11y-caller-page/0.1.0-draft`、`dsh-a11y-authoring-agent-lab/0.1.1-draft` 与 `dsh-a11y-authoring-at-lab/0.1.0-draft`。
 
 实现状态：六个私有本地包现已实现确定性 testkit、调用方自有页面提供层、另行版本化的字面量 loopback 提供层、只读 DSH 适配器、可安装的字面量 loopback 产品组合，以及面向精确调用方自有页面、不可序列化的可信宿主组合。两条提供链路均已通过真实 Chromium 与已发布 `0.1.2-alpha.2` DSH `ToolRuntime` 组装验证；字面量 loopback 组合还通过了真实 DSH profile 安装与配置 dump，两种组合均通过插件加载、SystemPrompt 目标清单、生命周期、隐私和包产物检查。版本化无密钥实验室让真实 DSH agent loop 执行精确的审计／读取／编辑／复审任务。另一个一次性 Web 实验室现可操作真实审批界面，分别验证“仅允许一次”修复和“拒绝后不修改”，并定义真人辅助技术记录，同时不把自动浏览器输出提升为辅助技术证据。评审与远程发布、鉴权／跨 origin 设计、live-model 修复证据、人工听读辅助技术证据和残障作者任务证据仍是开放发布门禁。
 
@@ -113,7 +113,7 @@ runtime companion 继续负责 DSH 自身诊断和无障碍 UI。它不能因为
 
 Bundle 随附行保持 disabled，不带任何活动目标。后置可信 profile patch 必须重述完整配置并启用它。预览服务器的启动、ready、关闭、日志和留存数据由宿主负责，而不是插件。因此安装说明要求使用可丢弃、无特权的服务器与测试数据；它不会把提供层变成服务器启动器，也不会授予鉴权访问。插件释放时会通过同一个 DSH 生命周期撤销目标清单、工具注册、提供层注册、活动浏览器 context 和自有浏览器进程。
 
-当前证据通过真实 Cordis 插件 API 与已发布 DSH SystemPrompt／ToolRuntime 包加载本包，在真实 loopback HTTP fixture 和 Chromium 中执行审计，验证类提示注入 label 与私有配置不会进入目标清单，测试挂载前拒绝和释放，解析 bundle 产物，通过 `dsh plugin` 安装本地 checkout，经 `dsh --dump-config` 组合启用 patch，并启动 headless 产品入口。另行提供的[创作 agent 实验室](AUTHORING-AGENT-LAB.zh.md)还使用该已安装组合、真实 DSH 产品入口与文件策略、一次性预览和固定 replay 转录，证明精确的 `a11y_check → read → edit → a11y_check` 产品循环；其 `dsh-a11y-authoring-agent-lab/0.1.0-draft` 记录受仓库内 JSON Schema 约束，并明确声明不属于模型或辅助技术证据。[创作辅助技术实验室](AUTHORING-AT-LAB.zh.md)把同一有界目标组合进真实 DSH Web，把常驻策略设为只读，让一次 edit 经过真实审批面板，并分别验证允许与拒绝；其 readiness、Host 和自动 Chromium 记录同样明确不属于辅助技术证据，只有经过同意的真人语音／盲文与焦点记录才能填补该层。这些仍是预发布证据，不是稳定支持或符合性声明。
+当前证据通过真实 Cordis 插件 API 与已发布 DSH SystemPrompt／ToolRuntime 包加载本包，在真实 loopback HTTP fixture 和 Chromium 中执行审计，验证类提示注入 label 与私有配置不会进入目标清单，测试挂载前拒绝和释放，解析 bundle 产物，通过 `dsh plugin` 安装本地 checkout，经 `dsh --dump-config` 组合启用 patch，并启动 headless 产品入口。另行提供的[创作 agent 实验室](AUTHORING-AGENT-LAB.zh.md)还使用该已安装组合、真实 DSH 产品入口与文件策略、一次性预览和固定 replay 转录，证明精确的 `a11y_check → read → edit → a11y_check` 产品循环；其 `dsh-a11y-authoring-agent-lab/0.1.1-draft` 记录还会验证两次持久化审计结果都保留不可信数据边界并 JSON 引用类提示注入 subject，仓库内 JSON Schema 仍明确声明它不属于模型或辅助技术证据。[创作辅助技术实验室](AUTHORING-AT-LAB.zh.md)把同一有界目标组合进真实 DSH Web，把常驻策略设为只读，让一次 edit 经过真实审批面板，并分别验证允许与拒绝；其 readiness、Host 和自动 Chromium 记录同样明确不属于辅助技术证据，只有经过同意的真人语音／盲文与焦点记录才能填补该层。这些仍是预发布证据，不是稳定支持或符合性声明。
 
 ## 隐私与威胁模型
 

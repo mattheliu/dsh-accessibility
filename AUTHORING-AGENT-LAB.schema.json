@@ -19,7 +19,7 @@
     "limitations"
   ],
   "properties": {
-    "protocol": { "const": "dsh-a11y-authoring-agent-lab/0.1.0-draft" },
+    "protocol": { "const": "dsh-a11y-authoring-agent-lab/0.1.1-draft" },
     "generatedAt": { "type": "string", "format": "date-time" },
     "evidence": {
       "enum": [
@@ -81,12 +81,19 @@
     "task": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["id", "outcome", "fileChanged", "toolSequence", "headlessResult"],
+      "required": ["id", "outcome", "fileChanged", "toolSequence", "untrustedReportFraming", "headlessResult"],
       "properties": {
         "id": { "const": "repair-image-alt-and-button-name" },
         "outcome": { "const": "completed" },
         "fileChanged": { "const": true },
         "toolSequence": { "const": ["a11y_check", "read", "edit", "a11y_check"] },
+        "untrustedReportFraming": {
+          "const": {
+            "auditResultsValidated": 2,
+            "boundaryWarningPresent": true,
+            "subjectDataQuoted": true
+          }
+        },
         "headlessResult": {
           "type": "object",
           "additionalProperties": false,

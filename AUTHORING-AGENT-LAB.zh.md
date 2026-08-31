@@ -2,7 +2,7 @@
 
 简体中文 | [English](AUTHORING-AGENT-LAB.md)
 
-规程：`dsh-a11y-authoring-agent-lab/0.1.0-draft`。机器可读契约：[AUTHORING-AGENT-LAB.schema.json](AUTHORING-AGENT-LAB.schema.json)。
+规程：`dsh-a11y-authoring-agent-lab/0.1.1-draft`。机器可读契约：[AUTHORING-AGENT-LAB.schema.json](AUTHORING-AGENT-LAB.schema.json)。
 
 这个一次性实验室验证一项受限 DSH 创作任务：检查渲染后的本地预览，读取源码，通过 DSH 既有文件系统工具修复缺失的图片替代文本与空按钮名称，再审计修复后的页面。它会安装并运行产品组合，而不是直接 import 适配器来绕过产品生命周期。
 
@@ -14,6 +14,7 @@ Replay 运行通过后，可针对输出中的精确修订证明：
 - 真实字面量 loopback HTTP 页面在全新真实 Chromium context 中接受审计；
 - 真实 DSH agent loop 精确执行 `a11y_check → read → edit → a11y_check`；
 - 每个持久化工具调用都只有一个匹配的成功结果，两次审计都限制在 `main` 与已批准不透明句柄，文件系统访问仅限 `index.html`；
+- 两次持久化审计结果都保留精确的不可信数据安全边界，并把类提示注入的提供层 subject 限制在单一 JSON 引用的 `Subject data` 记录中，而不是暴露成指令或新的转录记录；
 - 初始页面精确包含预期的 `button-name` 与 `image-alt` 障碍，最终源码是精确的受限修复而不是删除控件或改写无关内容，最终自动报告没有 finding；
 - 最终 `dsh-headless-result/1.0.0` 记录报告完成；
 - 对外证据对象包含版本、修订、汇总 finding 和限制，但不含临时目录、DSH home、工作区路径或 loopback origin。
@@ -60,7 +61,7 @@ Live 模式不得使用真实产品数据或日常鉴权预览。任务、工具
 
 ## 安全与隐私边界
 
-预览只绑定临时字面量 `127.0.0.1` 端口，内容均为合成数据。产品组合在挂载前拒绝 query、fragment、凭据、DNS hostname 与远程 origin。提供层只允许对已批准 origin 发起受限读取请求，并阻断跨 origin 请求、不安全方法、WebSocket、下载、service worker 与环境鉴权 header。DSH 仅在一次性目录内使用 `workspace-write`，轨迹门禁还会拒绝 `bash`、`write`、任何未批准工具、其他文件、失败工具结果、额外步骤和变化后的审计范围。
+预览只绑定临时字面量 `127.0.0.1` 端口，内容均为合成数据。产品组合在挂载前拒绝 query、fragment、凭据、DNS hostname 与远程 origin。提供层只允许对已批准 origin 发起受限读取请求，并阻断跨 origin 请求、不安全方法、WebSocket、下载、service worker 与环境鉴权 header。DSH 仅在一次性目录内使用 `workspace-write`，轨迹门禁还会拒绝 `bash`、`write`、任何未批准工具、其他文件、失败工具结果、额外步骤和变化后的审计范围。配置的 subject 会刻意包含类指令文本；证据门禁读取两次真实持久化 `a11y_check` 结果，只有该文本在每个结果中恰好出现一次、处于预期 JSON 引用数据记录内且同时存在禁止扩权警告时才通过。
 
 原始 session 日志属于私密诊断材料：它包含任务、工具参数、selector 与临时路径。Runner 只在本地读取它来实施轨迹门禁，并在完成时删除。分享前只能保留最终受限 JSON，并按 [RESEARCH.zh.md](RESEARCH.zh.md) 人工检查。
 

@@ -2,7 +2,7 @@
 
 [简体中文](AUTHORING-AGENT-LAB.zh.md) | English
 
-Protocol: `dsh-a11y-authoring-agent-lab/0.1.0-draft`. Machine-readable contract: [AUTHORING-AGENT-LAB.schema.json](AUTHORING-AGENT-LAB.schema.json).
+Protocol: `dsh-a11y-authoring-agent-lab/0.1.1-draft`. Machine-readable contract: [AUTHORING-AGENT-LAB.schema.json](AUTHORING-AGENT-LAB.schema.json).
 
 This disposable lab verifies one bounded DSH authoring task: inspect a rendered local preview, read its source, repair a missing image alternative and empty button name through DSH's existing filesystem tools, and audit the repaired page. It exercises the installed product composition instead of importing its adapter directly.
 
@@ -14,6 +14,7 @@ A passing replay run proves all of the following for the exact revisions in its 
 - a real literal-loopback HTTP page is audited in a fresh real Chromium context;
 - the real DSH agent loop executes exactly `a11y_check → read → edit → a11y_check`;
 - every durable tool call has one matching successful result, both audits remain scoped to `main` and the approved opaque handle, and filesystem access remains limited to `index.html`;
+- both persisted audit results carry the exact untrusted-data security boundary and keep an injection-like provider subject inside one JSON-quoted `Subject data` record rather than exposing it as an instruction or new transcript record;
 - the initial page has exactly the intended `button-name` and `image-alt` failures, the final source is the exact bounded repair rather than deletion or unrelated rewriting, and the final automated report has zero findings;
 - the final `dsh-headless-result/1.0.0` record reports completion; and
 - the public evidence object contains versions, revisions, aggregate findings and limitations, but no temporary directory, DSH home, workspace path or loopback origin.
@@ -60,7 +61,7 @@ Do not use real product data or a normal authenticated preview in live mode. The
 
 ## Security and privacy boundary
 
-The preview binds to an ephemeral literal `127.0.0.1` port and contains only synthetic data. The composition rejects query strings, fragments, credentials, DNS hostnames and remote origins before mounting. The provider permits only bounded read-oriented requests to the approved origin and blocks cross-origin requests, unsafe methods, WebSockets, downloads, service workers and ambient authentication headers. DSH runs in `workspace-write` mode inside the disposable directory, while the trace gate rejects `bash`, `write`, any unapproved tool, any other file, failed tool results, extra steps and changed audit scope.
+The preview binds to an ephemeral literal `127.0.0.1` port and contains only synthetic data. The composition rejects query strings, fragments, credentials, DNS hostnames and remote origins before mounting. The provider permits only bounded read-oriented requests to the approved origin and blocks cross-origin requests, unsafe methods, WebSockets, downloads, service workers and ambient authentication headers. DSH runs in `workspace-write` mode inside the disposable directory, while the trace gate rejects `bash`, `write`, any unapproved tool, any other file, failed tool results, extra steps and changed audit scope. The configured subject intentionally contains an instruction-like phrase; the evidence gate reads both real persisted `a11y_check` results and fails unless the phrase occurs exactly once in each result, inside the expected JSON-quoted data record accompanied by the authority warning.
 
 Raw session logs are private diagnostic material: they contain the task, tool arguments, selectors and temporary paths. The runner reads them locally only to enforce the trace and deletes them at completion. Share only the final bounded JSON after reviewing it under [RESEARCH.md](RESEARCH.md).
 
