@@ -24,7 +24,7 @@ This PR does not add a human result or accessibility support claim. The primary 
 
 ## Verified locally
 
-- `pnpm test`: 214 tests passed.
+- `pnpm test`: 221 tests passed.
 - `pnpm run typecheck`: passed.
 - `pnpm run evidence:validate`: catalog, coverage policy, and non-evidence template passed.
 - `pnpm run evidence:coverage`: zero human records and all 26 aggregate requirements missing, as expected.

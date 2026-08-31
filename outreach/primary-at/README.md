@@ -4,6 +4,14 @@ This directory contains reviewed source text for the public availability gates i
 
 ## Required order
 
+Before the first external write, run the versioned read-only local/public preflight from the current handoff branch:
+
+```sh
+pnpm run campaign:publish:require -- ../deepseek-harness-alpha2
+```
+
+It must report `localReady: true`. The report records exact local revisions, matching target remotes, committed handoff files, anonymous public gate observations, and which action is currently ready; it never pushes, merges, edits a thread, opens recruitment, or creates human evidence.
+
 1. Publish DSH revision `5803bfcfdd502adac26ae9b8eec12d6aed263ec6` on `omdsh-dev/deepseek-harness` without changing the revision.
 2. Publish accessibility-lab revision `6aed71615edd1db1ec5b12897e1ad40b79294c78` and the campaign commit that contains this handoff on `omdsh-dev/dsh-accessibility`.
 3. Review and merge the default-branch change using [default-branch-pr.md](default-branch-pr.md). GitHub Issue forms are not available from a feature branch; verify both AT and disabled-developer forms on the default branch after merge.

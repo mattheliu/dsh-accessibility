@@ -1,0 +1,139 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/omdsh-dev/dsh-accessibility/main/PRIMARY-AT-PUBLICATION-PREFLIGHT.schema.json",
+  "title": "DSH primary AT campaign local publication preflight",
+  "description": "A read-only local and public coordination report. It is never assistive-technology or disabled-user evidence.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["protocol", "generatedAt", "verdictScope", "localReady", "repositories", "handoff", "publicObservation", "checks", "actions", "limitations"],
+  "properties": {
+    "protocol": { "const": "dsh-a11y-primary-at-publication-preflight/0.1.0-draft" },
+    "generatedAt": { "type": "string", "format": "date-time" },
+    "verdictScope": { "const": "local-publication-source-readiness-only-not-publication-or-human-evidence" },
+    "localReady": { "type": "boolean" },
+    "repositories": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["core", "lab"],
+      "properties": {
+        "core": { "$ref": "#/$defs/repository" },
+        "lab": { "$ref": "#/$defs/repository" }
+      }
+    },
+    "handoff": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["requiredFileCount", "trackedFileCount", "missingFiles"],
+      "properties": {
+        "requiredFileCount": { "type": "integer", "minimum": 1 },
+        "trackedFileCount": { "type": "integer", "minimum": 0 },
+        "missingFiles": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "type": "string", "pattern": "^[^/]" }
+        }
+      }
+    },
+    "publicObservation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["protocol", "observationComplete", "readyToOpen", "missingGates"],
+      "properties": {
+        "protocol": { "const": "dsh-a11y-primary-at-public-readiness/0.1.0-draft" },
+        "observationComplete": { "type": "boolean" },
+        "readyToOpen": { "type": "boolean" },
+        "missingGates": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/gateId" }
+        }
+      }
+    },
+    "checks": {
+      "type": "array",
+      "minItems": 9,
+      "maxItems": 9,
+      "items": { "$ref": "#/$defs/check" }
+    },
+    "actions": {
+      "type": "array",
+      "minItems": 6,
+      "maxItems": 6,
+      "items": { "$ref": "#/$defs/action" }
+    },
+    "limitations": {
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 3,
+      "items": { "type": "string", "minLength": 1 }
+    }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "localReady": { "const": true } }, "required": ["localReady"] },
+      "then": {
+        "properties": {
+          "handoff": { "type": "object", "properties": { "missingFiles": { "type": "array", "maxItems": 0 } } },
+          "checks": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "if": { "properties": { "id": { "not": { "const": "public-observation-complete" } } }, "required": ["id"] },
+              "then": { "type": "object", "properties": { "status": { "const": "pass" } } }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "publicObservation": { "type": "object", "properties": { "readyToOpen": { "const": true } }, "required": ["readyToOpen"] } }, "required": ["publicObservation"] },
+      "then": { "properties": { "publicObservation": { "type": "object", "properties": { "observationComplete": { "const": true }, "missingGates": { "type": "array", "maxItems": 0 } } } } }
+    }
+  ],
+  "$defs": {
+    "revision": { "type": "string", "pattern": "^[0-9a-f]{40}$" },
+    "repository": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["repository", "branch", "headRevision", "requiredRevision", "clean", "containsRequiredRevision", "headMatchesRequiredRevision", "remoteMatches", "matchingRemoteNames"],
+      "properties": {
+        "repository": { "type": "string", "format": "uri", "pattern": "^https://github\\.com/" },
+        "branch": { "type": "string", "minLength": 1, "maxLength": 200 },
+        "headRevision": { "$ref": "#/$defs/revision" },
+        "requiredRevision": { "$ref": "#/$defs/revision" },
+        "clean": { "type": "boolean" },
+        "containsRequiredRevision": { "type": "boolean" },
+        "headMatchesRequiredRevision": { "type": "boolean" },
+        "remoteMatches": { "type": "boolean" },
+        "matchingRemoteNames": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "type": "string", "minLength": 1, "maxLength": 100 }
+        }
+      }
+    },
+    "gateId": {
+      "enum": ["core-revision-public", "lab-revision-public", "default-branch-intake", "discussion-current", "tracking-issues-current"]
+    },
+    "check": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "status", "detail"],
+      "properties": {
+        "id": { "enum": ["core-worktree-clean", "core-exact-head", "core-public-remote", "lab-worktree-clean", "lab-contains-campaign-revision", "lab-public-remote", "publication-files-committed", "campaign-still-gated", "public-observation-complete"] },
+        "status": { "enum": ["pass", "fail"] },
+        "detail": { "type": "string", "minLength": 1, "maxLength": 240 }
+      }
+    },
+    "action": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "status", "detail"],
+      "properties": {
+        "id": { "enum": ["publish-core-revision", "publish-lab-branch", "merge-default-branch-intake", "update-discussion-16", "update-tracking-issues", "open-campaign"] },
+        "status": { "enum": ["blocked", "ready", "complete"] },
+        "detail": { "type": "string", "minLength": 1, "maxLength": 300 }
+      }
+    }
+  }
+}

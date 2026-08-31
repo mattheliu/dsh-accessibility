@@ -80,11 +80,13 @@ describe('primary AT public outreach handoff', () => {
     expect(handoff).toContain('Change all five `availabilityGates` rows to `ready`')
     expect(handoff).toContain('change campaign status to `open`')
     expect(handoff).toContain('Zero human records is the correct starting state')
+    expect(handoff).toContain('campaign:publish:require')
+    expect(handoff).toContain('never pushes, merges, edits a thread, opens recruitment, or creates human evidence')
   })
 
   it('gives the default-branch review an evidence-backed, non-claim checklist', () => {
     const pullRequest = outreach('default-branch-pr.md')
-    expect(pullRequest).toContain('214 tests passed')
+    expect(pullRequest).toContain('221 tests passed')
     expect(pullRequest).toContain('all 26 aggregate requirements missing')
     expect(pullRequest).toContain('prepared-not-open')
     expect(pullRequest).toContain('does not add a human result or accessibility support claim')

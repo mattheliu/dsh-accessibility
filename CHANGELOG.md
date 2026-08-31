@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Add a versioned, read-only primary-campaign publication preflight that checks exact clean local revisions, matching target remotes, committed handoff files, anonymous public gates, and ordered action readiness without pushing, merging, editing community threads, opening recruitment, or creating human evidence.
 - Add `dsh-a11y-author-review-plan/0.1.0-draft`: eleven stable, always-unresolved author-review rows appended to every model-visible scan; upgrade the real-product authoring lab to `0.1.2-draft` so either persisted scan fails if automation drops or promotes that manual work, and archive one exact-revision passing replay.
 - Archive the independently regenerated three-engine core-browser report for exact primary-campaign DSH revision `5803bfcfdd`, retaining the earlier `33eb2d9e1e` record instead of letting evidence silently carry across commits.
 - Add an anonymous, versioned primary-campaign public-readiness report that checks exact public revisions, default-branch intake, Discussion 16, and Issues 1/2 without credentials; strict mode fails closed without mutating campaign state or creating human evidence.
