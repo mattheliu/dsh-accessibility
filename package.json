@@ -43,6 +43,9 @@
     "RFC-BROWSER-EVIDENCE.zh.md",
     "RFC-A11Y-AUTHORING.md",
     "RFC-A11Y-AUTHORING.zh.md",
+    "AUTHORING-AGENT-LAB.md",
+    "AUTHORING-AGENT-LAB.zh.md",
+    "AUTHORING-AGENT-LAB.schema.json",
     "AT-LAB.md",
     "AT-LAB.zh.md",
     "AT-CORE-LAB.md",
@@ -62,6 +65,9 @@
     "scripts/live-at-lab.template.ts",
     "scripts/run-cli-conformance.mjs",
     "scripts/cli-conformance.template.ts",
+    "scripts/run-authoring-agent-lab.mjs",
+    "scripts/authoring-agent-lab-lib.mjs",
+    "scripts/authoring-agent-replay.jsonl",
     "SECURITY.md",
     "LICENSE"
   ],
@@ -117,7 +123,8 @@
     "lab:at": "node scripts/run-at-lab.mjs",
     "lab:at:core": "node scripts/run-core-at-lab.mjs",
     "lab:at:live": "node scripts/run-live-at-lab.mjs",
-    "lab:cli": "node scripts/run-cli-conformance.mjs"
+    "lab:cli": "node scripts/run-cli-conformance.mjs",
+    "lab:authoring": "node scripts/run-authoring-agent-lab.mjs"
   },
   "peerDependencies": {
     "@deepseek-ai/cordis": ">=4.0.1 <5",

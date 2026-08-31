@@ -18,6 +18,7 @@
 - Add a standalone caller-owned-page provider that retains only the audit capability surface, maps exact pre-registered handles without navigation or browser-lifecycle authority, and verifies the full testkit-to-provider-to-`a11y_check` chain in real Chromium and the published DSH `ToolRuntime`.
 - Add the private `dsh-a11y-loopback-provider/0.1.0-draft` prototype with literal-loopback URL registration, fresh non-persistent contexts, same-origin read-oriented routing, blocked WebSockets/downloads/service workers/authentication data, fixed privacy-safe errors, and assembled real-Chromium/DSH runtime evidence.
 - Add the private `dsh-a11y-local-preview/0.1.0-draft` product-composition prototype with a default-inert DSH bundle, host-only loopback mappings, handle-only model context, query/fragment rejection, real DSH profile installation/config-dump/runtime loading, real Chromium execution, lifecycle revocation, and exact package evidence.
+- Add the versioned bilingual `dsh-a11y-authoring-agent-lab/0.1.0-draft`, JSON Schema, keyless replay fixture, and disposable runner that uses the real DSH product/plugin/agent/filesystem loop to enforce an exact `a11y_check → read → edit → a11y_check` repair while keeping replay, live-model, AT, and disabled-author evidence distinct.
 - Make package builds remove stale generated declarations before compiling so removed experimental APIs cannot survive in an npm artifact.
 
 ## 0.1.0-beta.6 - 2026-08-29

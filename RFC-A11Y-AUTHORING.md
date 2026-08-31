@@ -2,9 +2,9 @@
 
 [简体中文](RFC-A11Y-AUTHORING.zh.md) | English
 
-Status: draft. Protocols: `dsh-a11y-testkit/0.1.0-draft`, `dsh-a11y-loopback-provider/0.1.0-draft`, `dsh-a11y-authoring/0.1.0-draft`, and `dsh-a11y-local-preview/0.1.0-draft`.
+Status: draft. Protocols: `dsh-a11y-testkit/0.1.0-draft`, `dsh-a11y-loopback-provider/0.1.0-draft`, `dsh-a11y-authoring/0.1.0-draft`, `dsh-a11y-local-preview/0.1.0-draft`, and `dsh-a11y-authoring-agent-lab/0.1.0-draft`.
 
-Implementation status: five private local packages now implement the deterministic testkit, a caller-owned-page provider, a separately versioned literal-loopback provider, the read-only DSH adapter, and an installable literal-loopback product composition. Both provider chains are assembled against real Chromium and the published `0.1.2-alpha.2` DSH `ToolRuntime`; the product composition additionally passes real DSH profile installation, config-dump, plugin loading, SystemPrompt target inventory, lifecycle, privacy, and package-artifact checks. Review and remote publication, a host composition for the caller-owned-page path, real-agent repair, real assistive-technology evidence, and disabled-author task evidence remain open release gates.
+Implementation status: five private local packages now implement the deterministic testkit, a caller-owned-page provider, a separately versioned literal-loopback provider, the read-only DSH adapter, and an installable literal-loopback product composition. Both provider chains are assembled against real Chromium and the published `0.1.2-alpha.2` DSH `ToolRuntime`; the product composition additionally passes real DSH profile installation, config-dump, plugin loading, SystemPrompt target inventory, lifecycle, privacy, and package-artifact checks. A versioned keyless lab now drives the real DSH agent loop through an exact audit/read/edit/re-audit task and verifies the durable trace plus exact repair. Review and remote publication, a host composition for the caller-owned-page path, live-model repair evidence, real assistive-technology evidence, and disabled-author task evidence remain open release gates.
 
 ## Problem
 
@@ -106,7 +106,7 @@ Repair help names the affected requirement, location, why it matters, what evide
 
 The bundle's shipped row is disabled and carries no active target. A later trusted profile patch must restate the complete config and enable it. The host, not the plugin, owns preview-server start, readiness, shutdown, logs, and retained data. The installation guide therefore requires a disposable, unprivileged server and test data; it does not turn the provider into a server launcher or grant authenticated access. Plugin disposal revokes the target inventory, tool registration, provider registrations, active browser contexts, and owned browser process through the same DSH lifecycle.
 
-Current evidence loads the package through the real Cordis plugin API with published DSH SystemPrompt and ToolRuntime packages, runs a real loopback HTTP fixture and Chromium audit, verifies injection-like labels and private configuration do not enter the target inventory, tests pre-mount rejection and disposal, parses the bundle artifact, installs the local checkout through `dsh plugin`, composes an enabling patch through `dsh --dump-config`, and boots the headless product entry. This remains pre-release evidence, not a stable support or conformance claim.
+Current evidence loads the package through the real Cordis plugin API with published DSH SystemPrompt and ToolRuntime packages, runs a real loopback HTTP fixture and Chromium audit, verifies injection-like labels and private configuration do not enter the target inventory, tests pre-mount rejection and disposal, parses the bundle artifact, installs the local checkout through `dsh plugin`, composes an enabling patch through `dsh --dump-config`, and boots the headless product entry. The separate [authoring agent lab](AUTHORING-AGENT-LAB.md) additionally uses that installed composition, the real DSH product entry and filesystem policy, a disposable preview, and a fixed replay transcript to prove the exact `a11y_check → read → edit → a11y_check` product loop. Its `dsh-a11y-authoring-agent-lab/0.1.0-draft` record is constrained by a checked-in JSON Schema and explicitly says it is neither model nor AT evidence. This remains pre-release evidence, not a stable support or conformance claim.
 
 ## Privacy and threat model
 
@@ -120,7 +120,7 @@ Selectors can expose names, IDs, test data, or application structure. They are n
 
 The deterministic engine requires unit fixtures for failed, needs-review, passed, inapplicable, malformed, oversized, and provider-error inputs. The browser adapter requires assembled tests against accessible and intentionally failing pages, exact package-content tests, cancellation/cleanup checks, and a privacy assertion proving serialized HTML is absent.
 
-The model-visible adapter and product composition additionally require DSH tool-schema snapshots, target-inventory privacy tests, filesystem/network denial tests, approval tests for every expanded authority, cancellation and output-retention tests, prompt-language review, exact installable-artifact checks, and a real agent task showing that a developer can locate and repair a finding without the tool editing anything itself.
+The model-visible adapter and product composition additionally require DSH tool-schema snapshots, target-inventory privacy tests, filesystem/network denial tests, approval tests for every expanded authority, cancellation and output-retention tests, prompt-language review, exact installable-artifact checks, and a real agent task showing that a developer can locate and repair a finding without the tool editing anything itself. The replay form of that task now passes the versioned authoring-agent lab; because the model transcript is fixed, live-model behavior remains a separate gate.
 
 Stable authoring support still requires disabled developers to use the complete flow, named assistive technologies to read the report and repair interaction, and manual review of issues automation cannot decide. Test counts, an axe score, or a clean automated run are insufficient release evidence.
 
@@ -130,5 +130,6 @@ Stable authoring support still requires disabled developers to use the complete 
 2. Migrate the companion's assembled-browser assertions to consume the testkit without changing their evidence scope.
 3. Review the implemented literal-loopback provider policy and lifecycle evidence; add a loopback-only CLI only after defining who owns server startup, readiness, shutdown, logs, and retained output.
 4. Review the implemented private literal-loopback product composition and define a separately permissioned host composition for the caller-owned-page provider; both paths must retain the injected audit service instead of importing Playwright in the model adapter.
-5. Validate report reading and repair with VoiceOver and NVDA, then with disabled developers completing representative authoring tasks.
-6. Expand beyond rendered Web pages only through separately versioned rules, evidence, and permission reviews.
+5. Run the versioned task against a live model without weakening its trace, exact-repair, cleanup, privacy, and evidence-level gates.
+6. Validate report reading and repair with VoiceOver and NVDA, then with disabled developers completing representative authoring tasks.
+7. Expand beyond rendered Web pages only through separately versioned rules, evidence, and permission reviews.
