@@ -11,6 +11,7 @@
     "mode",
     "environment",
     "dsh",
+    "lab",
     "composition",
     "task",
     "before",
@@ -43,7 +44,17 @@
       "required": ["version", "revision"],
       "properties": {
         "version": { "const": "0.1.2-alpha.2" },
-        "revision": { "type": "string", "pattern": "^(?:[0-9a-f]{40}|unavailable)$" }
+        "revision": { "type": "string", "pattern": "^[0-9a-f]{40}$" }
+      }
+    },
+    "lab": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["package", "version", "revision"],
+      "properties": {
+        "package": { "const": "@oh-my-dsh/dsh-accessibility" },
+        "version": { "const": "0.1.0-beta.6" },
+        "revision": { "type": "string", "pattern": "^[0-9a-f]{40}$" }
       }
     },
     "composition": {
@@ -53,7 +64,7 @@
       "properties": {
         "package": { "const": "@oh-my-dsh/dsh-a11y-local-preview" },
         "version": { "const": "0.1.0-alpha.0" },
-        "revision": { "type": "string", "pattern": "^(?:[0-9a-f]{40}|unavailable)$" },
+        "revision": { "type": "string", "pattern": "^[0-9a-f]{40}$" },
         "protocol": { "const": "dsh-a11y-local-preview/0.1.0-draft" }
       }
     },

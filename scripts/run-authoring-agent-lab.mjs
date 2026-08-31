@@ -1,5 +1,5 @@
 /** Run a disposable DSH accessibility-authoring repair task and emit bounded evidence. */
-import { spawn, spawnSync } from 'node:child_process'
+import { spawn } from 'node:child_process'
 import { createServer } from 'node:http'
 import { createRequire } from 'node:module'
 import { mkdtemp, mkdir, readFile, readdir, rm, writeFile } from 'node:fs/promises'
@@ -12,6 +12,7 @@ import {
   parseHeadlessResult,
   validateAuthoringToolTrace,
 } from './authoring-agent-lab-lib.mjs'
+import { exactGitRevision } from './lab-source-state.mjs'
 
 const argumentsValue = process.argv.slice(2)
 const launcherArguments = argumentsValue[0] === '--' ? argumentsValue.slice(1) : argumentsValue
@@ -32,19 +33,21 @@ delete nonModelEnvironment.DEEPSEEK_API_KEY
 const invocationCwd = process.cwd()
 const dshRoot = resolve(invocationCwd, dshArgument)
 const localPreviewRoot = resolve(invocationCwd, localPreviewArgument)
+const labRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..')
 const dshManifest = JSON.parse(await readFile(join(dshRoot, 'package.json'), 'utf8'))
 const localPreviewManifest = JSON.parse(await readFile(join(localPreviewRoot, 'package.json'), 'utf8'))
+const labManifest = JSON.parse(await readFile(join(labRoot, 'package.json'), 'utf8'))
 if (dshManifest.version !== '0.1.2-alpha.2') {
   throw new Error(`authoring agent lab requires DSH 0.1.2-alpha.2, received ${String(dshManifest.version)}`)
 }
 if (localPreviewManifest.version !== '0.1.0-alpha.0') {
   throw new Error(`authoring agent lab requires local-preview 0.1.0-alpha.0, received ${String(localPreviewManifest.version)}`)
 }
-
-function gitRevision(root) {
-  const result = spawnSync('git', ['rev-parse', 'HEAD'], { cwd: root, encoding: 'utf8' })
-  return result.status === 0 ? String(result.stdout).trim() : 'unavailable'
-}
+const [dshRevision, compositionRevision, labRevision] = await Promise.all([
+  exactGitRevision(dshRoot, 'DSH authoring source'),
+  exactGitRevision(localPreviewRoot, 'DSH accessibility authoring composition source'),
+  exactGitRevision(labRoot, 'DSH accessibility authoring agent lab source'),
+])
 
 let activeChild
 let forwardedSignal
@@ -324,11 +327,16 @@ ${replayPatch}`)
       : 'live-model-product-loop-not-at-or-disabled-user-evidence',
     mode: modeArgument,
     environment: { os: platform(), osRelease: release(), architecture: arch() },
-    dsh: { version: String(dshManifest.version), revision: gitRevision(dshRoot) },
+    dsh: { version: String(dshManifest.version), revision: dshRevision },
+    lab: {
+      package: String(labManifest.name),
+      version: String(labManifest.version),
+      revision: labRevision,
+    },
     composition: {
       package: String(localPreviewManifest.name),
       version: String(localPreviewManifest.version),
-      revision: gitRevision(localPreviewRoot),
+      revision: compositionRevision,
       protocol: 'dsh-a11y-local-preview/0.1.0-draft',
     },
     task: {

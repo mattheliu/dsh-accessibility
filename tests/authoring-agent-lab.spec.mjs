@@ -1,5 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { readFileSync } from 'node:fs'
+import Ajv2020 from 'ajv/dist/2020.js'
+import addFormats from 'ajv-formats'
 import {
   assertEvidencePrivacy,
   AUTHORING_AGENT_LAB_PROTOCOL,
@@ -45,12 +47,49 @@ describe('authoring agent lab evidence', () => {
 
   it('ships a machine-readable schema for the exact evidence protocol', () => {
     const schema = JSON.parse(readFileSync(new URL('../AUTHORING-AGENT-LAB.schema.json', import.meta.url), 'utf8'))
+    const ajv = new Ajv2020({ allErrors: true, strict: true })
+    addFormats(ajv)
+    const validate = ajv.compile(schema)
     expect(schema.properties.protocol.const).toBe(AUTHORING_AGENT_LAB_PROTOCOL)
+    expect(schema.required).toContain('lab')
+    expect(schema.properties.dsh.properties.revision.pattern).toBe('^[0-9a-f]{40}$')
+    expect(schema.properties.lab.properties.package.const).toBe('@oh-my-dsh/dsh-accessibility')
     expect(schema.properties.task.properties.toolSequence.const).toEqual([
       'a11y_check', 'read', 'edit', 'a11y_check',
     ])
     expect(schema.$defs.beforeAudit.properties.failed.const).toBe(2)
     expect(schema.$defs.afterAudit.properties.failed.const).toBe(0)
+    expect(validate({
+      protocol: AUTHORING_AGENT_LAB_PROTOCOL,
+      generatedAt: '2026-08-31T00:00:00.000Z',
+      evidence: 'keyless-replay-product-loop-not-model-or-at-evidence',
+      mode: 'replay',
+      environment: { os: 'darwin', osRelease: '24.5.0', architecture: 'arm64' },
+      dsh: { version: '0.1.2-alpha.2', revision: 'a'.repeat(40) },
+      lab: { package: '@oh-my-dsh/dsh-accessibility', version: '0.1.0-beta.6', revision: 'b'.repeat(40) },
+      composition: {
+        package: '@oh-my-dsh/dsh-a11y-local-preview',
+        version: '0.1.0-alpha.0',
+        revision: 'c'.repeat(40),
+        protocol: 'dsh-a11y-local-preview/0.1.0-draft',
+      },
+      task: {
+        id: 'repair-image-alt-and-button-name', outcome: 'completed', fileChanged: true,
+        toolSequence: ['a11y_check', 'read', 'edit', 'a11y_check'],
+        headlessResult: { schemaVersion: '1.0.0', reason: 'completed' },
+      },
+      before: { engine: { name: 'axe-core', version: '4.13.0' }, failed: 2, ruleIds: ['button-name', 'image-alt'] },
+      after: { engine: { name: 'axe-core', version: '4.13.0' }, failed: 0, ruleIds: [] },
+      limitations: ['one', 'two', 'three'],
+    }), ajv.errorsText(validate.errors)).toBe(true)
+  })
+
+  it('binds replay and live evidence to clean exact source revisions', () => {
+    const launcher = readFileSync(new URL('../scripts/run-authoring-agent-lab.mjs', import.meta.url), 'utf8')
+    expect(launcher).toContain("exactGitRevision(dshRoot, 'DSH authoring source')")
+    expect(launcher).toContain("exactGitRevision(localPreviewRoot, 'DSH accessibility authoring composition source')")
+    expect(launcher).toContain("exactGitRevision(labRoot, 'DSH accessibility authoring agent lab source')")
+    expect(launcher).toContain('revision: labRevision')
   })
 
   it.each([

@@ -48,6 +48,8 @@ pnpm run lab:authoring -- ../deepseek-harness-alpha2 ../dsh-a11y-local-preview r
 
 Replay mode is keyless. The runner builds DSH host libraries and the composition, creates a disposable page and DSH home, installs the composition through the real `dsh plugin` command, runs the task, validates the durable session, emits one JSON evidence object, and cleans up.
 
+Before creating any disposable state, the runner requires clean DSH, composition, and accessibility-lab Git worktrees and records all three full revisions. Tracked, staged, or untracked changes make both replay and live modes fail closed.
+
 For a live-model run, place `DEEPSEEK_API_KEY` in the process environment through the operator's normal secret-management mechanism, then run:
 
 ```sh

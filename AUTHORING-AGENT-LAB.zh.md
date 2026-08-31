@@ -48,6 +48,8 @@ pnpm run lab:authoring -- ../deepseek-harness-alpha2 ../dsh-a11y-local-preview r
 
 Replay 模式无需密钥。Runner 会构建 DSH host 库与产品组合，创建一次性页面和 DSH home，通过真实 `dsh plugin` 命令安装组合，执行任务，校验持久化 session，输出一个 JSON 证据对象，然后清理全部临时状态。
 
+创建任何一次性状态前，Runner 要求 DSH、产品组合和无障碍实验室三个 Git 工作树都保持干净，并记录三者完整 revision。只要存在 tracked、staged 或 untracked 改动，replay 和 live 模式都会 fail closed。
+
 Live 模式需要通过操作者平时使用的密钥管理方式，把 `DEEPSEEK_API_KEY` 放入进程环境，然后运行：
 
 ```sh
